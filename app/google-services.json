@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1093228551288",
+    "project_id": "tfg-juego",
+    "storage_bucket": "tfg-juego.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093228551288:android:d6bd70ecb57bb10611e18d",
+        "android_client_info": {
+          "package_name": "com.tfg"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKOKUTlycX6SyhUsxSw-FRvYDnnbTFt0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
