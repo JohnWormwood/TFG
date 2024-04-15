@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonSalirOnClick(View view) {
+        // Usar este en lugar de finish() asegura que se cierran todas las activities
         finishAffinity();
     }
 }
