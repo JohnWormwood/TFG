@@ -4,12 +4,22 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.navigation.NavigationBarView;
 import com.tfg.R;
+import com.tfg.activities.fragments.AldeaFragment;
+import com.tfg.activities.fragments.MercaderFragment;
+import com.tfg.activities.fragments.PartidasFragment;
+import com.tfg.activities.fragments.SenadoFragment;
 import com.tfg.controladores.ControladorAldea;
+import com.tfg.databinding.ActivityJuegoBinding;
 import com.tfg.utilidades.Utilidades;
 
 public class JuegoActivity extends AppCompatActivity {
+    ActivityJuegoBinding binding;
 
     public static boolean enEjecucion = true;
 
@@ -20,11 +30,20 @@ public class JuegoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_juego);
+        // Cargar los fragments
+        binding = ActivityJuegoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        // Configurar listeners
+        binding.menuInferior.setOnItemSelectedListener(itemSelectedListener);
 
         // Inicializar los componentes de la interfaz
         textViewAldeanos = findViewById(R.id.textViewAldeanos);
         textViewComida = findViewById(R.id.textViewComida);
+
+        // Cargar el fragment segun el item del menu
+        itemSelectedListener.onNavigationItemSelected(binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
+
 
         // Iniciar el juego
         ejecutarHiloPrincipal();
@@ -35,7 +54,7 @@ public class JuegoActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                actulizarUI();
+                actualizarUI();
                 while (enEjecucion) {
                     // Logica del juego
                     ControladorAldea.generarAldeano();
@@ -43,13 +62,14 @@ public class JuegoActivity extends AppCompatActivity {
 
 
                     // Actualizar la interfaz al final de cada ciclo
-                    actulizarUI();
+                    actualizarUI();
                 }
             }
         }).start();
     }
 
-    private void actulizarUI() {
+
+    private void actualizarUI() {
         // Actualizar la interfaz de usuario desde el hilo principal
         runOnUiThread(new Runnable() {
             @Override
@@ -66,4 +86,26 @@ public class JuegoActivity extends AppCompatActivity {
         // Detener el bucle infinito cuando la actividad se destruye para evitar problemas de memoria
         enEjecucion = false;
     }
+
+    public void cambiarFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayoutJuego, fragment);
+        fragmentTransaction.commit();
+    }
+
+    // --- LISTENERS ---
+    private final NavigationBarView.OnItemSelectedListener itemSelectedListener = menuItem -> {
+        if (menuItem.getItemId() == R.id.aldea) {
+            cambiarFragment(new AldeaFragment());
+        } else if (menuItem.getItemId() == R.id.mercader) {
+            cambiarFragment(new MercaderFragment());
+        } else if (menuItem.getItemId() == R.id.senado) {
+            cambiarFragment(new SenadoFragment());
+        } else if (menuItem.getItemId() == R.id.partidas) {
+            cambiarFragment(new PartidasFragment());
+        }
+
+        return true;
+    };
 }
