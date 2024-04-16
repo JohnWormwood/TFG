@@ -69,6 +69,7 @@ public class JuegoActivity extends AppCompatActivity {
     }
 
 
+
     private void actualizarUI() {
         // Actualizar la interfaz de usuario desde el hilo principal
         runOnUiThread(new Runnable() {
