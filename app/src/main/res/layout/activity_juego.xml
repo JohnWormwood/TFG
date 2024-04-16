@@ -11,9 +11,11 @@
     <LinearLayout
         android:id="@+id/menuSuperior"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/fondo_menus"
+        android:layout_height="120dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/fondo_menu"
         android:gravity="center"
+
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,19 +24,48 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/ico_aldeano" />
+
         <TextView
             android:id="@+id/textViewAldeanos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Aldeanos" />
+            android:text=""
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="94dp"
+            android:layout_height="32dp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/ico_comida" />
 
         <TextView
             android:id="@+id/textViewComida"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Comida" />
+            android:text=""
+            android:textSize="20sp" />
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/botonSenado"
+        android:layout_width="120dp"
+        android:layout_height="105dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/fondo_boton_senado"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,8 +54,8 @@ public class JuegoActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                textViewAldeanos.setText("Aldeanos: " + ControladorAldea.getPoblacion());
-                textViewComida.setText("Comida: " + ControladorAldea.getComida());
+                textViewAldeanos.setText(" " + ControladorAldea.getPoblacion());
+                textViewComida.setText(" " + ControladorAldea.getComida());
             }
         });
     }
