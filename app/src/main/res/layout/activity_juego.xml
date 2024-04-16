@@ -57,15 +57,30 @@
             android:textSize="20sp" />
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/botonSenado"
-        android:layout_width="120dp"
-        android:layout_height="105dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/fondo_boton_senado"
+    <FrameLayout
+        android:id="@+id/frameLayoutJuego"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/menuInferior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuSuperior">
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/menuInferior"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fondo_menus"
+        app:itemIconTint="@null"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/menuSuperior"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/menu_inferior_juego" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

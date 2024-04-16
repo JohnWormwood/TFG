@@ -3,4 +3,8 @@
     <string name="jugar">Jugar</string>
     <string name="opciones">Opciones</string>
     <string name="salir">Salir</string>
+    <string name="senado">Senado</string>
+    <string name="partidas">Partidas</string>
+    <string name="mercader">Mercader</string>
+    <string name="aldea">Aldea</string>
 </resources>
