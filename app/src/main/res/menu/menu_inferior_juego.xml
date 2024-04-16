@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/aldea"
+        android:title="@string/aldea" />
+    <item
+        android:id="@+id/mercader"
+        android:title="@string/mercader" />
+    <item
+        android:id="@+id/senado"
+        android:icon="@drawable/fondo_boton_senado"
+        android:title="@string/senado" />
+    <item
+        android:id="@+id/partidas"
+        android:title="@string/partidas" />
+
+</menu>
