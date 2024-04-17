@@ -43,7 +43,7 @@ public class JuegoActivity extends AppCompatActivity {
 
         // Cargar el fragment segun el item del menu
         itemSelectedListener.onNavigationItemSelected(binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
-
+        binding.menuInferior.setItemIconTintList(null); // Esto es para que los iconos se vean bien
 
         // Iniciar el juego
         ejecutarHiloPrincipal();
@@ -75,8 +75,8 @@ public class JuegoActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                textViewAldeanos.setText(" " + ControladorAldea.getPoblacion());
-                textViewComida.setText(" " + ControladorAldea.getComida());
+                textViewAldeanos.setText(String.valueOf(ControladorAldea.getPoblacion()));
+                textViewComida.setText(String.valueOf(ControladorAldea.getComida()));
             }
         });
     }
