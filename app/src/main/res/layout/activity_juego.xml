@@ -32,14 +32,15 @@
 
         <TextView
             android:id="@+id/textViewAldeanos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="10dp"
             android:text=""
+            android:textAlignment="center"
             android:textSize="20sp" />
 
         <Space
-            android:layout_width="94dp"
+            android:layout_width="84dp"
             android:layout_height="32dp" />
 
         <ImageView
@@ -50,17 +51,21 @@
 
         <TextView
             android:id="@+id/textViewComida"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="10dp"
             android:text=""
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textAlignment="center"
+            />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/frameLayoutJuego"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
         app:layout_constraintBottom_toTopOf="@+id/menuInferior"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,13 +78,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/fondo_menus"
-        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/menuSuperior"
         app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/menu_inferior_juego" />
+        app:menu="@menu/menu_inferior_juego"
+        app:itemActiveIndicatorStyle="@null"
+        app:itemRippleColor="@null"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

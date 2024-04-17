@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="senado">#7F96491F</color>
+    <color name="indicator">#0096491F</color>
 </resources>
