@@ -8,10 +8,8 @@ import com.tfg.utilidades.Utilidades;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -20,6 +18,7 @@ public abstract class Edificio extends Thread {
     protected int aldeanosAsignados;
     protected int aldeanosMaximos;
     protected int segundosEntreRecursos;
+    protected boolean generarRecursosConstantemente;
     protected Map<RecursosEnum, Integer> recursosGenerados;
     protected Aldea aldea;
 
@@ -41,11 +40,13 @@ public abstract class Edificio extends Thread {
         while (JuegoActivity.enEjecucion) {
             // Genera recursos y espera x tiempo
             producirRecursos();
-            esperar();
+            Utilidades.esperar(segundosEntreRecursos);
         }
     }
 
-    protected void esperar() {
-        Utilidades.esperar(segundosEntreRecursos);
+    public void iniciar() {
+        if (generarRecursosConstantemente) {
+            this.start();
+        }
     }
 }

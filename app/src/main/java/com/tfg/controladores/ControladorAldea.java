@@ -13,8 +13,6 @@ import java.util.Random;
 public final class ControladorAldea {
 
     private static Aldea aldea = new Aldea(Constantes.Aldea.NIVEL_INICIAL, Constantes.Aldea.POBLACION_INICIAL);
-
-    private static Edificio cabaniaCaza = new CabaniaCaza(Constantes.Aldea.NIVEL_INICIAL, 0, 5, 1,  aldea);
     public static void generarAldeano() {
         if (aldea.consumirRecurso(RecursosEnum.COMIDA, 1)) {
             aldea.setPoblacion(aldea.getPoblacion()+1);

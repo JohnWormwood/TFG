@@ -86,6 +86,7 @@
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/menu_inferior_juego"
         app:itemActiveIndicatorStyle="@null"
+        app:itemIconSize="50dp"
         app:itemRippleColor="@null"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

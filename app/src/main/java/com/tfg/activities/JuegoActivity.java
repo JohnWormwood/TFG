@@ -1,6 +1,7 @@
 package com.tfg.activities;
 
 import android.os.Bundle;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,9 +24,12 @@ public class JuegoActivity extends AppCompatActivity {
 
     public static boolean enEjecucion = true;
 
-    // Componentes interfaz
+    // Componentes de la actividad
     private TextView textViewAldeanos;
     private TextView textViewComida;
+
+    // Componentes de PartidasFragment
+    private SeekBar seekBarCazadores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +41,21 @@ public class JuegoActivity extends AppCompatActivity {
         // Configurar listeners
         binding.menuInferior.setOnItemSelectedListener(itemSelectedListener);
 
-        // Inicializar los componentes de la interfaz
-        textViewAldeanos = findViewById(R.id.textViewAldeanos);
-        textViewComida = findViewById(R.id.textViewComida);
-
         // Cargar el fragment segun el item del menu
         itemSelectedListener.onNavigationItemSelected(binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
         binding.menuInferior.setItemIconTintList(null); // Esto es para que los iconos se vean bien
 
+        // Inicializar los componentes de la interfaz
+        textViewAldeanos = findViewById(R.id.textViewAldeanos);
+        textViewComida = findViewById(R.id.textViewComida);
+
+        // Inicializar componentes del PartidasFragment
+        seekBarCazadores = findViewById(R.id.seekBarCazadores);
+        seekBarCazadores.setOnSeekBarChangeListener();
+
         // Iniciar el juego
         ejecutarHiloPrincipal();
+
     }
 
     private void ejecutarHiloPrincipal() {
@@ -108,5 +117,26 @@ public class JuegoActivity extends AppCompatActivity {
         }
 
         return true;
+    };
+
+    private final SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            // Este método se llama cada vez que se cambia el progreso de la SeekBar
+            // Aquí puedes realizar acciones basadas en el progreso cambiado
+
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            // Este método se llama cuando se inicia el seguimiento del dedo en la SeekBar
+            // Aquí puedes realizar acciones al inicio del seguimiento
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            // Este método se llama cuando se detiene el seguimiento del dedo en la SeekBar
+            // Aquí puedes realizar acciones al detener el seguimiento
+        }
     };
 }

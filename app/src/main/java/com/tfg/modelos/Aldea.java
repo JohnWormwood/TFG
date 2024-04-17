@@ -28,6 +28,9 @@ public class Aldea {
         this.poblacion = poblacion;
         recursos = new HashMap<>();
 
+        cabaniaCaza = new CabaniaCaza(1, 0, 5, this);
+        casetaLeniador = new CasetaLeniador(1, 0, 5, 10, this);
+
         recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
     }
 
