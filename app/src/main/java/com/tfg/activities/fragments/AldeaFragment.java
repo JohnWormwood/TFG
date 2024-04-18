@@ -2,14 +2,18 @@ package com.tfg.activities.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import com.bumptech.glide.Glide;
+
 
 import com.tfg.R;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AldeaFragment#newInstance} factory method to
@@ -55,6 +59,18 @@ public class AldeaFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ImageView imageView = view.findViewById(R.id.taladorView);
+        Glide.with(this)
+                .asGif()
+                .fitCenter() // Ajustar la escala para que la imagen se adapte al ImageView
+                .override(imageView.getWidth()*10, imageView.getHeight()*10)
+                .load(R.drawable.talador).into(imageView);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.tfg.activities;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationBarView;
 import com.tfg.R;
 import com.tfg.activities.fragments.AldeaFragment;
@@ -48,7 +50,6 @@ public class JuegoActivity extends AppCompatActivity {
 
         // Iniciar el juego
         ejecutarHiloPrincipal();
-
     }
 
     private void ejecutarHiloPrincipal() {
