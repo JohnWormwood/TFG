@@ -12,7 +12,7 @@
         android:id="@+id/linearLayoutCaza"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textViewCaza"
@@ -45,7 +45,14 @@
             android:id="@+id/buttonCaza"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="buttonCazaOnClick"
             android:text="Iniciar partida de caza" />
+
+        <TextView
+            android:id="@+id/textViewPartidaCaza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Partida actual: No hay ninguna partida de caza en curso" />
 
     </LinearLayout>
 

@@ -40,8 +40,16 @@ public class Aldea {
         if (cantidadActual != null && cantidadActual >= cantidad) {
             recursos.put(recurso, cantidadActual - cantidad);
             return true;
+        } else  {
+            recursos.put(recurso, 0);
+            return false;
         }
+    }
 
-        return false;
+    public synchronized void agregarRecurso(RecursosEnum recurso, int cantidad) {
+        Integer cantidadActual = recursos.get(recurso);
+        if (cantidadActual != null) {
+            recursos.put(recurso, cantidadActual+cantidad);
+        } else recursos.put(recurso, 0);
     }
 }

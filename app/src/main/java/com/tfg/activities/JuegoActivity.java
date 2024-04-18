@@ -43,10 +43,11 @@ public class JuegoActivity extends AppCompatActivity {
         textViewAldeanos = findViewById(R.id.textViewAldeanos);
         textViewComida = findViewById(R.id.textViewComida);
 
-
         // Cargar el fragment segun el item del menu
         itemSelectedListener.onNavigationItemSelected(binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
         binding.menuInferior.setItemIconTintList(null); // Esto es para que los iconos se vean bien
+
+        cargarGifs();
 
         // Iniciar el juego
         ejecutarHiloPrincipal();
@@ -112,4 +113,17 @@ public class JuegoActivity extends AppCompatActivity {
 
         return true;
     };
+
+    private void cargarGifs() {
+        cargarGif(R.id.taladorView);
+    }
+
+    private void cargarGif(int id) {
+        ImageView imageView = findViewById(id);
+        Glide.with(this)
+                .asGif()
+                .fitCenter() // Ajustar la escala para que la imagen se adapte al ImageView
+                .override(imageView.getWidth()*10, imageView.getHeight()*10)
+                .load(R.drawable.talador).into(imageView);
+    }
 }

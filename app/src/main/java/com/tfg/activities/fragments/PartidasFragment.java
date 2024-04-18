@@ -4,11 +4,18 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tfg.R;
+import com.tfg.controladores.ControladorAldea;
+import com.tfg.modelos.TimerPartidaCaza;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,10 +64,75 @@ public class PartidasFragment extends Fragment {
         }
     }
 
+    // Componentes de la interfaz
+    private SeekBar seekBarCazadores;
+    private TextView textViewCazadores, textViewPartidaCaza;
+    private Button buttonCaza;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_partidas, container, false);
+        View view = inflater.inflate(R.layout.fragment_partidas, container, false);;
+
+
+
+        // Inicializar componentes de la interfaz
+        seekBarCazadores = view.findViewById(R.id.seekBarCazadores);
+        textViewCazadores = view.findViewById(R.id.textViewCazadores);
+        textViewPartidaCaza = view.findViewById(R.id.textViewPartidaCaza);
+        buttonCaza = view.findViewById(R.id.buttonCaza);
+
+        // Listeners
+        seekBarCazadores.setOnSeekBarChangeListener(seekBarChangeListener);
+        buttonCaza.setOnClickListener(buttonCazaOnClickListener);
+
+        // Establecer el minimo y el maximo de la seekbar
+        seekBarCazadores.setMin(0);
+        seekBarCazadores.setMax(100);
+
+        // Mostrar el valor de la seekbar en el textview
+        textViewCazadores.setText("Cazadores: " + seekBarCazadores.getProgress());
+
+        return view;
     }
+
+    View.OnClickListener buttonCazaOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int cazadoresSeleccionados = seekBarCazadores.getProgress();
+
+            if (cazadoresSeleccionados < 1) {
+                Toast.makeText(getActivity(), "Debes seleccionar al menos 1", Toast.LENGTH_SHORT).show();
+            } else if (cazadoresSeleccionados > ControladorAldea.getPoblacion()) {
+                Toast.makeText(getActivity(), "No tienes suficientes aldeanos", Toast.LENGTH_SHORT).show();
+            } else {
+                int tiempoTotal = 10000;
+
+                Toast.makeText(getActivity(), "Partida de caza iniciada con "+cazadoresSeleccionados+" cazadores", Toast.LENGTH_LONG).show();
+                buttonCaza.setEnabled(false);
+
+                // La cabaña de caza y su timer se encargan de actualizar la interfaz
+                ControladorAldea.iniciarPartidaDeCaza(cazadoresSeleccionados, tiempoTotal, textViewPartidaCaza, buttonCaza, getActivity());
+            }
+        }
+    };
+
+    private final SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            // Actualizar el textview con el progreso de la seekbar
+            textViewCazadores.setText("Cazadores: " + seekBarCazadores.getProgress());
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
 }
