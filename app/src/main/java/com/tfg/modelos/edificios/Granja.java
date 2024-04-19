@@ -1,9 +1,6 @@
 package com.tfg.modelos.edificios;
 
 import com.tfg.modelos.Aldea;
-import com.tfg.modelos.RecursosEnum;
-
-import java.util.Map;
 
 public class Granja extends Edificio{
     public Granja(int nivel, int aldeanosAsignados, int aldeanosMaximos, int segundosEntreRecursos, Aldea aldea) {

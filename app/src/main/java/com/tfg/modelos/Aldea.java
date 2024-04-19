@@ -1,12 +1,12 @@
 package com.tfg.modelos;
 
 import com.tfg.activities.JuegoActivity;
-import com.tfg.controladores.ControladorAldea;
 import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.edificios.Carpinteria;
 import com.tfg.modelos.edificios.CasetaLeniador;
 import com.tfg.modelos.edificios.Granja;
 import com.tfg.modelos.edificios.Mina;
+import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.Utilidades;
 
@@ -31,8 +31,8 @@ public class Aldea implements Runnable {
         this.poblacion = poblacion;
         recursos = new HashMap<>();
 
-        cabaniaCaza = new CabaniaCaza(1, 0, 5, this);
-        casetaLeniador = new CasetaLeniador(1, 0, 5, 10, this);
+        cabaniaCaza = new CabaniaCaza(0, this);
+        casetaLeniador = new CasetaLeniador(Constantes.NIVEL_INICIAL, 0, 5, 10, this);
 
         recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
     }

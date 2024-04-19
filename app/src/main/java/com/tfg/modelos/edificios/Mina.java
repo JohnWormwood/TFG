@@ -1,9 +1,6 @@
 package com.tfg.modelos.edificios;
 
 import com.tfg.modelos.Aldea;
-import com.tfg.modelos.RecursosEnum;
-
-import java.util.Map;
 
 public class Mina extends Edificio{
     public Mina(int nivel, int aldeanosAsignados, int aldeanosMaximos, int segundosEntreRecursos, Aldea aldea) {
@@ -14,5 +11,4 @@ public class Mina extends Edificio{
     public void producirRecursos() {
 
     }
-
 }

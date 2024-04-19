@@ -1,4 +1,4 @@
-package com.tfg.modelos;
+package com.tfg.modelos.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

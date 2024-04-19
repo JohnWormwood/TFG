@@ -6,12 +6,14 @@ import android.widget.TextView;
 
 import com.tfg.activities.JuegoActivity;
 import com.tfg.modelos.Aldea;
-import com.tfg.modelos.RecursosEnum;
+import com.tfg.modelos.enums.EdificiosEnum;
+import com.tfg.modelos.enums.RecursosEnum;
+import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.utilidades.Constantes;
 
 public final class ControladorAldea {
 
-    private static Aldea aldea = new Aldea(Constantes.Aldea.NIVEL_INICIAL, Constantes.Aldea.POBLACION_INICIAL);
+    private static Aldea aldea = new Aldea(Constantes.NIVEL_INICIAL, Constantes.Aldea.POBLACION_INICIAL);
     private static Thread hiloAldea;
 
     public static void iniciarAldea() {
@@ -34,6 +36,24 @@ public final class ControladorAldea {
         }
     }
 
+    public static int getNivelEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
+        // TODO Capturar la excepcion donde se llame la funcion
+        switch (edificiosEnum) {
+            case CABANIA_CAZA:
+                return aldea.getCabaniaCaza().getNivel();
+            case CARPINTERIA:
+                return aldea.getCarpinteria().getNivel();
+            case CASETA_LENIADOR:
+                return aldea.getCasetaLeniador().getNivel();
+            case GRANJA:
+                return aldea.getGranja().getNivel();
+            case MINA:
+                return aldea.getMina().getNivel();
+            default:
+                throw new IllegalArgumentException("No existe un edifico de tipo: "+edificiosEnum);
+        }
+    }
+
     public static synchronized Integer getComida() {
         return aldea.getRecursos().get(RecursosEnum.COMIDA);
     }
@@ -51,6 +71,7 @@ public final class ControladorAldea {
     }
 
     public static void iniciarPartidaDeCaza(int numAldeanos, int tiempoTotal, TextView textViewPartidaCaza, Button buttonCaza, Context context) {
+        System.out.println("[ControladorAldea]");
         aldea.getCabaniaCaza().iniciarPartidaCaza(numAldeanos, tiempoTotal, textViewPartidaCaza, buttonCaza, context);
     }
 

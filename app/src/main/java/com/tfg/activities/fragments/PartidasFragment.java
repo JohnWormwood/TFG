@@ -15,7 +15,10 @@ import android.widget.Toast;
 
 import com.tfg.R;
 import com.tfg.controladores.ControladorAldea;
+import com.tfg.controladores.ControladorCabaniaCaza;
 import com.tfg.modelos.TimerPartidaCaza;
+import com.tfg.modelos.enums.EdificiosEnum;
+import com.tfg.utilidades.Constantes;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,8 +78,6 @@ public class PartidasFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_partidas, container, false);;
 
-
-
         // Inicializar componentes de la interfaz
         seekBarCazadores = view.findViewById(R.id.seekBarCazadores);
         textViewCazadores = view.findViewById(R.id.textViewCazadores);
@@ -88,8 +89,10 @@ public class PartidasFragment extends Fragment {
         buttonCaza.setOnClickListener(buttonCazaOnClickListener);
 
         // Establecer el minimo y el maximo de la seekbar
+        int nivelCabaniaCaza = ControladorAldea.getNivelEdificio(EdificiosEnum.CABANIA_CAZA);
+        int maxCazadores = ControladorCabaniaCaza.getMaximoCazadoresSegunNivel(nivelCabaniaCaza);
         seekBarCazadores.setMin(0);
-        seekBarCazadores.setMax(100);
+        seekBarCazadores.setMax(maxCazadores);
 
         // Mostrar el valor de la seekbar en el textview
         textViewCazadores.setText("Cazadores: " + seekBarCazadores.getProgress());

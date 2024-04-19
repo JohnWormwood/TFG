@@ -2,7 +2,7 @@ package com.tfg.modelos.edificios;
 
 import com.tfg.activities.JuegoActivity;
 import com.tfg.modelos.Aldea;
-import com.tfg.modelos.RecursosEnum;
+import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Utilidades;
 
 import java.util.HashMap;
