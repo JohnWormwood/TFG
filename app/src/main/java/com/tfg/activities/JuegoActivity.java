@@ -50,28 +50,32 @@ public class JuegoActivity extends AppCompatActivity {
         cargarGifs();
 
         // Iniciar el juego
-        ejecutarHiloPrincipal();
+        enEjecucion = true;
+        ejecutarHiloParalelo();
     }
 
-    private void ejecutarHiloPrincipal() {
+    private void ejecutarHiloParalelo() {
         // Iniciar un hilo secundario para ejecutar el código continuamente
         new Thread(new Runnable() {
             @Override
             public void run() {
                 actualizarUI();
+                Utilidades.esperar(1); // Esto es para que la primera vez de tiempo a mostrar los datos correctamente
+                ControladorAldea.iniciarAldea();
                 while (enEjecucion) {
-                    // Logica del juego
-                    ControladorAldea.generarAldeano();
-                    Utilidades.esperar(1);
-
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                     // Actualizar la interfaz al final de cada ciclo
                     actualizarUI();
                 }
+
             }
         }).start();
     }
-
 
 
     private void actualizarUI() {
@@ -88,8 +92,7 @@ public class JuegoActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Detener el bucle infinito cuando la actividad se destruye para evitar problemas de memoria
-        enEjecucion = false;
+        ControladorAldea.finalizarAldea();
     }
 
     public void cambiarFragment(Fragment fragment) {

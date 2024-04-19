@@ -1,35 +1,44 @@
 package com.tfg.controladores;
 
 import android.content.Context;
-import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.tfg.activities.JuegoActivity;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.RecursosEnum;
-import com.tfg.modelos.TimerPartidaCaza;
-import com.tfg.modelos.edificios.CabaniaCaza;
-import com.tfg.modelos.edificios.Edificio;
 import com.tfg.utilidades.Constantes;
-
-import java.util.Random;
 
 public final class ControladorAldea {
 
     private static Aldea aldea = new Aldea(Constantes.Aldea.NIVEL_INICIAL, Constantes.Aldea.POBLACION_INICIAL);
-    public static void generarAldeano() {
-        if (aldea.consumirRecurso(RecursosEnum.COMIDA, 1)) {
-            aldea.setPoblacion(aldea.getPoblacion()+1);
-            System.out.println("Aldeano generado");
+    private static Thread hiloAldea;
+
+    public static void iniciarAldea() {
+        hiloAldea = new Thread(aldea);
+        hiloAldea.start();
+    }
+
+    public static void finalizarAldea() {
+        JuegoActivity.enEjecucion = false;
+        try {
+            /*
+             * Si no se espera a que termine el hilo, al volver a abrir la activity
+             * muy rapido es posible que todavia no haya terminado de generar un aldeano
+             * y eso produce que al volver a la activity se generen los aldeanos
+             * el doble de rapido
+             */
+            hiloAldea.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
-    public static Integer getComida() {
+    public static synchronized Integer getComida() {
         return aldea.getRecursos().get(RecursosEnum.COMIDA);
     }
 
-    public static int getPoblacion() {
+    public static synchronized int getPoblacion() {
         return aldea.getPoblacion();
     }
 
@@ -48,6 +57,4 @@ public final class ControladorAldea {
     public static int getCazadoresEnPartida() {
         return aldea.getCabaniaCaza().getAldeanosAsignados();
     }
-
-
 }

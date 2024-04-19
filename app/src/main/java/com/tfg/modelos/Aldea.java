@@ -1,11 +1,14 @@
 package com.tfg.modelos;
 
+import com.tfg.activities.JuegoActivity;
+import com.tfg.controladores.ControladorAldea;
 import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.edificios.Carpinteria;
 import com.tfg.modelos.edificios.CasetaLeniador;
 import com.tfg.modelos.edificios.Granja;
 import com.tfg.modelos.edificios.Mina;
 import com.tfg.utilidades.Constantes;
+import com.tfg.utilidades.Utilidades;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +16,7 @@ import java.util.Map;
 import lombok.Data;
 
 @Data
-public class Aldea {
+public class Aldea implements Runnable {
     private int nivel;
     private int poblacion;
     private Map<RecursosEnum, Integer> recursos;
@@ -51,5 +54,22 @@ public class Aldea {
         if (cantidadActual != null) {
             recursos.put(recurso, cantidadActual+cantidad);
         } else recursos.put(recurso, 0);
+    }
+
+    public void generarAldeano() {
+        if (consumirRecurso(RecursosEnum.COMIDA, 1)) {
+            poblacion++;
+            System.out.println("Aldeano generado");
+        }
+    }
+
+    @Override
+    public void run() {
+        // Se ejecuta mientras la activity este activa
+        while (JuegoActivity.enEjecucion) {
+            // Aqui se gestiona la logica prinicpal del juego
+            generarAldeano();
+            Utilidades.esperar(1);
+        }
     }
 }

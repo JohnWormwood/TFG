@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
         ImageButton buttonSalir = findViewById(R.id.buttonSalir);
         TextView textViewSalir = findViewById(R.id.textViewSalir);
         setEfectoBoton(buttonSalir, textViewSalir);
-
-
     }
     public void setEfectoBoton(ImageButton button, TextView textView) {
         button.setOnTouchListener(new View.OnTouchListener() {
