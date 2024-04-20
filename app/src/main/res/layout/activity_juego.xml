@@ -34,8 +34,8 @@
             android:id="@+id/textViewAldeanos"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:padding="10dp"
-            android:text=""
+            android:gravity="center"
+            android:text="99"
             android:textAlignment="center"
             android:textSize="20sp" />
 
@@ -48,8 +48,8 @@
             android:id="@+id/textViewTroncos"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:padding="10dp"
-            android:text=""
+            android:gravity="center"
+            android:text="99"
             android:textAlignment="center"
             android:textSize="20sp" />
 
@@ -63,11 +63,10 @@
             android:id="@+id/textViewComida"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:padding="10dp"
-            android:text=""
-            android:textSize="20sp"
+            android:gravity="center"
+            android:text="99"
             android:textAlignment="center"
-            />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <FrameLayout
