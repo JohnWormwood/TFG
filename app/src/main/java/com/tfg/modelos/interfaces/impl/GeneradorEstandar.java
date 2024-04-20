@@ -5,13 +5,10 @@ import com.tfg.modelos.interfaces.IGeneradorRecursos;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
 @AllArgsConstructor
 public class GeneradorEstandar implements IGeneradorRecursos {
-    private RecursosEnum recurso;
-
-    @Override
-    public RecursosEnum getRecurso() {
-        return recurso;
-    }
+    protected RecursosEnum recurso;
 }

@@ -1,6 +1,7 @@
 package com.tfg.modelos.edificios;
 
 import com.tfg.activities.JuegoActivity;
+import com.tfg.controladores.ControladorAldea;
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
@@ -8,7 +9,9 @@ import com.tfg.modelos.interfaces.IGeneradorRecursos;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.Utilidades;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import lombok.Data;
@@ -22,10 +25,11 @@ public abstract class Edificio implements Runnable {
     protected int aldeanosAsignados;
     protected int aldeanosMaximos;
     protected boolean generarRecursosConstantemente;
-    protected Map<RecursosEnum, Integer> recursosGenerados;
     protected Aldea aldea;
-    protected IGeneradorRecursos generadorRecursos;
     protected Thread thread;
+    protected Map<RecursosEnum, Integer> recursosGenerados;
+    protected List<IGeneradorRecursos> generadoresRecursos;
+
 
     public Edificio(int aldeanosAsignados, Aldea aldea) {
         this.nivel = Constantes.NIVEL_INICIAL;
@@ -34,6 +38,7 @@ public abstract class Edificio implements Runnable {
 
         this.recursosGenerados = new HashMap<>();
 
+        generadoresRecursos = new ArrayList<>();
         setMaximoAldeanosSegunNivel();
     }
 
@@ -51,7 +56,6 @@ public abstract class Edificio implements Runnable {
             ControladorRecursos.agregarRecurso(aldea.getRecursos(), recurso, recursos);
             ControladorRecursos.eliminarRecurso(recursosGenerados, recurso, recursos);
         }
-
     }
 
     @Override
@@ -60,10 +64,13 @@ public abstract class Edificio implements Runnable {
             System.out.println("EMPIEZA HILO");
             try {
                 // Genera recursos y espera x tiempo
-                generadorRecursos.producirRecursos(recursosGenerados, generadorRecursos.getRecurso(), aldeanosAsignados);
+                for (IGeneradorRecursos generadorRecursos : generadoresRecursos) {
+                    generadorRecursos.producirRecursos(recursosGenerados, generadorRecursos.getRecurso(), aldeanosAsignados);
+                }
                 Thread.sleep(SEGUNDOS_ENTRE_RECURSOS * 1000);
-                transferirRecursoAldea(generadorRecursos.getRecurso());
-                System.out.println("[EDIFICIO] RECURSO GENERADO");
+                for (IGeneradorRecursos generadorRecursos : generadoresRecursos) {
+                    transferirRecursoAldea(generadorRecursos.getRecurso());
+                }
             } catch (InterruptedException e) {
                 break;
             }
@@ -83,5 +90,4 @@ public abstract class Edificio implements Runnable {
             setMaximoAldeanosSegunNivel();
         }
     }
-
 }

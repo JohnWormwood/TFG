@@ -26,7 +26,7 @@ public class CabaniaCaza extends Edificio {
         generarRecursosConstantemente = false;
         timerPartidaCaza = null;
         recursosGenerados.put(RecursosEnum.COMIDA, 0);
-        generadorRecursos = new GeneradorCabaniaCaza(RecursosEnum.COMIDA, this);
+        generadoresRecursos.add(new GeneradorCabaniaCaza(RecursosEnum.COMIDA, this));
     }
 
     public void iniciarPartidaCaza(int numAldeanos, int tiempoTotal, TextView textViewPartidaCaza, Button buttonCaza, Context context) {

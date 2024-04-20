@@ -21,8 +21,8 @@ public class GeneradorCabaniaCaza extends GeneradorEstandar {
     @Override
     public void producirRecursos(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int aldeanosAsignados) {
         int comidaProducida = Utilidades.generarIntRandom(1, aldeanosAsignados > 1 ? Math.abs(aldeanosAsignados / 2) : 1);
-        if (!muertesAleatorias()) {
-            ControladorRecursos.agregarRecurso(recursos, RecursosEnum.COMIDA, comidaProducida);
+        if (!muertesAleatorias() && cabaniaCaza.getAldeanosAsignados() > 0) {
+            ControladorRecursos.agregarRecurso(recursos, this.recurso, comidaProducida);
             System.out.println("Generado +"+comidaProducida+" de comida");
         } else {
             System.out.println("Ha muerto un cazador");
@@ -33,8 +33,7 @@ public class GeneradorCabaniaCaza extends GeneradorEstandar {
         int probabilidadMuerte = Constantes.CabaniaCaza.PROBABILIDAD_MUERTE;
         int random = Utilidades.generarIntRandom(1, 100);
 
-        if (random <= probabilidadMuerte) {
-            System.out.println("MUERTE");
+        if (random <= probabilidadMuerte && cabaniaCaza.getAldeanosAsignados() > 0) {
             cabaniaCaza.setAldeanosAsignados(cabaniaCaza.getAldeanosAsignados()-1);
             cabaniaCaza.setAldeanosMuertosEnPartida(cabaniaCaza.getAldeanosMuertosEnPartida()+1);
             return true;
@@ -43,8 +42,4 @@ public class GeneradorCabaniaCaza extends GeneradorEstandar {
         return false;
     }
 
-    @Override
-    public RecursosEnum getRecurso() {
-        return RecursosEnum.COMIDA;
-    }
 }
