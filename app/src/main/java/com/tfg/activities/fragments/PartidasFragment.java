@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,7 @@ import android.widget.Toast;
 
 import com.tfg.R;
 import com.tfg.controladores.ControladorAldea;
-import com.tfg.controladores.ControladorCabaniaCaza;
-import com.tfg.modelos.TimerPartidaCaza;
 import com.tfg.modelos.enums.EdificiosEnum;
-import com.tfg.utilidades.Constantes;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,8 +85,8 @@ public class PartidasFragment extends Fragment {
         buttonCaza.setOnClickListener(buttonCazaOnClickListener);
 
         // Establecer el minimo y el maximo de la seekbar
-        int nivelCabaniaCaza = ControladorAldea.getNivelEdificio(EdificiosEnum.CABANIA_CAZA);
-        int maxCazadores = ControladorCabaniaCaza.getMaximoCazadoresSegunNivel(nivelCabaniaCaza);
+        int maxCazadores = ControladorAldea.getAldeanosMaximosEdificio(EdificiosEnum.CABANIA_CAZA);
+        System.out.println(maxCazadores);
         seekBarCazadores.setMin(0);
         seekBarCazadores.setMax(maxCazadores);
 

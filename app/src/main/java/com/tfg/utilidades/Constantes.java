@@ -11,10 +11,11 @@ public final class Constantes {
 
     public static class Edificio {
         public static final int NIVEL_MAXIMO = 10;
+        public static final int AUMENTO_MAX_CAZADORES_POR_NIVEL = 10;
     }
 
     public static class CabaniaCaza {
         public static final int PROBABILIDAD_MUERTE = 10;
-        public static final int AUMENTO_MAX_CAZADORES_POR_NIVEL = 10;
     }
+
 }

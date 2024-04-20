@@ -20,6 +20,9 @@ import com.tfg.controladores.ControladorAldea;
 import com.tfg.databinding.ActivityJuegoBinding;
 import com.tfg.utilidades.Utilidades;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class JuegoActivity extends AppCompatActivity {
     ActivityJuegoBinding binding;
 
@@ -28,6 +31,7 @@ public class JuegoActivity extends AppCompatActivity {
     // Componentes de la interfaz
     private TextView textViewAldeanos;
     private TextView textViewComida;
+    private TextView textViewTroncos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class JuegoActivity extends AppCompatActivity {
         // Inicializar los componentes de la interfaz
         textViewAldeanos = findViewById(R.id.textViewAldeanos);
         textViewComida = findViewById(R.id.textViewComida);
+        textViewTroncos = findViewById(R.id.textViewTroncos);
 
         // Cargar el fragment segun el item del menu
         itemSelectedListener.onNavigationItemSelected(binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
@@ -59,8 +64,6 @@ public class JuegoActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                actualizarUI();
-                Utilidades.esperar(1); // Esto es para que la primera vez de tiempo a mostrar los datos correctamente
                 ControladorAldea.iniciarAldea();
                 while (enEjecucion) {
                     try {
@@ -85,6 +88,7 @@ public class JuegoActivity extends AppCompatActivity {
             public void run() {
                 textViewAldeanos.setText(String.valueOf(ControladorAldea.getPoblacion()));
                 textViewComida.setText(String.valueOf(ControladorAldea.getComida()));
+                textViewTroncos.setText(String.valueOf(ControladorAldea.getTroncos()));
             }
         });
     }

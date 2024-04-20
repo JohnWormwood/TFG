@@ -30,13 +30,14 @@ public final class ControladorAldea {
              * y eso produce que al volver a la activity se generen los aldeanos
              * el doble de rapido
              */
+            aldea.getCasetaLeniador().getThread().interrupt();
             hiloAldea.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public static int getNivelEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
+    /*public static int getNivelEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
         // TODO Capturar la excepcion donde se llame la funcion
         switch (edificiosEnum) {
             case CABANIA_CAZA:
@@ -52,10 +53,35 @@ public final class ControladorAldea {
             default:
                 throw new IllegalArgumentException("No existe un edifico de tipo: "+edificiosEnum);
         }
+    }*/
+
+    public static int getAldeanosMaximosEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
+        // TODO Capturar la excepcion donde se llame la funcion
+        switch (edificiosEnum) {
+            case CABANIA_CAZA:
+                return aldea.getCabaniaCaza().getAldeanosMaximos();
+            case CARPINTERIA:
+                return aldea.getCarpinteria().getAldeanosMaximos();
+            case CASETA_LENIADOR:
+                return aldea.getCasetaLeniador().getAldeanosMaximos();
+            case GRANJA:
+                return aldea.getGranja().getAldeanosMaximos();
+            case MINA:
+                return aldea.getMina().getAldeanosMaximos();
+            default:
+                throw new IllegalArgumentException("No existe un edifico de tipo: "+edificiosEnum);
+        }
     }
 
+
+    // --- FUNCIONES PARA OBTENER LOS RECURSOS DE LA ALDEA ---
     public static synchronized Integer getComida() {
         return aldea.getRecursos().get(RecursosEnum.COMIDA);
+    }
+
+    public static synchronized Integer getTroncos() {
+        Integer troncos = aldea.getRecursos().get(RecursosEnum.TRONCOS_MADERA);
+        return troncos == null ? 0 : troncos;
     }
 
     public static synchronized int getPoblacion() {
@@ -71,7 +97,6 @@ public final class ControladorAldea {
     }
 
     public static void iniciarPartidaDeCaza(int numAldeanos, int tiempoTotal, TextView textViewPartidaCaza, Button buttonCaza, Context context) {
-        System.out.println("[ControladorAldea]");
         aldea.getCabaniaCaza().iniciarPartidaCaza(numAldeanos, tiempoTotal, textViewPartidaCaza, buttonCaza, context);
     }
 

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.modelos.edificios.CabaniaCaza;
+import com.tfg.modelos.enums.RecursosEnum;
 
 public class TimerPartidaCaza extends CountDownTimer {
 
@@ -27,7 +28,7 @@ public class TimerPartidaCaza extends CountDownTimer {
     @Override
     public void onTick(long millisUntilFinished) {
         long segundosRestantes = millisUntilFinished / 1000;
-        cabaniaCaza.producirRecursos();
+        cabaniaCaza.getGeneradorRecursos().producirRecursos(cabaniaCaza.getRecursosGenerados(), RecursosEnum.COMIDA, cabaniaCaza.getAldeanosAsignados());
         textViewPartidaCaza.setText("Partida actual: "+ ControladorAldea.getCazadoresEnPartida() +" cazadores, Tiempo restante: "+segundosRestantes+" segundos");
     }
 
