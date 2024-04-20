@@ -1,6 +1,7 @@
 package com.tfg.modelos;
 
 import com.tfg.activities.JuegoActivity;
+import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.edificios.Carpinteria;
 import com.tfg.modelos.edificios.CasetaLeniador;
@@ -19,6 +20,7 @@ import lombok.Data;
 public class Aldea implements Runnable {
     private int nivel;
     private int poblacion;
+    private Thread thread;
     private Map<RecursosEnum, Integer> recursos;
     private CabaniaCaza cabaniaCaza;
     private Carpinteria carpinteria;
@@ -36,21 +38,8 @@ public class Aldea implements Runnable {
 
         recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
     }
-
-    public synchronized boolean consumirRecurso(RecursosEnum recurso, int cantidad) {
-        Integer cantidadActual = recursos.get(recurso);
-
-        if (cantidadActual != null && cantidadActual >= cantidad) {
-            recursos.put(recurso, cantidadActual - cantidad);
-            return true;
-        } else  {
-            recursos.put(recurso, 0);
-            return false;
-        }
-    }
-
     public void generarAldeano() {
-        if (consumirRecurso(RecursosEnum.COMIDA, 1)) {
+        if (ControladorRecursos.consumirRecurso(recursos, RecursosEnum.COMIDA, 1)) {
             poblacion++;
             System.out.println("Aldeano generado");
         }
@@ -58,13 +47,26 @@ public class Aldea implements Runnable {
 
     @Override
     public void run() {
-        casetaLeniador.iniciar();
+        /*
+        * Iniciar todos los edificios
+        *
+        */
+        casetaLeniador.iniciarProduccion();
+
         // Se ejecuta mientras la activity este activa
         while (JuegoActivity.enEjecucion) {
-            // Aqui se gestiona la logica prinicpal del juego
-            generarAldeano();
-            Utilidades.esperar(1);
+            try {
+                // Aqui se gestiona la logica prinicpal del juego
+                Thread.sleep(1000);
+                generarAldeano();
+            } catch (InterruptedException e) {
+                break;
+            }
         }
+    }
 
+    public void iniciarAldea() {
+        thread = new Thread(this);
+        thread.start();
     }
 }

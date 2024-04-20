@@ -12,12 +12,14 @@ public final class ControladorRecursos {
         } else recursos.put(recurso, cantidad);
     }
 
-    public static synchronized void eliminarRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
+    public static synchronized boolean consumirRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
         Integer cantidadActual = recursos.get(recurso);
         if (cantidadActual != null) {
             if (cantidad <= cantidadActual) {
                 recursos.put(recurso, cantidadActual-cantidad);
+                return true;
             }
         } else recursos.put(recurso, 0);
+        return false;
     }
 }

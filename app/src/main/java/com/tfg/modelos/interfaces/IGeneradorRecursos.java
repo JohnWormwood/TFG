@@ -16,6 +16,5 @@ public interface IGeneradorRecursos {
         }
     }
 
-
     RecursosEnum getRecurso();
 }

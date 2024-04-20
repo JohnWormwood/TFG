@@ -14,27 +14,15 @@ import com.tfg.utilidades.Constantes;
 public final class ControladorAldea {
 
     private static Aldea aldea = new Aldea(Constantes.NIVEL_INICIAL, Constantes.Aldea.POBLACION_INICIAL);
-    private static Thread hiloAldea;
-
     public static void iniciarAldea() {
-        hiloAldea = new Thread(aldea);
-        hiloAldea.start();
+        aldea.iniciarAldea();
     }
 
     public static void finalizarAldea() {
         JuegoActivity.enEjecucion = false;
-        try {
-            /*
-             * Si no se espera a que termine el hilo, al volver a abrir la activity
-             * muy rapido es posible que todavia no haya terminado de generar un aldeano
-             * y eso produce que al volver a la activity se generen los aldeanos
-             * el doble de rapido
-             */
-            aldea.getCasetaLeniador().getThread().interrupt();
-            hiloAldea.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Se interrumpen todos los hilos
+        aldea.getCasetaLeniador().getThread().interrupt();
+        aldea.getThread().interrupt();
     }
 
     /*public static int getNivelEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
