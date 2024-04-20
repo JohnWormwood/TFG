@@ -32,16 +32,26 @@
 
         <TextView
             android:id="@+id/textViewAldeanos"
-            android:layout_width="50dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="10dp"
             android:text=""
             android:textAlignment="center"
             android:textSize="20sp" />
 
-        <Space
-            android:layout_width="84dp"
-            android:layout_height="32dp" />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/ico_tronco" />
+
+        <TextView
+            android:id="@+id/textViewTroncos"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -51,7 +61,7 @@
 
         <TextView
             android:id="@+id/textViewComida"
-            android:layout_width="50dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="10dp"
             android:text=""
