@@ -126,7 +126,7 @@
 
                 <TextView
                     android:layout_width="222dp"
-                    android:layout_height="46dp"
+                    android:layout_height="32dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
                     android:text="Mejora el senado para desbloquear nuevos edificios"
@@ -137,7 +137,7 @@
                     app:layout_constraintHorizontal_bias="0.883"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.893" />
+                    app:layout_constraintVertical_bias="0.851" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -193,7 +193,7 @@
                     app:layout_constraintVertical_bias="0.15" />
 
                 <Button
-                    android:id="@+id/btnMejorarCaza"
+                    android:id="@+id/btnMejorarTroncos"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="83dp"
                     android:layout_height="50dp"
@@ -280,6 +280,130 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/fondo_redondo"
+                android:backgroundTint="#E978776E"
+                android:backgroundTintMode="add"
+                app:layout_constraintBottom_toTopOf="@+id/btnMejorarCaza"
+                app:layout_constraintTop_toTopOf="@+id/btnMejorarCaza">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cabaña de Cazadores"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.055" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NIVEL"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.043"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.135" />
+
+                <TextView
+                    android:id="@+id/textViewNivelCabaniaCaza"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.175"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.15" />
+
+                <Button
+                    android:id="@+id/btnMejorarCaza"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="83dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="84dp"
+                    android:background="@null"
+                    android:backgroundTint="#D5B339"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:text="MEJORAR"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.048"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="64dp"
+                    android:src="@drawable/ico_tronco"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/PrecioTroncosCaza"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:text="20"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.111"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.488" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="51dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="64dp"
+                    android:text="Edificio Especial"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.963"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:layout_width="237dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="92dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Envia cazadores en el menu Partidas"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
