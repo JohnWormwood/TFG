@@ -34,7 +34,7 @@ public class Aldea implements Runnable {
         recursos = new HashMap<>();
 
         cabaniaCaza = new CabaniaCaza(0, this);
-        casetaLeniador = new CasetaLeniador(2, this);
+        casetaLeniador = new CasetaLeniador(0, this);
 
         recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
     }
@@ -53,15 +53,20 @@ public class Aldea implements Runnable {
         */
         casetaLeniador.iniciarProduccion();
 
-        // Se ejecuta mientras la activity este activa
-        while (JuegoActivity.enEjecucion) {
-            try {
+        int poblacionInicial = poblacion;
+        Map<RecursosEnum, Integer> recursosIniciales = new HashMap<>(recursos);
+        try {
+            // Se ejecuta mientras la activity este activa
+            while (JuegoActivity.enEjecucion) {
+                poblacionInicial = poblacion;
+                recursosIniciales = new HashMap<>(recursos);
                 // Aqui se gestiona la logica prinicpal del juego
                 Thread.sleep(1000);
                 generarAldeano();
-            } catch (InterruptedException e) {
-                break;
             }
+        } catch (InterruptedException e) {
+            poblacion = poblacionInicial;
+            recursos = recursosIniciales;
         }
     }
 

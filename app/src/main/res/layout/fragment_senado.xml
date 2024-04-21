@@ -58,7 +58,7 @@
                     android:id="@+id/nivelSenado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"
+                    android:text="0"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -180,10 +180,10 @@
                     app:layout_constraintVertical_bias="0.135" />
 
                 <TextView
-                    android:id="@+id/nivelTroncos"
+                    android:id="@+id/textViewNivelCasetaLeniador"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"
+                    android:text="0"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -236,7 +236,7 @@
                     app:layout_constraintVertical_bias="0.488" />
 
                 <SeekBar
-                    android:id="@+id/seekBarTroncos"
+                    android:id="@+id/seekBarLeniadores"
                     style="@style/Widget.AppCompat.SeekBar"
                     android:layout_width="250dp"
                     android:layout_height="20dp"
@@ -265,13 +265,13 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/tvAldeanosTroncos"
+                    android:id="@+id/textViewLeniadores"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="76dp"
                     android:layout_marginEnd="17dp"
                     android:layout_marginBottom="39dp"
-                    android:text="10"
+                    android:text="0"
                     android:textAlignment="textEnd"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"

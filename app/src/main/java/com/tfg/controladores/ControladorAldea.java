@@ -6,9 +6,9 @@ import android.widget.TextView;
 
 import com.tfg.activities.JuegoActivity;
 import com.tfg.modelos.Aldea;
+import com.tfg.modelos.edificios.Edificio;
 import com.tfg.modelos.enums.EdificiosEnum;
 import com.tfg.modelos.enums.RecursosEnum;
-import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.utilidades.Constantes;
 
 public final class ControladorAldea {
@@ -25,37 +25,38 @@ public final class ControladorAldea {
         aldea.getThread().interrupt();
     }
 
-    /*public static int getNivelEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
+    public static int getNivelEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
         // TODO Capturar la excepcion donde se llame la funcion
-        switch (edificiosEnum) {
-            case CABANIA_CAZA:
-                return aldea.getCabaniaCaza().getNivel();
-            case CARPINTERIA:
-                return aldea.getCarpinteria().getNivel();
-            case CASETA_LENIADOR:
-                return aldea.getCasetaLeniador().getNivel();
-            case GRANJA:
-                return aldea.getGranja().getNivel();
-            case MINA:
-                return aldea.getMina().getNivel();
-            default:
-                throw new IllegalArgumentException("No existe un edifico de tipo: "+edificiosEnum);
-        }
-    }*/
+        return getEdificio(edificiosEnum).getNivel();
+    }
 
     public static int getAldeanosMaximosEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
         // TODO Capturar la excepcion donde se llame la funcion
+        return getEdificio(edificiosEnum).getAldeanosMaximos();
+    }
+
+    public static int getAldeanosAsignadosEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
+        // TODO Capturar la excepcion donde se llame la funcion
+        return getEdificio(edificiosEnum).getAldeanosAsignados();
+    }
+
+    public static void modificarAldeanosAsignados(EdificiosEnum edificiosEnum, int aldeanosAsignados) throws IllegalArgumentException {
+        // TODO Capturar la excepcion donde se llame la funcion
+        getEdificio(edificiosEnum).modificarAldeanosAsignados(aldeanosAsignados);
+    }
+
+    private static Edificio getEdificio(EdificiosEnum edificiosEnum) {
         switch (edificiosEnum) {
             case CABANIA_CAZA:
-                return aldea.getCabaniaCaza().getAldeanosMaximos();
+                return aldea.getCabaniaCaza();
             case CARPINTERIA:
-                return aldea.getCarpinteria().getAldeanosMaximos();
+                return aldea.getCarpinteria();
             case CASETA_LENIADOR:
-                return aldea.getCasetaLeniador().getAldeanosMaximos();
+                return aldea.getCasetaLeniador();
             case GRANJA:
-                return aldea.getGranja().getAldeanosMaximos();
+                return aldea.getGranja();
             case MINA:
-                return aldea.getMina().getAldeanosMaximos();
+                return aldea.getMina();
             default:
                 throw new IllegalArgumentException("No existe un edifico de tipo: "+edificiosEnum);
         }
@@ -90,5 +91,13 @@ public final class ControladorAldea {
 
     public static int getCazadoresEnPartida() {
         return aldea.getCabaniaCaza().getAldeanosAsignados();
+    }
+
+    public static boolean isPartidaCazaActiva() {
+        return aldea.getCabaniaCaza().isPartidaActiva();
+    }
+
+    public static void actualizarElementosUiEnTimerPartidaCaza(TextView textView, Button button, Context context) {
+        aldea.getCabaniaCaza().getTimerPartidaCaza().actualizarElementosUI(textView, button, context);
     }
 }

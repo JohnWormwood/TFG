@@ -7,8 +7,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.tfg.R;
+import com.tfg.controladores.ControladorAldea;
+import com.tfg.modelos.enums.EdificiosEnum;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,10 +61,51 @@ public class SenadoFragment extends Fragment {
         }
     }
 
+
+    // Componentes de la interfaz
+    private SeekBar seekBarLeniadores;
+    private TextView textViewLeniadores, textViewNivelCasetaLeniador;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_senado, container, false);
+        View view = inflater.inflate(R.layout.fragment_senado, container, false);
+
+        // Inicializar componentes de la interfaz
+        seekBarLeniadores = view.findViewById(R.id.seekBarLeniadores);
+        textViewLeniadores = view.findViewById(R.id.textViewLeniadores);
+        textViewNivelCasetaLeniador = view.findViewById(R.id.textViewNivelCasetaLeniador);
+
+        // Listeners
+        seekBarLeniadores.setOnSeekBarChangeListener(seekBarChangeListener);
+
+        // Establecer el minimo y el maximo de la seekbar
+        int maxLeniadores = ControladorAldea.getAldeanosMaximosEdificio(EdificiosEnum.CASETA_LENIADOR);
+        seekBarLeniadores.setProgress(ControladorAldea.getAldeanosAsignadosEdificio(EdificiosEnum.CASETA_LENIADOR));
+        seekBarLeniadores.setMin(0);
+        seekBarLeniadores.setMax(maxLeniadores);
+
+        textViewLeniadores.setText(String.valueOf(seekBarLeniadores.getProgress()));
+        textViewNivelCasetaLeniador.setText(String.valueOf(ControladorAldea.getNivelEdificio(EdificiosEnum.CASETA_LENIADOR)));
+
+        return view;
     }
+
+    private final SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            textViewLeniadores.setText(String.valueOf(seekBar.getProgress()));
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            ControladorAldea.modificarAldeanosAsignados(EdificiosEnum.CASETA_LENIADOR, seekBar.getProgress());
+        }
+    };
 }

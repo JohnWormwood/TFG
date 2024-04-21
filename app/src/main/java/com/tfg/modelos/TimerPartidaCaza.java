@@ -11,6 +11,8 @@ import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.interfaces.IGeneradorRecursos;
 
+import lombok.Getter;
+
 public class TimerPartidaCaza extends CountDownTimer {
 
     private TextView textViewPartidaCaza;
@@ -18,8 +20,12 @@ public class TimerPartidaCaza extends CountDownTimer {
     private CabaniaCaza cabaniaCaza;
     private Context contextActividad;
 
+    @Getter
+    private long segundosRestantes;
+
     public TimerPartidaCaza(long millisInFuture, CabaniaCaza cabaniaCaza, TextView textViewPartidaCaza, Button buttonCaza, Context contextActividad) {
         super(millisInFuture, 1000);
+        segundosRestantes = millisInFuture / 1000;
         this.cabaniaCaza = cabaniaCaza;
         this.textViewPartidaCaza = textViewPartidaCaza;
         this.buttonCaza = buttonCaza;
@@ -28,7 +34,7 @@ public class TimerPartidaCaza extends CountDownTimer {
 
     @Override
     public void onTick(long millisUntilFinished) {
-        long segundosRestantes = millisUntilFinished / 1000;
+        segundosRestantes = millisUntilFinished / 1000;
         for (IGeneradorRecursos generadorRecursos : cabaniaCaza.getGeneradoresRecursos()) {
             generadorRecursos.producirRecursos(cabaniaCaza.getRecursosGenerados(), RecursosEnum.COMIDA, cabaniaCaza.getAldeanosAsignados());
         }
@@ -43,5 +49,11 @@ public class TimerPartidaCaza extends CountDownTimer {
         cabaniaCaza.finalizarPartidaCaza();
         buttonCaza.setEnabled(true);
         textViewPartidaCaza.setText("Partida actual: No hay ninguna partida de caza en curso");
+    }
+
+    public void actualizarElementosUI(TextView textViewPartidaCaza, Button buttonCaza, Context contextActividad) {
+        this.textViewPartidaCaza = textViewPartidaCaza;
+        this.buttonCaza = buttonCaza;
+        this.contextActividad = contextActividad;
     }
 }

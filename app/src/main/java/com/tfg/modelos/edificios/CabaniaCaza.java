@@ -20,6 +20,7 @@ import lombok.Setter;
 public class CabaniaCaza extends Edificio {
     private TimerPartidaCaza timerPartidaCaza;
     private int aldeanosMuertosEnPartida;
+    private boolean partidaActiva;
 
     public CabaniaCaza(int aldeanosAsignados, Aldea aldea) {
         super(aldeanosAsignados, aldea);
@@ -32,6 +33,7 @@ public class CabaniaCaza extends Edificio {
     public void iniciarPartidaCaza(int numAldeanos, int tiempoTotal, TextView textViewPartidaCaza, Button buttonCaza, Context context) {
         if (numAldeanos <= aldeanosMaximos) {
             if (ControladorAldea.eliminarAldeanos(numAldeanos)) {
+                partidaActiva = true;
                 aldeanosAsignados = numAldeanos;
                 // El timer se encarga de llamar a producir recursos cada segundo
                 timerPartidaCaza = new TimerPartidaCaza(tiempoTotal, this, textViewPartidaCaza, buttonCaza, context);
@@ -45,6 +47,7 @@ public class CabaniaCaza extends Edificio {
         aldea.setPoblacion(aldea.getPoblacion()+aldeanosAsignados);
         aldeanosAsignados = 0;
         aldeanosMuertosEnPartida = 0;
+        partidaActiva = false;
     }
 
 }

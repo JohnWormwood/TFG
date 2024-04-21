@@ -1,6 +1,9 @@
 package com.tfg.modelos.edificios;
 
+import android.service.controls.Control;
+
 import com.tfg.activities.JuegoActivity;
+import com.tfg.controladores.ControladorAldea;
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
@@ -56,23 +59,48 @@ public abstract class Edificio implements Runnable {
         }
     }
 
+    public synchronized void modificarAldeanosAsignados(int aldeanosAsignados) {
+        if (aldeanosAsignados >= 0 && aldeanosAsignados <= aldeanosMaximos) {
+            int diferenciaAldeanos = 0;
+            if (aldeanosAsignados < this.aldeanosAsignados) {
+                diferenciaAldeanos = this.aldeanosAsignados - aldeanosAsignados;
+                devolverAldeanos(diferenciaAldeanos);
+                reiniciarProduccion(aldeanosAsignados);
+            } else if (aldeanosAsignados > this.aldeanosAsignados) {
+                diferenciaAldeanos = aldeanosAsignados - this.aldeanosAsignados;
+                if (ControladorAldea.eliminarAldeanos(diferenciaAldeanos)) {
+                    reiniciarProduccion(aldeanosAsignados);
+                }
+            }
+        }
+    }
+
+    public void devolverAldeanos(int aldeanos) {
+        aldea.setPoblacion(aldea.getPoblacion()+aldeanos);
+    }
+
+    public void reiniciarProduccion(int aldeanosAsignados) {
+        this.aldeanosAsignados = aldeanosAsignados;
+        thread.interrupt();
+        iniciarProduccion();
+    }
+
     @Override
     public void run() {
-        Map<RecursosEnum, Integer> recursosIniciales;
-        while (JuegoActivity.enEjecucion) {
-            recursosIniciales = new HashMap<>(recursosGenerados);
-            try {
+        Map<RecursosEnum, Integer> recursosIniciales = new HashMap<>(recursosGenerados);
+        try {
+            while (JuegoActivity.enEjecucion) {
+                recursosIniciales = new HashMap<>(recursosGenerados);
                 // Genera recursos, espera x tiempo y despues los pasa a la aldea
                 for (IGeneradorRecursos generadorRecursos : generadoresRecursos) {
                     generadorRecursos.producirRecursos(recursosGenerados, generadorRecursos.getRecurso(), aldeanosAsignados);
                 }
                 Thread.sleep(SEGUNDOS_ENTRE_RECURSOS * 1000);
                 generadoresRecursos.forEach(g -> transferirRecursoAldea(g.getRecurso()));
-            } catch (InterruptedException e) {
-                // En caso de interrupcion se vuelve al estado anterior, para evitar que se dupliquen recursos
-                recursosGenerados = recursosIniciales;
-                break;
             }
+        } catch (InterruptedException e) {
+            // En caso de interrupcion se vuelve al estado anterior, para evitar que se dupliquen recursos
+            recursosGenerados = recursosIniciales;
         }
     }
 

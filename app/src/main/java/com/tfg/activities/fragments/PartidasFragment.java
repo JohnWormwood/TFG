@@ -16,6 +16,8 @@ import com.tfg.R;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.modelos.enums.EdificiosEnum;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PartidasFragment#newInstance} factory method to
@@ -86,12 +88,16 @@ public class PartidasFragment extends Fragment {
 
         // Establecer el minimo y el maximo de la seekbar
         int maxCazadores = ControladorAldea.getAldeanosMaximosEdificio(EdificiosEnum.CABANIA_CAZA);
-        System.out.println(maxCazadores);
         seekBarCazadores.setMin(0);
         seekBarCazadores.setMax(maxCazadores);
 
         // Mostrar el valor de la seekbar en el textview
         textViewCazadores.setText("Cazadores: " + seekBarCazadores.getProgress());
+
+        if (ControladorAldea.isPartidaCazaActiva()) {
+            buttonCaza.setEnabled(false);
+            ControladorAldea.actualizarElementosUiEnTimerPartidaCaza(textViewPartidaCaza, buttonCaza, getActivity());
+        }
 
         return view;
     }
