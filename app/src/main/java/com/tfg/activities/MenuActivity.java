@@ -2,8 +2,9 @@ package com.tfg.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,16 +12,20 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity {
 
     private Intent intent;
+    private TextView textViewEmail;
+    private Button buttonCerrarSesion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu);
 
         ImageButton buttonJugar = findViewById(R.id.buttonJugar);
         TextView textViewJugar = findViewById(R.id.textViewJugar);
@@ -33,7 +38,21 @@ public class MainActivity extends AppCompatActivity {
         ImageButton buttonSalir = findViewById(R.id.buttonSalir);
         TextView textViewSalir = findViewById(R.id.textViewSalir);
         setEfectoBoton(buttonSalir, textViewSalir);
+
+        textViewEmail = findViewById(R.id.textViewEmail);
+        buttonCerrarSesion = findViewById(R.id.buttonCerrarSesion);
+
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        String email = bundle.getString("email");
+        configInicial(email);
+
+
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString("email", email).apply();
     }
+
     public void setEfectoBoton(ImageButton button, TextView textView) {
         button.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -57,6 +76,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void configInicial(String email) {
+        textViewEmail.setText(email);
+        buttonCerrarSesion.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+            SharedPreferences.Editor prefsEditor = prefs.edit();
+            prefsEditor.clear();
+            prefsEditor.apply();
+
+            finish();
+        });
+    }
+
+
 
     public void buttonJugarOnClick(View view) {
         // TODO si no se ha iniciado sesion mostrar el login y luego el juego,

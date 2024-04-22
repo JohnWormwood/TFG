@@ -57,6 +57,8 @@ public class JuegoActivity extends AppCompatActivity {
         // Iniciar el juego
         enEjecucion = true;
         ejecutarHiloParalelo();
+
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     }
 
     private void ejecutarHiloParalelo() {

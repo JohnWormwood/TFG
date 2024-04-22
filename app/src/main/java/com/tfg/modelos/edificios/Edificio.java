@@ -1,7 +1,5 @@
 package com.tfg.modelos.edificios;
 
-import android.service.controls.Control;
-
 import com.tfg.activities.JuegoActivity;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.controladores.ControladorRecursos;
@@ -29,7 +27,6 @@ public abstract class Edificio implements Runnable {
     protected Thread thread;
     protected Map<RecursosEnum, Integer> recursosGenerados;
     protected List<IGeneradorRecursos> generadoresRecursos;
-
 
     public Edificio(int aldeanosAsignados, Aldea aldea) {
         this.nivel = Constantes.NIVEL_INICIAL;
@@ -61,7 +58,7 @@ public abstract class Edificio implements Runnable {
 
     public synchronized void modificarAldeanosAsignados(int aldeanosAsignados) {
         if (aldeanosAsignados >= 0 && aldeanosAsignados <= aldeanosMaximos) {
-            int diferenciaAldeanos = 0;
+            int diferenciaAldeanos;
             if (aldeanosAsignados < this.aldeanosAsignados) {
                 diferenciaAldeanos = this.aldeanosAsignados - aldeanosAsignados;
                 devolverAldeanos(diferenciaAldeanos);

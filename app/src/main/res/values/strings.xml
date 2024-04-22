@@ -7,4 +7,5 @@
     <string name="partidas">Partidas</string>
     <string name="mercader">Mercader</string>
     <string name="aldea">Aldea</string>
+    <string name="prefs_file">com.tfg.KEY_ARCHIVO_PREFERENCIAS</string>
 </resources>
