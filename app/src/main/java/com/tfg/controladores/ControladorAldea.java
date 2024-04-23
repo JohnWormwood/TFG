@@ -13,8 +13,11 @@ import com.tfg.utilidades.Constantes;
 
 public final class ControladorAldea {
 
-    private static Aldea aldea = new Aldea(Constantes.NIVEL_INICIAL, Constantes.Aldea.POBLACION_INICIAL);
+    private static Aldea aldea = Aldea.getInstance();
+
     public static void iniciarAldea() {
+        aldea.setNivel(Constantes.NIVEL_INICIAL);
+        aldea.setPoblacion(Constantes.Aldea.POBLACION_INICIAL);
         aldea.iniciarAldea();
     }
 

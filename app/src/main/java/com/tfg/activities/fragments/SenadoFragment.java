@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.tfg.R;
 import com.tfg.controladores.ControladorAldea;
+import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.EdificiosEnum;
 
 /**
@@ -64,7 +65,9 @@ public class SenadoFragment extends Fragment {
 
     // Componentes de la interfaz
     private SeekBar seekBarLeniadores;
-    private TextView textViewLeniadores, textViewNivelCasetaLeniador;
+    private TextView textViewLeniadores, textViewNivelCasetaLeniador, textViewNivelSenado;
+
+    private Aldea aldea = Aldea.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +79,7 @@ public class SenadoFragment extends Fragment {
         seekBarLeniadores = view.findViewById(R.id.seekBarLeniadores);
         textViewLeniadores = view.findViewById(R.id.textViewLeniadores);
         textViewNivelCasetaLeniador = view.findViewById(R.id.textViewNivelCasetaLeniador);
+        textViewNivelSenado = view.findViewById(R.id.nivelSenado);
 
         // Listeners
         seekBarLeniadores.setOnSeekBarChangeListener(seekBarChangeListener);
@@ -85,12 +89,20 @@ public class SenadoFragment extends Fragment {
         seekBarLeniadores.setProgress(ControladorAldea.getAldeanosAsignadosEdificio(EdificiosEnum.CASETA_LENIADOR));
         seekBarLeniadores.setMin(0);
         seekBarLeniadores.setMax(maxLeniadores);
-
         textViewLeniadores.setText(String.valueOf(seekBarLeniadores.getProgress()));
-        textViewNivelCasetaLeniador.setText(String.valueOf(ControladorAldea.getNivelEdificio(EdificiosEnum.CASETA_LENIADOR)));
+        textViewNivelCasetaLeniador.setText(String.valueOf(aldea.getCasetaLeniador().getNivel()));
+
+        //senado
+        textViewNivelSenado.setText(String.valueOf(aldea.getNivel()));
 
         return view;
     }
+
+
+    public void MejorarSenado(View view){
+        aldea.setNivel(aldea.getNivel()+1);
+    }
+
 
     private final SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override

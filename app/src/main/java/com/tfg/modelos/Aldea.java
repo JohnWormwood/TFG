@@ -18,6 +18,8 @@ import lombok.Data;
 
 @Data
 public class Aldea implements Runnable {
+    private static Aldea instance; // Campo estático para almacenar la instancia única
+
     private int nivel;
     private int poblacion;
     private Thread thread;
@@ -28,15 +30,21 @@ public class Aldea implements Runnable {
     private Granja granja;
     private Mina mina;
 
-    public Aldea(int nivel, int poblacion) {
-        this.nivel = nivel;
-        this.poblacion = poblacion;
+    private Aldea() {
         recursos = new HashMap<>();
 
         cabaniaCaza = new CabaniaCaza(0, this);
         casetaLeniador = new CasetaLeniador(0, this);
 
         recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
+    }
+
+    // Método estático para obtener la instancia única de Aldea
+    public static Aldea getInstance() {
+        if (instance == null) {
+            instance = new Aldea();
+        }
+        return instance;
     }
     public void generarAldeano() {
         if (ControladorRecursos.consumirRecurso(recursos, RecursosEnum.COMIDA, 1)) {
