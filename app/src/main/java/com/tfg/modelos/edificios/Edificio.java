@@ -77,8 +77,8 @@ public abstract class Edificio implements Runnable {
     }
 
     public void reiniciarProduccion(int aldeanosAsignados) {
+        if (thread != null)  thread.interrupt();
         this.aldeanosAsignados = aldeanosAsignados;
-        thread.interrupt();
         iniciarProduccion();
     }
 
@@ -107,7 +107,7 @@ public abstract class Edificio implements Runnable {
         * el resto de edificos no haran nada cuando se llame a iniciarProduccion
         * ya que se asume que producen recursos solo cuando el jugador quiere
         */
-        if (generarRecursosConstantemente) {
+        if (generarRecursosConstantemente && aldeanosAsignados > 0) {
             thread = new Thread(this);
             thread.start();
         }

@@ -1,11 +1,8 @@
 package com.tfg.modelos.edificios;
 
-import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.interfaces.impl.GeneradorEstandar;
-import com.tfg.utilidades.Constantes;
-
 
 public class CasetaLeniador extends Edificio {
 
@@ -14,4 +11,5 @@ public class CasetaLeniador extends Edificio {
         generarRecursosConstantemente = true;
         generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.TRONCOS_MADERA));
     }
+
 }

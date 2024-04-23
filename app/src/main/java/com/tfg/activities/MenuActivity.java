@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.R;
+import com.tfg.utilidades.GestorSharedPreferences;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -48,9 +49,8 @@ public class MenuActivity extends AppCompatActivity {
         configInicial(email);
 
 
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
-        SharedPreferences.Editor prefsEditor = prefs.edit();
-        prefsEditor.putString("email", email).apply();
+        GestorSharedPreferences gestorSharedPreferences = new GestorSharedPreferences(this, getString(R.string.prefs_file));
+        gestorSharedPreferences.getEditor().putString("email", email).apply();
     }
 
     public void setEfectoBoton(ImageButton button, TextView textView) {

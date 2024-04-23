@@ -37,6 +37,7 @@ public class Aldea implements Runnable {
         casetaLeniador = new CasetaLeniador(0, this);
 
         recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
+        recursos.put(RecursosEnum.TRONCOS_MADERA, 0);
     }
 
     // Método estático para obtener la instancia única de Aldea

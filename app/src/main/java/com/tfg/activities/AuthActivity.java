@@ -1,8 +1,5 @@
 package com.tfg.activities;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,14 +9,16 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.common.base.Strings;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.AuthResult;
 import com.tfg.R;
+import com.tfg.firebase.auth.GestorSesion;
+import com.tfg.utilidades.UtilidadActivity;
 
 import java.util.Objects;
 
 public class AuthActivity extends AppCompatActivity {
 
+    // Componentes interfaz
     private Button buttonRegistro, buttonLogin;
     private EditText editTextEmail, editTextPassword;
     private LinearLayout authLayout;
@@ -29,16 +28,18 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
+        // Inicializar componentes de la interfaz
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonRegistro = findViewById(R.id.buttonRegistro);
         buttonLogin = findViewById(R.id.buttonLogin);
         authLayout = findViewById(R.id.authLayout);
 
+        // Cargar los listeners
         buttonRegistro.setOnClickListener(buttonRegistroOnClick);
         buttonLogin.setOnClickListener(buttonLoginOnClick);
 
-        sesion();
+        comprobarSesion();
     }
 
     @Override
@@ -47,53 +48,15 @@ public class AuthActivity extends AppCompatActivity {
         authLayout.setVisibility(View.VISIBLE);
     }
 
-    private void sesion() {
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
-        String email = sharedPreferences.getString("email", null);
+    private void comprobarSesion() {
+        String email = GestorSesion.cargarSesionLocal(this, getString(R.string.prefs_file));
         if (email != null) {
             authLayout.setVisibility(View.INVISIBLE);
-            Intent intent = new Intent(this, MenuActivity.class);
-            intent.putExtra("email", email);
-            startActivity(intent);
+            Bundle extras = new Bundle();
+            extras.putString("email", email);
+            UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
         }
     }
-
-
-    private final View.OnClickListener buttonRegistroOnClick = v -> {
-        String email = String.valueOf(editTextEmail.getText()) , password = String.valueOf(editTextPassword.getText());
-
-        if (!Strings.isNullOrEmpty(email) && !Strings.isNullOrEmpty(email)) {
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Intent intent = new Intent(this, MenuActivity.class);
-                            intent.putExtra("email", Objects.requireNonNull(task.getResult().getUser()).getEmail());
-                            startActivity(intent);
-                        } else {
-                            mostrarAlerta();
-                        }
-                    });
-
-        }
-    };
-
-    private final View.OnClickListener buttonLoginOnClick = v -> {
-        String email = String.valueOf(editTextEmail.getText()) , password = String.valueOf(editTextPassword.getText());
-
-        if (!Strings.isNullOrEmpty(email) && !Strings.isNullOrEmpty(email)) {
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Intent intent = new Intent(this, MenuActivity.class);
-                            intent.putExtra("email", Objects.requireNonNull(task.getResult().getUser()).getEmail());
-                            startActivity(intent);
-                        } else {
-                            mostrarAlerta();
-                        }
-                    });
-
-        }
-    };
 
     private void mostrarAlerta() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -104,4 +67,34 @@ public class AuthActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    // --- LISTENERS ---
+    private final View.OnClickListener buttonRegistroOnClick = v -> {
+        String email = String.valueOf(editTextEmail.getText()) , password = String.valueOf(editTextPassword.getText());
+
+        GestorSesion.registrarUsuario(email, password, task -> {
+            if (task.isSuccessful()) {
+                AuthResult resultado = task.getResult();
+                Bundle extras = new Bundle();
+                extras.putString("email", Objects.requireNonNull(resultado.getUser()).getEmail());
+                UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
+            } else {
+                mostrarAlerta();
+            }
+        });
+    };
+
+    private final View.OnClickListener buttonLoginOnClick = v -> {
+        String email = String.valueOf(editTextEmail.getText()) , password = String.valueOf(editTextPassword.getText());
+
+        GestorSesion.iniciarSesion(email, password, task -> {
+            if (task.isSuccessful()) {
+                AuthResult resultado = task.getResult();
+                Bundle extras = new Bundle();
+                extras.putString("email", Objects.requireNonNull(resultado.getUser()).getEmail());
+                UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
+            } else {
+                mostrarAlerta();
+            }
+        });
+    };
 }

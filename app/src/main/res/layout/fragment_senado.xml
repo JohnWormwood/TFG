@@ -79,7 +79,6 @@
                     android:text="MEJORAR"
                     android:textAlignment="center"
                     android:textSize="12sp"
-                    android:onClick="MejorarSenado"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.051"

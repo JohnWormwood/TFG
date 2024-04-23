@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -66,6 +67,7 @@ public class SenadoFragment extends Fragment {
     // Componentes de la interfaz
     private SeekBar seekBarLeniadores;
     private TextView textViewLeniadores, textViewNivelCasetaLeniador, textViewNivelSenado;
+    private Button buttonMejorarSenado;
 
     private Aldea aldea = Aldea.getInstance();
 
@@ -80,13 +82,15 @@ public class SenadoFragment extends Fragment {
         textViewLeniadores = view.findViewById(R.id.textViewLeniadores);
         textViewNivelCasetaLeniador = view.findViewById(R.id.textViewNivelCasetaLeniador);
         textViewNivelSenado = view.findViewById(R.id.nivelSenado);
+        buttonMejorarSenado = view.findViewById(R.id.btnMejorarSenado);
 
         // Listeners
         seekBarLeniadores.setOnSeekBarChangeListener(seekBarChangeListener);
+        buttonMejorarSenado.setOnClickListener(buttonMejorarSenadoOnClick);
 
         // Establecer el minimo y el maximo de la seekbar
-        int maxLeniadores = ControladorAldea.getAldeanosMaximosEdificio(EdificiosEnum.CASETA_LENIADOR);
-        seekBarLeniadores.setProgress(ControladorAldea.getAldeanosAsignadosEdificio(EdificiosEnum.CASETA_LENIADOR));
+        int maxLeniadores = aldea.getCasetaLeniador().getAldeanosMaximos();
+        seekBarLeniadores.setProgress(aldea.getCasetaLeniador().getAldeanosAsignados());
         seekBarLeniadores.setMin(0);
         seekBarLeniadores.setMax(maxLeniadores);
         textViewLeniadores.setText(String.valueOf(seekBarLeniadores.getProgress()));
@@ -98,10 +102,13 @@ public class SenadoFragment extends Fragment {
         return view;
     }
 
-
-    public void MejorarSenado(View view){
-        aldea.setNivel(aldea.getNivel()+1);
-    }
+    public final View.OnClickListener buttonMejorarSenadoOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            aldea.setNivel(aldea.getNivel()+1);
+            textViewNivelSenado.setText(String.valueOf(aldea.getNivel()));
+        }
+    };
 
 
     private final SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
@@ -117,7 +124,7 @@ public class SenadoFragment extends Fragment {
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            ControladorAldea.modificarAldeanosAsignados(EdificiosEnum.CASETA_LENIADOR, seekBar.getProgress());
+            aldea.getCasetaLeniador().modificarAldeanosAsignados(seekBar.getProgress());
         }
     };
 }

@@ -18,6 +18,8 @@ import com.tfg.activities.fragments.PartidasFragment;
 import com.tfg.activities.fragments.SenadoFragment;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.databinding.ActivityJuegoBinding;
+import com.tfg.modelos.Aldea;
+import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Utilidades;
 
 import java.util.concurrent.ExecutorService;
@@ -57,8 +59,6 @@ public class JuegoActivity extends AppCompatActivity {
         // Iniciar el juego
         enEjecucion = true;
         ejecutarHiloParalelo();
-
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     }
 
     private void ejecutarHiloParalelo() {
@@ -88,9 +88,9 @@ public class JuegoActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                textViewAldeanos.setText(String.valueOf(ControladorAldea.getPoblacion()));
-                textViewComida.setText(String.valueOf(ControladorAldea.getComida()));
-                textViewTroncos.setText(String.valueOf(ControladorAldea.getTroncos()));
+                textViewAldeanos.setText(String.valueOf(Aldea.getInstance().getPoblacion()));
+                textViewComida.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.COMIDA)));
+                textViewTroncos.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.TRONCOS_MADERA)));
             }
         });
     }

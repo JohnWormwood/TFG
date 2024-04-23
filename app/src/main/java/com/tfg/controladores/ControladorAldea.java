@@ -28,44 +28,6 @@ public final class ControladorAldea {
         aldea.getThread().interrupt();
     }
 
-    public static int getNivelEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
-        // TODO Capturar la excepcion donde se llame la funcion
-        return getEdificio(edificiosEnum).getNivel();
-    }
-
-    public static int getAldeanosMaximosEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
-        // TODO Capturar la excepcion donde se llame la funcion
-        return getEdificio(edificiosEnum).getAldeanosMaximos();
-    }
-
-    public static int getAldeanosAsignadosEdificio(EdificiosEnum edificiosEnum) throws IllegalArgumentException {
-        // TODO Capturar la excepcion donde se llame la funcion
-        return getEdificio(edificiosEnum).getAldeanosAsignados();
-    }
-
-    public static void modificarAldeanosAsignados(EdificiosEnum edificiosEnum, int aldeanosAsignados) throws IllegalArgumentException {
-        // TODO Capturar la excepcion donde se llame la funcion
-        getEdificio(edificiosEnum).modificarAldeanosAsignados(aldeanosAsignados);
-    }
-
-    private static Edificio getEdificio(EdificiosEnum edificiosEnum) {
-        switch (edificiosEnum) {
-            case CABANIA_CAZA:
-                return aldea.getCabaniaCaza();
-            case CARPINTERIA:
-                return aldea.getCarpinteria();
-            case CASETA_LENIADOR:
-                return aldea.getCasetaLeniador();
-            case GRANJA:
-                return aldea.getGranja();
-            case MINA:
-                return aldea.getMina();
-            default:
-                throw new IllegalArgumentException("No existe un edifico de tipo: "+edificiosEnum);
-        }
-    }
-
-
     // --- FUNCIONES PARA OBTENER LOS RECURSOS DE LA ALDEA ---
     public static synchronized Integer getComida() {
         return aldea.getRecursos().get(RecursosEnum.COMIDA);

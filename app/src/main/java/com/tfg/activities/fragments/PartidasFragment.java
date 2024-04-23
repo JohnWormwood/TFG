@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.tfg.R;
 import com.tfg.controladores.ControladorAldea;
+import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.EdificiosEnum;
 
 import java.util.Objects;
@@ -87,7 +88,7 @@ public class PartidasFragment extends Fragment {
         buttonCaza.setOnClickListener(buttonCazaOnClickListener);
 
         // Establecer el minimo y el maximo de la seekbar
-        int maxCazadores = ControladorAldea.getAldeanosMaximosEdificio(EdificiosEnum.CABANIA_CAZA);
+        int maxCazadores = Aldea.getInstance().getCabaniaCaza().getAldeanosMaximos();
         seekBarCazadores.setMin(0);
         seekBarCazadores.setMax(maxCazadores);
 
