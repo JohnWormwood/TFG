@@ -9,14 +9,19 @@ import com.tfg.modelos.edificios.Granja;
 import com.tfg.modelos.edificios.Mina;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
+import com.tfg.utilidades.ListaHilos;
 import com.tfg.utilidades.Utilidades;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Synchronized;
 
 @Data
+@Getter(onMethod_={@Synchronized}) @Setter(onMethod_={@Synchronized})
 public class Aldea implements Runnable {
     private static Aldea instance; // Campo estático para almacenar la instancia única
 
@@ -56,10 +61,9 @@ public class Aldea implements Runnable {
 
     @Override
     public void run() {
-        /*
-        * Iniciar todos los edificios
-        *
-        */
+        ListaHilos.add(thread);
+
+        // Iniciar todos los edificios
         casetaLeniador.iniciarProduccion();
 
         int poblacionInicial = poblacion;
@@ -76,6 +80,7 @@ public class Aldea implements Runnable {
         } catch (InterruptedException e) {
             poblacion = poblacionInicial;
             recursos = recursosIniciales;
+            ListaHilos.remove(thread);
         }
     }
 

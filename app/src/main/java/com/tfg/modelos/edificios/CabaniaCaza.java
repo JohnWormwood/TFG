@@ -14,9 +14,9 @@ import com.tfg.utilidades.Constantes;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Synchronized;
 
-@Getter
-@Setter
+@Getter(onMethod_={@Synchronized}) @Setter(onMethod_={@Synchronized})
 public class CabaniaCaza extends Edificio {
     private TimerPartidaCaza timerPartidaCaza;
     private int aldeanosMuertosEnPartida;

@@ -7,6 +7,7 @@ import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.interfaces.IGeneradorRecursos;
 import com.tfg.utilidades.Constantes;
+import com.tfg.utilidades.ListaHilos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,8 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Synchronized;
 
 @Data
+@Getter(onMethod_={@Synchronized}) @Setter(onMethod_={@Synchronized})
 public abstract class Edificio implements Runnable {
     protected final int SEGUNDOS_ENTRE_RECURSOS = 10;
 
@@ -76,14 +81,9 @@ public abstract class Edificio implements Runnable {
         aldea.setPoblacion(aldea.getPoblacion()+aldeanos);
     }
 
-    public void reiniciarProduccion(int aldeanosAsignados) {
-        if (thread != null)  thread.interrupt();
-        this.aldeanosAsignados = aldeanosAsignados;
-        iniciarProduccion();
-    }
-
     @Override
     public void run() {
+        ListaHilos.add(thread);
         Map<RecursosEnum, Integer> recursosIniciales = new HashMap<>(recursosGenerados);
         try {
             while (JuegoActivity.enEjecucion) {
@@ -98,7 +98,14 @@ public abstract class Edificio implements Runnable {
         } catch (InterruptedException e) {
             // En caso de interrupcion se vuelve al estado anterior, para evitar que se dupliquen recursos
             recursosGenerados = recursosIniciales;
+            ListaHilos.remove(thread);
         }
+    }
+
+    public void reiniciarProduccion(int aldeanosAsignados) {
+        if (thread != null) thread.interrupt();
+        this.aldeanosAsignados = aldeanosAsignados;
+        iniciarProduccion();
     }
 
     public void iniciarProduccion() {

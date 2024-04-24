@@ -10,6 +10,7 @@ import com.tfg.modelos.edificios.Edificio;
 import com.tfg.modelos.enums.EdificiosEnum;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
+import com.tfg.utilidades.ListaHilos;
 
 public final class ControladorAldea {
 
@@ -24,22 +25,9 @@ public final class ControladorAldea {
     public static void finalizarAldea() {
         JuegoActivity.enEjecucion = false;
         // Se interrumpen todos los hilos
-        aldea.getCasetaLeniador().getThread().interrupt();
-        aldea.getThread().interrupt();
-    }
-
-    // --- FUNCIONES PARA OBTENER LOS RECURSOS DE LA ALDEA ---
-    public static synchronized Integer getComida() {
-        return aldea.getRecursos().get(RecursosEnum.COMIDA);
-    }
-
-    public static synchronized Integer getTroncos() {
-        Integer troncos = aldea.getRecursos().get(RecursosEnum.TRONCOS_MADERA);
-        return troncos == null ? 0 : troncos;
-    }
-
-    public static synchronized int getPoblacion() {
-        return aldea.getPoblacion();
+        ListaHilos.interrumpirTodos();
+        /*aldea.getCasetaLeniador().getThread().interrupt();
+        aldea.getThread().interrupt();*/
     }
 
     public static synchronized boolean eliminarAldeanos(int numAldeanos) {
@@ -48,21 +36,5 @@ public final class ControladorAldea {
             return true;
         }
         return false;
-    }
-
-    public static void iniciarPartidaDeCaza(int numAldeanos, int tiempoTotal, TextView textViewPartidaCaza, Button buttonCaza, Context context) {
-        aldea.getCabaniaCaza().iniciarPartidaCaza(numAldeanos, tiempoTotal, textViewPartidaCaza, buttonCaza, context);
-    }
-
-    public static int getCazadoresEnPartida() {
-        return aldea.getCabaniaCaza().getAldeanosAsignados();
-    }
-
-    public static boolean isPartidaCazaActiva() {
-        return aldea.getCabaniaCaza().isPartidaActiva();
-    }
-
-    public static void actualizarElementosUiEnTimerPartidaCaza(TextView textView, Button button, Context context) {
-        aldea.getCabaniaCaza().getTimerPartidaCaza().actualizarElementosUI(textView, button, context);
     }
 }

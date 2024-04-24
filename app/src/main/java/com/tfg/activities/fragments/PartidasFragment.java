@@ -13,11 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tfg.R;
-import com.tfg.controladores.ControladorAldea;
 import com.tfg.modelos.Aldea;
-import com.tfg.modelos.enums.EdificiosEnum;
-
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,9 +91,9 @@ public class PartidasFragment extends Fragment {
         // Mostrar el valor de la seekbar en el textview
         textViewCazadores.setText("Cazadores: " + seekBarCazadores.getProgress());
 
-        if (ControladorAldea.isPartidaCazaActiva()) {
+        if (Aldea.getInstance().getCabaniaCaza().isPartidaActiva()) {
             buttonCaza.setEnabled(false);
-            ControladorAldea.actualizarElementosUiEnTimerPartidaCaza(textViewPartidaCaza, buttonCaza, getActivity());
+            Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().actualizarElementosUI(textViewPartidaCaza, buttonCaza, getActivity());
         }
 
         return view;
@@ -110,7 +106,7 @@ public class PartidasFragment extends Fragment {
 
             if (cazadoresSeleccionados < 1) {
                 Toast.makeText(getActivity(), "Debes seleccionar al menos 1", Toast.LENGTH_SHORT).show();
-            } else if (cazadoresSeleccionados > ControladorAldea.getPoblacion()) {
+            } else if (cazadoresSeleccionados > Aldea.getInstance().getPoblacion()) {
                 Toast.makeText(getActivity(), "No tienes suficientes aldeanos", Toast.LENGTH_SHORT).show();
             } else {
                 int tiempoTotal = 10000;
@@ -119,7 +115,7 @@ public class PartidasFragment extends Fragment {
                 buttonCaza.setEnabled(false);
 
                 // La cabaña de caza y su timer se encargan de actualizar la interfaz
-                ControladorAldea.iniciarPartidaDeCaza(cazadoresSeleccionados, tiempoTotal, textViewPartidaCaza, buttonCaza, getActivity());
+                Aldea.getInstance().getCabaniaCaza().iniciarPartidaCaza(cazadoresSeleccionados, tiempoTotal, textViewPartidaCaza, buttonCaza, getActivity());
             }
         }
     };
@@ -141,4 +137,5 @@ public class PartidasFragment extends Fragment {
 
         }
     };
+
 }

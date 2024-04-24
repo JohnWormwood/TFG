@@ -20,10 +20,6 @@ import com.tfg.controladores.ControladorAldea;
 import com.tfg.databinding.ActivityJuegoBinding;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
-import com.tfg.utilidades.Utilidades;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class JuegoActivity extends AppCompatActivity {
     ActivityJuegoBinding binding;
@@ -58,26 +54,24 @@ public class JuegoActivity extends AppCompatActivity {
 
         // Iniciar el juego
         enEjecucion = true;
-        ejecutarHiloParalelo();
+        ejecutarHiloJuego();
     }
 
-    private void ejecutarHiloParalelo() {
+    private void ejecutarHiloJuego() {
         // Iniciar un hilo secundario para ejecutar el código continuamente
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ControladorAldea.iniciarAldea();
-                while (enEjecucion) {
-                    try {
+                try {
+                    ControladorAldea.iniciarAldea();
+                    while (enEjecucion) {
                         Thread.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        // Actualizar la interfaz al final de cada ciclo
+                        actualizarUI();
                     }
-
-                    // Actualizar la interfaz al final de cada ciclo
-                    actualizarUI();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-
             }
         }).start();
     }
