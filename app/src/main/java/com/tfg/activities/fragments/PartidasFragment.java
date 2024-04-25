@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,7 +66,7 @@ public class PartidasFragment extends Fragment {
     // Componentes de la interfaz
     private SeekBar seekBarCazadores;
     private TextView textViewCazadores, textViewPartidaCaza;
-    private Button buttonCaza;
+    private ImageButton buttonCaza;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

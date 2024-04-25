@@ -1,16 +1,14 @@
 package com.tfg.modelos.edificios;
 
 import android.content.Context;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.tfg.controladores.ControladorAldea;
-import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.TimerPartidaCaza;
 import com.tfg.modelos.interfaces.impl.GeneradorCabaniaCaza;
-import com.tfg.utilidades.Constantes;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +28,7 @@ public class CabaniaCaza extends Edificio {
         generadoresRecursos.add(new GeneradorCabaniaCaza(RecursosEnum.COMIDA, this));
     }
 
-    public void iniciarPartidaCaza(int numAldeanos, int tiempoTotal, TextView textViewPartidaCaza, Button buttonCaza, Context context) {
+    public void iniciarPartidaCaza(int numAldeanos, int tiempoTotal, TextView textViewPartidaCaza, ImageButton buttonCaza, Context context) {
         if (numAldeanos <= aldeanosMaximos) {
             if (ControladorAldea.eliminarAldeanos(numAldeanos)) {
                 partidaActiva = true;

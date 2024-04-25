@@ -3,10 +3,10 @@ package com.tfg.modelos;
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tfg.controladores.ControladorAldea;
 import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.interfaces.IGeneradorRecursos;
@@ -16,14 +16,14 @@ import lombok.Getter;
 public class TimerPartidaCaza extends CountDownTimer {
 
     private TextView textViewPartidaCaza;
-    private Button buttonCaza;
+    private ImageButton buttonCaza;
     private CabaniaCaza cabaniaCaza;
     private Context contextActividad;
 
     @Getter
     private long segundosRestantes;
 
-    public TimerPartidaCaza(long millisInFuture, CabaniaCaza cabaniaCaza, TextView textViewPartidaCaza, Button buttonCaza, Context contextActividad) {
+    public TimerPartidaCaza(long millisInFuture, CabaniaCaza cabaniaCaza, TextView textViewPartidaCaza, ImageButton buttonCaza, Context contextActividad) {
         super(millisInFuture, 1000);
         segundosRestantes = millisInFuture / 1000;
         this.cabaniaCaza = cabaniaCaza;
@@ -51,7 +51,7 @@ public class TimerPartidaCaza extends CountDownTimer {
         textViewPartidaCaza.setText("Partida actual: No hay ninguna partida de caza en curso");
     }
 
-    public void actualizarElementosUI(TextView textViewPartidaCaza, Button buttonCaza, Context contextActividad) {
+    public void actualizarElementosUI(TextView textViewPartidaCaza, ImageButton buttonCaza, Context contextActividad) {
         this.textViewPartidaCaza = textViewPartidaCaza;
         this.buttonCaza = buttonCaza;
         this.contextActividad = contextActividad;

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_redondo"
-    android:backgroundTint="#CD464A26"
+    android:backgroundTint="#32848175"
+    android:backgroundTintMode="add"
     android:orientation="vertical"
     tools:context=".activities.fragments.PartidasFragment">
 
@@ -19,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/fondo_redondo"
-        android:backgroundTint="#5F564F"
+        android:backgroundTint="#32ECD9B8"
+        android:backgroundTintMode="add"
         android:orientation="vertical">
 
         <Space
@@ -32,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="CAZA"
-            android:textColor="#401B12"
+            android:textColor="#2F140D"
             android:textSize="60sp"
             android:textStyle="bold" />
 
@@ -67,23 +69,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/fondo_boton" />
-
-            <Button
+            <ImageButton
                 android:id="@+id/buttonCaza"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:backgroundTint="#00DE6464"
-                android:onClick="buttonCazaOnClick"
-                android:text="Iniciar partida de caza"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#00FFFFFF"
+                android:src="@drawable/fondo_boton"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Iniciar Caza"
                 android:textColor="#000000"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
+
         </FrameLayout>
 
         <Space
