@@ -1,9 +1,8 @@
-package com.tfg.modelos.interfaces.impl;
+package com.tfg.modelos.generadores_recursos.impl;
 
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.enums.RecursosEnum;
-import com.tfg.modelos.interfaces.IGeneradorRecursos;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.Utilidades;
 

@@ -3,33 +3,52 @@ package com.tfg.modelos;
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tfg.eventos.PartidaCazaEventListener;
 import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.enums.RecursosEnum;
-import com.tfg.modelos.interfaces.IGeneradorRecursos;
+import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
 public class TimerPartidaCaza extends CountDownTimer {
 
-    private TextView textViewPartidaCaza;
-    private ImageButton buttonCaza;
     private CabaniaCaza cabaniaCaza;
-    private Context contextActividad;
-
     @Getter
     private long segundosRestantes;
 
-    public TimerPartidaCaza(long millisInFuture, CabaniaCaza cabaniaCaza, TextView textViewPartidaCaza, ImageButton buttonCaza, Context contextActividad) {
+    // Listeners eventos
+    private List<PartidaCazaEventListener> listeners = new ArrayList<>();
+
+    public void addEventListener(PartidaCazaEventListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeEventListener(PartidaCazaEventListener listener) {
+        listeners.remove(listener);
+    }
+
+    public void lanzarEventoOnTick() {
+        for (PartidaCazaEventListener listener : listeners) {
+            listener.onTimerTick();
+        }
+    }
+
+    public void lanzarEventoFinalizarPartida() {
+        for (PartidaCazaEventListener listener : listeners) {
+            listener.onFinalizarPartida();
+        }
+    }
+
+    public TimerPartidaCaza(long millisInFuture, CabaniaCaza cabaniaCaza) {
         super(millisInFuture, 1000);
         segundosRestantes = millisInFuture / 1000;
         this.cabaniaCaza = cabaniaCaza;
-        this.textViewPartidaCaza = textViewPartidaCaza;
-        this.buttonCaza = buttonCaza;
-        this.contextActividad = contextActividad;
     }
 
     @Override
@@ -38,22 +57,14 @@ public class TimerPartidaCaza extends CountDownTimer {
         for (IGeneradorRecursos generadorRecursos : cabaniaCaza.getGeneradoresRecursos()) {
             generadorRecursos.producirRecursos(cabaniaCaza.getRecursosGenerados(), RecursosEnum.COMIDA, cabaniaCaza.getAldeanosAsignados());
         }
-        textViewPartidaCaza.setText("Partida actual: "+ cabaniaCaza.getAldeanosAsignados()+" cazadores, Tiempo restante: "+segundosRestantes+" segundos");
+        lanzarEventoOnTick();
+        //textViewPartidaCaza.setText("Partida actual: "+ cabaniaCaza.getAldeanosAsignados()+" cazadores, Tiempo restante: "+segundosRestantes+" segundos");
     }
 
     @Override
     public void onFinish() {
-        if (cabaniaCaza.getAldeanosMuertosEnPartida() > 0) {
-            Toast.makeText(contextActividad, "Han muerto "+cabaniaCaza.getAldeanosMuertosEnPartida()+" cazadores en esta partida", Toast.LENGTH_LONG).show();
-        }
+        lanzarEventoFinalizarPartida();
         cabaniaCaza.finalizarPartidaCaza();
-        buttonCaza.setEnabled(true);
-        textViewPartidaCaza.setText("Partida actual: No hay ninguna partida de caza en curso");
     }
 
-    public void actualizarElementosUI(TextView textViewPartidaCaza, ImageButton buttonCaza, Context contextActividad) {
-        this.textViewPartidaCaza = textViewPartidaCaza;
-        this.buttonCaza = buttonCaza;
-        this.contextActividad = contextActividad;
-    }
 }

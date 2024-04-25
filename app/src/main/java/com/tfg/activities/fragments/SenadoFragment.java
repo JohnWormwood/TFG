@@ -12,9 +12,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.tfg.R;
-import com.tfg.controladores.ControladorAldea;
 import com.tfg.modelos.Aldea;
-import com.tfg.modelos.enums.EdificiosEnum;
 
 /**
  * A simple {@link Fragment} subclass.

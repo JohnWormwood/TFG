@@ -1,8 +1,6 @@
-package com.tfg.modelos.interfaces;
+package com.tfg.modelos.generadores_recursos;
 
 import com.tfg.controladores.ControladorRecursos;
-import com.tfg.modelos.Aldea;
-import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.enums.RecursosEnum;
 
 import java.util.Map;

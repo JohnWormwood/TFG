@@ -1,5 +1,6 @@
 package com.tfg.activities.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tfg.R;
+import com.tfg.eventos.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
 
 /**
@@ -21,7 +23,7 @@ import com.tfg.modelos.Aldea;
  * Use the {@link PartidasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PartidasFragment extends Fragment {
+public class PartidasFragment extends Fragment implements PartidaCazaEventListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -92,14 +94,18 @@ public class PartidasFragment extends Fragment {
         // Mostrar el valor de la seekbar en el textview
         textViewCazadores.setText("Cazadores: " + seekBarCazadores.getProgress());
 
-        if (Aldea.getInstance().getCabaniaCaza().isPartidaActiva()) {
-            buttonCaza.setEnabled(false);
-            Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().actualizarElementosUI(textViewPartidaCaza, buttonCaza, getActivity());
-        }
-
+        comprobarEstadoBoton();
+        addListener();
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
+    }
+
+    // Manejar el boton
     View.OnClickListener buttonCazaOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -115,28 +121,50 @@ public class PartidasFragment extends Fragment {
                 Toast.makeText(getActivity(), "Partida de caza iniciada con "+cazadoresSeleccionados+" cazadores", Toast.LENGTH_LONG).show();
                 buttonCaza.setEnabled(false);
 
-                // La cabaña de caza y su timer se encargan de actualizar la interfaz
-                Aldea.getInstance().getCabaniaCaza().iniciarPartidaCaza(cazadoresSeleccionados, tiempoTotal, textViewPartidaCaza, buttonCaza, getActivity());
+                Aldea.getInstance().getCabaniaCaza().iniciarPartidaCaza(cazadoresSeleccionados, tiempoTotal);
+                addListener();
             }
         }
     };
 
+    // Manejar la seekbar
     private final SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             // Actualizar el textview con el progreso de la seekbar
             textViewCazadores.setText("Cazadores: " + seekBarCazadores.getProgress());
         }
-
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
 
         }
-
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
 
         }
     };
 
+
+    public void comprobarEstadoBoton() {
+        buttonCaza.setEnabled(!Aldea.getInstance().getCabaniaCaza().isPartidaActiva());
+    }
+
+    // Manejar eventos de la partida de caza
+    private void addListener() {
+        if (Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza() != null)
+            Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().addEventListener(this);
+    }
+    @Override
+    public void onTimerTick() {
+        textViewPartidaCaza.setText("Partida actual: "+ Aldea.getInstance().getCabaniaCaza().getAldeanosAsignados()+" cazadores, Tiempo restante: "+Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().getSegundosRestantes()+" segundos");
+    }
+
+    @Override
+    public void onFinalizarPartida() {
+        if (Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida() > 0) {
+            Toast.makeText(getActivity(), "Han muerto "+Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida()+" cazadores en esta partida", Toast.LENGTH_LONG).show();
+        }
+        buttonCaza.setEnabled(true);
+        textViewPartidaCaza.setText("Partida actual: No hay ninguna partida de caza en curso");
+    }
 }

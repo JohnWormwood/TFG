@@ -2,7 +2,7 @@ package com.tfg.modelos.edificios;
 
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
-import com.tfg.modelos.interfaces.impl.GeneradorEstandar;
+import com.tfg.modelos.generadores_recursos.impl.GeneradorEstandar;
 
 public class CasetaLeniador extends Edificio {
 

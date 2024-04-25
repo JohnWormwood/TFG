@@ -1,14 +1,7 @@
 package com.tfg.controladores;
 
-import android.content.Context;
-import android.widget.Button;
-import android.widget.TextView;
-
 import com.tfg.activities.JuegoActivity;
 import com.tfg.modelos.Aldea;
-import com.tfg.modelos.edificios.Edificio;
-import com.tfg.modelos.enums.EdificiosEnum;
-import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.ListaHilos;
 
@@ -30,7 +23,7 @@ public final class ControladorAldea {
         aldea.getThread().interrupt();*/
     }
 
-    public static synchronized boolean eliminarAldeanos(int numAldeanos) {
+    public static boolean eliminarAldeanos(int numAldeanos) {
         if (aldea.getPoblacion() >= numAldeanos) {
             aldea.setPoblacion(aldea.getPoblacion()-numAldeanos);
             return true;

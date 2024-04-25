@@ -5,7 +5,7 @@ import com.tfg.controladores.ControladorAldea;
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
-import com.tfg.modelos.interfaces.IGeneradorRecursos;
+import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.ListaHilos;
 

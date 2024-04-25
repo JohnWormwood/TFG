@@ -1,7 +1,7 @@
-package com.tfg.modelos.interfaces.impl;
+package com.tfg.modelos.generadores_recursos.impl;
 
 import com.tfg.modelos.enums.RecursosEnum;
-import com.tfg.modelos.interfaces.IGeneradorRecursos;
+import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
 
 
 import lombok.AllArgsConstructor;

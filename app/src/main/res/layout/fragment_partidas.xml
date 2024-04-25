@@ -75,8 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:backgroundTint="#00FFFFFF"
-                android:src="@drawable/fondo_boton"
+                android:background="@drawable/selector_boton"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
