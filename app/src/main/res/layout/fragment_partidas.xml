@@ -76,14 +76,15 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/selector_boton"
-                tools:ignore="SpeakableTextPresentCheck" />
+                tools:ignore="SpeakableTextPresentCheck"
+                android:contentDescription="@string/iniciar_caza" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Iniciar Caza"
+                android:text="@string/iniciar_caza"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -97,7 +98,7 @@
             android:id="@+id/textViewPartidaCaza"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Partida actual: No hay ninguna partida de caza en curso"
+            android:text="@string/texto_partida_caza_inactiva"
             android:textAlignment="center"
             android:textColor="#2E0909"
             android:textSize="14sp" />

@@ -1,6 +1,5 @@
 package com.tfg.activities.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -92,7 +90,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         seekBarCazadores.setMax(maxCazadores);
 
         // Mostrar el valor de la seekbar en el textview
-        textViewCazadores.setText("Cazadores: " + seekBarCazadores.getProgress());
+        textViewCazadores.setText(String.format(getString(R.string.texto_num_cazadores), seekBarCazadores.getProgress()));
 
         comprobarEstadoBoton();
         addListener();
@@ -133,7 +131,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             // Actualizar el textview con el progreso de la seekbar
-            textViewCazadores.setText("Cazadores: " + seekBarCazadores.getProgress());
+            textViewCazadores.setText(String.format(getString(R.string.texto_num_cazadores), progress));
         }
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
@@ -157,7 +155,12 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     }
     @Override
     public void onTimerTick() {
-        textViewPartidaCaza.setText("Partida actual: "+ Aldea.getInstance().getCabaniaCaza().getAldeanosAsignados()+" cazadores, Tiempo restante: "+Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().getSegundosRestantes()+" segundos");
+        String mensaje = getString(R.string.texto_partida_caza);
+        textViewPartidaCaza.setText(String.format(
+                mensaje,
+                Aldea.getInstance().getCabaniaCaza().getAldeanosAsignados(),
+                Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().getSegundosRestantes()
+        ));
     }
 
     @Override
@@ -166,6 +169,6 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
             Toast.makeText(getActivity(), "Han muerto "+Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida()+" cazadores en esta partida", Toast.LENGTH_LONG).show();
         }
         buttonCaza.setEnabled(true);
-        textViewPartidaCaza.setText("Partida actual: No hay ninguna partida de caza en curso");
+        textViewPartidaCaza.setText(getString(R.string.texto_partida_caza_inactiva));
     }
 }

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">TFG</string>
+    <string name="prefs_file">com.tfg.KEY_ARCHIVO_PREFERENCIAS</string>
     <string name="jugar">Jugar</string>
     <string name="opciones">Opciones</string>
     <string name="salir">Salir</string>
@@ -7,5 +8,10 @@
     <string name="partidas">Partidas</string>
     <string name="mercader">Mercader</string>
     <string name="aldea">Aldea</string>
-    <string name="prefs_file">com.tfg.KEY_ARCHIVO_PREFERENCIAS</string>
+
+    <!-- PartidasFragment -->
+    <string name="iniciar_caza">Iniciar caza</string>
+    <string name="texto_partida_caza">Partida actual: %d cazadores, Tiempo restante: %d segundos</string>
+    <string name="texto_partida_caza_inactiva">Partida actual: No hay ninguna partida de caza en curso</string>
+    <string name="texto_num_cazadores">Cazadores: %d</string>
 </resources>

@@ -58,7 +58,6 @@ public class TimerPartidaCaza extends CountDownTimer {
             generadorRecursos.producirRecursos(cabaniaCaza.getRecursosGenerados(), RecursosEnum.COMIDA, cabaniaCaza.getAldeanosAsignados());
         }
         lanzarEventoOnTick();
-        //textViewPartidaCaza.setText("Partida actual: "+ cabaniaCaza.getAldeanosAsignados()+" cazadores, Tiempo restante: "+segundosRestantes+" segundos");
     }
 
     @Override
