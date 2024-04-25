@@ -102,7 +102,8 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
+        if (Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza() != null)
+            Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
     }
 
     // Manejar el boton
