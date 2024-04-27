@@ -81,7 +81,7 @@ public abstract class Edificio implements Runnable {
         }
     }
 
-    private void devolverAldeanos(int aldeanos) {
+    protected void devolverAldeanos(int aldeanos) {
         aldea.setPoblacion(aldea.getPoblacion()+aldeanos);
         aldea.setPoblacionAsignada(aldea.getPoblacionAsignada()-aldeanos);
     }

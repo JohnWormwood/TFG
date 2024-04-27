@@ -90,7 +90,7 @@ public class Aldea implements Runnable {
                 poblacionInicial = poblacion;
                 recursosIniciales = new HashMap<>(recursos);
                 // Aqui se gestiona la logica prinicpal del juego
-                Thread.sleep(1000);
+                Thread.sleep(5000);
                 generarAldeano();
             }
         } catch (InterruptedException e) {

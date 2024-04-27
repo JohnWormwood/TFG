@@ -40,7 +40,7 @@ public class CabaniaCaza extends Edificio {
 
     public void finalizarPartidaCaza() {
         transferirRecursoAldea(RecursosEnum.COMIDA);
-        aldea.setPoblacion(aldea.getPoblacion()+aldeanosAsignados);
+        devolverAldeanos(aldeanosAsignados);
         aldeanosAsignados = 0;
         aldeanosMuertosEnPartida = 0;
         partidaActiva = false;

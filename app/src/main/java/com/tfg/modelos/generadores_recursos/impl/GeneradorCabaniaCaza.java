@@ -1,6 +1,7 @@
 package com.tfg.modelos.generadores_recursos.impl;
 
 import com.tfg.controladores.ControladorRecursos;
+import com.tfg.modelos.Aldea;
 import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
@@ -19,7 +20,7 @@ public class GeneradorCabaniaCaza extends GeneradorEstandar {
 
     @Override
     public void producirRecursos(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int aldeanosAsignados) {
-        int comidaProducida = Utilidades.generarIntRandom(1, aldeanosAsignados > 1 ? Math.abs(aldeanosAsignados / 2) : 1);
+        int comidaProducida = Utilidades.generarIntRandom(1, aldeanosAsignados > 1 ? Math.abs(aldeanosAsignados / 20) : 1);
         if (!muertesAleatorias() && cabaniaCaza.getAldeanosAsignados() > 0) {
             ControladorRecursos.agregarRecurso(recursos, this.recurso, comidaProducida);
             System.out.println("Generado +"+comidaProducida+" de comida");
@@ -34,6 +35,7 @@ public class GeneradorCabaniaCaza extends GeneradorEstandar {
 
         if (random <= probabilidadMuerte && cabaniaCaza.getAldeanosAsignados() > 0) {
             cabaniaCaza.setAldeanosAsignados(cabaniaCaza.getAldeanosAsignados()-1);
+            Aldea.getInstance().setPoblacionAsignada(Aldea.getInstance().getPoblacionAsignada()-1);
             cabaniaCaza.setAldeanosMuertosEnPartida(cabaniaCaza.getAldeanosMuertosEnPartida()+1);
             return true;
         }
