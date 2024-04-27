@@ -21,7 +21,8 @@
             android:id="@+id/frameLayoutJugar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginVertical="10dp">
 
 
             <ImageButton
@@ -53,7 +54,8 @@
             android:id="@+id/frameLayoutOpciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginVertical="10dp">
 
             <ImageButton
                 android:id="@+id/buttonOpciones"
@@ -83,7 +85,8 @@
             android:id="@+id/frameLayoutSalir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginVertical="10dp">
 
             <ImageButton
                 android:id="@+id/buttonSalir"
@@ -121,15 +124,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.063" />
-
-    <Button
-        android:id="@+id/buttonCerrarSesion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cerrar Sesion"
-        app:layout_constraintBottom_toTopOf="@+id/LinearLayoutBotones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEmail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

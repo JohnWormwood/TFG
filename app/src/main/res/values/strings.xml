@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TFG</string>
     <string name="prefs_file">com.tfg.KEY_ARCHIVO_PREFERENCIAS</string>
+
+    <!-- General -->
     <string name="jugar">Jugar</string>
     <string name="opciones">Opciones</string>
     <string name="salir">Salir</string>
@@ -8,10 +10,39 @@
     <string name="partidas">Partidas</string>
     <string name="mercader">Mercader</string>
     <string name="aldea">Aldea</string>
+    <string name="int_format">%d</string>
+    <string name="nivel">NIVEL</string>
+
+    <!-- Sesion -->
+    <string name="iniciar_sesion">Iniciar Sesión</string>
+    <string name="registrarse">Registrase</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+
+    <!-- Tipos aldeanos -->
+    <string name="leniadores">Leñadores</string>
+    <string name="cazadores">Cazadores</string>
+    <string name="carpinteros">Carpinteros</string>
+
+
+    <!-- Edificios -->
+    <string name="cabania_caza">Cabaña de Cazadores</string>
+    <string name="caseta_leniador">Caseta del Leñador</string>
+    <string name="carpinteria">Carpinteria</string>
+    <string name="granja">Granja</string>
+    <string name="mina">Mina</string>
 
     <!-- PartidasFragment -->
+    <string name="caza">CAZA</string>
     <string name="iniciar_caza">Iniciar caza</string>
     <string name="texto_partida_caza">Partida actual: %d cazadores, Tiempo restante: %d segundos</string>
     <string name="texto_partida_caza_inactiva">Partida actual: No hay ninguna partida de caza en curso</string>
     <string name="texto_num_cazadores">Cazadores: %d</string>
+
+    <!-- SenadoFragment -->
+    <string name="mejorar">MEJORAR</string>
+    <string name="edificio_especial">Edificio Especial</string>
+    <string name="mejora_senado">Mejora el senado para desbloquear nuevos edificios</string>
+    <string name="eniva_cazdores">Envia cazadores en el menu Partidas</string>
+
+
 </resources>

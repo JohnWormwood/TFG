@@ -23,9 +23,10 @@ public final class ControladorAldea {
         aldea.getThread().interrupt();*/
     }
 
-    public static boolean eliminarAldeanos(int numAldeanos) {
+    public static boolean asignarAldeano(int numAldeanos) {
         if (aldea.getPoblacion() >= numAldeanos) {
             aldea.setPoblacion(aldea.getPoblacion()-numAldeanos);
+            aldea.setPoblacionAsignada(aldea.getPoblacionAsignada()+numAldeanos);
             return true;
         }
         return false;

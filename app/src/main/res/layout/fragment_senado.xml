@@ -11,28 +11,29 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp">
+        android:layout_margin="5dp"
+        tools:ignore="UselessParent" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutSenado"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/fondo_redondo"
-                android:backgroundTint="#E978776E"
+                android:background="@drawable/fondo_prueba"
                 android:backgroundTintMode="add"
-                app:layout_constraintBottom_toTopOf="@+id/btnMejorarCaza"
-                app:layout_constraintTop_toTopOf="@+id/btnMejorarCaza">
+                app:layout_constraintBottom_toTopOf="@+id/buttonMejorarCabaniaCaza"
+                app:layout_constraintTop_toTopOf="@+id/buttonMejorarCabaniaCaza">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Senado"
+                    android:text="@string/senado"
                     android:textSize="34sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +46,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NIVEL"
+                    android:text="@string/nivel"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +59,8 @@
                     android:id="@+id/nivelSenado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:paddingLeft="5dp"
+                    android:text="@string/int_format"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +78,7 @@
                     android:backgroundTint="#D5B339"
                     android:clickable="true"
                     android:padding="10dp"
-                    android:text="MEJORAR"
+                    android:text="@string/mejorar"
                     android:textAlignment="center"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -91,6 +93,7 @@
                     android:layout_height="25dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="64dp"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/ico_tronco"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -99,7 +102,7 @@
                     android:id="@+id/PrecioTroncosSenado"
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
-                    android:text="20"
+                    android:text="@string/int_format"
                     android:textAlignment="center"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -115,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Edificio Especial"
+                    android:text="@string/edificio_especial"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -129,7 +132,7 @@
                     android:layout_height="32dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Mejora el senado para desbloquear nuevos edificios"
+                    android:text="@string/mejora_senado"
                     android:textAlignment="textEnd"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -142,21 +145,21 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutCasetaLeniador"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/fondo_redondo"
-                android:backgroundTint="#E978776E"
+                android:background="@drawable/fondo_prueba"
                 android:backgroundTintMode="add"
-                app:layout_constraintBottom_toTopOf="@+id/btnMejorarCaza"
-                app:layout_constraintTop_toTopOf="@+id/btnMejorarCaza">
+                app:layout_constraintBottom_toTopOf="@+id/buttonMejorarCabaniaCaza"
+                app:layout_constraintTop_toTopOf="@+id/buttonMejorarCabaniaCaza">
 
                 <TextView
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Caseta del Leñador"
+                    android:text="@string/caseta_leniador"
                     android:textSize="26sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -170,7 +173,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NIVEL"
+                    android:text="@string/nivel"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -183,7 +186,8 @@
                     android:id="@+id/textViewNivelCasetaLeniador"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:paddingLeft="5dp"
+                    android:text="@string/int_format"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +197,7 @@
                     app:layout_constraintVertical_bias="0.15" />
 
                 <Button
-                    android:id="@+id/btnMejorarTroncos"
+                    android:id="@+id/btnMejorarCasetaLeniador"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="83dp"
                     android:layout_height="50dp"
@@ -202,7 +206,7 @@
                     android:backgroundTint="#D5B339"
                     android:clickable="true"
                     android:padding="10dp"
-                    android:text="MEJORAR"
+                    android:text="@string/mejorar"
                     android:textAlignment="center"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -216,6 +220,7 @@
                     android:layout_height="25dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="64dp"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/ico_tronco"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -224,7 +229,7 @@
                     android:id="@+id/PrecioTroncosLeniador"
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
-                    android:text="20"
+                    android:text="@string/int_format"
                     android:textAlignment="center"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -255,7 +260,7 @@
                     android:layout_marginTop="51dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="64dp"
-                    android:text="Leñadores"
+                    android:text="@string/leniadores"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -271,7 +276,7 @@
                     android:layout_marginTop="76dp"
                     android:layout_marginEnd="17dp"
                     android:layout_marginBottom="39dp"
-                    android:text="0"
+                    android:text="@string/int_format"
                     android:textAlignment="textEnd"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -284,20 +289,20 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutCabaniaCaza"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/fondo_redondo"
-                android:backgroundTint="#E978776E"
+                android:background="@drawable/fondo_prueba"
                 android:backgroundTintMode="add"
-                app:layout_constraintBottom_toTopOf="@+id/btnMejorarCaza"
-                app:layout_constraintTop_toTopOf="@+id/btnMejorarCaza">
+                app:layout_constraintBottom_toTopOf="@+id/buttonMejorarCabaniaCaza"
+                app:layout_constraintTop_toTopOf="@+id/buttonMejorarCabaniaCaza">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cabaña de Cazadores"
+                    android:text="@string/cabania_caza"
                     android:textSize="26sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -310,7 +315,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NIVEL"
+                    android:text="@string/nivel"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -323,7 +328,8 @@
                     android:id="@+id/textViewNivelCabaniaCaza"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:paddingLeft="5dp"
+                    android:text="@string/int_format"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -333,7 +339,7 @@
                     app:layout_constraintVertical_bias="0.15" />
 
                 <Button
-                    android:id="@+id/btnMejorarCaza"
+                    android:id="@+id/buttonMejorarCabaniaCaza"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="83dp"
                     android:layout_height="50dp"
@@ -342,7 +348,7 @@
                     android:backgroundTint="#D5B339"
                     android:clickable="true"
                     android:padding="10dp"
-                    android:text="MEJORAR"
+                    android:text="@string/mejorar"
                     android:textAlignment="center"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -355,6 +361,7 @@
                     android:layout_height="25dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="64dp"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/ico_tronco"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -363,7 +370,7 @@
                     android:id="@+id/PrecioTroncosCaza"
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
-                    android:text="20"
+                    android:text="@string/int_format"
                     android:textAlignment="center"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -381,7 +388,7 @@
                     android:layout_marginTop="51dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="64dp"
-                    android:text="Edificio Especial"
+                    android:text="@string/edificio_especial"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -397,7 +404,7 @@
                     android:layout_marginTop="92dp"
                     android:layout_marginEnd="25dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Envia cazadores en el menu Partidas"
+                    android:text="@string/eniva_cazdores"
                     android:textAlignment="textEnd"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -407,6 +414,149 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutCarpinteria"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/fondo_prueba"
+                android:backgroundTintMode="add"
+                app:layout_constraintBottom_toTopOf="@+id/buttonMejorarCabaniaCaza"
+                app:layout_constraintTop_toTopOf="@+id/buttonMejorarCabaniaCaza">
+
+                <TextView
+                    android:id="@+id/textViewCarpinteria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/carpinteria"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.055" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nivel"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.043"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.135" />
+
+                <TextView
+                    android:id="@+id/textViewNivelCarpinteria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="@string/int_format"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.175"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.15" />
+
+                <Button
+                    android:id="@+id/btnMejorarCarpinteria"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="83dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="84dp"
+                    android:background="@null"
+                    android:backgroundTint="#D5B339"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:text="@string/mejorar"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.048"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="64dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ico_tronco"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/PrecioTroncosCarpinteria"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/int_format"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.111"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.488" />
+
+                <SeekBar
+                    android:id="@+id/seekBarCarpinteros"
+                    style="@style/Widget.AppCompat.SeekBar"
+                    android:layout_width="250dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.866" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="51dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="64dp"
+                    android:text="@string/carpinteros"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.963"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textViewCarpinteros"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="76dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginBottom="39dp"
+                    android:text="@string/int_format"
+                    android:textAlignment="textEnd"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.97"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
 

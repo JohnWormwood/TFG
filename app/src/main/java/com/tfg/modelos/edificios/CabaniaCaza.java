@@ -1,18 +1,11 @@
 package com.tfg.modelos.edificios;
 
-import android.content.Context;
-import android.widget.Button;
-import android.widget.TextView;
-
 import com.tfg.controladores.ControladorAldea;
-import com.tfg.eventos.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.TimerPartidaCaza;
 import com.tfg.modelos.generadores_recursos.impl.GeneradorCabaniaCaza;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.tfg.utilidades.Constantes;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,11 +23,12 @@ public class CabaniaCaza extends Edificio {
         timerPartidaCaza = null;
         recursosGenerados.put(RecursosEnum.COMIDA, 0);
         generadoresRecursos.add(new GeneradorCabaniaCaza(RecursosEnum.COMIDA, this));
+        preciosMejoras = Constantes.CabaniaCaza.PRECIOS_MEJORAS;
     }
 
     public void iniciarPartidaCaza(int numAldeanos, int tiempoTotal) {
         if (numAldeanos <= aldeanosMaximos) {
-            if (ControladorAldea.eliminarAldeanos(numAldeanos)) {
+            if (ControladorAldea.asignarAldeano(numAldeanos)) {
                 partidaActiva = true;
                 aldeanosAsignados = numAldeanos;
                 // El timer se encarga de llamar a producir recursos cada segundo

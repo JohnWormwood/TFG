@@ -5,15 +5,109 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.OpcionesActivity">
+    tools:context=".activities.OpcionesActivity"
+    android:background="@drawable/fondo_juego" >
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
+        android:id="@+id/LinearLayoutBotones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Opciones: \n\tVolumen\n\tCambiar nombre y contraseña\n\tOtros ajustes que veamos necesarios"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/frameLayoutJugar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="10dp">
+
+
+            <ImageButton
+                android:id="@+id/buttonJugar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                app:srcCompat="@drawable/fondo_boton"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <TextView
+                android:id="@+id/textViewJugar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/unifrakturmaguntia"
+                android:paddingBottom="10dp"
+                android:text="Sonido"
+                android:textAlignment="center"
+                android:textColor="#431E12"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayoutOpciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="10dp">
+
+            <ImageButton
+                android:id="@+id/buttonOpciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                app:srcCompat="@drawable/fondo_boton"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <TextView
+                android:id="@+id/textViewOpciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/unifrakturmaguntia"
+                android:paddingBottom="10dp"
+                android:text="Datos personales"
+                android:textAlignment="center"
+                android:textColor="#431E12"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayoutBotones"
+        app:layout_constraintVertical_bias="0.851">
+
+        <ImageButton
+            android:id="@+id/buttonCaza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/selector_boton"
+            android:onClick="buttonCerrarSesionOnClick"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
+            android:text="@string/cerrar_sesion"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

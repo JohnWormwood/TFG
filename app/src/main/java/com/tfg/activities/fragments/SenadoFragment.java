@@ -2,6 +2,7 @@ package com.tfg.activities.fragments;
 
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tfg.R;
 import com.tfg.modelos.Aldea;
@@ -64,8 +66,11 @@ public class SenadoFragment extends Fragment {
 
     // Componentes de la interfaz
     private SeekBar seekBarLeniadores;
-    private TextView textViewLeniadores, textViewNivelCasetaLeniador, textViewNivelSenado;
-    private Button buttonMejorarSenado;
+    private TextView textViewLeniadores, textViewNivelCasetaLeniador, textViewNivelSenado,
+            textViewNivelCabaniaCaza;
+    private Button buttonMejorarSenado, buttonMejoraraCabaniaCaza;
+
+    private ConstraintLayout layoutCarpinteria;
 
     private Aldea aldea = Aldea.getInstance();
 
@@ -74,40 +79,34 @@ public class SenadoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_senado, container, false);
-
-        // Inicializar componentes de la interfaz
-        seekBarLeniadores = view.findViewById(R.id.seekBarLeniadores);
-        textViewLeniadores = view.findViewById(R.id.textViewLeniadores);
-        textViewNivelCasetaLeniador = view.findViewById(R.id.textViewNivelCasetaLeniador);
-        textViewNivelSenado = view.findViewById(R.id.nivelSenado);
-        buttonMejorarSenado = view.findViewById(R.id.btnMejorarSenado);
-
-        // Listeners
-        seekBarLeniadores.setOnSeekBarChangeListener(seekBarChangeListener);
-        buttonMejorarSenado.setOnClickListener(buttonMejorarSenadoOnClick);
-
-        // Establecer el minimo y el maximo de la seekbar
-        int maxLeniadores = aldea.getCasetaLeniador().getAldeanosMaximos();
-        seekBarLeniadores.setProgress(aldea.getCasetaLeniador().getAldeanosAsignados());
-        seekBarLeniadores.setMin(0);
-        seekBarLeniadores.setMax(maxLeniadores);
-        textViewLeniadores.setText(String.valueOf(seekBarLeniadores.getProgress()));
-        textViewNivelCasetaLeniador.setText(String.valueOf(aldea.getCasetaLeniador().getNivel()));
-
-        //senado
-        textViewNivelSenado.setText(String.valueOf(aldea.getNivel()));
-
+        configInicial(view);
         return view;
     }
 
+    // --- LISTENERS ---
     public final View.OnClickListener buttonMejorarSenadoOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            aldea.setNivel(aldea.getNivel()+1);
-            textViewNivelSenado.setText(String.valueOf(aldea.getNivel()));
+            if (aldea.aumentarNivel()) {
+                textViewNivelCabaniaCaza.setText(String.valueOf(aldea.getNivel()));
+                layoutCarpinteria.setVisibility(View.VISIBLE);
+            } else {
+
+                Toast.makeText(getActivity(), "No tienes suficientes recursos", Toast.LENGTH_SHORT).show();
+            }
         }
     };
 
+    public final View.OnClickListener buttonMejorarCabaniaCazaOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (aldea.getCabaniaCaza().aumentarNivel()) {
+                textViewNivelCabaniaCaza.setText(String.valueOf(aldea.getCabaniaCaza().getNivel()));
+            } else {
+                Toast.makeText(getActivity(), "No tienes suficientes recursos", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     private final SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
@@ -125,4 +124,52 @@ public class SenadoFragment extends Fragment {
             aldea.getCasetaLeniador().modificarAldeanosAsignados(seekBar.getProgress());
         }
     };
+
+    private void configInicial(View view) {
+        inicializarComponentes(view);
+        establecerVisibilidadLayouts();
+        cargarListeners();
+        configurarSeekbar();
+        cargarValoresInicialesTextViews();
+    }
+
+    private void inicializarComponentes(View view) {
+        // Layouts
+        layoutCarpinteria = view.findViewById(R.id.layoutCarpinteria);
+        // Inicializar componentes de la interfaz
+        seekBarLeniadores = view.findViewById(R.id.seekBarLeniadores);
+        textViewLeniadores = view.findViewById(R.id.textViewLeniadores);
+        textViewNivelCasetaLeniador = view.findViewById(R.id.textViewNivelCasetaLeniador);
+        textViewNivelSenado = view.findViewById(R.id.nivelSenado);
+        textViewNivelCabaniaCaza = view.findViewById(R.id.textViewNivelCabaniaCaza);
+        buttonMejorarSenado = view.findViewById(R.id.btnMejorarSenado);
+        buttonMejoraraCabaniaCaza = view.findViewById(R.id.buttonMejorarCabaniaCaza);
+    }
+
+    private void establecerVisibilidadLayouts() {
+        layoutCarpinteria.setVisibility(View.GONE);
+    }
+
+    private void cargarListeners() {
+        seekBarLeniadores.setOnSeekBarChangeListener(seekBarChangeListener);
+        buttonMejorarSenado.setOnClickListener(buttonMejorarSenadoOnClick);
+        buttonMejoraraCabaniaCaza.setOnClickListener(buttonMejorarCabaniaCazaOnClick);
+    }
+    private void configurarSeekbar() {
+        // Establecer el minimo y el maximo de la seekbar
+        int maxLeniadores = aldea.getCasetaLeniador().getAldeanosMaximos();
+        seekBarLeniadores.setProgress(aldea.getCasetaLeniador().getAldeanosAsignados());
+        seekBarLeniadores.setMin(0);
+        seekBarLeniadores.setMax(maxLeniadores);
+    }
+
+    private void cargarValoresInicialesTextViews() {
+        // Senado
+        textViewNivelSenado.setText(String.valueOf(aldea.getNivel()));
+        // Caseta leniador
+        textViewLeniadores.setText(String.valueOf(seekBarLeniadores.getProgress()));
+        textViewNivelCasetaLeniador.setText(String.valueOf(aldea.getCasetaLeniador().getNivel()));
+        // Cabania caza
+        textViewNivelCabaniaCaza.setText(String.valueOf(aldea.getCabaniaCaza().getNivel()));
+    }
 }

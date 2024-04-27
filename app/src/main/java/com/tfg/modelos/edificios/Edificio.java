@@ -4,6 +4,7 @@ import com.tfg.activities.JuegoActivity;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.Aldea;
+import com.tfg.modelos.PrecioMejora;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
 import com.tfg.utilidades.Constantes;
@@ -32,6 +33,7 @@ public abstract class Edificio implements Runnable {
     protected Thread thread;
     protected Map<RecursosEnum, Integer> recursosGenerados;
     protected List<IGeneradorRecursos> generadoresRecursos;
+    protected List<PrecioMejora> preciosMejoras;
 
     public Edificio(int aldeanosAsignados, Aldea aldea) {
         this.nivel = Constantes.NIVEL_INICIAL;
@@ -42,12 +44,14 @@ public abstract class Edificio implements Runnable {
 
         generadoresRecursos = new ArrayList<>();
         setMaximoAldeanosSegunNivel();
+
+        preciosMejoras = new ArrayList<>();
     }
 
     protected void setMaximoAldeanosSegunNivel() throws IllegalArgumentException {
         // TODO Capturar la excepcion donde se llame la funcion
         if (nivel <= Constantes.Edificio.NIVEL_MAXIMO)
-            aldeanosMaximos += Constantes.Edificio.AUMENTO_MAX_CAZADORES_POR_NIVEL;
+            aldeanosMaximos += Constantes.Edificio.AUMENTO_MAX_ALDEANOS_POR_NIVEL;
         else
             throw new IllegalArgumentException(nivel+" es mayor al nivel maximo permitido ("+Constantes.Edificio.NIVEL_MAXIMO+")");
     }
@@ -70,7 +74,7 @@ public abstract class Edificio implements Runnable {
                 reiniciarProduccion(aldeanosAsignados);
             } else if (aldeanosAsignados > this.aldeanosAsignados) {
                 diferenciaAldeanos = aldeanosAsignados - this.aldeanosAsignados;
-                if (ControladorAldea.eliminarAldeanos(diferenciaAldeanos)) {
+                if (ControladorAldea.asignarAldeano(diferenciaAldeanos)) {
                     reiniciarProduccion(aldeanosAsignados);
                 }
             }
@@ -120,10 +124,27 @@ public abstract class Edificio implements Runnable {
         }
     }
 
-    public void aumentarNivel() {
-        if (nivel < Constantes.Edificio.NIVEL_MAXIMO) {
+    public boolean aumentarNivel() {
+        int proximoNivel = nivel+1;
+        if (puedeSubirDeNivel(preciosMejoras.get(proximoNivel-2))) {
             nivel++;
             setMaximoAldeanosSegunNivel();
+            return true;
         }
+        return false;
+    }
+
+    private synchronized boolean puedeSubirDeNivel(PrecioMejora precio) {
+        Map<RecursosEnum, Integer> recursosInicialesAldea = new HashMap<>(aldea.getRecursos());
+        for (Map.Entry<RecursosEnum, Integer> entry : precio.getRecursos().entrySet()) {
+            Integer cantidadAldea = aldea.getRecursos().get(entry.getKey());
+            if (cantidadAldea != null && cantidadAldea < entry.getValue()) {
+                aldea.setRecursos(recursosInicialesAldea);
+                return false;
+            } else {
+                ControladorRecursos.consumirRecurso(aldea.getRecursos(), entry.getKey(), entry.getValue());
+            }
+        }
+        return true;
     }
 }
