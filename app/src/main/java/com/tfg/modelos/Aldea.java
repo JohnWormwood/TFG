@@ -11,6 +11,7 @@ import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.ListaHilos;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class Aldea implements Runnable {
     private CasetaLeniador casetaLeniador;
     private Granja granja;
     private Mina mina;
-    private List<PrecioMejora> preciosMejoras = Constantes.Aldea.PRECIOS_MEJORAS;
+    private List<PrecioMejora> preciosMejoras;
 
     private Aldea() {
         recursos = new HashMap<>();
@@ -45,6 +46,11 @@ public class Aldea implements Runnable {
         // Edificios
         cabaniaCaza = new CabaniaCaza(0, this);
         casetaLeniador = new CasetaLeniador(0, this);
+        carpinteria = new Carpinteria(0, this);
+        granja = new Granja(0, this);
+        mina = new Mina(0, this);
+
+        preciosMejoras = new ArrayList<>();
 
         // Recursos
         recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);

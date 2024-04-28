@@ -18,6 +18,15 @@
     <string name="registrarse">Registrase</string>
     <string name="cerrar_sesion">Cerrar Sesión</string>
 
+    <!-- Json -->
+    <string name="fichero_mejoras_json">mejoras_edificios.json</string>
+    <string name="senado_nodo_json">senado</string>
+    <string name="cabania_caza_nodo_json">cabania_caza</string>
+    <string name="caseta_leniador_nodo_json">caseta_leniador</string>
+    <string name="carpinteria_nodo_json">carpinteria</string>
+    <string name="granja_nodo_json">granja</string>
+    <string name="mina_nodo_json">mina</string>
+
     <!-- Tipos aldeanos -->
     <string name="leniadores">Leñadores</string>
     <string name="cazadores">Cazadores</string>
@@ -42,7 +51,7 @@
     <string name="mejorar">MEJORAR</string>
     <string name="edificio_especial">Edificio Especial</string>
     <string name="mejora_senado">Mejora el senado para desbloquear nuevos edificios</string>
-    <string name="eniva_cazdores">Envia cazadores en el menu Partidas</string>
+    <string name="eniva_cazadores">Envia cazadores en el menu Partidas</string>
 
 
 </resources>

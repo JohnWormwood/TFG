@@ -59,4 +59,7 @@ dependencies {
     // Gifs
     implementation("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+
+    // Jackson
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.17.0")
 }

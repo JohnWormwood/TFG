@@ -32,7 +32,7 @@
                 android:background="#00000000"
                 android:contentDescription="@string/jugar"
                 android:onClick="buttonJugarOnClick"
-                app:srcCompat="@drawable/fondo_boton"
+                app:srcCompat="@drawable/boton"
                 tools:ignore="DuplicateSpeakableTextCheck" />
 
             <TextView
@@ -64,7 +64,7 @@
                 android:background="#00000000"
                 android:contentDescription="@string/opciones"
                 android:onClick="buttonOpcionesOnClick"
-                app:srcCompat="@drawable/fondo_boton"
+                app:srcCompat="@drawable/boton"
                 tools:ignore="DuplicateSpeakableTextCheck" />
 
             <TextView
@@ -95,7 +95,7 @@
                 android:background="#00000000"
                 android:contentDescription="@string/salir"
                 android:onClick="buttonSalirOnClick"
-                app:srcCompat="@drawable/fondo_boton"
+                app:srcCompat="@drawable/boton"
                 tools:ignore="DuplicateSpeakableTextCheck" />
 
             <TextView

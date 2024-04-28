@@ -25,7 +25,7 @@
                 android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/fondo_prueba"
+                android:background="@drawable/fondo_menu_1"
                 android:backgroundTintMode="add"
                 app:layout_constraintBottom_toTopOf="@+id/buttonMejorarCabaniaCaza"
                 app:layout_constraintTop_toTopOf="@+id/buttonMejorarCabaniaCaza">
@@ -99,7 +99,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/PrecioTroncosSenado"
+                    android:id="@+id/textViewPrecioTroncosSenado"
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:text="@string/int_format"
@@ -150,7 +150,7 @@
                 android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/fondo_prueba"
+                android:background="@drawable/fondo_menu_1"
                 android:backgroundTintMode="add"
                 app:layout_constraintBottom_toTopOf="@+id/buttonMejorarCabaniaCaza"
                 app:layout_constraintTop_toTopOf="@+id/buttonMejorarCabaniaCaza">
@@ -226,7 +226,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/PrecioTroncosLeniador"
+                    android:id="@+id/textViewPrecioTroncosLeniador"
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:text="@string/int_format"
@@ -294,7 +294,7 @@
                 android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/fondo_prueba"
+                android:background="@drawable/fondo_menu_1"
                 android:backgroundTintMode="add"
                 app:layout_constraintBottom_toTopOf="@+id/buttonMejorarCabaniaCaza"
                 app:layout_constraintTop_toTopOf="@+id/buttonMejorarCabaniaCaza">
@@ -367,7 +367,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/PrecioTroncosCaza"
+                    android:id="@+id/textViewPrecioTroncosCaza"
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:text="@string/int_format"
@@ -404,7 +404,7 @@
                     android:layout_marginTop="92dp"
                     android:layout_marginEnd="25dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/eniva_cazdores"
+                    android:text="@string/eniva_cazadores"
                     android:textAlignment="textEnd"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -420,7 +420,7 @@
                 android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/fondo_prueba"
+                android:background="@drawable/fondo_menu_1"
                 android:backgroundTintMode="add"
                 app:layout_constraintBottom_toTopOf="@+id/buttonMejorarCabaniaCaza"
                 app:layout_constraintTop_toTopOf="@+id/buttonMejorarCabaniaCaza">
@@ -496,7 +496,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/PrecioTroncosCarpinteria"
+                    android:id="@+id/textViewPrecioTroncosCarpinteria"
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:text="@string/int_format"

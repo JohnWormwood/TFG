@@ -3,19 +3,19 @@
 
     <item
         android:id="@+id/aldea"
-        android:icon="@drawable/fondo_boton_senado"
+        android:icon="@drawable/boton_senado"
         android:title="" />
     <item
         android:id="@+id/mercader"
-        android:icon="@drawable/fondo_boton_senado"
+        android:icon="@drawable/boton_senado"
         android:title="" />
     <item
         android:id="@+id/senado"
-        android:icon="@drawable/fondo_boton_senado"
+        android:icon="@drawable/boton_senado"
         android:title="" />
     <item
         android:id="@+id/partidas"
-        android:icon="@drawable/fondo_boton_senado"
+        android:icon="@drawable/boton_senado"
         android:title="" />
 
 </menu>

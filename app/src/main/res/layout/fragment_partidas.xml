@@ -18,7 +18,7 @@
         android:id="@+id/linearLayoutCaza"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/fondo_prueba"
+        android:background="@drawable/fondo_menu_1"
         android:backgroundTintMode="add"
         android:orientation="vertical">
 

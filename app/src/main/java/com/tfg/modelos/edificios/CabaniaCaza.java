@@ -23,7 +23,6 @@ public class CabaniaCaza extends Edificio {
         timerPartidaCaza = null;
         recursosGenerados.put(RecursosEnum.COMIDA, 0);
         generadoresRecursos.add(new GeneradorCabaniaCaza(RecursosEnum.COMIDA, this));
-        preciosMejoras = Constantes.CabaniaCaza.PRECIOS_MEJORAS;
     }
 
     public void iniciarPartidaCaza(int numAldeanos, int tiempoTotal) {

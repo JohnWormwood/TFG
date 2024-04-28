@@ -2,8 +2,12 @@ package com.tfg.controladores;
 
 import com.tfg.activities.JuegoActivity;
 import com.tfg.modelos.Aldea;
+import com.tfg.modelos.edificios.Edificio;
+import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.ListaHilos;
+
+import java.util.Map;
 
 public final class ControladorAldea {
 
@@ -30,5 +34,13 @@ public final class ControladorAldea {
             return true;
         }
         return false;
+    }
+
+    public static Map<RecursosEnum, Integer> getPreciosMejoraEdificio(Edificio edificio) {
+        return edificio.getPreciosMejoras().get(edificio.getNivel()-1).getRecursos();
+    }
+
+    public static Map<RecursosEnum, Integer> getPreciosMejoraAldea() {
+        return aldea.getPreciosMejoras().get(aldea.getNivel()-1).getRecursos();
     }
 }

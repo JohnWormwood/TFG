@@ -3,6 +3,7 @@ package com.tfg.activities;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -18,8 +19,12 @@ import com.tfg.activities.fragments.PartidasFragment;
 import com.tfg.activities.fragments.SenadoFragment;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.databinding.ActivityJuegoBinding;
+import com.tfg.json.GestorJSON;
+import com.tfg.json.MejorasEdificiosJSON;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
+
+import java.io.IOException;
 
 public class JuegoActivity extends AppCompatActivity {
     ActivityJuegoBinding binding;
@@ -31,6 +36,8 @@ public class JuegoActivity extends AppCompatActivity {
     private TextView textViewComida;
     private TextView textViewTroncos;
 
+    private Aldea aldea = Aldea.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,19 +45,11 @@ public class JuegoActivity extends AppCompatActivity {
         binding = ActivityJuegoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Configurar listeners
-        binding.menuInferior.setOnItemSelectedListener(itemSelectedListener);
-
-        // Inicializar los componentes de la interfaz
-        textViewAldeanos = findViewById(R.id.textViewAldeanos);
-        textViewComida = findViewById(R.id.textViewComida);
-        textViewTroncos = findViewById(R.id.textViewTroncos);
-
         // Cargar el fragment segun el item del menu
         itemSelectedListener.onNavigationItemSelected(binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
         binding.menuInferior.setItemIconTintList(null); // Esto es para que los iconos se vean bien
 
-        cargarGifs();
+        configInicial();
 
         // Iniciar el juego
         enEjecucion = true;
@@ -116,6 +115,52 @@ public class JuegoActivity extends AppCompatActivity {
 
         return true;
     };
+
+    private void configInicial() {
+        inicializarComponentes();
+        cargarListeners();
+        cargarDatos();
+        cargarGifs();
+    }
+
+    private void inicializarComponentes() {
+        // Inicializar los componentes de la interfaz
+        textViewAldeanos = findViewById(R.id.textViewAldeanos);
+        textViewComida = findViewById(R.id.textViewComida);
+        textViewTroncos = findViewById(R.id.textViewTroncos);
+    }
+
+    private void cargarListeners() {
+        // Configurar listeners
+        binding.menuInferior.setOnItemSelectedListener(itemSelectedListener);
+    }
+
+    private void cargarDatos() {
+        GestorJSON gestorJSON = new GestorJSON();
+        try {
+            String json = gestorJSON.cargarJsonDesdeAssets(getString(R.string.fichero_mejoras_json), this);
+            MejorasEdificiosJSON mejorasEdificiosJSON = new MejorasEdificiosJSON(json);
+            aldea.setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.senado_nodo_json)));
+            aldea.getCabaniaCaza().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.cabania_caza_nodo_json)));
+            aldea.getCasetaLeniador().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.caseta_leniador_nodo_json)));
+            aldea.getCarpinteria().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.carpinteria_nodo_json)));
+            aldea.getGranja().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.granja_nodo_json)));
+            aldea.getMina().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.mina_nodo_json)));
+
+
+            System.out.println("ALDEA: "+aldea.getPreciosMejoras());
+            System.out.println("CAZA: "+aldea.getCabaniaCaza().getPreciosMejoras());
+            System.out.println("LEÑADOR: "+aldea.getCasetaLeniador().getPreciosMejoras());
+            System.out.println("CARPINTERO: "+aldea.getCarpinteria().getPreciosMejoras());
+            System.out.println("GRANJA: "+aldea.getGranja().getPreciosMejoras());
+            System.out.println("MINA: "+aldea.getMina().getPreciosMejoras());
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error al cargar datos del juego", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+    }
 
     private void cargarGifs() {
         cargarGif(R.id.taladorView);

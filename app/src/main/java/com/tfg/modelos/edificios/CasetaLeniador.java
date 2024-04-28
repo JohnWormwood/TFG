@@ -11,7 +11,6 @@ public class CasetaLeniador extends Edificio {
         super(aldeanosAsignados, aldea);
         generarRecursosConstantemente = true;
         generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.TRONCOS_MADERA));
-        preciosMejoras = Constantes.CasetaLeniador.PRECIOS_MEJORAS;
     }
 
 }
