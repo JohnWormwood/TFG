@@ -100,6 +100,7 @@ public class Aldea implements Runnable {
                 generarAldeano();
             }
         } catch (InterruptedException e) {
+            // En caso de interrupcion se vuelve al estado anterior, para evitar que se dupliquen recursos
             poblacion = poblacionInicial;
             recursos = recursosIniciales;
             ListaHilos.remove(thread);

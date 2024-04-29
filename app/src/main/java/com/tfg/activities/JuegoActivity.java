@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.R;
 import com.tfg.activities.fragments.AldeaFragment;
 import com.tfg.activities.fragments.MercaderFragment;
@@ -25,16 +26,19 @@ import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class JuegoActivity extends AppCompatActivity {
     ActivityJuegoBinding binding;
 
+    private String emailUsuario;
+
     public static boolean enEjecucion = true;
 
     // Componentes de la interfaz
-    private TextView textViewAldeanos;
-    private TextView textViewComida;
-    private TextView textViewTroncos;
+    private TextView textViewAldeanos, textViewComida, textViewTroncos;
+
+    private ImageView imageViewMina, imageViewCabaniaCaza, imageViewCasetaLeniador, imageViewCastillo;
 
     private Aldea aldea = Aldea.getInstance();
 
@@ -48,6 +52,11 @@ public class JuegoActivity extends AppCompatActivity {
         // Cargar el fragment segun el item del menu
         itemSelectedListener.onNavigationItemSelected(binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
         binding.menuInferior.setItemIconTintList(null); // Esto es para que los iconos se vean bien
+
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        emailUsuario = bundle.getString("email");
+        System.out.println(emailUsuario);
 
         configInicial();
 
@@ -125,14 +134,24 @@ public class JuegoActivity extends AppCompatActivity {
 
     private void inicializarComponentes() {
         // Inicializar los componentes de la interfaz
+        // TextViews
         textViewAldeanos = findViewById(R.id.textViewAldeanos);
         textViewComida = findViewById(R.id.textViewComida);
         textViewTroncos = findViewById(R.id.textViewTroncos);
+        // ImageViews
+        imageViewCabaniaCaza = findViewById(R.id.imageViewCabaniaCaza);
+        imageViewCasetaLeniador = findViewById(R.id.imageViewCasetaLeniador);
+        imageViewMina = findViewById(R.id.imageViewMina);
+        imageViewCastillo = findViewById(R.id.imageViewCastillo);
     }
 
     private void cargarListeners() {
         // Configurar listeners
         binding.menuInferior.setOnItemSelectedListener(itemSelectedListener);
+    }
+
+    private void establecerVisibilidadImageViews() {
+
     }
 
     private void cargarDatos() {
@@ -146,14 +165,6 @@ public class JuegoActivity extends AppCompatActivity {
             aldea.getCarpinteria().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.carpinteria_nodo_json)));
             aldea.getGranja().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.granja_nodo_json)));
             aldea.getMina().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.mina_nodo_json)));
-
-
-            System.out.println("ALDEA: "+aldea.getPreciosMejoras());
-            System.out.println("CAZA: "+aldea.getCabaniaCaza().getPreciosMejoras());
-            System.out.println("LEÑADOR: "+aldea.getCasetaLeniador().getPreciosMejoras());
-            System.out.println("CARPINTERO: "+aldea.getCarpinteria().getPreciosMejoras());
-            System.out.println("GRANJA: "+aldea.getGranja().getPreciosMejoras());
-            System.out.println("MINA: "+aldea.getMina().getPreciosMejoras());
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Error al cargar datos del juego", Toast.LENGTH_SHORT).show();

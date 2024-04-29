@@ -21,10 +21,12 @@ import com.tfg.firebase.auth.GestorSesion;
 import com.tfg.utilidades.GestorSharedPreferences;
 import com.tfg.utilidades.UtilidadActivity;
 
+import java.util.Objects;
+
 public class MenuActivity extends AppCompatActivity {
 
     private TextView textViewEmail;
-
+    private String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,7 @@ public class MenuActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        String email = bundle.getString("email");
+        email = bundle.getString("email");
         configInicial(email);
 
 
@@ -89,7 +91,9 @@ public class MenuActivity extends AppCompatActivity {
 
 
     public void buttonJugarOnClick(View view) {
-        UtilidadActivity.lanzarIntent(this, JuegoActivity.class, null);
+        Bundle extras = new Bundle();
+        extras.putString("email", email);
+        UtilidadActivity.lanzarIntent(this, JuegoActivity.class, extras);
     }
 
     public void buttonOpcionesOnClick(View view) {

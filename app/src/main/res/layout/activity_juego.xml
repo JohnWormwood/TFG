@@ -152,20 +152,21 @@
                 android:importantForAccessibility="no" />
 
             <ImageView
-                android:id="@+id/minaView"
+                android:id="@+id/imageViewMina"
                 android:layout_width="147dp"
                 android:layout_height="90dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/mina1"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.06"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.162"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.162" />
 
             <ImageView
-                android:id="@+id/cazaView"
+                android:id="@+id/imageViewCabaniaCaza"
                 android:layout_width="63dp"
                 android:layout_height="79dp"
                 android:src="@drawable/choza"
@@ -445,7 +446,7 @@
                 android:importantForAccessibility="no" />
 
             <ImageView
-                android:id="@+id/castilloView"
+                android:id="@+id/imageViewCastillo"
                 android:layout_width="137dp"
                 android:layout_height="80dp"
                 android:src="@drawable/castillo"
@@ -518,7 +519,7 @@
                 android:importantForAccessibility="no" />
 
             <ImageView
-                android:id="@+id/carpinteroView"
+                android:id="@+id/imageViewCasetaLeniador"
                 android:layout_width="73dp"
                 android:layout_height="95dp"
                 android:src="@drawable/casa2"
