@@ -18,6 +18,10 @@ import com.tfg.controladores.ControladorAldea;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,10 +74,17 @@ public class SenadoFragment extends Fragment {
 
     // Componentes de la interfaz
     private SeekBar seekBarLeniadores, seekBarCarpinteros;
-    private TextView textViewLeniadores, textViewNivelCasetaLeniador, textViewNivelSenado,
-            textViewNivelCabaniaCaza, textViewNivelCarpinteria, textViewCarpinteros,
-            textViewPrecioTroncosSenado, textViewPrecioTroncosCabainaCaza, textViewPrecioTroncosCasetaLeniador,
-            textViewPrecioTroncosCarpinteria;
+    // Senado
+    private TextView textViewNivelSenado, textViewPrecioTroncosCarpinteria, textViewPrecioPiedraSenado,
+            textViewPrecioOroSenado, textViewPrecioTroncosSenado, textViewPrecioTablonesSenado,
+            textViewPrecioHierroSenado;
+
+    private List<TextView> textViewsSenado;
+
+
+    private TextView textViewLeniadores, textViewNivelCasetaLeniador, textViewNivelCabaniaCaza,
+            textViewNivelCarpinteria, textViewCarpinteros, textViewPrecioTroncosCabainaCaza,
+            textViewPrecioTroncosCasetaLeniador;
     private Button buttonMejorarSenado, buttonMejoraraCabaniaCaza;
 
     private ConstraintLayout layoutCarpinteria;
@@ -96,7 +107,12 @@ public class SenadoFragment extends Fragment {
             if (aldea.aumentarNivel()) {
                 textViewNivelSenado.setText(String.valueOf(aldea.getNivel()));
                 layoutCarpinteria.setVisibility(View.VISIBLE);
-                textViewPrecioTroncosSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().get(RecursosEnum.TRONCOS_MADERA)));
+                textViewPrecioTroncosSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.TRONCOS_MADERA, 0)));
+                textViewPrecioPiedraSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.PIEDRA, 0)));
+                textViewPrecioTablonesSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.TABLONES_MADERA, 0)));
+                textViewPrecioPiedraSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.PIEDRA, 0)));
+                textViewPrecioHierroSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.HIERRO, 0)));
+                textViewPrecioOroSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.ORO, 0)));
             } else {
                 Toast.makeText(getActivity(), "No tienes suficientes recursos", Toast.LENGTH_SHORT).show();
             }
@@ -150,6 +166,13 @@ public class SenadoFragment extends Fragment {
         // Senado
         textViewNivelSenado = view.findViewById(R.id.nivelSenado);
         textViewPrecioTroncosSenado = view.findViewById(R.id.textViewPrecioTroncosSenado);
+        textViewPrecioPiedraSenado = view.findViewById(R.id.textViewPrecioPiedraSenado);
+        textViewPrecioOroSenado = view.findViewById(R.id.textViewPrecioOroSenado);
+        textViewPrecioTablonesSenado = view.findViewById(R.id.textViewPrecioTablonesSenado);
+        textViewPrecioHierroSenado = view.findViewById(R.id.textViewPrecioHierroSenado);
+        textViewsSenado = Arrays.asList(textViewNivelSenado, textViewPrecioTroncosCarpinteria, textViewPrecioPiedraSenado,
+                textViewPrecioOroSenado, textViewPrecioTroncosSenado, textViewPrecioTablonesSenado,
+                textViewPrecioHierroSenado);
         // Caseta Leniador
         textViewLeniadores = view.findViewById(R.id.textViewLeniadores);
         textViewNivelCasetaLeniador = view.findViewById(R.id.textViewNivelCasetaLeniador);
@@ -189,7 +212,11 @@ public class SenadoFragment extends Fragment {
         // Senado
         preciosMejora = ControladorAldea.getPreciosMejoraAldea();
         textViewNivelSenado.setText(String.valueOf(aldea.getNivel()));
-        textViewPrecioTroncosSenado.setText(String.valueOf(preciosMejora.get(RecursosEnum.TRONCOS_MADERA)));
+        textViewPrecioTroncosSenado.setText(String.valueOf(preciosMejora.getOrDefault(RecursosEnum.TRONCOS_MADERA, 0)));
+        textViewPrecioPiedraSenado.setText(String.valueOf(preciosMejora.getOrDefault(RecursosEnum.PIEDRA, 0)));
+        textViewPrecioOroSenado.setText(String.valueOf(preciosMejora.getOrDefault(RecursosEnum.ORO, 0)));
+        textViewPrecioTablonesSenado.setText(String.valueOf(preciosMejora.getOrDefault(RecursosEnum.TABLONES_MADERA, 0)));
+        textViewPrecioHierroSenado.setText(String.valueOf(preciosMejora.getOrDefault(RecursosEnum.HIERRO, 0)));
         // Caseta leniador
         preciosMejora = ControladorAldea.getPreciosMejoraEdificio(aldea.getCasetaLeniador());
         textViewLeniadores.setText(String.valueOf(seekBarLeniadores.getProgress()));

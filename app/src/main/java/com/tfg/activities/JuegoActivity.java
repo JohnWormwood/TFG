@@ -33,6 +33,7 @@ public class JuegoActivity extends AppCompatActivity {
     ActivityJuegoBinding binding;
 
     private String emailUsuario;
+    private GestorBaseDatos gestorBaseDatos = new GestorBaseDatos();
 
     public static boolean enEjecucion = true;
 
@@ -102,7 +103,12 @@ public class JuegoActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ControladorAldea.finalizarAldea();
-        GestorBaseDatos gestorBaseDatos = new GestorBaseDatos();
+        gestorBaseDatos.guardarDatos(emailUsuario);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         gestorBaseDatos.guardarDatos(emailUsuario);
     }
 
