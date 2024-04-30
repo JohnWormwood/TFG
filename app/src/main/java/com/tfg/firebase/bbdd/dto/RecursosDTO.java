@@ -1,10 +1,9 @@
-package com.tfg.firebase.bbdd;
+package com.tfg.firebase.bbdd.dto;
 
 import lombok.Data;
 
 @Data
-public class DatosAldea {
-    private int defensas;
+public class RecursosDTO {
     private int troncos;
     private int tablones;
     private int comida;

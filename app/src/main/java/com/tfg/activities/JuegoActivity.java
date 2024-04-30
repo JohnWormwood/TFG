@@ -20,6 +20,7 @@ import com.tfg.activities.fragments.PartidasFragment;
 import com.tfg.activities.fragments.SenadoFragment;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.databinding.ActivityJuegoBinding;
+import com.tfg.firebase.bbdd.GestorBaseDatos;
 import com.tfg.json.GestorJSON;
 import com.tfg.json.MejorasEdificiosJSON;
 import com.tfg.modelos.Aldea;
@@ -101,6 +102,8 @@ public class JuegoActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ControladorAldea.finalizarAldea();
+        GestorBaseDatos gestorBaseDatos = new GestorBaseDatos();
+        gestorBaseDatos.guardarDatos(emailUsuario);
     }
 
     public void cambiarFragment(Fragment fragment) {
