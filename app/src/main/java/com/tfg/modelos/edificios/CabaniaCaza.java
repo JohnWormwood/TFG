@@ -1,11 +1,15 @@
 package com.tfg.modelos.edificios;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.TimerPartidaCaza;
 import com.tfg.modelos.generadores_recursos.impl.GeneradorCabaniaCaza;
 import com.tfg.utilidades.Constantes;
+import com.tfg.utilidades.ListaHilos;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +24,7 @@ public class CabaniaCaza extends Edificio {
     public CabaniaCaza(int aldeanosAsignados, Aldea aldea) {
         super(aldeanosAsignados, aldea);
         generarRecursosConstantemente = false;
-        timerPartidaCaza = null;
+        timerPartidaCaza = new TimerPartidaCaza(0, this);
         recursosGenerados.put(RecursosEnum.COMIDA, 0);
         generadoresRecursos.add(new GeneradorCabaniaCaza(RecursosEnum.COMIDA, this));
     }
@@ -45,4 +49,24 @@ public class CabaniaCaza extends Edificio {
         partidaActiva = false;
     }
 
+    @Override
+    public void ajustarSegunDatosCargados() {
+        super.ajustarSegunDatosCargados();
+
+        if (isPartidaActiva()) {
+            CabaniaCaza ref = this;
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    /*
+                     * Hay que hacerlo de esta forma para que el timer tenga
+                     * un looper en el que ejecutarse ya que si no dara excepcion
+                     */
+                    // Iniciar el timer con el tiempo restante
+                    timerPartidaCaza = new TimerPartidaCaza(timerPartidaCaza.getSegundosRestantes()*1000, ref);
+                    timerPartidaCaza.start();
+                }
+            });
+        }
+    }
 }

@@ -1,7 +1,9 @@
 package com.tfg.controladores;
 
 import com.tfg.activities.JuegoActivity;
+import com.tfg.firebase.bbdd.GestorBaseDatos;
 import com.tfg.modelos.Aldea;
+import com.tfg.modelos.TimerPartidaCaza;
 import com.tfg.modelos.edificios.Edificio;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
@@ -14,14 +16,14 @@ public final class ControladorAldea {
     private static Aldea aldea = Aldea.getInstance();
 
     public static void iniciarAldea() {
-        aldea.setNivel(Constantes.NIVEL_INICIAL);
-        aldea.setPoblacion(Constantes.Aldea.POBLACION_INICIAL);
+        aldea.ajustarSegunDatosCargados();
         aldea.iniciarAldea();
     }
 
     public static void finalizarAldea() {
         JuegoActivity.enEjecucion = false;
         // Se interrumpen todos los hilos
+        aldea.getCabaniaCaza().getTimerPartidaCaza().cancel();
         ListaHilos.interrumpirTodos();
         /*aldea.getCasetaLeniador().getThread().interrupt();
         aldea.getThread().interrupt();*/

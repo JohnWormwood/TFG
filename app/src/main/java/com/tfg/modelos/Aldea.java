@@ -40,6 +40,8 @@ public class Aldea implements Runnable {
     private List<PrecioMejora> preciosMejoras;
 
     private Aldea() {
+        nivel = Constantes.NIVEL_INICIAL;
+        poblacion = Constantes.Aldea.POBLACION_INICIAL;
         recursos = new HashMap<>();
         setMaximoPoblacionSegunNivel();
 
@@ -73,10 +75,10 @@ public class Aldea implements Runnable {
         }
     }
 
-    protected void setMaximoPoblacionSegunNivel() throws IllegalArgumentException {
+    private void setMaximoPoblacionSegunNivel() throws IllegalArgumentException {
         // TODO Capturar la excepcion donde se llame la funcion
         if (nivel <= Constantes.Edificio.NIVEL_MAXIMO)
-            poblacionMaxima += Constantes.Aldea.AUMENTO_MAX_POBLACION_POR_NIVEL;
+            poblacionMaxima = Constantes.Aldea.AUMENTO_MAX_POBLACION_POR_NIVEL * nivel;
         else
             throw new IllegalArgumentException(nivel+" es mayor al nivel maximo permitido ("+Constantes.Edificio.NIVEL_MAXIMO+")");
     }
@@ -101,7 +103,7 @@ public class Aldea implements Runnable {
             }
         } catch (InterruptedException e) {
             // En caso de interrupcion se vuelve al estado anterior, para evitar que se dupliquen recursos
-            poblacion = poblacionInicial;
+            //poblacion = poblacionInicial;
             recursos = recursosIniciales;
             ListaHilos.remove(thread);
         }
@@ -134,5 +136,20 @@ public class Aldea implements Runnable {
             }
         }
         return true;
+    }
+
+    public void ajustarSegunDatosCargados() {
+        setMaximoPoblacionSegunNivel();
+        cabaniaCaza.ajustarSegunDatosCargados();
+        carpinteria.ajustarSegunDatosCargados();
+        casetaLeniador.ajustarSegunDatosCargados();
+        granja.ajustarSegunDatosCargados();
+        mina.ajustarSegunDatosCargados();
+
+        setPoblacionAsignada(cabaniaCaza.getAldeanosAsignados() + carpinteria.getAldeanosAsignados()
+                + casetaLeniador.getAldeanosAsignados() + granja.getAldeanosAsignados()
+                + getMina().getAldeanosAsignados());
+
+
     }
 }

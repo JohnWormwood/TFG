@@ -15,11 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
 
 public class TimerPartidaCaza extends CountDownTimer {
 
     private CabaniaCaza cabaniaCaza;
-    @Getter
+    @Getter @Setter
     private long segundosRestantes;
 
     // Listeners eventos
@@ -54,6 +55,7 @@ public class TimerPartidaCaza extends CountDownTimer {
     @Override
     public void onTick(long millisUntilFinished) {
         segundosRestantes = millisUntilFinished / 1000;
+        System.out.println("timer tick, segs restantes = "+segundosRestantes);
         for (IGeneradorRecursos generadorRecursos : cabaniaCaza.getGeneradoresRecursos()) {
             generadorRecursos.producirRecursos(cabaniaCaza.getRecursosGenerados(), RecursosEnum.COMIDA, cabaniaCaza.getAldeanosAsignados());
         }

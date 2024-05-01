@@ -153,6 +153,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         if (Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza() != null)
             Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().addEventListener(this);
     }
+
     @Override
     public void onTimerTick() {
         String mensaje = getString(R.string.texto_partida_caza);

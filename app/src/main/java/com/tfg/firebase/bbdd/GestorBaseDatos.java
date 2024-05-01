@@ -1,6 +1,7 @@
 package com.tfg.firebase.bbdd;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.tfg.eventos.DatosCargadosCallback;
 import com.tfg.firebase.bbdd.dto.AldeaDTO;
 import com.tfg.firebase.bbdd.dto.CabaniaCazaDTO;
 import com.tfg.firebase.bbdd.dto.EdificioDTO;
@@ -11,28 +12,100 @@ import com.tfg.modelos.edificios.Edificio;
 import com.tfg.modelos.enums.RecursosEnum;
 
 import java.util.HashMap;
-import java.util.Objects;
+import java.util.Map;
 
 public class GestorBaseDatos {
 
-    public void guardarDatos(String email) {
+    private final String COLECCION_USUARIOS = "usuarios";
+    private final String ALDEA = "datos_aldea";
+    private final String RECURSOS = "recursos";
+    private final String CABANIA_CAZA = "cabania_caza";
+    private final String CASETA_LENIADOR = "caseta_leniador";
+    private final String CARPINTERIA = "carpinteria";
+    private final String GRANJA = "granja";
+    private final String MINA = "mina";
+    Aldea aldea = Aldea.getInstance();
+    public void guardarDatos(String email, DatosCargadosCallback callback) {
         FirebaseFirestore.getInstance()
-                .collection("usuarios")
+                .collection(COLECCION_USUARIOS)
                 .document(email)
                 .set(mapearDatosAldea());
+        callback.onDatosGuardados();
     }
+
+    public void cargarDatos(String email, DatosCargadosCallback callback) {
+        Aldea aldea = Aldea.getInstance();
+        FirebaseFirestore.getInstance()
+                .collection(COLECCION_USUARIOS)
+                .document(email).get().addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        AldeaDTO aldeaDTO = document.get(ALDEA, AldeaDTO.class);
+                        RecursosDTO recursosDTO = document.get(RECURSOS, RecursosDTO.class);
+                        CabaniaCazaDTO cabaniaCazaDTO = document.get(CABANIA_CAZA, CabaniaCazaDTO.class);
+                        EdificioDTO casetaLeniadorDTO = document.get(CASETA_LENIADOR, EdificioDTO.class);
+                        EdificioDTO carpinteriaDTO = document.get(CARPINTERIA, EdificioDTO.class);
+                        EdificioDTO granjaDTO = document.get(GRANJA, EdificioDTO.class);
+                        EdificioDTO minaDTO = document.get(MINA, EdificioDTO.class);
+                        // Aldea
+                        cargarDatosEnAldea(aldeaDTO, recursosDTO);
+                        // Cabania Caza
+                        cargarDatosEnCabaniaCaza(aldea.getCabaniaCaza(), cabaniaCazaDTO);
+                        // Caseta Leniador
+                        cargarDatosEnEdificio(aldea.getCasetaLeniador(), casetaLeniadorDTO);
+                        // Carpinteria
+                        cargarDatosEnEdificio(aldea.getCarpinteria(), carpinteriaDTO);
+                        // Granja
+                        cargarDatosEnEdificio(aldea.getGranja(), granjaDTO);
+                        // Mina
+                        cargarDatosEnEdificio(aldea.getMina(), minaDTO);
+                    }
+                    callback.onDatosCargados();
+                });
+    }
+
+    private void cargarDatosEnAldea(AldeaDTO aldeaDTO, RecursosDTO recursosDTO) {
+        aldea.setNivel(aldeaDTO.getNivel());
+        aldea.setPoblacion(aldeaDTO.getPoblacion());
+        //aldea.setDefensas(aldeaDTO.getDefensas());
+        aldea.setRecursos(cargarRecursos(recursosDTO));
+    }
+
+    private void cargarDatosEnEdificio(Edificio edificio, EdificioDTO edificioDTO) {
+        edificio.setNivel(edificioDTO.getNivel());
+        edificio.setAldeanosAsignados(edificioDTO.getAldeanosAsignados());
+    }
+
+    private void cargarDatosEnCabaniaCaza(CabaniaCaza cabaniaCaza, CabaniaCazaDTO cabaniaCazaDTO) {
+        cargarDatosEnEdificio(cabaniaCaza, cabaniaCazaDTO);
+        cabaniaCaza.getTimerPartidaCaza().setSegundosRestantes(cabaniaCazaDTO.getSegundosRestantes());
+        cabaniaCaza.setAldeanosMuertosEnPartida(cabaniaCazaDTO.getAldeanosMuertosEnPartida());
+        cabaniaCaza.setPartidaActiva(cabaniaCazaDTO.isPartidaActiva());
+    }
+
+    private Map<RecursosEnum, Integer> cargarRecursos(RecursosDTO recursosDTO) {
+        Map<RecursosEnum, Integer> recursos = new HashMap<>();
+        recursos.put(RecursosEnum.TRONCOS_MADERA, recursosDTO.getTroncos());
+        recursos.put(RecursosEnum.TABLONES_MADERA, recursosDTO.getTablones());
+        recursos.put(RecursosEnum.COMIDA, recursosDTO.getComida());
+        recursos.put(RecursosEnum.PIEDRA, recursosDTO.getPiedra());
+        recursos.put(RecursosEnum.HIERRO, recursosDTO.getHierro());
+        recursos.put(RecursosEnum.ORO, recursosDTO.getOro());
+
+        return recursos;
+    }
+
 
     private HashMap<String, Object> mapearDatosAldea() {
         Aldea aldea = Aldea.getInstance();
 
         HashMap<String, Object> datos = new HashMap<>();
-        datos.put("recursos", mapearRecursos(aldea));
-        datos.put("datos_aldea", mapearAldea(aldea));
-        datos.put("cabania_caza",mapearCabaniaCaza(aldea.getCabaniaCaza()));
-        datos.put("caseta_leniador", mapearEdificio(aldea.getCasetaLeniador()));
-        datos.put("carpinteria",mapearEdificio(aldea.getCarpinteria()));
-        datos.put("granja",mapearEdificio(aldea.getGranja()));
-        datos.put("mina",mapearEdificio(aldea.getMina()));
+        datos.put(RECURSOS, mapearRecursos(aldea));
+        datos.put(ALDEA, mapearAldea(aldea));
+        datos.put(CABANIA_CAZA,mapearCabaniaCaza(aldea.getCabaniaCaza()));
+        datos.put(CASETA_LENIADOR, mapearEdificio(aldea.getCasetaLeniador()));
+        datos.put(CARPINTERIA,mapearEdificio(aldea.getCarpinteria()));
+        datos.put(GRANJA,mapearEdificio(aldea.getGranja()));
+        datos.put(MINA,mapearEdificio(aldea.getMina()));
 
         return datos;
     }
@@ -58,8 +131,7 @@ public class GestorBaseDatos {
         CabaniaCazaDTO cabaniaCazaDTO = new CabaniaCazaDTO();
         cabaniaCazaDTO.setNivel(cabaniaCaza.getNivel());
         cabaniaCazaDTO.setAldeanosAsignados(cabaniaCaza.getAldeanosAsignados());
-        if (cabaniaCaza.getTimerPartidaCaza() != null)
-            cabaniaCazaDTO.setSegundosRestantes(cabaniaCaza.getTimerPartidaCaza().getSegundosRestantes());
+        cabaniaCazaDTO.setSegundosRestantes(cabaniaCaza.getTimerPartidaCaza().getSegundosRestantes());
         cabaniaCazaDTO.setAldeanosMuertosEnPartida(cabaniaCaza.getAldeanosMuertosEnPartida());
         cabaniaCazaDTO.setPartidaActiva(cabaniaCaza.isPartidaActiva());
 

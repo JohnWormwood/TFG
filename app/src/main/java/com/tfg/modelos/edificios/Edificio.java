@@ -48,10 +48,10 @@ public abstract class Edificio implements Runnable {
         preciosMejoras = new ArrayList<>();
     }
 
-    protected void setMaximoAldeanosSegunNivel() throws IllegalArgumentException {
+    private void setMaximoAldeanosSegunNivel() throws IllegalArgumentException {
         // TODO Capturar la excepcion donde se llame la funcion
         if (nivel <= Constantes.Edificio.NIVEL_MAXIMO)
-            aldeanosMaximos += Constantes.Edificio.AUMENTO_MAX_ALDEANOS_POR_NIVEL;
+            aldeanosMaximos = Constantes.Edificio.AUMENTO_MAX_ALDEANOS_POR_NIVEL * nivel;
         else
             throw new IllegalArgumentException(nivel+" es mayor al nivel maximo permitido ("+Constantes.Edificio.NIVEL_MAXIMO+")");
     }
@@ -147,5 +147,9 @@ public abstract class Edificio implements Runnable {
             }
         }
         return true;
+    }
+
+    public void ajustarSegunDatosCargados() {
+        setMaximoAldeanosSegunNivel();
     }
 }
