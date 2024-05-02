@@ -12,11 +12,11 @@
         android:id="@+id/menuSuperior"
         android:layout_width="wrap_content"
         android:layout_height="120dp"
-        android:paddingBottom="20dp"
         android:background="@drawable/fondo_menu_2"
         android:gravity="center"
-
         android:orientation="horizontal"
+
+        android:paddingBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,67 +24,149 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:srcCompat="@drawable/ico_aldeano"
-            android:importantForAccessibility="no" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/textViewAldeanos"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="@string/int_format"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:srcCompat="@drawable/ico_tronco"
-            android:importantForAccessibility="no" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ico_aldeano" />
 
-        <TextView
-            android:id="@+id/textViewTroncos"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="@string/int_format"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/textViewAldeanos"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/int_format"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:srcCompat="@drawable/ico_comida"
-            android:importantForAccessibility="no" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ico_tablon" />
 
-        <TextView
-            android:id="@+id/textViewComida"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="@string/int_format"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:srcCompat="@drawable/ico_piedra"
-            android:importantForAccessibility="no"/>
+                <TextView
+                    android:id="@+id/textViewTablones"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="@string/int_format"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textViewPiedra"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="@string/int_format"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ico_hierro" />
+
+                <TextView
+                    android:id="@+id/textViewHierro"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="@string/int_format"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ico_oro" />
+
+                <TextView
+                    android:id="@+id/textViewOro"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="@string/int_format"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ico_guerrero" />
+
+                <TextView
+                    android:id="@+id/textViewDefensas"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/int_format"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ico_tronco" />
+
+                <TextView
+                    android:id="@+id/textViewTroncos"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="@string/int_format"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ico_comida" />
+
+                <TextView
+                    android:id="@+id/textViewComida"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="@string/int_format"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ico_piedra" />
+
+                <TextView
+                    android:id="@+id/textViewPiedra"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="@string/int_format"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+            </TableRow>
+
+        </TableLayout>
+
     </LinearLayout>
 
     <FrameLayout
@@ -449,14 +531,14 @@
                 android:id="@+id/imageViewCastillo"
                 android:layout_width="137dp"
                 android:layout_height="80dp"
-                android:src="@drawable/castillo"
+                android:importantForAccessibility="no"
+                android:src="@drawable/castillo_roto"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.624"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.651"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.651" />
 
             <ImageView
                 android:layout_width="54dp"
@@ -550,18 +632,18 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menuInferior"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/fondo_menu_3"
+        app:itemActiveIndicatorStyle="@null"
+        app:itemIconSize="50dp"
+        app:itemRippleColor="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/menuSuperior"
         app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/menu_inferior_juego"
-        app:itemActiveIndicatorStyle="@null"
-        app:itemIconSize="50dp"
-        app:itemRippleColor="@null"/>
+        app:menu="@menu/menu_inferior_juego" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
