@@ -16,7 +16,6 @@ public final class ControladorAldea {
     private static Aldea aldea = Aldea.getInstance();
 
     public static void iniciarAldea() {
-        aldea.ajustarSegunDatosCargados();
         aldea.iniciarAldea();
     }
 

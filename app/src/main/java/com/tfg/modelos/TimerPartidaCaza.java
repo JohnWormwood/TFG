@@ -1,12 +1,8 @@
 package com.tfg.modelos;
 
-import android.content.Context;
 import android.os.CountDownTimer;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.tfg.eventos.PartidaCazaEventListener;
+import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
@@ -27,7 +23,8 @@ public class TimerPartidaCaza extends CountDownTimer {
     private List<PartidaCazaEventListener> listeners = new ArrayList<>();
 
     public void addEventListener(PartidaCazaEventListener listener) {
-        listeners.add(listener);
+        if (!listeners.contains(listener))
+            listeners.add(listener);
     }
 
     public void removeEventListener(PartidaCazaEventListener listener) {

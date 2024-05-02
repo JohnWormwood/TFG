@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.tfg.controladores.ControladorAldea;
+import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.TimerPartidaCaza;
@@ -55,17 +56,14 @@ public class CabaniaCaza extends Edificio {
 
         if (isPartidaActiva()) {
             CabaniaCaza ref = this;
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    /*
-                     * Hay que hacerlo de esta forma para que el timer tenga
-                     * un looper en el que ejecutarse ya que si no dara excepcion
-                     */
-                    // Iniciar el timer con el tiempo restante
-                    timerPartidaCaza = new TimerPartidaCaza(timerPartidaCaza.getSegundosRestantes()*1000, ref);
-                    timerPartidaCaza.start();
-                }
+            new Handler(Looper.getMainLooper()).post(() -> {
+                /*
+                 * Hay que hacerlo de esta forma para que el timer tenga
+                 * un looper en el que ejecutarse ya que si no dara excepcion
+                 */
+                // Iniciar el timer con el tiempo restante
+                timerPartidaCaza = new TimerPartidaCaza(timerPartidaCaza.getSegundosRestantes()*1000, ref);
+                timerPartidaCaza.start();
             });
         }
     }

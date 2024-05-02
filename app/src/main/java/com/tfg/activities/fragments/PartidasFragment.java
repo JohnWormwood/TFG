@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tfg.R;
-import com.tfg.eventos.PartidaCazaEventListener;
+import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
 
 /**
@@ -122,6 +122,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
 
                 Aldea.getInstance().getCabaniaCaza().iniciarPartidaCaza(cazadoresSeleccionados, tiempoTotal);
                 addListener();
+                Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().addEventListener((PartidaCazaEventListener) getActivity());
             }
         }
     };
@@ -166,9 +167,6 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
 
     @Override
     public void onFinalizarPartida() {
-        if (Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida() > 0) {
-            Toast.makeText(getActivity(), "Han muerto "+Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida()+" cazadores en esta partida", Toast.LENGTH_LONG).show();
-        }
         buttonCaza.setEnabled(true);
         textViewPartidaCaza.setText(getString(R.string.texto_partida_caza_inactiva));
     }

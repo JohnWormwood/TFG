@@ -1,7 +1,7 @@
 package com.tfg.firebase.bbdd;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.tfg.eventos.DatosCargadosCallback;
+import com.tfg.eventos.callbacks.DatosCargadosCallback;
 import com.tfg.firebase.bbdd.dto.AldeaDTO;
 import com.tfg.firebase.bbdd.dto.CabaniaCazaDTO;
 import com.tfg.firebase.bbdd.dto.EdificioDTO;
@@ -59,6 +59,7 @@ public class GestorBaseDatos {
                         // Mina
                         cargarDatosEnEdificio(aldea.getMina(), minaDTO);
                     }
+                    aldea.ajustarSegunDatosCargados();
                     callback.onDatosCargados();
                 });
     }
