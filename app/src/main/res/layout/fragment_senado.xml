@@ -71,7 +71,7 @@
                     app:layout_constraintVertical_bias="0.791" />
 
                 <Button
-                    android:id="@+id/btnMejorarSenado"
+                    android:id="@+id/buttonMejorarSenado"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="83dp"
                     android:layout_height="50dp"
@@ -93,7 +93,7 @@
                     android:id="@+id/tableLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toTopOf="@+id/btnMejorarSenado"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonMejorarSenado"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.08"
                     app:layout_constraintStart_toStartOf="parent"
@@ -714,6 +714,247 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutMina"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/fondo_menu_1"
+                android:backgroundTintMode="add"
+                app:layout_constraintBottom_toTopOf="@+id/buttonMejorarCabaniaCaza"
+                app:layout_constraintTop_toTopOf="@+id/buttonMejorarCabaniaCaza">
+
+                <TextView
+                    android:id="@+id/textViewMina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mina"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.055" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nivel"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.135" />
+
+                <TextView
+                    android:id="@+id/textViewNivelMina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="@string/int_format"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/tableLayout4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView9"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.791" />
+
+                <Button
+                    android:id="@+id/buttonMejorarMina"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="83dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="84dp"
+                    android:background="@null"
+                    android:backgroundTint="#D5B339"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:text="@string/mejorar"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.048"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TableLayout
+                    android:id="@+id/tableLayout4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonMejorarMina"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.08"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="20dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ico_tronco"
+                            app:layout_constraintVertical_bias="0.466" />
+
+                        <TextView
+                            android:id="@+id/textViewPrecioTroncosMina"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="center_horizontal"
+                            android:text="@string/int_format"
+                            android:textAlignment="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.111"
+                            app:layout_constraintVertical_bias="0.488" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ico_tablon"
+                            app:layout_constraintVertical_bias="0.466" />
+
+                        <TextView
+                            android:id="@+id/textViewPrecioTablonesMina"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="center_horizontal"
+                            android:text="@string/int_format"
+                            android:textAlignment="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.228"
+                            app:layout_constraintVertical_bias="0.488" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ico_piedra"
+                            app:layout_constraintVertical_bias="0.3" />
+
+                        <TextView
+                            android:id="@+id/textViewPrecioPiedraMina"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="center_horizontal"
+                            android:text="@string/int_format"
+                            android:textAlignment="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:layout_constraintHorizontal_bias="0.098"
+                            app:layout_constraintVertical_bias="0.328" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ico_hierro"
+                            app:layout_constraintVertical_bias="0.3" />
+
+                        <TextView
+                            android:id="@+id/textViewPrecioHierroMina"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="center_horizontal"
+                            android:text="@string/int_format"
+                            android:textAlignment="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:layout_constraintHorizontal_bias="0.368"
+                            app:layout_constraintVertical_bias="0.488" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ico_oro"
+                            app:layout_constraintVertical_bias="0.466" />
+
+                        <TextView
+                            android:id="@+id/textViewPrecioOroMina"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="center_horizontal"
+                            android:text="@string/int_format"
+                            android:textAlignment="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:layout_constraintHorizontal_bias="0.368"
+                            app:layout_constraintVertical_bias="0.488" />
+                    </TableRow>
+                </TableLayout>
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="51dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="64dp"
+                    android:text="@string/carpinteros"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.963"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textViewMineros"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="76dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginBottom="39dp"
+                    android:text="@string/int_format"
+                    android:textAlignment="textEnd"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.97"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <SeekBar
+                    android:id="@+id/seekBarMineros"
+                    style="@style/Widget.AppCompat.SeekBar"
+                    android:layout_width="250dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.866" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutCarpinteria"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
@@ -758,7 +999,7 @@
                     android:paddingLeft="5dp"
                     android:text="@string/int_format"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/tableLayout4"
+                    app:layout_constraintBottom_toTopOf="@+id/tableLayout5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/textView7"
@@ -784,7 +1025,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TableLayout
-                    android:id="@+id/tableLayout4"
+                    android:id="@+id/tableLayout5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toTopOf="@+id/btnMejorarCarpinteria"
