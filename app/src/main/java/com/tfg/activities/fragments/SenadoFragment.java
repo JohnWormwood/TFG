@@ -15,7 +15,8 @@ import com.tfg.R;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
-import com.tfg.ui.MenuEdificio;
+import com.tfg.ui.MenuEdificioAsignable;
+import com.tfg.ui.MenuEstructuraBase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,13 +67,11 @@ public class SenadoFragment extends Fragment {
 
 
     // Componentes de la interfaz
-    private MenuEdificio menuCabaniaCaza = new MenuEdificio();
-    private MenuEdificio menuCasetaLeniador = new MenuEdificio();
-    // Senado
-    private TextView textViewNivelSenado, textViewPrecioTroncosCarpinteria, textViewPrecioPiedraSenado,
-            textViewPrecioOroSenado, textViewPrecioTroncosSenado, textViewPrecioTablonesSenado,
-            textViewPrecioHierroSenado;
-    private Button buttonMejorarSenado;
+    private MenuEstructuraBase menuSenado;
+    private MenuEstructuraBase menuCabaniaCaza;
+    private MenuEdificioAsignable menuCasetaLeniador;
+    private MenuEdificioAsignable menuMina;
+    private MenuEdificioAsignable menuCarpinteria;
 
     private Aldea aldea = Aldea.getInstance();
 
@@ -85,81 +84,98 @@ public class SenadoFragment extends Fragment {
         return view;
     }
 
-    // --- LISTENERS ---
-    public final View.OnClickListener buttonMejorarSenadoOnClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (aldea.aumentarNivel()) {
-                actualizarUISenado();
-            } else {
-                Toast.makeText(getActivity(), "No tienes suficientes recursos", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
 
 
     private void configInicial(View view) {
         inicializarComponentes(view);
         establecerVisibilidadLayouts();
-        cargarListeners();
         cargarUI();
     }
 
     private void inicializarComponentes(View view) {
         // Senado
-        textViewNivelSenado = view.findViewById(R.id.nivelSenado);
-        textViewPrecioTroncosSenado = view.findViewById(R.id.textViewPrecioTroncosSenado);
-        textViewPrecioPiedraSenado = view.findViewById(R.id.textViewPrecioPiedraSenado);
-        textViewPrecioOroSenado = view.findViewById(R.id.textViewPrecioOroSenado);
-        textViewPrecioTablonesSenado = view.findViewById(R.id.textViewPrecioTablonesSenado);
-        textViewPrecioHierroSenado = view.findViewById(R.id.textViewPrecioHierroSenado);
-        buttonMejorarSenado = view.findViewById(R.id.buttonMejorarSenado);
+        menuSenado = new MenuEstructuraBase(
+                getActivity(),
+                aldea,
+                null,
+                view.findViewById(R.id.textViewnivelSenado),
+                view.findViewById(R.id.textViewPrecioTroncosSenado),
+                view.findViewById(R.id.textViewPrecioPiedraSenado),
+                view.findViewById(R.id.textViewPrecioTablonesSenado),
+                view.findViewById(R.id.textViewPrecioHierroSenado),
+                view.findViewById(R.id.textViewPrecioOroSenado),
+                view.findViewById(R.id.buttonMejorarSenado)
+        );
         // Caseta Leniador
-        menuCasetaLeniador.setContext(getActivity());
-        menuCasetaLeniador.setEdificio(aldea.getCasetaLeniador());
-        menuCasetaLeniador.setTextViewAldeanosAsignados(view.findViewById(R.id.textViewLeniadores));
-        menuCasetaLeniador.setTextViewNivel(view.findViewById(R.id.textViewNivelCasetaLeniador));
-        menuCasetaLeniador.setTextViewPrecioTroncos(view.findViewById(R.id.textViewPrecioTroncosCasetaLeniador));
-        menuCasetaLeniador.setTextViewPrecioPiedra(view.findViewById(R.id.textViewPrecioPiedraCasetaLeniador));
-        menuCasetaLeniador.setTextViewPrecioTablones(view.findViewById(R.id.textViewPrecioTablonesCasetaLeniador));
-        menuCasetaLeniador.setTextViewPrecioHierro(view.findViewById(R.id.textViewPrecioHierroCasetaLeniador));
-        menuCasetaLeniador.setTextViewPrecioOro(view.findViewById(R.id.textViewPrecioOroCasetaLeniador));
-        menuCasetaLeniador.setButtonMejorar(view.findViewById(R.id.buttonMejorarCasetaLeniador));
-        menuCasetaLeniador.setSeekBarAldeanosAsignados(view.findViewById(R.id.seekBarLeniadores));
+        menuCasetaLeniador = new MenuEdificioAsignable(
+                getActivity(),
+                aldea.getCasetaLeniador(),
+                null,
+                view.findViewById(R.id.textViewNivelCasetaLeniador),
+                view.findViewById(R.id.textViewPrecioTroncosCasetaLeniador),
+                view.findViewById(R.id.textViewPrecioPiedraCasetaLeniador),
+                view.findViewById(R.id.textViewPrecioTablonesCasetaLeniador),
+                view.findViewById(R.id.textViewPrecioHierroCasetaLeniador),
+                view.findViewById(R.id.textViewPrecioOroCasetaLeniador),
+                view.findViewById(R.id.buttonMejorarCasetaLeniador),
+                view.findViewById(R.id.seekBarLeniadores),
+                view.findViewById(R.id.textViewLeniadores)
+        );
         // Cabania Caza
-        menuCabaniaCaza.setContext(getActivity());
-        menuCabaniaCaza.setEdificio(aldea.getCabaniaCaza());
-        menuCabaniaCaza.setTextViewNivel(view.findViewById(R.id.textViewNivelCabaniaCaza));
-        menuCabaniaCaza.setTextViewPrecioTroncos(view.findViewById(R.id.textViewPrecioTroncosCabaniaCaza));
-        menuCabaniaCaza.setTextViewPrecioPiedra(view.findViewById(R.id.textViewPrecioPiedraCabaniaCaza));
-        menuCabaniaCaza.setTextViewPrecioTablones(view.findViewById(R.id.textViewPrecioTablonesCabaniaCaza));
-        menuCabaniaCaza.setTextViewPrecioHierro(view.findViewById(R.id.textViewPrecioHierroCabaniaCaza));
-        menuCabaniaCaza.setTextViewPrecioOro(view.findViewById(R.id.textViewPrecioOroCabaniaCaza));
-        menuCabaniaCaza.setButtonMejorar(view.findViewById(R.id.buttonMejorarCabaniaCaza));
-
+        menuCabaniaCaza = new MenuEstructuraBase(
+                getActivity(),
+                aldea.getCasetaLeniador(),
+                null,
+                view.findViewById(R.id.textViewNivelCabaniaCaza),
+                view.findViewById(R.id.textViewPrecioTroncosCabaniaCaza),
+                view.findViewById(R.id.textViewPrecioPiedraCabaniaCaza),
+                view.findViewById(R.id.textViewPrecioTablonesCabaniaCaza),
+                view.findViewById(R.id.textViewPrecioHierroCabaniaCaza),
+                view.findViewById(R.id.textViewPrecioOroCabaniaCaza),
+                view.findViewById(R.id.buttonMejorarCabaniaCaza)
+        );
+        // Mina
+        menuMina = new MenuEdificioAsignable(
+                getActivity(),
+                aldea.getCasetaLeniador(),
+                view.findViewById(R.id.layoutMina),
+                view.findViewById(R.id.textViewNivelMina),
+                view.findViewById(R.id.textViewPrecioTroncosMina),
+                view.findViewById(R.id.textViewPrecioPiedraMina),
+                view.findViewById(R.id.textViewPrecioTablonesMina),
+                view.findViewById(R.id.textViewPrecioHierroMina),
+                view.findViewById(R.id.textViewPrecioOroMina),
+                view.findViewById(R.id.buttonMejorarMina),
+                view.findViewById(R.id.seekBarMineros),
+                view.findViewById(R.id.textViewMineros)
+        );
+        // Carpinteria
+        menuCarpinteria = new MenuEdificioAsignable(
+                getActivity(),
+                aldea.getCasetaLeniador(),
+                view.findViewById(R.id.layoutCarpinteria),
+                view.findViewById(R.id.textViewNivelCarpinteria),
+                view.findViewById(R.id.textViewPrecioTroncosCarpinteria),
+                view.findViewById(R.id.textViewPrecioPiedraCarpinteria),
+                view.findViewById(R.id.textViewPrecioTablonesCarpinteria),
+                view.findViewById(R.id.textViewPrecioHierroCarpinteria),
+                view.findViewById(R.id.textViewPrecioOroCarpinteria),
+                view.findViewById(R.id.buttonMejorarCarpinteria),
+                view.findViewById(R.id.seekBarCarpinteros),
+                view.findViewById(R.id.textViewCarpinteros)
+        );
     }
 
     private void establecerVisibilidadLayouts() {
-
-    }
-
-    private void cargarListeners() {
-        buttonMejorarSenado.setOnClickListener(buttonMejorarSenadoOnClick);
+        menuMina.getLayout().setVisibility(View.GONE);
+        menuCarpinteria.getLayout().setVisibility(View.GONE);
     }
 
     private void cargarUI() {
-        actualizarUISenado();
+        menuSenado.iniciar();
         menuCabaniaCaza.iniciar();
         menuCasetaLeniador.iniciar();
-    }
-
-    private void actualizarUISenado() {
-        textViewNivelSenado.setText(String.valueOf(aldea.getNivel()));
-        textViewPrecioTroncosSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.TRONCOS_MADERA, 0)));
-        textViewPrecioPiedraSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.PIEDRA, 0)));
-        textViewPrecioTablonesSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.TABLONES_MADERA, 0)));
-        textViewPrecioPiedraSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.PIEDRA, 0)));
-        textViewPrecioHierroSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.HIERRO, 0)));
-        textViewPrecioOroSenado.setText(String.valueOf(ControladorAldea.getPreciosMejoraAldea().getOrDefault(RecursosEnum.ORO, 0)));
+        menuMina.iniciar();
+        menuCarpinteria.iniciar();
     }
 }

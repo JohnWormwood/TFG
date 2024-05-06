@@ -4,6 +4,7 @@ import com.tfg.activities.JuegoActivity;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.Aldea;
+import com.tfg.modelos.EstructuraBase;
 import com.tfg.modelos.PrecioMejora;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
@@ -16,51 +17,35 @@ import java.util.List;
 import java.util.Map;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
 
+
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Getter(onMethod_={@Synchronized}) @Setter(onMethod_={@Synchronized})
-public abstract class Edificio implements Runnable {
+public abstract class Edificio extends EstructuraBase implements Runnable {
     protected final int SEGUNDOS_ENTRE_RECURSOS = 10;
 
-    protected int nivel;
-    protected int aldeanosAsignados;
-    protected int aldeanosMaximos;
     protected boolean generarRecursosConstantemente;
     protected Aldea aldea;
-    protected Thread thread;
-    protected Map<RecursosEnum, Integer> recursosGenerados;
     protected List<IGeneradorRecursos> generadoresRecursos;
-    protected List<PrecioMejora> preciosMejoras;
 
     public Edificio(int aldeanosAsignados, Aldea aldea) {
-        this.nivel = Constantes.NIVEL_INICIAL;
+        super();
         this.aldeanosAsignados = aldeanosAsignados;
         this.aldea = aldea;
-
-        this.recursosGenerados = new HashMap<>();
-
         generadoresRecursos = new ArrayList<>();
-        setMaximoAldeanosSegunNivel();
-
-        preciosMejoras = new ArrayList<>();
     }
 
-    private void setMaximoAldeanosSegunNivel() throws IllegalArgumentException {
-        // TODO Capturar la excepcion donde se llame la funcion
-        if (nivel <= Constantes.Edificio.NIVEL_MAXIMO)
-            aldeanosMaximos = Constantes.Edificio.AUMENTO_MAX_ALDEANOS_POR_NIVEL * nivel;
-        else
-            throw new IllegalArgumentException(nivel+" es mayor al nivel maximo permitido ("+Constantes.Edificio.NIVEL_MAXIMO+")");
-    }
 
     protected void transferirRecursoAldea(RecursosEnum recurso) {
-        Integer recursos = recursosGenerados.get(recurso);
-        if (recursos != null) {
-            if (ControladorRecursos.consumirRecurso(recursosGenerados, recurso, recursos)) {
-                ControladorRecursos.agregarRecurso(aldea.getRecursos(), recurso, recursos);
+        Integer cantidad = recursos.get(recurso);
+        if (cantidad != null) {
+            if (ControladorRecursos.consumirRecurso(recursos, recurso, cantidad)) {
+                ControladorRecursos.agregarRecurso(aldea.getRecursos(), recurso, cantidad);
             }
         }
     }
@@ -83,26 +68,26 @@ public abstract class Edificio implements Runnable {
 
     protected void devolverAldeanos(int aldeanos) {
         aldea.setPoblacion(aldea.getPoblacion()+aldeanos);
-        aldea.setPoblacionAsignada(aldea.getPoblacionAsignada()-aldeanos);
+        aldea.setAldeanosAsignados(aldea.getAldeanosAsignados()-aldeanos);
     }
 
     @Override
     public void run() {
         ListaHilos.add(thread);
-        Map<RecursosEnum, Integer> recursosIniciales = new HashMap<>(recursosGenerados);
+        Map<RecursosEnum, Integer> recursosIniciales = new HashMap<>(recursos);
         try {
             while (JuegoActivity.enEjecucion) {
-                recursosIniciales = new HashMap<>(recursosGenerados);
+                recursosIniciales = new HashMap<>(recursos);
                 // Genera recursos, espera x tiempo y despues los pasa a la aldea
                 for (IGeneradorRecursos generadorRecursos : generadoresRecursos) {
-                    generadorRecursos.producirRecursos(recursosGenerados, generadorRecursos.getRecurso(), aldeanosAsignados);
+                    generadorRecursos.producirRecursos(recursos, generadorRecursos.getRecurso(), aldeanosAsignados);
                 }
                 Thread.sleep(SEGUNDOS_ENTRE_RECURSOS * 1000);
                 generadoresRecursos.forEach(g -> transferirRecursoAldea(g.getRecurso()));
             }
         } catch (InterruptedException e) {
             // En caso de interrupcion se vuelve al estado anterior, para evitar que se dupliquen recursos
-            recursosGenerados = recursosIniciales;
+            recursos = recursosIniciales;
             ListaHilos.remove(thread);
         }
     }

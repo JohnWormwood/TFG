@@ -26,7 +26,7 @@ public class CabaniaCaza extends Edificio {
         super(aldeanosAsignados, aldea);
         generarRecursosConstantemente = false;
         timerPartidaCaza = new TimerPartidaCaza(0, this);
-        recursosGenerados.put(RecursosEnum.COMIDA, 0);
+        recursos.put(RecursosEnum.COMIDA, 0);
         generadoresRecursos.add(new GeneradorCabaniaCaza(RecursosEnum.COMIDA, this));
     }
 

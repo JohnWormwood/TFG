@@ -54,7 +54,7 @@ public class TimerPartidaCaza extends CountDownTimer {
         segundosRestantes = millisUntilFinished / 1000;
         System.out.println("timer tick, segs restantes = "+segundosRestantes);
         for (IGeneradorRecursos generadorRecursos : cabaniaCaza.getGeneradoresRecursos()) {
-            generadorRecursos.producirRecursos(cabaniaCaza.getRecursosGenerados(), RecursosEnum.COMIDA, cabaniaCaza.getAldeanosAsignados());
+            generadorRecursos.producirRecursos(cabaniaCaza.getRecursos(), RecursosEnum.COMIDA, cabaniaCaza.getAldeanosAsignados());
         }
         lanzarEventoOnTick();
     }

@@ -31,17 +31,9 @@ public final class ControladorAldea {
     public static boolean asignarAldeano(int numAldeanos) {
         if (aldea.getPoblacion() >= numAldeanos) {
             aldea.setPoblacion(aldea.getPoblacion()-numAldeanos);
-            aldea.setPoblacionAsignada(aldea.getPoblacionAsignada()+numAldeanos);
+            aldea.setAldeanosAsignados(aldea.getAldeanosAsignados()+numAldeanos);
             return true;
         }
         return false;
-    }
-
-    public static Map<RecursosEnum, Integer> getPreciosMejoraEdificio(Edificio edificio) {
-        return edificio.getPreciosMejoras().get(edificio.getNivel()-1).getRecursos();
-    }
-
-    public static Map<RecursosEnum, Integer> getPreciosMejoraAldea() {
-        return aldea.getPreciosMejoras().get(aldea.getNivel()-1).getRecursos();
     }
 }

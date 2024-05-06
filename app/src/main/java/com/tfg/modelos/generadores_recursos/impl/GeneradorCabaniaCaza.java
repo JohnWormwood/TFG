@@ -35,7 +35,7 @@ public class GeneradorCabaniaCaza extends GeneradorEstandar {
 
         if (random <= probabilidadMuerte && cabaniaCaza.getAldeanosAsignados() > 0) {
             cabaniaCaza.setAldeanosAsignados(cabaniaCaza.getAldeanosAsignados()-1);
-            Aldea.getInstance().setPoblacionAsignada(Aldea.getInstance().getPoblacionAsignada()-1);
+            Aldea.getInstance().setAldeanosAsignados(Aldea.getInstance().getAldeanosAsignados()-1);
             cabaniaCaza.setAldeanosMuertosEnPartida(cabaniaCaza.getAldeanosMuertosEnPartida()+1);
             return true;
         }

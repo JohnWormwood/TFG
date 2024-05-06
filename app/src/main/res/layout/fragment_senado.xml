@@ -57,7 +57,7 @@
                     app:layout_constraintVertical_bias="0.135" />
 
                 <TextView
-                    android:id="@+id/nivelSenado"
+                    android:id="@+id/textViewnivelSenado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
@@ -1007,7 +1007,7 @@
                     app:layout_constraintVertical_bias="0.791" />
 
                 <Button
-                    android:id="@+id/btnMejorarCarpinteria"
+                    android:id="@+id/buttonMejorarCarpinteria"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="83dp"
                     android:layout_height="50dp"
@@ -1028,7 +1028,7 @@
                     android:id="@+id/tableLayout5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toTopOf="@+id/btnMejorarCarpinteria"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonMejorarCarpinteria"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.08"
                     app:layout_constraintStart_toStartOf="parent"
