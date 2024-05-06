@@ -74,6 +74,7 @@ public class GestorBaseDatos {
     private void cargarDatosEnEdificio(Edificio edificio, EdificioDTO edificioDTO) {
         edificio.setNivel(edificioDTO.getNivel());
         edificio.setAldeanosAsignados(edificioDTO.getAldeanosAsignados());
+        edificio.setDesbloqueado(edificioDTO.isDesbloqueado());
     }
 
     private void cargarDatosEnCabaniaCaza(CabaniaCaza cabaniaCaza, CabaniaCazaDTO cabaniaCazaDTO) {
@@ -124,6 +125,7 @@ public class GestorBaseDatos {
         EdificioDTO edificioDTO = new EdificioDTO();
         edificioDTO.setNivel(edificio.getNivel());
         edificioDTO.setAldeanosAsignados(edificio.getAldeanosAsignados());
+        edificioDTO.setDesbloqueado(edificio.isDesbloqueado());
 
         return edificioDTO;
     }
@@ -132,6 +134,7 @@ public class GestorBaseDatos {
         CabaniaCazaDTO cabaniaCazaDTO = new CabaniaCazaDTO();
         cabaniaCazaDTO.setNivel(cabaniaCaza.getNivel());
         cabaniaCazaDTO.setAldeanosAsignados(cabaniaCaza.getAldeanosAsignados());
+        cabaniaCazaDTO.setDesbloqueado(cabaniaCaza.isDesbloqueado());
         cabaniaCazaDTO.setSegundosRestantes(cabaniaCaza.getTimerPartidaCaza().getSegundosRestantes());
         cabaniaCazaDTO.setAldeanosMuertosEnPartida(cabaniaCaza.getAldeanosMuertosEnPartida());
         cabaniaCazaDTO.setPartidaActiva(cabaniaCaza.isPartidaActiva());

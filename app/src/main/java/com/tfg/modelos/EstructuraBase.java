@@ -34,7 +34,7 @@ public abstract class EstructuraBase {
 
         // Recursos
         recursos = new HashMap<>();
-        recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
+        recursos.put(RecursosEnum.COMIDA, 0);
         recursos.put(RecursosEnum.TRONCOS_MADERA, 0);
         recursos.put(RecursosEnum.PIEDRA, 0);
         recursos.put(RecursosEnum.TABLONES_MADERA, 0);

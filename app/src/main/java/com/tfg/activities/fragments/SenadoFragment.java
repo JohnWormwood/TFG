@@ -7,16 +7,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tfg.R;
-import com.tfg.controladores.ControladorAldea;
 import com.tfg.modelos.Aldea;
-import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.ui.MenuEdificioAsignable;
 import com.tfg.ui.MenuEstructuraBase;
+import com.tfg.ui.MenuSenado;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,11 +63,11 @@ public class SenadoFragment extends Fragment {
 
 
     // Componentes de la interfaz
-    private MenuEstructuraBase menuSenado;
+    private MenuSenado menuSenado;
     private MenuEstructuraBase menuCabaniaCaza;
     private MenuEdificioAsignable menuCasetaLeniador;
-    private MenuEdificioAsignable menuMina;
-    private MenuEdificioAsignable menuCarpinteria;
+    private static MenuEdificioAsignable menuMina;
+    private static MenuEdificioAsignable menuCarpinteria;
 
     private Aldea aldea = Aldea.getInstance();
 
@@ -88,13 +84,13 @@ public class SenadoFragment extends Fragment {
 
     private void configInicial(View view) {
         inicializarComponentes(view);
-        establecerVisibilidadLayouts();
+        actualizarVisibilidadLayouts();
         cargarUI();
     }
 
     private void inicializarComponentes(View view) {
         // Senado
-        menuSenado = new MenuEstructuraBase(
+        menuSenado = new MenuSenado(
                 getActivity(),
                 aldea,
                 null,
@@ -124,7 +120,7 @@ public class SenadoFragment extends Fragment {
         // Cabania Caza
         menuCabaniaCaza = new MenuEstructuraBase(
                 getActivity(),
-                aldea.getCasetaLeniador(),
+                aldea.getCabaniaCaza(),
                 null,
                 view.findViewById(R.id.textViewNivelCabaniaCaza),
                 view.findViewById(R.id.textViewPrecioTroncosCabaniaCaza),
@@ -137,7 +133,7 @@ public class SenadoFragment extends Fragment {
         // Mina
         menuMina = new MenuEdificioAsignable(
                 getActivity(),
-                aldea.getCasetaLeniador(),
+                aldea.getMina(),
                 view.findViewById(R.id.layoutMina),
                 view.findViewById(R.id.textViewNivelMina),
                 view.findViewById(R.id.textViewPrecioTroncosMina),
@@ -152,7 +148,7 @@ public class SenadoFragment extends Fragment {
         // Carpinteria
         menuCarpinteria = new MenuEdificioAsignable(
                 getActivity(),
-                aldea.getCasetaLeniador(),
+                aldea.getCarpinteria(),
                 view.findViewById(R.id.layoutCarpinteria),
                 view.findViewById(R.id.textViewNivelCarpinteria),
                 view.findViewById(R.id.textViewPrecioTroncosCarpinteria),
@@ -166,9 +162,14 @@ public class SenadoFragment extends Fragment {
         );
     }
 
-    private void establecerVisibilidadLayouts() {
-        menuMina.getLayout().setVisibility(View.GONE);
-        menuCarpinteria.getLayout().setVisibility(View.GONE);
+    /*
+     * Esta funcion es publica y estatica para poder llamarla desde el MenuSenado para
+     * añadir los layouts a la interfaz segun las subidas de nivel
+     */
+    public static void actualizarVisibilidadLayouts() {
+        Aldea aldea = Aldea.getInstance();
+        menuMina.getLayout().setVisibility(aldea.getMina().isDesbloqueado() ? View.VISIBLE : View.GONE);
+        menuCarpinteria.getLayout().setVisibility(aldea.getCarpinteria().isDesbloqueado() ? View.VISIBLE : View.GONE);
     }
 
     private void cargarUI() {

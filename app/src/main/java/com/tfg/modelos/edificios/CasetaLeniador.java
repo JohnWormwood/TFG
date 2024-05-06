@@ -11,6 +11,7 @@ public class CasetaLeniador extends Edificio {
         super(aldeanosAsignados, aldea);
         generarRecursosConstantemente = true;
         generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.TRONCOS_MADERA));
+        desbloqueado = true;
     }
 
 }

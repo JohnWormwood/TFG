@@ -44,6 +44,8 @@ public class Aldea extends EstructuraBase implements Runnable {
         carpinteria = new Carpinteria(0, this);
         granja = new Granja(0, this);
         mina = new Mina(0, this);
+
+        recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
     }
 
     // Método estático para obtener la instancia única de Aldea
@@ -68,6 +70,9 @@ public class Aldea extends EstructuraBase implements Runnable {
 
         // Iniciar todos los edificios
         casetaLeniador.iniciarProduccion();
+        mina.iniciarProduccion();
+        carpinteria.iniciarProduccion();
+        granja.iniciarProduccion();
 
         int poblacionInicial = poblacion;
         Map<RecursosEnum, Integer> recursosIniciales = new HashMap<>(recursos);
