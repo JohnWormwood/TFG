@@ -1,7 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5A2291FF"
-    tools:context=".activities.fragments.MercaderFragment"/>
+    android:background="@drawable/fondo_redondo"
+    android:backgroundTint="#BE709078"
+    android:backgroundTintMode="src_over"
+    tools:context=".activities.fragments.MercaderFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="MERCADO"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutCasetaLeniador"
+            android:layout_width="match_parent"
+            android:layout_height="151dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@drawable/fondo_menu_1"
+            app:layout_constraintBottom_toTopOf="@+id/buttonMejorarCabaniaCaza"
+            app:layout_constraintTop_toTopOf="@+id/buttonMejorarCabaniaCaza">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tablones"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.134" />
+
+            <Button
+                android:id="@+id/buttonMejorarCasetaLeniador"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="83dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="76dp"
+                android:background="@null"
+                android:backgroundTint="#D5B339"
+                android:clickable="true"
+                android:padding="10dp"
+                android:text="COMPRAR"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <SeekBar
+                android:id="@+id/seekBarLeniadores"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="250dp"
+                android:layout_height="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.796"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.779" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="51dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="64dp"
+                android:text="Cantidad"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.949"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textViewTablonesCompra"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="76dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginBottom="39dp"
+                android:text="@string/int_format"
+                android:textAlignment="textEnd"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.958"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</FrameLayout>
