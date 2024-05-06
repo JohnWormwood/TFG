@@ -2,9 +2,9 @@
   "mejoras_edificios": {
     "senado": {
       "nivel_1": {"troncos": 10, "tablones": 0, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_2": {"troncos": 16, "tablones": 7, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
+      "nivel_2": {"troncos": 16, "tablones": 0, "comida": 0, "piedra": 7, "hierro": 0, "oro": 0},
       "nivel_3": {"troncos": 23, "tablones": 14, "comida": 0, "piedra": 4, "hierro": 0, "oro": 0},
-      "nivel_4": {"troncos": 31, "tablones": 20, "comida": 0, "piedra": 14, "hierro": 3, "oro": 0},
+      "nivel_4": {"troncos": 31, "tablones": 20, "comida": 0, "piedra": 14, "hierro": 0, "oro": 0},
       "nivel_5": {"troncos": 45, "tablones": 25, "comida": 0, "piedra": 21, "hierro": 8, "oro": 0},
       "nivel_6": {"troncos": 54, "tablones": 32, "comida": 0, "piedra": 29, "hierro": 13, "oro": 5},
       "nivel_7": {"troncos": 56, "tablones": 38, "comida": 0, "piedra": 42, "hierro": 16, "oro": 10},

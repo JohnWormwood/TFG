@@ -13,8 +13,11 @@ import com.tfg.modelos.EstructuraBase;
 import com.tfg.modelos.edificios.Edificio;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
 public class MenuEdificioAsignable extends MenuEstructuraBase {
 
     private SeekBar seekBarAldeanosAsignados;

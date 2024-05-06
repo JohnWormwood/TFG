@@ -39,7 +39,7 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
     public static boolean enEjecucion = false;
 
     // Componentes de la interfaz
-    private TextView textViewAldeanos, textViewComida, textViewTroncos;
+    private TextView textViewAldeanos, textViewComida, textViewTroncos, textViewPiedra, textViewHierro;
 
     private ImageView imageViewMina, imageViewCabaniaCaza, imageViewCasetaLeniador, imageViewCastillo;
 
@@ -133,6 +133,8 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
                 textViewAldeanos.setText(String.valueOf(Aldea.getInstance().getPoblacion()));
                 textViewComida.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.COMIDA)));
                 textViewTroncos.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.TRONCOS_MADERA)));
+                textViewPiedra.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.PIEDRA)));
+                textViewHierro.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.HIERRO)));
             }
         });
     }
@@ -172,6 +174,8 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
         textViewAldeanos = findViewById(R.id.textViewAldeanos);
         textViewComida = findViewById(R.id.textViewComida);
         textViewTroncos = findViewById(R.id.textViewTroncos);
+        textViewPiedra = findViewById(R.id.textViewPiedra);
+        textViewHierro = findViewById(R.id.textViewHierro);
         // ImageViews
         imageViewCabaniaCaza = findViewById(R.id.imageViewCabaniaCaza);
         imageViewCasetaLeniador = findViewById(R.id.imageViewCasetaLeniador);
