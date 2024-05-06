@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_redondo"
-    android:backgroundTint="#BE709078"
+    android:backgroundTint="#BE8AAF93"
     android:backgroundTintMode="src_over"
     tools:context=".activities.fragments.MercaderFragment">
 
