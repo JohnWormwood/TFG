@@ -3,11 +3,11 @@
 
     <item
         android:id="@+id/aldea"
-        android:icon="@drawable/boton_senado"
+        android:icon="@drawable/boton_aldea"
         android:title="" />
     <item
         android:id="@+id/mercader"
-        android:icon="@drawable/boton_senado"
+        android:icon="@drawable/boton_mercado"
         android:title="" />
     <item
         android:id="@+id/senado"
@@ -15,7 +15,7 @@
         android:title="" />
     <item
         android:id="@+id/partidas"
-        android:icon="@drawable/boton_senado"
+        android:icon="@drawable/boton_partidas"
         android:title="" />
 
 </menu>
