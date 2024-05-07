@@ -39,7 +39,7 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
     public static boolean enEjecucion = false;
 
     // Componentes de la interfaz
-    private TextView textViewAldeanos, textViewComida, textViewTroncos, textViewPiedra, textViewHierro;
+    private TextView textViewAldeanos, textViewComida, textViewTroncos,textViewTablones, textViewPiedra, textViewHierro, textViewOro;
 
     private ImageView imageViewMina, imageViewCabaniaCaza, imageViewCasetaLeniador, imageViewCastillo;
 
@@ -133,8 +133,11 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
                 textViewAldeanos.setText(String.valueOf(Aldea.getInstance().getPoblacion()));
                 textViewComida.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.COMIDA)));
                 textViewTroncos.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.TRONCOS_MADERA)));
+                textViewTablones.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.TABLONES_MADERA)));
                 textViewPiedra.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.PIEDRA)));
                 textViewHierro.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.HIERRO)));
+                textViewOro.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.ORO)));
+
             }
         });
     }
@@ -174,8 +177,11 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
         textViewAldeanos = findViewById(R.id.textViewAldeanos);
         textViewComida = findViewById(R.id.textViewComida);
         textViewTroncos = findViewById(R.id.textViewTroncos);
+        textViewTablones = findViewById(R.id.textViewTablones);
         textViewPiedra = findViewById(R.id.textViewPiedra);
         textViewHierro = findViewById(R.id.textViewHierro);
+        textViewOro = findViewById(R.id.textViewOro);
+
         // ImageViews
         imageViewCabaniaCaza = findViewById(R.id.imageViewCabaniaCaza);
         imageViewCasetaLeniador = findViewById(R.id.imageViewCasetaLeniador);
