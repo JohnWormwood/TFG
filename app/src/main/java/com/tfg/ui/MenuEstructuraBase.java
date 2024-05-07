@@ -3,14 +3,14 @@ package com.tfg.ui;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.tfg.controladores.ControladorAldea;
 import com.tfg.controladores.ControladorEstructuraBase;
+import com.tfg.eventos.LanzadorEventos;
+import com.tfg.eventos.listeners.ActualizarLayoutEventListener;
 import com.tfg.modelos.EstructuraBase;
 import com.tfg.modelos.enums.RecursosEnum;
 
@@ -18,10 +18,12 @@ import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class MenuEstructuraBase {
+public class MenuEstructuraBase extends LanzadorEventos<ActualizarLayoutEventListener> {
     protected Context context;
     protected EstructuraBase estructura;
     protected ConstraintLayout layout;
@@ -49,6 +51,11 @@ public class MenuEstructuraBase {
         textViewPrecioOro.setText(String.valueOf(preciosMejora.getOrDefault(RecursosEnum.ORO, 0)));
     }
 
+    protected void lanzarEventoActualizarLayout() {
+        for (ActualizarLayoutEventListener listener : listeners) {
+            listener.onActualizarLayout();
+        }
+    }
 
     public View.OnClickListener buttonMejorarOnClick() {
         return view -> {

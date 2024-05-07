@@ -3,7 +3,6 @@ package com.tfg.modelos.edificios;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.impl.GeneradorEstandar;
-import com.tfg.utilidades.Constantes;
 
 public class Mina extends Edificio {
     public Mina(int aldeanosAsignados, Aldea aldea) {

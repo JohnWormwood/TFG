@@ -9,7 +9,9 @@ public interface IGeneradorRecursos {
 
     default void producirRecursos(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int aldeanosAsignados) {
         if (aldeanosAsignados > 0) {
-            int cantidad = (aldeanosAsignados == 1 ? 1 : aldeanosAsignados / 2) + recurso.getCALIDAD();
+            // Generar el recurso en funcion de los aldeanos asignados y de la calidad del recurso
+            int cantidad = (aldeanosAsignados == 1 ? 1 : aldeanosAsignados / 2);
+            cantidad = Math.max(cantidad - recurso.getCALIDAD(), 1);
             ControladorRecursos.agregarRecurso(recursos, recurso, cantidad);
         }
     }

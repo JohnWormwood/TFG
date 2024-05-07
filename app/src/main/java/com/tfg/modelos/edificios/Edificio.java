@@ -8,6 +8,7 @@ import com.tfg.modelos.EstructuraBase;
 import com.tfg.modelos.PrecioMejora;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
+import com.tfg.modelos.generadores_recursos.impl.GeneradorEstandar;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.ListaHilos;
 
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,8 +25,6 @@ import lombok.Setter;
 import lombok.Synchronized;
 
 
-@Data
-@EqualsAndHashCode(callSuper = true)
 @Getter(onMethod_={@Synchronized}) @Setter(onMethod_={@Synchronized})
 public abstract class Edificio extends EstructuraBase implements Runnable {
     protected final int SEGUNDOS_ENTRE_RECURSOS = 10;
@@ -72,6 +72,11 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
     protected void devolverAldeanos(int aldeanos) {
         aldea.setPoblacion(aldea.getPoblacion()+aldeanos);
         aldea.setAldeanosAsignados(aldea.getAldeanosAsignados()-aldeanos);
+    }
+
+    public synchronized void agregarGeneradorRecurso(RecursosEnum recurso) {
+        generadoresRecursos.add(new GeneradorEstandar(recurso));
+        reiniciarProduccion();
     }
 
     @Override

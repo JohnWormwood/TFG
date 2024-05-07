@@ -25,8 +25,6 @@ public final class ControladorAldea {
         // Se interrumpen todos los hilos
         aldea.getCabaniaCaza().getTimerPartidaCaza().cancel();
         ListaHilos.interrumpirTodos();
-        /*aldea.getCasetaLeniador().getThread().interrupt();
-        aldea.getThread().interrupt();*/
     }
 
     public static boolean asignarAldeano(int numAldeanos) {
@@ -50,20 +48,19 @@ public final class ControladorAldea {
                 aldea.getCarpinteria().setDesbloqueado(true);
                 break;
             case 5:
-                aldea.getMina().getGeneradoresRecursos().add(new GeneradorEstandar(RecursosEnum.HIERRO));
-                aldea.getMina().reiniciarProduccion();
+                aldea.getMina().agregarGeneradorRecurso(RecursosEnum.HIERRO);
                 break;
             case 6:
                 aldea.getGranja().setDesbloqueado(true);
                 break;
             case 7:
-                aldea.getMina().getGeneradoresRecursos().add(new GeneradorEstandar(RecursosEnum.ORO));
+                aldea.getMina().agregarGeneradorRecurso(RecursosEnum.ORO);
                 break;
             case 9:
-
+                // Desbloquear mercader
                 break;
             case 10:
-
+                // Desbloquear castillo
                 break;
             default:
                 break;

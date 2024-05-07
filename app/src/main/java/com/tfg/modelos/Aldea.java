@@ -21,8 +21,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
 @Getter(onMethod_={@Synchronized}) @Setter(onMethod_={@Synchronized})
 public class Aldea extends EstructuraBase implements Runnable {
     private static Aldea instance; // Campo estático para almacenar la instancia única

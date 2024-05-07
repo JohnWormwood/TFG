@@ -14,7 +14,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
 
-@Data
 @Getter(onMethod_={@Synchronized}) @Setter(onMethod_={@Synchronized})
 public abstract class EstructuraBase {
     protected int nivel;

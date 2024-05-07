@@ -63,6 +63,7 @@ public class CabaniaCaza extends Edificio {
                  * un looper en el que ejecutarse ya que si no dara excepcion
                  */
                 // Iniciar el timer con el tiempo restante
+                System.out.println("SEGUNDOS = "+timerPartidaCaza.getSegundosRestantes());
                 timerPartidaCaza = new TimerPartidaCaza(timerPartidaCaza.getSegundosRestantes()*1000, ref);
                 timerPartidaCaza.start();
             });

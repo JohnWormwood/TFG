@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tfg.R;
+import com.tfg.eventos.listeners.ActualizarLayoutEventListener;
 import com.tfg.modelos.Aldea;
 import com.tfg.ui.MenuEdificioAsignable;
 import com.tfg.ui.MenuEstructuraBase;
@@ -19,7 +20,7 @@ import com.tfg.ui.MenuSenado;
  * Use the {@link SenadoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SenadoFragment extends Fragment {
+public class SenadoFragment extends Fragment implements ActualizarLayoutEventListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,8 +67,8 @@ public class SenadoFragment extends Fragment {
     private MenuSenado menuSenado;
     private MenuEstructuraBase menuCabaniaCaza;
     private MenuEdificioAsignable menuCasetaLeniador;
-    private static MenuEdificioAsignable menuMina;
-    private static MenuEdificioAsignable menuCarpinteria;
+    private MenuEdificioAsignable menuMina;
+    private MenuEdificioAsignable menuCarpinteria;
 
     private Aldea aldea = Aldea.getInstance();
 
@@ -80,7 +81,23 @@ public class SenadoFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        menuSenado.addEventListener(this);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        menuSenado.removeEventListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        menuSenado.removeEventListener(this);
+    }
 
     private void configInicial(View view) {
         inicializarComponentes(view);
@@ -166,7 +183,7 @@ public class SenadoFragment extends Fragment {
      * Esta funcion es publica y estatica para poder llamarla desde el MenuSenado para
      * añadir los layouts a la interfaz segun las subidas de nivel
      */
-    public static void actualizarVisibilidadLayouts() {
+    private void actualizarVisibilidadLayouts() {
         Aldea aldea = Aldea.getInstance();
         menuMina.getLayout().setVisibility(aldea.getMina().isDesbloqueado() ? View.VISIBLE : View.GONE);
         menuCarpinteria.getLayout().setVisibility(aldea.getCarpinteria().isDesbloqueado() ? View.VISIBLE : View.GONE);
@@ -178,5 +195,10 @@ public class SenadoFragment extends Fragment {
         menuCasetaLeniador.iniciar();
         menuMina.iniciar();
         menuCarpinteria.iniciar();
+    }
+
+    @Override
+    public void onActualizarLayout() {
+        actualizarVisibilidadLayouts();
     }
 }

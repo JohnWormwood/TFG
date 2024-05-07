@@ -92,14 +92,26 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         // Mostrar el valor de la seekbar en el textview
         textViewCazadores.setText(String.format(getString(R.string.texto_num_cazadores), seekBarCazadores.getProgress()));
 
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         comprobarEstadoBoton();
         addListener();
-        return view;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza() != null)
+            Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
         if (Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza() != null)
             Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
     }
