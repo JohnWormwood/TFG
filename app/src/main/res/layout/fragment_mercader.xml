@@ -35,6 +35,31 @@
             app:layout_constraintTop_toTopOf="@+id/buttonMejorarCabaniaCaza">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precio"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.874"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.317" />
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textAlignment="textEnd"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.867"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.682" />
+
+            <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +68,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.33"
+                app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.134" />
@@ -51,9 +76,9 @@
             <Button
                 android:id="@+id/buttonComprarTablones"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="83dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="76dp"
+                android:layout_width="103dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="72dp"
                 android:background="@null"
                 android:backgroundTint="#D5B339"
                 android:clickable="true"
@@ -62,21 +87,9 @@
                 android:textAlignment="center"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <SeekBar
-                android:id="@+id/seekBarComprarTablones"
-                style="@style/Widget.AppCompat.SeekBar"
-                android:layout_width="250dp"
-                android:layout_height="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.796"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.779" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -86,24 +99,23 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.803"
+                app:layout_constraintHorizontal_bias="0.557"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.317" />
 
             <TextView
-                android:id="@+id/textViewTablonesCompra"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="@string/int_format"
+                android:text="10"
                 android:textAlignment="textEnd"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.813"
+                app:layout_constraintHorizontal_bias="0.572"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.515" />
+                app:layout_constraintVertical_bias="0.682" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

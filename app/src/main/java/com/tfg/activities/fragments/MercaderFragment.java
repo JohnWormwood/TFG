@@ -7,8 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.tfg.R;
+import com.tfg.controladores.ControladorRecursos;
+import com.tfg.eventos.listeners.PartidaCazaEventListener;
+import com.tfg.modelos.Aldea;
+import com.tfg.modelos.enums.RecursosEnum;
+import com.tfg.utilidades.Constantes;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,19 +33,13 @@ public class MercaderFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Button buttonComprarTablones;
+
+
     public MercaderFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MercaderFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static MercaderFragment newInstance(String param1, String param2) {
         MercaderFragment fragment = new MercaderFragment();
         Bundle args = new Bundle();
@@ -51,6 +52,8 @@ public class MercaderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -60,7 +63,28 @@ public class MercaderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_mercader, container, false);
+
+        buttonComprarTablones = view.findViewById(R.id.buttonComprarTablones);
+        buttonComprarTablones.setOnClickListener(buttonComprarTablonesOnClickListener);
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mercader, container, false);
+        return view;
     }
+
+    View.OnClickListener buttonComprarTablonesOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (ControladorRecursos.consumirRecurso(Aldea.getInstance().getRecursos(),RecursosEnum.ORO,Constantes.Mercader.PRECIO_TABLONES)){
+                ControladorRecursos.agregarRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.TABLONES_MADERA,Constantes.Mercader.CANTIDAD);
+            } else {
+                Toast.makeText(getActivity(), "No tienes suficiente Oro", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    };
+
+
 }

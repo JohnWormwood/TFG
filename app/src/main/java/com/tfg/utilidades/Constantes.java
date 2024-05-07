@@ -18,4 +18,9 @@ public final class Constantes {
     public static class CabaniaCaza {
         public static final int PROBABILIDAD_MUERTE = 10;
     }
+
+    public static class Mercader {
+        public static final int CANTIDAD = 10;
+        public static final int PRECIO_TABLONES = 5;
+    }
 }
