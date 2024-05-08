@@ -25,7 +25,13 @@ public final class Constantes {
     }
 
     public static class Mercader {
-        public static final int CANTIDAD = 10;
-        public static final int PRECIO_TABLONES = 5;
+        public static final int CANTIDAD = 5;
+        public static final int PRECIO_TRONCOS = 5;
+        public static final int PRECIO_COMIDA = 5;
+        public static final int PRECIO_TABLONES = 7;
+        public static final int PRECIO_PIEDRA = 8;
+        public static final int PRECIO_HIERRO = 10;
+
+
     }
 }
