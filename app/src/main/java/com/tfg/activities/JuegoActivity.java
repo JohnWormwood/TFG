@@ -160,6 +160,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
                 textViewPiedra.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.PIEDRA)));
                 textViewHierro.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.HIERRO)));
                 textViewOro.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.ORO)));
+                System.out.println("TABLONES = "+Aldea.getInstance().getRecursos().get(RecursosEnum.TABLONES_MADERA));
             }
         });
     }
@@ -240,8 +241,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     }
 
     private void cargarGifs() {
-        cargarGif(R.id.taladorView,R.drawable.talador);
-        cargarGif(R.id.imageViewOveja,R.drawable.oveja);
+        cargarGif(R.id.taladorView, R.drawable.talador);
+        cargarGif(R.id.imageViewOveja, R.drawable.oveja);
     }
 
     private void cargarGif(int id, int d) {

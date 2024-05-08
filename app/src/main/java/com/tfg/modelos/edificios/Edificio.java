@@ -102,6 +102,13 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
         }
     }
 
+    protected int calcularCantidadProducida(int aldeanosAsignados) {
+        // Generar el recurso en funcion de los aldeanos asignados y de la calidad del recurso
+        int cantidad = (aldeanosAsignados == 1 ? 1 : aldeanosAsignados / 2);
+        cantidad = Math.max(cantidad - RecursosEnum.TABLONES_MADERA.getCALIDAD(), 1);
+        return cantidad;
+    }
+
     public void reiniciarProduccion() {
         if (thread != null) thread.interrupt();
         iniciarProduccion();

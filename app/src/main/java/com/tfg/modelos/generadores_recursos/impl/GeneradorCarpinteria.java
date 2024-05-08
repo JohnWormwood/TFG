@@ -22,13 +22,9 @@ public class GeneradorCarpinteria extends GeneradorEstandar {
         if (aldeanosAsignados > 0) {
             //System.out.println("CANTIDAD DE TABLONES A GENERAR = "+calcularCantidadProducida(aldeanosAsignados));
             //System.out.println("CANTIDAD DE TRONCOS A CONSUMIR = "+calcularCantidadProducida(aldeanosAsignados)*2);
-            if (ControladorRecursos.consumirRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.TRONCOS_MADERA, calcularCantidadProducida(aldeanosAsignados)*2)) {
-                //System.out.println("ENTRA");
+            if (ControladorRecursos.puedeConsumirRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.TRONCOS_MADERA, calcularCantidadProducida(aldeanosAsignados)*2)) {
                 super.producirRecursos(recursos, recurso, aldeanosAsignados);
-            } else {
-                //System.out.println("NO ENTRA");
             }
-
         }
     }
 }

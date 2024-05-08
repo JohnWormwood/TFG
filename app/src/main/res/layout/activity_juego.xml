@@ -185,53 +185,69 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/imageViewCasa7"
                 android:layout_width="54dp"
                 android:layout_height="66dp"
-                android:src="@drawable/casa1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.327"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.757"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.757" />
 
             <ImageView
+                android:id="@+id/imageViewCasa3"
                 android:layout_width="54dp"
                 android:layout_height="66dp"
-                android:src="@drawable/casa1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.456"
+                app:layout_constraintHorizontal_bias="0.417"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.52"
-                android:importantForAccessibility="no"/>
+                app:layout_constraintVertical_bias="0.46" />
 
             <ImageView
+                android:id="@+id/imageViewCasa9"
                 android:layout_width="54dp"
                 android:layout_height="66dp"
-                android:src="@drawable/casa1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.943"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.7"
-                android:importantForAccessibility="no"/>
+                app:layout_constraintVertical_bias="0.7" />
 
             <ImageView
-                android:id="@+id/imageView15"
+                android:id="@+id/imageViewCasa10"
                 android:layout_width="54dp"
                 android:layout_height="66dp"
-                android:src="@drawable/casa1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.543"
+                app:layout_constraintHorizontal_bias="0.987"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.787"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.481" />
+
+            <ImageView
+                android:id="@+id/imageViewCasa8"
+                android:layout_width="54dp"
+                android:layout_height="66dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/casa_destruida"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.782" />
 
             <ImageView
                 android:id="@+id/imageViewMina"
@@ -242,10 +258,10 @@
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.06"
+                app:layout_constraintHorizontal_bias="0.04"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.162" />
+                app:layout_constraintVertical_bias="0.189" />
 
             <ImageView
                 android:id="@+id/imageViewCabaniaCaza"
@@ -301,14 +317,14 @@
                 android:id="@+id/imageView11"
                 android:layout_width="49dp"
                 android:layout_height="58dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/arbol"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.535"
+                app:layout_constraintHorizontal_bias="0.527"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.191"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.928" />
 
             <ImageView
                 android:layout_width="49dp"
@@ -325,14 +341,14 @@
             <ImageView
                 android:layout_width="49dp"
                 android:layout_height="58dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/arbol"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.604"
+                app:layout_constraintHorizontal_bias="0.376"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.068"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.913" />
 
             <ImageView
                 android:layout_width="49dp"
@@ -384,28 +400,29 @@
                 android:importantForAccessibility="no" />
 
             <ImageView
+                android:id="@+id/imageView16"
                 android:layout_width="49dp"
                 android:layout_height="58dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/arbol"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.671"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.371"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.371" />
 
             <ImageView
                 android:layout_width="49dp"
                 android:layout_height="58dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/arbol"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.378"
+                app:layout_constraintHorizontal_bias="0.317"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.411"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.37" />
 
             <ImageView
                 android:layout_width="49dp"
@@ -468,40 +485,43 @@
                 android:importantForAccessibility="no" />
 
             <ImageView
+                android:id="@+id/imageView10"
                 android:layout_width="49dp"
                 android:layout_height="58dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/arbol"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.154"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.79"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.79" />
 
             <ImageView
+                android:id="@+id/imageView12"
                 android:layout_width="49dp"
                 android:layout_height="58dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/arbol"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.756"
+                app:layout_constraintHorizontal_bias="0.67"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.79"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.741" />
 
             <ImageView
+                android:id="@+id/imageView8"
                 android:layout_width="49dp"
                 android:layout_height="58dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/arbol"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.27"
+                app:layout_constraintHorizontal_bias="0.177"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.371"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.346" />
 
             <ImageView
                 android:layout_width="49dp"
@@ -535,70 +555,75 @@
                 android:src="@drawable/castillo_roto"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.624"
+                app:layout_constraintHorizontal_bias="0.615"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.651" />
+                app:layout_constraintVertical_bias="0.599" />
 
             <ImageView
+                android:id="@+id/imageViewCasa2"
                 android:layout_width="54dp"
                 android:layout_height="66dp"
-                android:src="@drawable/casa1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.03"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.421"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.421" />
 
             <ImageView
+                android:id="@+id/imageViewCasa1"
                 android:layout_width="54dp"
                 android:layout_height="66dp"
-                android:src="@drawable/casa1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.456"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.317"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.317" />
 
             <ImageView
+                android:id="@+id/imageViewCasa5"
                 android:layout_width="54dp"
                 android:layout_height="66dp"
-                android:src="@drawable/casa1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.792"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.481"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.481" />
 
             <ImageView
+                android:id="@+id/imageViewCasa4"
                 android:layout_width="54dp"
                 android:layout_height="66dp"
-                android:src="@drawable/casa1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.232"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.52"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.52" />
 
             <ImageView
+                android:id="@+id/imageViewCasa6"
                 android:layout_width="54dp"
                 android:layout_height="66dp"
-                android:src="@drawable/casa1"
+                android:importantForAccessibility="no"
+                android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.044"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.679"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.679" />
 
             <ImageView
                 android:id="@+id/imageViewCasetaLeniador"
@@ -625,6 +650,55 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.253"
                 android:importantForAccessibility="no" />
+
+
+            <ImageView
+                android:id="@+id/imageViewCarpinteria"
+                android:layout_width="92dp"
+                android:layout_height="85dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.03"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.97"
+                app:srcCompat="@drawable/carpinteria_ico" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="76dp"
+                android:layout_height="114dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.75"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.968"
+                app:srcCompat="@drawable/casa2" />
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="63dp"
+                android:layout_height="63dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.951"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.836"
+                app:srcCompat="@drawable/deco1" />
+
+            <ImageView
+                android:id="@+id/imageViewOveja"
+                android:layout_width="100dp"
+                android:layout_height="92dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.962"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.969"
+                tools:srcCompat="@tools:sample/avatars" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
