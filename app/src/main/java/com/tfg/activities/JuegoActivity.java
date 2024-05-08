@@ -42,6 +42,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     private TextView textViewAldeanos, textViewComida, textViewTroncos, textViewTablones, textViewPiedra, textViewHierro, textViewOro;
 
     private ImageView imageViewMina, imageViewCabaniaCaza, imageViewCasetaLeniador, imageViewCastillo;
+    private ImageView[] imageViewsCasas;
 
     private Aldea aldea = Aldea.getInstance();
 
@@ -101,8 +102,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
          */
         // Iniciar el juego
         enEjecucion = true;
+        establecerVisibilidadImageViews();
         ejecutarHiloJuego();
-
     }
 
     @Override
@@ -157,7 +158,6 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
                 textViewPiedra.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.PIEDRA)));
                 textViewHierro.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.HIERRO)));
                 textViewOro.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.ORO)));
-
             }
         });
     }
@@ -201,6 +201,11 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         imageViewCasetaLeniador = findViewById(R.id.imageViewCasetaLeniador);
         imageViewMina = findViewById(R.id.imageViewMina);
         imageViewCastillo = findViewById(R.id.imageViewCastillo);
+        imageViewsCasas = new ImageView[10];
+        for (int i = 0; i < imageViewsCasas.length; i++) {
+            int id = getResources().getIdentifier("imageViewCasa"+(i+1), "id", getPackageName());
+            imageViewsCasas[i] = findViewById(id);
+        }
     }
 
     private void cargarListeners() {
@@ -209,7 +214,9 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     }
 
     private void establecerVisibilidadImageViews() {
-
+        for (int i = 0; i < aldea.getNivel(); i++) {
+            imageViewsCasas[i].setImageResource(R.drawable.casa1);
+        }
     }
 
     private void cargarDatos() {

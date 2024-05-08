@@ -92,6 +92,7 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
                 }
                 Thread.sleep(SEGUNDOS_ENTRE_RECURSOS * 1000);
                 generadoresRecursos.forEach(g -> transferirRecursoAldea(g.getRecurso()));
+                //System.out.println("Tablones aldea = "+aldea.getRecursos().get(RecursosEnum.TABLONES_MADERA));
             }
         } catch (InterruptedException e) {
             // En caso de interrupcion se vuelve al estado anterior, para evitar que se dupliquen recursos

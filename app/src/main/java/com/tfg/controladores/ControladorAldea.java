@@ -40,8 +40,8 @@ public final class ControladorAldea {
         // Los niveles que no estan es por que solo aumentan la poblacion maxima, y de eso ya se encarga la propia Aldea
         switch (aldea.getNivel()) {
             case Constantes.Aldea.NIVEL_DESBLOQUEO_PIEDRA:
-                // Desbloquear mina (por defecto solo generara piedra)
                 aldea.getMina().setDesbloqueado(true);
+                aldea.getMina().agregarGeneradorRecurso(RecursosEnum.PIEDRA);
                 break;
             case Constantes.Aldea.NIVEL_DESBLOQUEO_TABLONES:
                 // Desbloquear la carpinteria

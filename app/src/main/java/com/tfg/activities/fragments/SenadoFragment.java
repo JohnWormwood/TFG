@@ -166,12 +166,26 @@ public class SenadoFragment extends Fragment implements ActualizarLayoutEventLis
                 view.findViewById(R.id.textViewGranjeros)
         );
         // Castillo
-
+        /*menuCastillo = new MenuEdificioAsignable(
+                getActivity(),
+                aldea.getGranja(),
+                view.findViewById(R.id.layoutGranja),
+                view.findViewById(R.id.textViewNivelGranja),
+                view.findViewById(R.id.textViewPrecioTroncosGranja),
+                view.findViewById(R.id.textViewPrecioPiedraGranja),
+                view.findViewById(R.id.textViewPrecioTablonesGranja),
+                view.findViewById(R.id.textViewPrecioHierroGranja),
+                view.findViewById(R.id.textViewPrecioOroGranja),
+                view.findViewById(R.id.buttonMejorarGranja),
+                view.findViewById(R.id.seekBarGranjeros),
+                view.findViewById(R.id.textViewGranjeros)
+        );*/
     }
 
     private void actualizarVisibilidadLayouts() {
         menuMina.getLayout().setVisibility(aldea.getMina().isDesbloqueado() ? View.VISIBLE : View.GONE);
         menuCarpinteria.getLayout().setVisibility(aldea.getCarpinteria().isDesbloqueado() ? View.VISIBLE : View.GONE);
+        menuGranja.getLayout().setVisibility(aldea.getGranja().isDesbloqueado() ? View.VISIBLE : View.GONE);
     }
 
     private void cargarUI() {
@@ -181,6 +195,6 @@ public class SenadoFragment extends Fragment implements ActualizarLayoutEventLis
         menuMina.iniciar();
         menuCarpinteria.iniciar();
         menuGranja.iniciar();
-
+        //menuCastillo.iniciar();
     }
 }

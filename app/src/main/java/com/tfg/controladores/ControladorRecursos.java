@@ -18,6 +18,11 @@ public final class ControladorRecursos {
     public static synchronized boolean consumirRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
         Integer cantidadActual = recursos.get(recurso);
         if (cantidadActual != null) {
+            /*System.out.println("--- consumirRecurso ---");
+            System.out.println("recurso = "+recurso);
+            System.out.println("cantidadActual = "+cantidadActual);
+            System.out.println("cantidad = "+cantidad);
+            System.out.println("-----------------------");*/
             if (cantidad <= cantidadActual) {
                 recursos.put(recurso, cantidadActual-cantidad);
                 return true;

@@ -46,8 +46,8 @@ public class MercaderFragment extends Fragment {
     View.OnClickListener buttonComprarTablonesOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (ControladorRecursos.consumirRecurso(Aldea.getInstance().getRecursos(),RecursosEnum.ORO,Constantes.Mercader.PRECIO_TABLONES)){
-                ControladorRecursos.agregarRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.TABLONES_MADERA,Constantes.Mercader.CANTIDAD);
+            if (ControladorRecursos.consumirRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.ORO, Constantes.Mercader.PRECIO_TABLONES)){
+                ControladorRecursos.agregarRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.TABLONES_MADERA, Constantes.Mercader.CANTIDAD);
             } else {
                 Toast.makeText(getActivity(), "No tienes suficiente Oro", Toast.LENGTH_SHORT).show();
             }
