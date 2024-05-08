@@ -15,53 +15,7 @@ import com.tfg.ui.MenuEdificioAsignable;
 import com.tfg.ui.MenuEstructuraBase;
 import com.tfg.ui.MenuSenado;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SenadoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SenadoFragment extends Fragment implements ActualizarLayoutEventListener {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SenadoFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SenadoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SenadoFragment newInstance(String param1, String param2) {
-        SenadoFragment fragment = new SenadoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
 
     // Componentes de la interfaz
     private MenuSenado menuSenado;
@@ -69,8 +23,20 @@ public class SenadoFragment extends Fragment implements ActualizarLayoutEventLis
     private MenuEdificioAsignable menuCasetaLeniador;
     private MenuEdificioAsignable menuMina;
     private MenuEdificioAsignable menuCarpinteria;
+    private MenuEdificioAsignable menuGranja;
+    private MenuEdificioAsignable menuCastillo;
 
     private Aldea aldea = Aldea.getInstance();
+
+    public SenadoFragment() {
+        // Required empty public constructor
+    }
+
+    // --- FUNCIONES PARA CONTROLAR EL FRAGMENT ---
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,6 +65,13 @@ public class SenadoFragment extends Fragment implements ActualizarLayoutEventLis
         menuSenado.removeEventListener(this);
     }
 
+    // IMPLEMENTACION DE ActualizarLayoutEventListener
+    @Override
+    public void onActualizarLayout() {
+        actualizarVisibilidadLayouts();
+    }
+
+    // --- FUNCIONES PARA INICIALIZAR CORRECTAMENTE LA UI ---
     private void configInicial(View view) {
         inicializarComponentes(view);
         actualizarVisibilidadLayouts();
@@ -177,14 +150,26 @@ public class SenadoFragment extends Fragment implements ActualizarLayoutEventLis
                 view.findViewById(R.id.seekBarCarpinteros),
                 view.findViewById(R.id.textViewCarpinteros)
         );
+        // Granja
+        menuGranja = new MenuEdificioAsignable(
+                getActivity(),
+                aldea.getGranja(),
+                view.findViewById(R.id.layoutGranja),
+                view.findViewById(R.id.textViewNivelGranja),
+                view.findViewById(R.id.textViewPrecioTroncosGranja),
+                view.findViewById(R.id.textViewPrecioPiedraGranja),
+                view.findViewById(R.id.textViewPrecioTablonesGranja),
+                view.findViewById(R.id.textViewPrecioHierroGranja),
+                view.findViewById(R.id.textViewPrecioOroGranja),
+                view.findViewById(R.id.buttonMejorarGranja),
+                view.findViewById(R.id.seekBarGranjeros),
+                view.findViewById(R.id.textViewGranjeros)
+        );
+        // Castillo
+
     }
 
-    /*
-     * Esta funcion es publica y estatica para poder llamarla desde el MenuSenado para
-     * añadir los layouts a la interfaz segun las subidas de nivel
-     */
     private void actualizarVisibilidadLayouts() {
-        Aldea aldea = Aldea.getInstance();
         menuMina.getLayout().setVisibility(aldea.getMina().isDesbloqueado() ? View.VISIBLE : View.GONE);
         menuCarpinteria.getLayout().setVisibility(aldea.getCarpinteria().isDesbloqueado() ? View.VISIBLE : View.GONE);
     }
@@ -195,10 +180,7 @@ public class SenadoFragment extends Fragment implements ActualizarLayoutEventLis
         menuCasetaLeniador.iniciar();
         menuMina.iniciar();
         menuCarpinteria.iniciar();
-    }
+        menuGranja.iniciar();
 
-    @Override
-    public void onActualizarLayout() {
-        actualizarVisibilidadLayouts();
     }
 }

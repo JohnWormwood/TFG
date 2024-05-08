@@ -43,10 +43,10 @@ public abstract class EstructuraBase {
 
     protected void setMaximoAldeanosSegunNivel() throws IllegalArgumentException {
         // TODO Capturar la excepcion donde se llame la funcion
-        if (nivel <= Constantes.Edificio.NIVEL_MAXIMO)
-            aldeanosMaximos = Constantes.Edificio.AUMENTO_MAX_ALDEANOS_POR_NIVEL * nivel;
+        if (nivel <= Constantes.Estructura.NIVEL_MAXIMO)
+            aldeanosMaximos = Constantes.Estructura.AUMENTO_MAX_ALDEANOS_POR_NIVEL * nivel;
         else
-            throw new IllegalArgumentException(nivel+" es mayor al nivel maximo permitido ("+Constantes.Edificio.NIVEL_MAXIMO+")");
+            throw new IllegalArgumentException(nivel+" es mayor al nivel maximo permitido ("+Constantes.Estructura.NIVEL_MAXIMO+")");
     }
 
     public boolean aumentarNivel() {

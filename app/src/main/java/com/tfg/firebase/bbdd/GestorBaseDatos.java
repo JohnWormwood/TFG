@@ -1,7 +1,7 @@
 package com.tfg.firebase.bbdd;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.tfg.eventos.callbacks.DatosCargadosCallback;
+import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.firebase.bbdd.dto.AldeaDTO;
 import com.tfg.firebase.bbdd.dto.CabaniaCazaDTO;
 import com.tfg.firebase.bbdd.dto.EdificioDTO;
@@ -25,7 +25,7 @@ public class GestorBaseDatos {
     private final String GRANJA = "granja";
     private final String MINA = "mina";
     Aldea aldea = Aldea.getInstance();
-    public void guardarDatos(String email, DatosCargadosCallback callback) {
+    public void guardarDatos(String email, OperacionesDatosCallback callback) {
         FirebaseFirestore.getInstance()
                 .collection(COLECCION_USUARIOS)
                 .document(email)
@@ -33,7 +33,7 @@ public class GestorBaseDatos {
         callback.onDatosGuardados();
     }
 
-    public void cargarDatos(String email, DatosCargadosCallback callback) {
+    public void cargarDatos(String email, OperacionesDatosCallback callback) {
         Aldea aldea = Aldea.getInstance();
         FirebaseFirestore.getInstance()
                 .collection(COLECCION_USUARIOS)

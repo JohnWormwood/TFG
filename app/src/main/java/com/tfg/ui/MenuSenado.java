@@ -33,5 +33,6 @@ public class MenuSenado extends MenuEstructuraBase {
         super.actualizar();
         ControladorAldea.manejarSubidaNivel();
         lanzarEventoActualizarLayout();
+        //lanzarEvento(ActualizarLayoutEventListener::onActualizarLayout);
     }
 }

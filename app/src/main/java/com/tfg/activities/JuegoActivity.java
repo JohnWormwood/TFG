@@ -20,7 +20,7 @@ import com.tfg.activities.fragments.PartidasFragment;
 import com.tfg.activities.fragments.SenadoFragment;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.databinding.ActivityJuegoBinding;
-import com.tfg.eventos.callbacks.DatosCargadosCallback;
+import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.firebase.bbdd.GestorBaseDatos;
 import com.tfg.json.GestorJSON;
@@ -30,7 +30,7 @@ import com.tfg.modelos.enums.RecursosEnum;
 
 import java.io.IOException;
 
-public class JuegoActivity extends AppCompatActivity implements DatosCargadosCallback, PartidaCazaEventListener {
+public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback, PartidaCazaEventListener {
     ActivityJuegoBinding binding;
 
     private String emailUsuario;
@@ -39,7 +39,7 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
     public static boolean enEjecucion = false;
 
     // Componentes de la interfaz
-    private TextView textViewAldeanos, textViewComida, textViewTroncos,textViewTablones, textViewPiedra, textViewHierro, textViewOro;
+    private TextView textViewAldeanos, textViewComida, textViewTroncos, textViewTablones, textViewPiedra, textViewHierro, textViewOro;
 
     private ImageView imageViewMina, imageViewCabaniaCaza, imageViewCasetaLeniador, imageViewCastillo;
 
@@ -84,13 +84,20 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
         aldea.getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
     }
 
-    // --- FUNCIONES PARA SINCRONIZAR LA EJECUCION DE LA ACTIVITY CON LOS DATOS DE FIREBASE ---
+    public void cambiarFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayoutJuego, fragment);
+        fragmentTransaction.commit();
+    }
+
+    // --- IMPLEMENTACION DE OperacionesDatosCallback ---
     @Override
     public void onDatosCargados() {
         /*
          * Es necesario hacerlo de esta forma, ya que firebase obtiene los datos de manera
          * asincrona, asi que si no se espera a que termine podria iniciarse el juego
-          * sin haber cargado bien todos los datos
+         * sin haber cargado bien todos los datos
          */
         // Iniciar el juego
         enEjecucion = true;
@@ -103,6 +110,20 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
         ControladorAldea.finalizarAldea();
     }
 
+    // --- IMPLEMANTACION DE PartidaCazaEventListener ---
+    @Override
+    public void onTimerTick() {
+        // No hacer nada
+    }
+
+    @Override
+    public void onFinalizarPartida() {
+        if (Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida() > 0) {
+            Toast.makeText(this, "Han muerto " + Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida() + " cazadores en esta partida", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // --- HILO PRINCIPAL DEL JUEGO ---
     private void ejecutarHiloJuego() {
         Context context = this;
         // Iniciar un hilo secundario para ejecutar el código continuamente
@@ -124,7 +145,6 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
         }).start();
     }
 
-
     private void actualizarUI() {
         // Actualizar la interfaz de usuario desde el hilo principal
         runOnUiThread(new Runnable() {
@@ -142,13 +162,6 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
         });
     }
 
-    public void cambiarFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayoutJuego, fragment);
-        fragmentTransaction.commit();
-    }
-
     // --- LISTENERS ---
     private final NavigationBarView.OnItemSelectedListener itemSelectedListener = menuItem -> {
         if (menuItem.getItemId() == R.id.aldea) {
@@ -164,6 +177,7 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
         return true;
     };
 
+    // --- FUNCIONES PARA INICIALIZAR CORRECTAMENTE LA UI ---
     private void configInicial() {
         inicializarComponentes();
         cargarListeners();
@@ -214,7 +228,6 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
             Toast.makeText(this, "Error al cargar datos del juego", Toast.LENGTH_SHORT).show();
             finish();
         }
-
     }
 
     private void cargarGifs() {
@@ -226,19 +239,7 @@ public class JuegoActivity extends AppCompatActivity implements DatosCargadosCal
         Glide.with(this)
                 .asGif()
                 .fitCenter() // Ajustar la escala para que la imagen se adapte al ImageView
-                .override(imageView.getWidth()*10, imageView.getHeight()*10)
+                .override(imageView.getWidth() * 10, imageView.getHeight() * 10)
                 .load(R.drawable.talador).into(imageView);
-    }
-
-    @Override
-    public void onTimerTick() {
-
-    }
-
-    @Override
-    public void onFinalizarPartida() {
-        if (Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida() > 0) {
-            Toast.makeText(this, "Han muerto "+Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida()+" cazadores en esta partida", Toast.LENGTH_LONG).show();
-        }
     }
 }

@@ -913,7 +913,7 @@
                     android:layout_marginTop="51dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="64dp"
-                    android:text="mineros"
+                    android:text="@string/mineros"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -1146,6 +1146,7 @@
                             app:layout_constraintVertical_bias="0.488" />
                     </TableRow>
                 </TableLayout>
+
                 <TextView
                     android:id="@+id/textView14"
                     android:layout_width="wrap_content"
@@ -1154,7 +1155,7 @@
                     android:layout_marginTop="51dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="64dp"
-                    android:text="@string/mineros"
+                    android:text="@string/carpinteros"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -1628,6 +1629,7 @@
                             app:layout_constraintVertical_bias="0.488" />
                     </TableRow>
                 </TableLayout>
+
                 <TextView
                     android:id="@+id/textView16"
                     android:layout_width="wrap_content"
@@ -1636,7 +1638,7 @@
                     android:layout_marginTop="51dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="64dp"
-                    android:text="Defensores"
+                    android:text="@string/defensores"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

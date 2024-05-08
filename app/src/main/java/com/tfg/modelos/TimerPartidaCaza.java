@@ -32,6 +32,7 @@ public class TimerPartidaCaza extends CountDownTimer {
     }
 
     public void lanzarEventoOnTick() {
+        listeners.forEach(PartidaCazaEventListener::onTimerTick);
         for (PartidaCazaEventListener listener : listeners) {
             listener.onTimerTick();
         }
