@@ -1,7 +1,9 @@
 package com.tfg.activities;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -231,15 +233,16 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     }
 
     private void cargarGifs() {
-        cargarGif(R.id.taladorView);
+        cargarGif(R.id.taladorView,R.drawable.talador);
+        cargarGif(R.id.imageViewOveja,R.drawable.oveja);
     }
 
-    private void cargarGif(int id) {
+    private void cargarGif(int id, int d) {
         ImageView imageView = findViewById(id);
         Glide.with(this)
                 .asGif()
                 .fitCenter() // Ajustar la escala para que la imagen se adapte al ImageView
                 .override(imageView.getWidth() * 10, imageView.getHeight() * 10)
-                .load(R.drawable.talador).into(imageView);
+                .load(d).into(imageView);
     }
 }
