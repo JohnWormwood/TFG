@@ -119,6 +119,23 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
         }
     }
 
+    @Override
+    public boolean aumentarNivel() {
+        if (super.aumentarNivel()) {
+            if (!(this instanceof CabaniaCaza)) {
+                for (IGeneradorRecursos generador : generadoresRecursos) {
+                    RecursosEnum recurso = generador.getRecurso();
+                    recurso.setMax(Math.min(
+                            recurso.getMax()+Constantes.Estructura.AUMENTO_MAX_RECURSO_POR_NIVEL,
+                            Constantes.Estructura.MAX_RECURSOS
+                    ));
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     public void ajustarSegunDatosCargados() {
         setMaximoAldeanosSegunNivel();
     }

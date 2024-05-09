@@ -6,6 +6,7 @@ import android.os.Looper;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
+import com.tfg.modelos.EstructuraBase;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.TimerPartidaCaza;
 import com.tfg.modelos.generadores_recursos.impl.GeneradorCabaniaCaza;
