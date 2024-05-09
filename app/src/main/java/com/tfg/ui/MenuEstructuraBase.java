@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.tfg.controladores.ControladorEstructuraBase;
 import com.tfg.eventos.LanzadorEventos;
-import com.tfg.eventos.listeners.ActualizarLayoutEventListener;
+import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
 import com.tfg.modelos.EstructuraBase;
 import com.tfg.modelos.enums.RecursosEnum;
 
@@ -23,7 +23,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class MenuEstructuraBase extends LanzadorEventos<ActualizarLayoutEventListener> {
+public class MenuEstructuraBase extends LanzadorEventos<ActualizarInterfazEventListener> {
     protected Context context;
     protected EstructuraBase estructura;
     protected ConstraintLayout layout;
@@ -51,9 +51,9 @@ public class MenuEstructuraBase extends LanzadorEventos<ActualizarLayoutEventLis
         textViewPrecioOro.setText(String.valueOf(preciosMejora.getOrDefault(RecursosEnum.ORO, 0)));
     }
 
-    protected void lanzarEventoActualizarLayout() {
-        for (ActualizarLayoutEventListener listener : listeners) {
-            listener.onActualizarLayout();
+    protected void lanzarEventoActualizarInterfaz() {
+        for (ActualizarInterfazEventListener listener : listeners) {
+            listener.onActualizarInterfaz();
         }
     }
 

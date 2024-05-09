@@ -2,39 +2,31 @@ package com.tfg.controladores;
 
 import com.tfg.modelos.enums.RecursosEnum;
 
-import java.util.EventListener;
-import java.util.EventObject;
 import java.util.Map;
 
 public final class ControladorRecursos {
 
-    public static synchronized void agregarRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
+    public static int getCantidadRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso) {
         Integer cantidadActual = recursos.get(recurso);
         if (cantidadActual != null) {
-            recursos.put(recurso, cantidadActual+cantidad);
-        } else {
-            recursos.put(recurso, cantidad);
+            return cantidadActual;
         }
+        return 0;
+    }
+
+    public static synchronized void agregarRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
+        recursos.put(recurso, getCantidadRecurso(recursos, recurso)+cantidad);
     }
 
     public static synchronized boolean puedeConsumirRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
-        Integer cantidadActual = recursos.get(recurso);
-        if (cantidadActual != null) {
-            if (cantidad <= cantidadActual) {
-                return true;
-            }
-        }
-        return false;
+        return cantidad <= getCantidadRecurso(recursos, recurso);
     }
 
     public static synchronized boolean consumirRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
-        Integer cantidadActual = recursos.get(recurso);
-        if (cantidadActual != null) {
-            if (cantidad <= cantidadActual) {
-                recursos.put(recurso, cantidadActual-cantidad);
-                return true;
-            }
-        } else recursos.put(recurso, 0);
+        if (puedeConsumirRecurso(recursos, recurso, cantidad)) {
+            recursos.put(recurso, getCantidadRecurso(recursos, recurso)-cantidad);
+            return true;
+        }
         return false;
     }
 }

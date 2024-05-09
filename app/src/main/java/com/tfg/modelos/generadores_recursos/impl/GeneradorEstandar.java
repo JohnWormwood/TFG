@@ -1,8 +1,10 @@
 package com.tfg.modelos.generadores_recursos.impl;
 
 import com.tfg.controladores.ControladorRecursos;
+import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
+import com.tfg.utilidades.Constantes;
 
 
 import java.util.Map;
@@ -19,8 +21,10 @@ public class GeneradorEstandar implements IGeneradorRecursos {
     public void producirRecursos(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int aldeanosAsignados) {
         if (aldeanosAsignados > 0) {
             int cantidad = calcularCantidadProducida(aldeanosAsignados);
-            ControladorRecursos.agregarRecurso(recursos, recurso, cantidad);
-            //System.out.println("Producido: ("+recurso+", "+cantidad+")");
+            int cantidadActual = ControladorRecursos.getCantidadRecurso(Aldea.getInstance().getRecursos(), recurso);
+            int disponible = recurso.getMax() - cantidadActual;
+
+            ControladorRecursos.agregarRecurso(recursos, recurso, Math.min(cantidad, disponible));
         }
     }
 

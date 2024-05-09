@@ -6,6 +6,8 @@ public final class Constantes {
     public static class Estructura {
         public static final int NIVEL_MAXIMO = 10;
         public static final int AUMENTO_MAX_ALDEANOS_POR_NIVEL = 10;
+        public final static int AUMENTO_MAX_RECURSO_POR_NIVEL = 10;
+        public final static int MAX_RECURSOS = 99;
     }
 
     public static class Aldea {

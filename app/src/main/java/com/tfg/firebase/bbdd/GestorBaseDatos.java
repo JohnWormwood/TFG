@@ -1,6 +1,7 @@
 package com.tfg.firebase.bbdd;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.firebase.bbdd.dto.AldeaDTO;
 import com.tfg.firebase.bbdd.dto.CabaniaCazaDTO;
@@ -35,6 +36,7 @@ public class GestorBaseDatos {
 
     public void cargarDatos(String email, OperacionesDatosCallback callback) {
         Aldea aldea = Aldea.getInstance();
+
         FirebaseFirestore.getInstance()
                 .collection(COLECCION_USUARIOS)
                 .document(email).get().addOnSuccessListener(document -> {
@@ -65,34 +67,52 @@ public class GestorBaseDatos {
     }
 
     private void cargarDatosEnAldea(AldeaDTO aldeaDTO, RecursosDTO recursosDTO) {
-        aldea.setNivel(aldeaDTO.getNivel());
-        aldea.setPoblacion(aldeaDTO.getPoblacion());
-        //aldea.setDefensas(aldeaDTO.getDefensas());
-        aldea.setRecursos(cargarRecursos(recursosDTO));
+        if (aldeaDTO != null) {
+            aldea.setNivel(aldeaDTO.getNivel());
+            aldea.setPoblacion(aldeaDTO.getPoblacion());
+            //aldea.setDefensas(aldeaDTO.getDefensas());
+            aldea.setRecursos(cargarRecursos(recursosDTO));
+        } else {
+            // Nunca deberia ser null, pero si lo es se pone a 0 de poblacion para evitar problemas
+            aldea.setPoblacion(0);
+        }
     }
 
     private void cargarDatosEnEdificio(Edificio edificio, EdificioDTO edificioDTO) {
-        edificio.setNivel(edificioDTO.getNivel());
-        edificio.setAldeanosAsignados(edificioDTO.getAldeanosAsignados());
-        edificio.setDesbloqueado(edificioDTO.isDesbloqueado());
+        if (edificioDTO != null) {
+            edificio.setNivel(edificioDTO.getNivel());
+            edificio.setAldeanosAsignados(edificioDTO.getAldeanosAsignados());
+            edificio.setDesbloqueado(edificioDTO.isDesbloqueado());
+        }
     }
 
     private void cargarDatosEnCabaniaCaza(CabaniaCaza cabaniaCaza, CabaniaCazaDTO cabaniaCazaDTO) {
-        cargarDatosEnEdificio(cabaniaCaza, cabaniaCazaDTO);
-        cabaniaCaza.getTimerPartidaCaza().setSegundosRestantes(cabaniaCazaDTO.getSegundosRestantes());
-        cabaniaCaza.setAldeanosMuertosEnPartida(cabaniaCazaDTO.getAldeanosMuertosEnPartida());
-        cabaniaCaza.setPartidaActiva(cabaniaCazaDTO.isPartidaActiva());
+        if (cabaniaCazaDTO != null) {
+            cargarDatosEnEdificio(cabaniaCaza, cabaniaCazaDTO);
+            cabaniaCaza.getTimerPartidaCaza().setSegundosRestantes(cabaniaCazaDTO.getSegundosRestantes());
+            cabaniaCaza.setAldeanosMuertosEnPartida(cabaniaCazaDTO.getAldeanosMuertosEnPartida());
+            cabaniaCaza.setPartidaActiva(cabaniaCazaDTO.isPartidaActiva());
+        }
     }
 
     private Map<RecursosEnum, Integer> cargarRecursos(RecursosDTO recursosDTO) {
         Map<RecursosEnum, Integer> recursos = new HashMap<>();
-        recursos.put(RecursosEnum.TRONCOS_MADERA, recursosDTO.getTroncos());
-        recursos.put(RecursosEnum.TABLONES_MADERA, recursosDTO.getTablones());
-        recursos.put(RecursosEnum.COMIDA, recursosDTO.getComida());
-        recursos.put(RecursosEnum.PIEDRA, recursosDTO.getPiedra());
-        recursos.put(RecursosEnum.HIERRO, recursosDTO.getHierro());
-        recursos.put(RecursosEnum.ORO, recursosDTO.getOro());
-
+        if (recursosDTO != null) {
+            recursos.put(RecursosEnum.TRONCOS_MADERA, recursosDTO.getTroncos());
+            recursos.put(RecursosEnum.TABLONES_MADERA, recursosDTO.getTablones());
+            recursos.put(RecursosEnum.COMIDA, recursosDTO.getComida());
+            recursos.put(RecursosEnum.PIEDRA, recursosDTO.getPiedra());
+            recursos.put(RecursosEnum.HIERRO, recursosDTO.getHierro());
+            recursos.put(RecursosEnum.ORO, recursosDTO.getOro());
+        } else {
+            // Nunca deberia ser null, pero si lo es se pone a 0 todos los recursos para evitar problemas
+            recursos.put(RecursosEnum.TRONCOS_MADERA, 0);
+            recursos.put(RecursosEnum.TABLONES_MADERA, 0);
+            recursos.put(RecursosEnum.COMIDA, 0);
+            recursos.put(RecursosEnum.PIEDRA, 0);
+            recursos.put(RecursosEnum.HIERRO, 0);
+            recursos.put(RecursosEnum.ORO, 0);
+        }
         return recursos;
     }
 

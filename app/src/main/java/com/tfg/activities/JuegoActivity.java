@@ -1,9 +1,7 @@
 package com.tfg.activities;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +21,7 @@ import com.tfg.activities.fragments.SenadoFragment;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.databinding.ActivityJuegoBinding;
 import com.tfg.eventos.callbacks.OperacionesDatosCallback;
+import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.firebase.bbdd.GestorBaseDatos;
 import com.tfg.json.GestorJSON;
@@ -32,7 +31,7 @@ import com.tfg.modelos.enums.RecursosEnum;
 
 import java.io.IOException;
 
-public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback, PartidaCazaEventListener {
+public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback, PartidaCazaEventListener, ActualizarInterfazEventListener {
     ActivityJuegoBinding binding;
 
     private String emailUsuario;
@@ -104,7 +103,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
          */
         // Iniciar el juego
         enEjecucion = true;
-        establecerVisibilidadImageViews();
+        actualizarVisibilidadImageViews();
         ejecutarHiloJuego();
     }
 
@@ -124,6 +123,12 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         if (Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida() > 0) {
             Toast.makeText(this, "Han muerto " + Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida() + " cazadores en esta partida", Toast.LENGTH_LONG).show();
         }
+    }
+
+    // IMPLEMENTACION DE ActualizarInterfazEventListener
+    @Override
+    public void onActualizarInterfaz() {
+        actualizarVisibilidadImageViews();
     }
 
     // --- HILO PRINCIPAL DEL JUEGO ---
@@ -160,7 +165,6 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
                 textViewPiedra.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.PIEDRA)));
                 textViewHierro.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.HIERRO)));
                 textViewOro.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.ORO)));
-                System.out.println("TABLONES = "+Aldea.getInstance().getRecursos().get(RecursosEnum.TABLONES_MADERA));
             }
         });
     }
@@ -216,10 +220,11 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         binding.menuInferior.setOnItemSelectedListener(itemSelectedListener);
     }
 
-    private void establecerVisibilidadImageViews() {
+    private void actualizarVisibilidadImageViews() {
         for (int i = 0; i < aldea.getNivel(); i++) {
             imageViewsCasas[i].setImageResource(R.drawable.casa1);
         }
+        if (aldea.getMina().isDesbloqueado()) imageViewMina.setImageResource(R.drawable.mina2);
     }
 
     private void cargarDatos() {

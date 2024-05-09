@@ -9,13 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tfg.R;
-import com.tfg.eventos.listeners.ActualizarLayoutEventListener;
+import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
 import com.tfg.modelos.Aldea;
 import com.tfg.ui.MenuEdificioAsignable;
 import com.tfg.ui.MenuEstructuraBase;
 import com.tfg.ui.MenuSenado;
 
-public class SenadoFragment extends Fragment implements ActualizarLayoutEventListener {
+import lombok.Getter;
+
+public class SenadoFragment extends Fragment implements ActualizarInterfazEventListener {
 
     // Componentes de la interfaz
     private MenuSenado menuSenado;
@@ -51,23 +53,26 @@ public class SenadoFragment extends Fragment implements ActualizarLayoutEventLis
     public void onStart() {
         super.onStart();
         menuSenado.addEventListener(this);
+        menuSenado.addEventListener((ActualizarInterfazEventListener) getActivity());
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         menuSenado.removeEventListener(this);
+        menuSenado.removeEventListener((ActualizarInterfazEventListener) getActivity());
     }
 
     @Override
     public void onPause() {
         super.onPause();
         menuSenado.removeEventListener(this);
+        menuSenado.removeEventListener((ActualizarInterfazEventListener) getActivity());
     }
 
-    // IMPLEMENTACION DE ActualizarLayoutEventListener
+    // IMPLEMENTACION DE ActualizarInterfazEventListener
     @Override
-    public void onActualizarLayout() {
+    public void onActualizarInterfaz() {
         actualizarVisibilidadLayouts();
     }
 

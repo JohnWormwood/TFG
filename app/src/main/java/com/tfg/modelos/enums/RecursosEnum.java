@@ -1,11 +1,9 @@
 package com.tfg.modelos.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@AllArgsConstructor
 public enum RecursosEnum {
     TRONCOS_MADERA(1),
     TABLONES_MADERA(2),
@@ -15,4 +13,11 @@ public enum RecursosEnum {
     ORO(3);
 
     private final int CALIDAD;
+    @Setter
+    private int max;
+
+    RecursosEnum(int CALIDAD) {
+        this.CALIDAD = CALIDAD;
+        max = 10;
+    }
 }

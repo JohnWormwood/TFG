@@ -3,18 +3,12 @@ package com.tfg.ui;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.tfg.activities.fragments.SenadoFragment;
 import com.tfg.controladores.ControladorAldea;
-import com.tfg.eventos.listeners.ActualizarLayoutEventListener;
-import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.EstructuraBase;
-
-import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.List;
 
 public class MenuSenado extends MenuEstructuraBase {
 
@@ -32,7 +26,7 @@ public class MenuSenado extends MenuEstructuraBase {
     public void actualizar() {
         super.actualizar();
         ControladorAldea.manejarSubidaNivel();
-        lanzarEventoActualizarLayout();
+        lanzarEventoActualizarInterfaz();
         //lanzarEvento(ActualizarLayoutEventListener::onActualizarLayout);
     }
 }

@@ -36,6 +36,12 @@ public final class ControladorAldea {
         return false;
     }
 
+    /*public static void comprarRecurso(RecursosEnum recursosEnum, int precio) {
+        if (ControladorRecursos.consumirRecurso(aldea.getRecursos(), RecursosEnum.ORO, precio)){
+            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.TABLONES_MADERA, Constantes.Mercader.CANTIDAD);
+        }
+    }*/
+
     public static void manejarSubidaNivel() {
         // Los niveles que no estan es por que solo aumentan la poblacion maxima, y de eso ya se encarga la propia Aldea
         switch (aldea.getNivel()) {

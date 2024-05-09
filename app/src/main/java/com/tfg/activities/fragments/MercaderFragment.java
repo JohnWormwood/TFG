@@ -18,7 +18,7 @@ import com.tfg.utilidades.Constantes;
 
 public class MercaderFragment extends Fragment {
 
-    private Button buttonComprarTablones;
+    private Button buttonComprarTablones, buttonComprarTroncos,buttonComprarComida,buttonComprarHierro,buttonComprarPiedra;
 
 
     public MercaderFragment() {
@@ -35,22 +35,61 @@ public class MercaderFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mercader, container, false);
 
+        // Botones de compra
         buttonComprarTablones = view.findViewById(R.id.buttonComprarTablones);
-        buttonComprarTablones.setOnClickListener(buttonComprarTablonesOnClickListener);
+        buttonComprarTroncos = view.findViewById(R.id.buttonComprarTroncos);
+        buttonComprarComida = view.findViewById(R.id.buttonComprarComida);
+        buttonComprarPiedra = view.findViewById(R.id.buttonComprarPiedra);
+        buttonComprarHierro = view.findViewById(R.id.buttonComprarHierro);
+
+
+        // Establece el mismo listener para ambos botones
+        buttonComprarTablones.setOnClickListener(comprarRecursoListener);
+        buttonComprarTroncos.setOnClickListener(comprarRecursoListener);
+        buttonComprarComida.setOnClickListener(comprarRecursoListener);
+        buttonComprarPiedra.setOnClickListener(comprarRecursoListener);
+        buttonComprarHierro.setOnClickListener(comprarRecursoListener);
 
 
         // Inflate the layout for this fragment
         return view;
     }
 
-    View.OnClickListener buttonComprarTablonesOnClickListener = new View.OnClickListener() {
+    View.OnClickListener comprarRecursoListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (ControladorRecursos.consumirRecurso(Aldea.getInstance().getRecursos(),RecursosEnum.ORO,Constantes.Mercader.PRECIO_TABLONES)){
-                ControladorRecursos.agregarRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.TABLONES_MADERA,Constantes.Mercader.CANTIDAD);
+            RecursosEnum recurso = null;
+            int precio = 0;
+
+            // Determina el recurso y el precio en función del botón presionado
+            if (v.getId() == R.id.buttonComprarTablones) {
+                recurso = RecursosEnum.TABLONES_MADERA;
+                precio = Constantes.Mercader.PRECIO_TABLONES;
+            } else if (v.getId() == R.id.buttonComprarTroncos) {
+                recurso = RecursosEnum.TRONCOS_MADERA;
+                precio = Constantes.Mercader.PRECIO_TRONCOS;
+            }else if (v.getId() == R.id.buttonComprarComida) {
+                recurso = RecursosEnum.COMIDA;
+                precio = Constantes.Mercader.PRECIO_COMIDA;
+            }else if (v.getId() == R.id.buttonComprarPiedra) {
+                recurso = RecursosEnum.PIEDRA;
+                precio = Constantes.Mercader.PRECIO_PIEDRA;
+            }else if (v.getId() == R.id.buttonComprarHierro) {
+                recurso = RecursosEnum.HIERRO;
+                precio = Constantes.Mercader.PRECIO_HIERRO;
             } else {
-                Toast.makeText(getActivity(), "No tienes suficiente Oro", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Realiza la compra del recurso
+            if (ControladorRecursos.consumirRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.ORO, precio)) {
+                ControladorRecursos.agregarRecurso(Aldea.getInstance().getRecursos(), recurso, Constantes.Mercader.CANTIDAD);
+            } else {
+                if (getActivity() != null) {
+                    Toast.makeText(getActivity(), "No tienes suficiente Oro", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     };
+
 }
