@@ -6,6 +6,7 @@ import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
 import com.tfg.modelos.generadores_recursos.impl.GeneradorCarpinteria;
+import com.tfg.modelos.generadores_recursos.impl.GeneradorEstandar;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.ListaHilos;
 
@@ -27,12 +28,33 @@ public class Carpinteria extends Edificio {
         try {
             while (JuegoActivity.enEjecucion) {
                 recursosIniciales = new HashMap<>(recursos);
+                /*System.out.println("-----------ANTES-----------");
+                System.out.println("RECURSOS CARPINTERIA = "+recursos);
+                System.out.println("troncos aldea = "+ControladorRecursos.getCantidadRecurso(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA));
+                System.out.println("troncos a consumir = "+(calcularCantidadProducida(aldeanosAsignados)*2));
+                System.out.println("puede consumir troncos = "+ControladorRecursos.puedeConsumirRecurso(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, (calcularCantidadProducida(aldeanosAsignados)*2)));
+                System.out.println("--------------------------------");*/
                 // Genera recursos, espera x tiempo y despues los pasa a la aldea
                 for (IGeneradorRecursos generadorRecursos : generadoresRecursos) {
                     generadorRecursos.producirRecursos(recursos, generadorRecursos.getRecurso(), aldeanosAsignados);
                 }
                 Thread.sleep(SEGUNDOS_ENTRE_RECURSOS * 1000);
-                ControladorRecursos.consumirRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.TRONCOS_MADERA, (calcularCantidadProducida(aldeanosAsignados)*2));
+
+                /*System.out.println("-----------DESPUES-----------");
+                System.out.println("RECURSOS CARPINTERIA = "+recursos);
+                System.out.println("troncos aldea = "+ControladorRecursos.getCantidadRecurso(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA));
+                System.out.println("troncos a consumir = "+(calcularCantidadProducida(aldeanosAsignados)*2));
+                System.out.println("puede consumir troncos = "+ControladorRecursos.puedeConsumirRecurso(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, (calcularCantidadProducida(aldeanosAsignados)*2)));
+                System.out.println("--------------------------------");*/
+
+                // Esta comprobacion es necesaria ya que la cantidad de troncos puede haber cambiado durante la generacion
+                // y si no se comprueba podrian quitarse troncos sin generar tablones
+                for (IGeneradorRecursos generadorRecursos : generadoresRecursos) {
+                    if (ControladorRecursos.getCantidadRecurso(recursos, generadorRecursos.getRecurso()) > 0) {
+                        ControladorRecursos.consumirRecurso(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, (calcularCantidadProducida(aldeanosAsignados)*2));
+                    }
+                }
+
                 generadoresRecursos.forEach(g -> transferirRecursoAldea(g.getRecurso()));
                 //System.out.println("Tablones aldea = "+aldea.getRecursos().get(RecursosEnum.TABLONES_MADERA));
             }

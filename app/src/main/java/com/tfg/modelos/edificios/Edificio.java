@@ -39,15 +39,14 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
         this.aldeanosAsignados = aldeanosAsignados;
         this.aldea = aldea;
         generadoresRecursos = new ArrayList<>();
+        setMaximoRecursosSegunNivel();
     }
 
 
     protected void transferirRecursoAldea(RecursosEnum recurso) {
-        Integer cantidad = recursos.get(recurso);
-        if (cantidad != null) {
-            if (ControladorRecursos.consumirRecurso(recursos, recurso, cantidad)) {
+        int cantidad = ControladorRecursos.getCantidadRecurso(recursos, recurso);
+        if (ControladorRecursos.consumirRecurso(recursos, recurso, cantidad)) {
                 ControladorRecursos.agregarRecurso(aldea.getRecursos(), recurso, cantidad);
-            }
         }
     }
 
@@ -122,15 +121,7 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
     @Override
     public boolean aumentarNivel() {
         if (super.aumentarNivel()) {
-            if (!(this instanceof CabaniaCaza)) {
-                for (IGeneradorRecursos generador : generadoresRecursos) {
-                    RecursosEnum recurso = generador.getRecurso();
-                    recurso.setMax(Math.min(
-                            recurso.getMax()+Constantes.Estructura.AUMENTO_MAX_RECURSO_POR_NIVEL,
-                            Constantes.Estructura.MAX_RECURSOS
-                    ));
-                }
-            }
+            setMaximoRecursosSegunNivel();
             return true;
         }
         return false;
@@ -138,5 +129,24 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
 
     public void ajustarSegunDatosCargados() {
         setMaximoAldeanosSegunNivel();
+        setMaximoRecursosSegunNivel();
+    }
+
+    public void setMaximoRecursosSegunNivel() {
+        // TODO Capturar la excepcion donde se llame la funcion
+        if (nivel <= Constantes.Estructura.NIVEL_MAXIMO) {
+            if (!(this instanceof CabaniaCaza)) {
+                for (IGeneradorRecursos generador : generadoresRecursos) {
+                    RecursosEnum recurso = generador.getRecurso();
+                    recurso.setMax(Math.min(
+                            (Constantes.Estructura.AUMENTO_MAX_RECURSO_POR_NIVEL * nivel),
+                            Constantes.Estructura.MAX_RECURSOS
+                    ));
+                    System.out.println(recurso+", "+recurso.getMax());
+                }
+            }
+        } else {
+            throw new IllegalArgumentException(nivel+" es mayor al nivel maximo permitido ("+Constantes.Estructura.NIVEL_MAXIMO+")");
+        }
     }
 }

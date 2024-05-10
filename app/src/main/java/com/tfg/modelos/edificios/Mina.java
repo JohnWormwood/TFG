@@ -21,7 +21,7 @@ public class Mina extends Edificio {
 
     @Override
     public void ajustarSegunDatosCargados() {
-        super.ajustarSegunDatosCargados();
         setGeneradoresRecursosSegunNivelAldea();
+        super.ajustarSegunDatosCargados();
     }
 }
