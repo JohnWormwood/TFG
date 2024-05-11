@@ -28,6 +28,7 @@ import com.tfg.json.GestorJSON;
 import com.tfg.json.MejorasEdificiosJSON;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
+import com.tfg.utilidades.UtilidadRed;
 
 import java.io.IOException;
 
@@ -69,13 +70,19 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         assert bundle != null;
         emailUsuario = bundle.getString("email");
         System.out.println(emailUsuario);
+        if (!UtilidadRed.hayInternet(this)) {
+            Toast.makeText(this, "Es necesario conexion a internet para poder jugar", Toast.LENGTH_LONG).show();
+            finish();
+        }
         gestorBaseDatos.cargarDatos(emailUsuario, this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        gestorBaseDatos.guardarDatos(emailUsuario, this);
+        if (UtilidadRed.hayInternet(this)) {
+            gestorBaseDatos.guardarDatos(emailUsuario, this);
+        }
         aldea.getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
     }
 
@@ -143,6 +150,9 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
                     ControladorAldea.iniciarAldea();
                     while (enEjecucion) {
                         Thread.sleep(1);
+                        if (!UtilidadRed.hayInternet(context)) {
+                            finish();
+                        }
                         // Actualizar la interfaz al final de cada ciclo
                         actualizarUI();
                     }
