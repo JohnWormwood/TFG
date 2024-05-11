@@ -1,10 +1,15 @@
 package com.tfg.firebase.bbdd;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.firebase.bbdd.dto.AldeaDTO;
 import com.tfg.firebase.bbdd.dto.CabaniaCazaDTO;
+import com.tfg.firebase.bbdd.dto.DatosUsuarioDTO;
 import com.tfg.firebase.bbdd.dto.EdificioDTO;
 import com.tfg.firebase.bbdd.dto.RecursosDTO;
 import com.tfg.modelos.Aldea;
@@ -18,6 +23,7 @@ import java.util.Map;
 public class GestorBaseDatos {
 
     private final String COLECCION_USUARIOS = "usuarios";
+    private final String DATOS_USUARIO = "datos_usuario";
     private final String ALDEA = "datos_aldea";
     private final String RECURSOS = "recursos";
     private final String CABANIA_CAZA = "cabania_caza";
@@ -25,18 +31,19 @@ public class GestorBaseDatos {
     private final String CARPINTERIA = "carpinteria";
     private final String GRANJA = "granja";
     private final String MINA = "mina";
+
     Aldea aldea = Aldea.getInstance();
+
     public void guardarDatos(String email, OperacionesDatosCallback callback) {
-        FirebaseFirestore.getInstance()
-                .collection(COLECCION_USUARIOS)
-                .document(email)
-                .set(mapearDatosAldea());
-        callback.onDatosGuardados();
+        setEstadoConexion(email, false);
+        FirestoreCRUD.actualizarConCallback(COLECCION_USUARIOS, email, mapearDatosAldea(), callback);
     }
 
     public void cargarDatos(String email, OperacionesDatosCallback callback) {
-        Aldea aldea = Aldea.getInstance();
-
+        /* Esto se hace aqui, en lugar de tener un metodo obtener en FirestoreCRUD
+         * porque hay que asegurar que se lanza el callback cuando todos los datos
+         * se han cargado en los edificios y en la aldea
+         */
         FirebaseFirestore.getInstance()
                 .collection(COLECCION_USUARIOS)
                 .document(email).get().addOnSuccessListener(document -> {
@@ -62,9 +69,11 @@ public class GestorBaseDatos {
                         cargarDatosEnEdificio(aldea.getMina(), minaDTO);
                     }
                     aldea.ajustarSegunDatosCargados();
+                    setEstadoConexion(email, true);
                     callback.onDatosCargados();
                 });
     }
+
 
     private void cargarDatosEnAldea(AldeaDTO aldeaDTO, RecursosDTO recursosDTO) {
         if (aldeaDTO != null) {
@@ -118,7 +127,6 @@ public class GestorBaseDatos {
 
 
     private HashMap<String, Object> mapearDatosAldea() {
-        Aldea aldea = Aldea.getInstance();
 
         HashMap<String, Object> datos = new HashMap<>();
         datos.put(RECURSOS, mapearRecursos(aldea));
@@ -179,5 +187,16 @@ public class GestorBaseDatos {
         if (cantidad != null) recursosDTO.setOro(cantidad);
 
         return recursosDTO;
+    }
+
+    private void setEstadoConexion(String email, boolean conectado) {
+        // Para guardar estos datos no hace falta usar callback, ya que la ejecucion del juego no requiere de ellos
+        DatosUsuarioDTO datosUsuarioDTO = new DatosUsuarioDTO();
+        datosUsuarioDTO.setConectado(conectado);
+
+        HashMap<String, Object> datos = new HashMap<>();
+        datos.put(DATOS_USUARIO, datosUsuarioDTO);
+
+        FirestoreCRUD.actualizar(COLECCION_USUARIOS, email, datos);
     }
 }
