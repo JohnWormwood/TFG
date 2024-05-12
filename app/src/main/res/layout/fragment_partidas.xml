@@ -10,107 +10,224 @@
     tools:context=".activities.fragments.PartidasFragment">
 
 
-    <Space
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="43dp" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutCaza"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/fondo_menu_1"
-        android:backgroundTintMode="add"
-        android:orientation="vertical">
-
-        <Space
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="29dp" />
-
-        <TextView
-            android:id="@+id/textViewCaza"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/caza"
-            android:textColor="#2F140D"
-            android:textSize="60sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="22dp" />
-
-        <TextView
-            android:id="@+id/textViewCazadores"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/cazadores"
-            android:textColor="#301307"
-            android:textSize="20sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <SeekBar
-            android:id="@+id/seekBarCazadores"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="30dp"
-            android:layout_weight="1" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="37dp" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@+id/buttonCaza"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayoutCaza"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/selector_boton"
-                android:contentDescription="@string/iniciar_caza"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:background="@drawable/fondo_menu_1"
+                android:backgroundTintMode="add"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/iniciar_caza"
-                android:textColor="#000000"
-                android:textSize="20sp" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="29dp" />
 
-        </FrameLayout>
+                <TextView
+                    android:id="@+id/textViewCaza"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/caza"
+                    android:textColor="#2F140D"
+                    android:textSize="60sp"
+                    android:textStyle="bold" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="22dp" />
+                <TextView
+                    android:id="@+id/textViewCazadores"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/cazadores"
+                    android:textColor="#301307"
+                    android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textViewPartidaCaza"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="80dp"
-            android:text="@string/texto_partida_caza_inactiva"
-            android:textAlignment="center"
-            android:textColor="#2E0909"
-            android:textSize="14sp" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
+                <SeekBar
+                    android:id="@+id/seekBarCazadores"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_weight="1" />
 
-    </LinearLayout>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
-    <FrameLayout
-        android:id="@+id/frameLayoutAtaques"
-        android:layout_width="match_parent"
-        android:layout_height="174dp"></FrameLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/buttonCaza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/selector_boton"
+                        android:contentDescription="@string/iniciar_caza"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/iniciar_caza"
+                        android:textColor="#000000"
+                        android:textSize="20sp" />
+
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp" />
+
+                <TextView
+                    android:id="@+id/textViewPartidaCaza"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="80dp"
+                    android:text="@string/texto_partida_caza_inactiva"
+                    android:textAlignment="center"
+                    android:textColor="#2E0909"
+                    android:textSize="14sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="19dp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutIncursion"
+                android:layout_width="match_parent"
+                android:layout_height="336dp"
+                android:background="@drawable/fondo_menu_1"
+                android:backgroundTintMode="add"
+                android:orientation="vertical">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="29dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="INCURSION"
+                    android:textColor="#2F140D"
+                    android:textSize="60sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Soldados"
+                    android:textColor="#301307"
+                    android:textSize="20sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+
+                <SeekBar
+                    android:id="@+id/seekBarSoldados"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:id="@+id/buttonIncursion"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/selector_boton"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Iniciar Incrusion"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:id="@+id/buttonRanking"
+                            android:layout_width="170dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/selector_boton"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Ranking"
+                            android:textColor="#000000"
+                            android:textSize="20sp" />
+
+
+                    </FrameLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <TextView
+                    android:id="@+id/textViewIncursion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="80dp"
+                    android:text="@string/texto_partida_caza_inactiva"
+                    android:textAlignment="center"
+                    android:textColor="#2E0909"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>
