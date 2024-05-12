@@ -54,7 +54,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         seekBarCazadores.setMax(maxCazadores);
 
         // Mostrar el valor de la seekbar en el textview
-        textViewCazadores.setText(String.format(getString(R.string.texto_num_cazadores), seekBarCazadores.getProgress()));
+        textViewCazadores.setText(getString(R.string.texto_num_cazadores, seekBarCazadores.getProgress()));
 
         return view;
     }
@@ -87,13 +87,13 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
             int cazadoresSeleccionados = seekBarCazadores.getProgress();
 
             if (cazadoresSeleccionados < 1) {
-                Toast.makeText(getActivity(), "Debes seleccionar al menos 1", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.msj_selecciona_minimo, 1), Toast.LENGTH_SHORT).show();
             } else if (cazadoresSeleccionados > Aldea.getInstance().getPoblacion()) {
-                Toast.makeText(getActivity(), "No tienes suficientes aldeanos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.msj_aldeanos_insuficientes), Toast.LENGTH_SHORT).show();
             } else {
                 int tiempoTotal = 10000;
 
-                Toast.makeText(getActivity(), "Partida de caza iniciada con "+cazadoresSeleccionados+" cazadores", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.msj_partida_caza_iniciada, cazadoresSeleccionados), Toast.LENGTH_LONG).show();
                 buttonCaza.setEnabled(false);
 
                 Aldea.getInstance().getCabaniaCaza().iniciarPartidaCaza(cazadoresSeleccionados, tiempoTotal);
@@ -108,7 +108,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             // Actualizar el textview con el progreso de la seekbar
-            textViewCazadores.setText(String.format(getString(R.string.texto_num_cazadores), progress));
+            textViewCazadores.setText(getString(R.string.texto_num_cazadores, progress));
         }
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
@@ -133,12 +133,11 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
 
     @Override
     public void onTimerTick() {
-        String mensaje = getString(R.string.texto_partida_caza);
-        textViewPartidaCaza.setText(String.format(
-                mensaje,
-                Aldea.getInstance().getCabaniaCaza().getAldeanosAsignados(),
-                Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().getSegundosRestantes()
-        ));
+        textViewPartidaCaza.setText(
+                getString(R.string.texto_partida_caza,
+                        Aldea.getInstance().getCabaniaCaza().getAldeanosAsignados(),
+                        Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().getSegundosRestantes())
+        );
     }
 
     @Override

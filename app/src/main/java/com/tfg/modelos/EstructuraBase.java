@@ -19,6 +19,7 @@ public abstract class EstructuraBase {
     protected int nivel;
     protected int aldeanosAsignados;
     protected int aldeanosMaximos;
+    protected int multiplicadorAldeanosSegunNivel;
     protected Thread thread;
     protected Map<RecursosEnum, Integer> recursos;
     protected List<PrecioMejora> preciosMejoras;
@@ -44,17 +45,21 @@ public abstract class EstructuraBase {
     protected void setMaximoAldeanosSegunNivel() throws IllegalArgumentException {
         // TODO Capturar la excepcion donde se llame la funcion
         if (nivel <= Constantes.Estructura.NIVEL_MAXIMO)
-            aldeanosMaximos = Constantes.Estructura.AUMENTO_MAX_ALDEANOS_POR_NIVEL * nivel;
+            aldeanosMaximos = multiplicadorAldeanosSegunNivel * nivel;
         else
-            throw new IllegalArgumentException(nivel+" es mayor al nivel maximo permitido ("+Constantes.Estructura.NIVEL_MAXIMO+")");
+            throw new IllegalArgumentException("Ya se ha alcanzado el nivel maximo");
     }
 
-    public boolean aumentarNivel() {
-        int proximoNivel = nivel+1;
-        if (ControladorEstructuraBase.puedeSubirDeNivel(preciosMejoras.get(proximoNivel-2))) {
-            nivel++;
-            setMaximoAldeanosSegunNivel();
-            return true;
+    public boolean aumentarNivel() throws IllegalArgumentException {
+        try {
+            int proximoNivel = nivel+1;
+            if (ControladorEstructuraBase.puedeSubirDeNivel(preciosMejoras.get(proximoNivel-2))) {
+                nivel++;
+                setMaximoAldeanosSegunNivel();
+                return true;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Ya se ha alcanzado el nivel maximo");
         }
         return false;
     }

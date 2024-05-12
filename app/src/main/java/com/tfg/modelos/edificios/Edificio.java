@@ -5,7 +5,6 @@ import com.tfg.controladores.ControladorAldea;
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.EstructuraBase;
-import com.tfg.modelos.PrecioMejora;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
 import com.tfg.modelos.generadores_recursos.impl.GeneradorEstandar;
@@ -17,9 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
@@ -36,6 +32,7 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
 
     public Edificio(int aldeanosAsignados, Aldea aldea) {
         super();
+        multiplicadorAldeanosSegunNivel = Constantes.Edificio.AUMENTO_MAX_ALDEANOS_POR_NIVEL;
         this.aldeanosAsignados = aldeanosAsignados;
         this.aldea = aldea;
         generadoresRecursos = new ArrayList<>();
@@ -119,7 +116,7 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
     }
 
     @Override
-    public boolean aumentarNivel() {
+    public boolean aumentarNivel() throws IllegalArgumentException {
         if (super.aumentarNivel()) {
             setMaximoRecursosSegunNivel();
             return true;

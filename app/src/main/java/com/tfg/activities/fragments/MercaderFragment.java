@@ -86,7 +86,7 @@ public class MercaderFragment extends Fragment {
                 ControladorRecursos.agregarRecurso(Aldea.getInstance().getRecursos(), recurso, Constantes.Mercader.CANTIDAD);
             } else {
                 if (getActivity() != null) {
-                    Toast.makeText(getActivity(), "No tienes suficiente Oro", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.msj_oro_insuficiente), Toast.LENGTH_SHORT).show();
                 }
             }
         }

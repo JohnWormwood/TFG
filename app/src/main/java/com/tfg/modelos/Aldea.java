@@ -35,6 +35,7 @@ public class Aldea extends EstructuraBase implements Runnable {
     private Aldea() {
         super();
         poblacion = Constantes.Aldea.POBLACION_INICIAL;
+        multiplicadorAldeanosSegunNivel = Constantes.Aldea.AUMENTO_MAX_ALDEANOS_POR_NIVEL;
 
         // Edificios
         cabaniaCaza = new CabaniaCaza(0, this);

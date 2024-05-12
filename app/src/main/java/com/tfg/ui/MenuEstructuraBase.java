@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.tfg.R;
 import com.tfg.controladores.ControladorEstructuraBase;
 import com.tfg.eventos.LanzadorEventos;
 import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
@@ -59,10 +60,19 @@ public class MenuEstructuraBase extends LanzadorEventos<ActualizarInterfazEventL
 
     public View.OnClickListener buttonMejorarOnClick() {
         return view -> {
-            if (estructura.aumentarNivel()) {
-                actualizar();
-            } else {
-                Toast.makeText(context, "No tienes suficientes recursos", Toast.LENGTH_SHORT).show();
+            String msj = "";
+            try {
+                if (estructura.aumentarNivel()) {
+                    msj = context.getString(R.string.msj_subida_nivel,
+                            estructura.getClass().getSimpleName(), estructura.getNivel());
+                    actualizar();
+                } else {
+                    msj = context.getString(R.string.msj_recursos_insuficientes);
+                }
+            } catch (IllegalArgumentException e) {
+                msj = e.getMessage();
+            } finally {
+                Toast.makeText(context, msj, Toast.LENGTH_LONG).show();
             }
         };
     }

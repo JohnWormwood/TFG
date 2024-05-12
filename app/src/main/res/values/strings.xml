@@ -27,6 +27,17 @@
     <string name="granja_nodo_json">granja</string>
     <string name="mina_nodo_json">mina</string>
 
+    <!-- Mensajes Toast -->
+    <string name="msj_subida_nivel">%s ha subido a nivel %d</string>
+    <string name="msj_recursos_insuficientes">No tienes suficientes recursos</string>
+    <string name="msj_aldeanos_insuficientes">No tienes suficientes aldeanos</string>
+    <string name="msj_selecciona_minimo">Debes seleccionar al menos %d</string>
+    <string name="msj_internet_necesario">Es necesario conexion a internet para poder jugar</string>
+    <string name="msj_partida_caza_iniciada">Partida de caza iniciada con %d cazadores</string>
+    <string name="msj_aldeanos_muertos_caza">Han muerto %d cazadores en esta partida</string>
+    <string name="msj_oro_insuficiente">No tienes suficiente Oro</string>
+    <string name="msj_error_cargar_datos">Error al cargar datos del juego</string>
+
     <!-- Tipos aldeanos -->
     <string name="leniadores">Leñadores</string>
     <string name="cazadores">Cazadores</string>

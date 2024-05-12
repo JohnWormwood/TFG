@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.tfg.R;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.EstructuraBase;
 import com.tfg.modelos.edificios.Edificio;
@@ -72,7 +73,7 @@ public class MenuEdificioAsignable extends MenuEstructuraBase {
                     edificio.modificarAldeanosAsignados(seekBar.getProgress());
                 } else {
                     seekBar.setProgress(valorInicialSeekbar);
-                    Toast.makeText(context, "No tienes suficientes aldeanos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.msj_aldeanos_insuficientes), Toast.LENGTH_SHORT).show();
                 }
             }
         };

@@ -1,7 +1,9 @@
 package com.tfg.activities;
 
 import android.content.Context;
+import android.opengl.Visibility;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +45,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     // Componentes de la interfaz
     private TextView textViewAldeanos, textViewComida, textViewTroncos, textViewTablones, textViewPiedra, textViewHierro, textViewOro;
 
-    private ImageView imageViewMina, imageViewCabaniaCaza, imageViewCasetaLeniador, imageViewCastillo;
+    private ImageView imageViewMina, imagewViewGranja, imageViewCastillo;
+    private ImageView imageViewOveja;
     private ImageView[] imageViewsCasas;
 
     private Aldea aldea = Aldea.getInstance();
@@ -71,7 +74,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         emailUsuario = bundle.getString("email");
         System.out.println(emailUsuario);
         if (!UtilidadRed.hayInternet(this)) {
-            Toast.makeText(this, "Es necesario conexion a internet para poder jugar", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
             finish();
         }
         gestorBaseDatos.cargarDatos(emailUsuario, this);
@@ -128,7 +131,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     @Override
     public void onFinalizarPartida() {
         if (Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida() > 0) {
-            Toast.makeText(this, "Han muerto " + Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida() + " cazadores en esta partida", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.msj_aldeanos_muertos_caza, aldea.getCabaniaCaza().getAldeanosMuertosEnPartida()), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -214,10 +217,10 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         textViewOro = findViewById(R.id.textViewOro);
 
         // ImageViews
-        imageViewCabaniaCaza = findViewById(R.id.imageViewCabaniaCaza);
-        imageViewCasetaLeniador = findViewById(R.id.imageViewCasetaLeniador);
+        imagewViewGranja = findViewById(R.id.imageViewGranja);
         imageViewMina = findViewById(R.id.imageViewMina);
         imageViewCastillo = findViewById(R.id.imageViewCastillo);
+        imageViewOveja = findViewById(R.id.imageViewOveja);
         imageViewsCasas = new ImageView[10];
         for (int i = 0; i < imageViewsCasas.length; i++) {
             int id = getResources().getIdentifier("imageViewCasa"+(i+1), "id", getPackageName());
@@ -235,6 +238,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
             imageViewsCasas[i].setImageResource(R.drawable.casa1);
         }
         if (aldea.getMina().isDesbloqueado()) imageViewMina.setImageResource(R.drawable.mina2);
+        if (aldea.getGranja().isDesbloqueado())  imagewViewGranja.setImageResource(R.drawable.casa2);
+        imageViewOveja.setVisibility(aldea.getGranja().isDesbloqueado() ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void cargarDatos() {
@@ -250,7 +255,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
             aldea.getMina().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.mina_nodo_json)));
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error al cargar datos del juego", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.msj_error_cargar_datos), Toast.LENGTH_SHORT).show();
             finish();
         }
     }
