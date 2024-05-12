@@ -13,8 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tfg.R;
+import com.tfg.controladores.ControladorRecursos;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
+import com.tfg.modelos.enums.RecursosEnum;
 
 public class PartidasFragment extends Fragment implements PartidaCazaEventListener {
 
@@ -90,6 +92,8 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
                 Toast.makeText(getActivity(), getString(R.string.msj_selecciona_minimo, 1), Toast.LENGTH_SHORT).show();
             } else if (cazadoresSeleccionados > Aldea.getInstance().getPoblacion()) {
                 Toast.makeText(getActivity(), getString(R.string.msj_aldeanos_insuficientes), Toast.LENGTH_SHORT).show();
+            } else if (!(ControladorRecursos.getCantidadRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.COMIDA) < RecursosEnum.COMIDA.getMax())) {
+                Toast.makeText(getActivity(), getString(R.string.msj_caza_sin_sentido), Toast.LENGTH_LONG).show();
             } else {
                 int tiempoTotal = 10000;
 

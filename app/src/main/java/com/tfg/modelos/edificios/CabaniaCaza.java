@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.tfg.controladores.ControladorAldea;
+import com.tfg.controladores.ControladorRecursos;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.EstructuraBase;
@@ -45,6 +46,13 @@ public class CabaniaCaza extends Edificio {
     }
 
     public void finalizarPartidaCaza() {
+        // Si se ha generado mas del maxmio se añade solo lo necesario para llegar al maximo
+        int comidaAldea = ControladorRecursos.getCantidadRecurso(aldea.getRecursos(), RecursosEnum.COMIDA);
+        int comidaGenerada = ControladorRecursos.getCantidadRecurso(recursos, RecursosEnum.COMIDA);
+        if ((comidaAldea+comidaGenerada) > RecursosEnum.COMIDA.getMax()) {
+            recursos.put(RecursosEnum.COMIDA, RecursosEnum.COMIDA.getMax()-comidaAldea);
+        }
+
         transferirRecursoAldea(RecursosEnum.COMIDA);
         devolverAldeanos(aldeanosAsignados);
         aldeanosAsignados = 0;

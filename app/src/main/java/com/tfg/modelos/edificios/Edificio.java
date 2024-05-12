@@ -43,7 +43,7 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
     protected void transferirRecursoAldea(RecursosEnum recurso) {
         int cantidad = ControladorRecursos.getCantidadRecurso(recursos, recurso);
         if (ControladorRecursos.consumirRecurso(recursos, recurso, cantidad)) {
-                ControladorRecursos.agregarRecurso(aldea.getRecursos(), recurso, cantidad);
+            ControladorRecursos.agregarRecurso(aldea.getRecursos(), recurso, cantidad);
         }
     }
 

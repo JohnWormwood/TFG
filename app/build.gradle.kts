@@ -52,10 +52,10 @@ dependencies {
     annotationProcessor ("org.projectlombok:lombok:1.18.32")
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-firestore:24.11.1")
+    implementation("com.google.firebase:firebase-firestore:25.0.0")
 
     // Gifs
     implementation("com.github.bumptech.glide:glide:4.12.0")

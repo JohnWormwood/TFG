@@ -35,6 +35,7 @@
     <string name="msj_internet_necesario">Es necesario conexion a internet para poder jugar</string>
     <string name="msj_partida_caza_iniciada">Partida de caza iniciada con %d cazadores</string>
     <string name="msj_aldeanos_muertos_caza">Han muerto %d cazadores en esta partida</string>
+    <string name="msj_caza_sin_sentido">Actualmente ya tienes el maximo de comida, enviar una partida de caza no serviría de nada</string>
     <string name="msj_oro_insuficiente">No tienes suficiente Oro</string>
     <string name="msj_error_cargar_datos">Error al cargar datos del juego</string>
 

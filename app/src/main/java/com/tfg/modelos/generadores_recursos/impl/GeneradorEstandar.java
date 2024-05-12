@@ -21,12 +21,16 @@ public class GeneradorEstandar implements IGeneradorRecursos {
     public void producirRecursos(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int aldeanosAsignados) {
         if (aldeanosAsignados > 0) {
             int cantidad = calcularCantidadProducida(aldeanosAsignados);
-            int cantidadActual = ControladorRecursos.getCantidadRecurso(Aldea.getInstance().getRecursos(), recurso);
-            int disponible = recurso.getMax() - cantidadActual;
-
-            ControladorRecursos.agregarRecurso(recursos, recurso, Math.min(cantidad, disponible));
-            //System.out.println("Cantidad = " + recurso +", "+Math.min(cantidad, disponible));
+            agregarRecursoSinExcederMax(recursos, recurso, cantidad);
         }
+    }
+
+    protected void agregarRecursoSinExcederMax(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
+        int cantidadActual = ControladorRecursos.getCantidadRecurso(Aldea.getInstance().getRecursos(), recurso);
+        int disponible = recurso.getMax() - cantidadActual;
+
+        ControladorRecursos.agregarRecurso(recursos, recurso, Math.min(cantidad, disponible));
+        //System.out.println("Cantidad = " + recurso +", "+Math.min(cantidad, disponible));
     }
 
     protected int calcularCantidadProducida(int aldeanosAsignados) {
