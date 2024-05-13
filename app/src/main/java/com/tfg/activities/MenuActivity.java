@@ -1,32 +1,25 @@
 package com.tfg.activities;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.R;
 import com.tfg.firebase.auth.GestorSesion;
-import com.tfg.utilidades.GestorSharedPreferences;
 import com.tfg.utilidades.UtilidadActivity;
-
-import java.util.Objects;
+import com.tfg.utilidades.UtilidadRed;
 
 public class MenuActivity extends AppCompatActivity {
 
     private TextView textViewEmail;
     private String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +44,14 @@ public class MenuActivity extends AppCompatActivity {
         email = bundle.getString("email");
         configInicial(email);
 
-
-        GestorSharedPreferences gestorSharedPreferences = new GestorSharedPreferences(this, getString(R.string.prefs_file));
-        gestorSharedPreferences.getEditor().putString("email", email).apply();
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                GestorSesion.cerrarSesion();
+                finish();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     @Override
@@ -106,9 +104,14 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void comprobarSesion() {
-        String email = GestorSesion.cargarSesionLocal(this, getString(R.string.prefs_file));
-        if (email == null) {
-            //authLayout.setVisibility(View.INVISIBLE);
+        if (UtilidadRed.hayInternet(this)) {
+            String email = GestorSesion.cargarSesionLocal();
+            if (email == null) {
+                //authLayout.setVisibility(View.INVISIBLE);
+                finish();
+            }
+        } else {
+            GestorSesion.cerrarSesion();
             finish();
         }
     }

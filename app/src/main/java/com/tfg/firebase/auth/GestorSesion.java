@@ -1,17 +1,10 @@
 package com.tfg.firebase.auth;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
-
 import com.google.android.gms.tasks.Task;
 import com.google.common.base.Strings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.tfg.R;
-import com.tfg.activities.MenuActivity;
-import com.tfg.utilidades.GestorSharedPreferences;
-import com.tfg.utilidades.UtilidadActivity;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.function.Consumer;
 
@@ -37,8 +30,12 @@ public final class GestorSesion {
         }
     }
 
-    public static String cargarSesionLocal(Context context, String sharedPreferencesKey) {
-        GestorSharedPreferences gestorSharedPreferences = new GestorSharedPreferences(context, sharedPreferencesKey);
-        return gestorSharedPreferences.getSharedPreferences().getString("email", null);
+    public static void cerrarSesion() {
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    public static String cargarSesionLocal() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        return (firebaseUser != null) ? firebaseUser.getEmail() : null;
     }
 }

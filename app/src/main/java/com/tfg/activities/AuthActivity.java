@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.tfg.R;
 import com.tfg.firebase.auth.GestorSesion;
 import com.tfg.firebase.bbdd.GestorBaseDatos;
 import com.tfg.utilidades.UtilidadActivity;
+import com.tfg.utilidades.UtilidadRed;
 
 import java.util.Objects;
 
@@ -51,14 +53,18 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void comprobarSesion() {
-        String email = GestorSesion.cargarSesionLocal(this, getString(R.string.prefs_file));
+        if (UtilidadRed.hayInternet(this)) {
+            String email = GestorSesion.cargarSesionLocal();
 
-        if (email != null) {
-            authLayout.setVisibility(View.INVISIBLE);
-            Bundle extras = new Bundle();
-            extras.putString("email", email);
-            UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
-        }
+            if (email != null) {
+                authLayout.setVisibility(View.INVISIBLE);
+                Bundle extras = new Bundle();
+                extras.putString("email", email);
+                UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
+            }
+        } else Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
+
+
     }
 
     private void mostrarAlerta() {
@@ -74,30 +80,34 @@ public class AuthActivity extends AppCompatActivity {
     private final View.OnClickListener buttonRegistroOnClick = v -> {
         String email = String.valueOf(editTextEmail.getText()) , password = String.valueOf(editTextPassword.getText());
 
-        GestorSesion.registrarUsuario(email, password, task -> {
-            if (task.isSuccessful()) {
-                AuthResult resultado = task.getResult();
-                Bundle extras = new Bundle();
-                extras.putString("email", Objects.requireNonNull(resultado.getUser()).getEmail());
-                UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
-            } else {
-                mostrarAlerta();
-            }
-        });
+        if (UtilidadRed.hayInternet(this)) {
+            GestorSesion.registrarUsuario(email, password, task -> {
+                if (task.isSuccessful()) {
+                    AuthResult resultado = task.getResult();
+                    Bundle extras = new Bundle();
+                    extras.putString("email", Objects.requireNonNull(resultado.getUser()).getEmail());
+                    UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
+                } else {
+                    mostrarAlerta();
+                }
+            });
+        } else Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
     };
 
     private final View.OnClickListener buttonLoginOnClick = v -> {
         String email = String.valueOf(editTextEmail.getText()) , password = String.valueOf(editTextPassword.getText());
 
-        GestorSesion.iniciarSesion(email, password, task -> {
-            if (task.isSuccessful()) {
-                AuthResult resultado = task.getResult();
-                Bundle extras = new Bundle();
-                extras.putString("email", Objects.requireNonNull(resultado.getUser()).getEmail());
-                UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
-            } else {
-                mostrarAlerta();
-            }
-        });
+        if (UtilidadRed.hayInternet(this)) {
+            GestorSesion.iniciarSesion(email, password, task -> {
+                if (task.isSuccessful()) {
+                    AuthResult resultado = task.getResult();
+                    Bundle extras = new Bundle();
+                    extras.putString("email", Objects.requireNonNull(resultado.getUser()).getEmail());
+                    UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
+                } else {
+                    mostrarAlerta();
+                }
+            });
+        } else Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
     };
 }

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">TFG</string>
-    <string name="prefs_file">com.tfg.KEY_ARCHIVO_PREFERENCIAS</string>
 
     <!-- General -->
     <string name="jugar">Jugar</string>

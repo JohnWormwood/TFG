@@ -5,9 +5,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.R;
-import com.tfg.utilidades.GestorSharedPreferences;
+import com.tfg.firebase.auth.GestorSesion;
 
 public class OpcionesActivity extends AppCompatActivity {
 
@@ -18,11 +17,7 @@ public class OpcionesActivity extends AppCompatActivity {
     }
 
     public void buttonCerrarSesionOnClick(View view) {
-        FirebaseAuth.getInstance().signOut();
-        GestorSharedPreferences gestorSharedPreferences = new GestorSharedPreferences(this, getString(R.string.prefs_file));
-        gestorSharedPreferences.getEditor().clear();
-        gestorSharedPreferences.getEditor().apply();
-
+        GestorSesion.cerrarSesion();
         finish();
     }
 }
