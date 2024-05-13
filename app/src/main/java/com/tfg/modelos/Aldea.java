@@ -5,6 +5,7 @@ import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.edificios.Carpinteria;
 import com.tfg.modelos.edificios.CasetaLeniador;
+import com.tfg.modelos.edificios.Castillo;
 import com.tfg.modelos.edificios.Granja;
 import com.tfg.modelos.edificios.Mina;
 import com.tfg.modelos.enums.RecursosEnum;
@@ -31,6 +32,7 @@ public class Aldea extends EstructuraBase implements Runnable {
     private CasetaLeniador casetaLeniador;
     private Granja granja;
     private Mina mina;
+    private Castillo castillo;
 
     private Aldea() {
         super();
@@ -43,6 +45,7 @@ public class Aldea extends EstructuraBase implements Runnable {
         carpinteria = new Carpinteria(0, this);
         granja = new Granja(0, this);
         mina = new Mina(0, this);
+        castillo = new Castillo(0, this);
 
         recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
     }

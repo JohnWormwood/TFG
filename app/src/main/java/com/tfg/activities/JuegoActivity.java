@@ -241,6 +241,9 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         }
         if (aldea.getMina().isDesbloqueado()) imageViewMina.setImageResource(R.drawable.mina2);
         if (aldea.getGranja().isDesbloqueado())  imagewViewGranja.setImageResource(R.drawable.casa2);
+        if (aldea.getCarpinteria().isDesbloqueado())  imageViewCarpinteria.setImageResource(R.drawable.carpinteria);
+        if (aldea.getCastillo().isDesbloqueado())  imageViewCastillo.setImageResource(R.drawable.castillo);
+
         imageViewOveja.setVisibility(aldea.getGranja().isDesbloqueado() ? View.VISIBLE : View.INVISIBLE);
     }
 

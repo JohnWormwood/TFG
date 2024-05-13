@@ -8,6 +8,7 @@ import com.tfg.utilidades.Constantes;
 
 
 import java.util.Map;
+import java.util.Random;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,11 +17,14 @@ import lombok.Data;
 @AllArgsConstructor
 public class GeneradorEstandar implements IGeneradorRecursos {
     protected RecursosEnum recurso;
+    private static final Random random = new Random();
+
 
     @Override
     public void producirRecursos(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int aldeanosAsignados) {
         if (aldeanosAsignados > 0) {
             int cantidad = calcularCantidadProducida(aldeanosAsignados);
+            System.out.println(recurso+" "+cantidad);
             agregarRecursoSinExcederMax(recursos, recurso, cantidad);
         }
     }
@@ -34,9 +38,19 @@ public class GeneradorEstandar implements IGeneradorRecursos {
     }
 
     protected int calcularCantidadProducida(int aldeanosAsignados) {
-        // Generar el recurso en funcion de los aldeanos asignados y de la calidad del recurso
-        int cantidad = (aldeanosAsignados == 1 ? 1 : aldeanosAsignados / 2);
-        cantidad = Math.max(cantidad - recurso.getCALIDAD(), 1);
-        return cantidad;
+        int cantidadProducida = 0;
+
+        // Calcular la cantidad producida
+        for (int i = 0; i < aldeanosAsignados; i++) {
+            if (random.nextDouble() < 0.5) {
+                cantidadProducida++;
+            }
+        }
+
+        // Ajustar la cantidad producida por la calidad del recurso
+        cantidadProducida = Math.max(cantidadProducida, 1);
+        cantidadProducida = cantidadProducida / recurso.getCALIDAD();
+
+        return cantidadProducida;
     }
 }
