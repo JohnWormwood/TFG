@@ -1,6 +1,7 @@
 package com.tfg.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.AuthResult;
 import com.tfg.R;
 import com.tfg.firebase.auth.GestorSesion;
+import com.tfg.firebase.bbdd.GestorBaseDatos;
 import com.tfg.utilidades.UtilidadActivity;
 
 import java.util.Objects;
@@ -50,6 +52,7 @@ public class AuthActivity extends AppCompatActivity {
 
     private void comprobarSesion() {
         String email = GestorSesion.cargarSesionLocal(this, getString(R.string.prefs_file));
+
         if (email != null) {
             authLayout.setVisibility(View.INVISIBLE);
             Bundle extras = new Bundle();

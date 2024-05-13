@@ -1,15 +1,15 @@
 package com.tfg.firebase.bbdd;
 
-import androidx.annotation.NonNull;
+import android.util.Log;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.firebase.bbdd.dto.AldeaDTO;
 import com.tfg.firebase.bbdd.dto.CabaniaCazaDTO;
-import com.tfg.firebase.bbdd.dto.DatosUsuarioDTO;
 import com.tfg.firebase.bbdd.dto.EdificioDTO;
 import com.tfg.firebase.bbdd.dto.RecursosDTO;
 import com.tfg.modelos.Aldea;
@@ -23,7 +23,6 @@ import java.util.Map;
 public class GestorBaseDatos {
 
     private final String COLECCION_USUARIOS = "usuarios";
-    private final String DATOS_USUARIO = "datos_usuario";
     private final String ALDEA = "datos_aldea";
     private final String RECURSOS = "recursos";
     private final String CABANIA_CAZA = "cabania_caza";
@@ -32,10 +31,9 @@ public class GestorBaseDatos {
     private final String GRANJA = "granja";
     private final String MINA = "mina";
 
-    Aldea aldea = Aldea.getInstance();
+    private Aldea aldea = Aldea.getInstance();
 
     public void guardarDatos(String email, OperacionesDatosCallback callback) {
-        setEstadoConexion(email, false);
         FirestoreCRUD.actualizarConCallback(COLECCION_USUARIOS, email, mapearDatosAldea(), callback);
     }
 
@@ -69,7 +67,6 @@ public class GestorBaseDatos {
                         cargarDatosEnEdificio(aldea.getMina(), minaDTO);
                     }
                     aldea.ajustarSegunDatosCargados();
-                    setEstadoConexion(email, true);
                     callback.onDatosCargados();
                 });
     }
@@ -131,11 +128,11 @@ public class GestorBaseDatos {
         HashMap<String, Object> datos = new HashMap<>();
         datos.put(RECURSOS, mapearRecursos(aldea));
         datos.put(ALDEA, mapearAldea(aldea));
-        datos.put(CABANIA_CAZA,mapearCabaniaCaza(aldea.getCabaniaCaza()));
+        datos.put(CABANIA_CAZA, mapearCabaniaCaza(aldea.getCabaniaCaza()));
         datos.put(CASETA_LENIADOR, mapearEdificio(aldea.getCasetaLeniador()));
-        datos.put(CARPINTERIA,mapearEdificio(aldea.getCarpinteria()));
-        datos.put(GRANJA,mapearEdificio(aldea.getGranja()));
-        datos.put(MINA,mapearEdificio(aldea.getMina()));
+        datos.put(CARPINTERIA, mapearEdificio(aldea.getCarpinteria()));
+        datos.put(GRANJA, mapearEdificio(aldea.getGranja()));
+        datos.put(MINA, mapearEdificio(aldea.getMina()));
 
         return datos;
     }
@@ -187,16 +184,5 @@ public class GestorBaseDatos {
         if (cantidad != null) recursosDTO.setOro(cantidad);
 
         return recursosDTO;
-    }
-
-    private void setEstadoConexion(String email, boolean conectado) {
-        // Para guardar estos datos no hace falta usar callback, ya que la ejecucion del juego no requiere de ellos
-        DatosUsuarioDTO datosUsuarioDTO = new DatosUsuarioDTO();
-        datosUsuarioDTO.setConectado(conectado);
-
-        HashMap<String, Object> datos = new HashMap<>();
-        datos.put(DATOS_USUARIO, datosUsuarioDTO);
-
-        FirestoreCRUD.actualizar(COLECCION_USUARIOS, email, datos);
     }
 }

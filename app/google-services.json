@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1093228551288",
+    "firebase_url": "https://tfg-juego-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "tfg-juego",
     "storage_bucket": "tfg-juego.appspot.com"
   },
