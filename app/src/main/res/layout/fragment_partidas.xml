@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_redondo"
-    android:backgroundTint="#32848175"
+    android:backgroundTint="#7337E49F"
     android:backgroundTintMode="add"
     android:orientation="vertical"
     tools:context=".activities.fragments.PartidasFragment">

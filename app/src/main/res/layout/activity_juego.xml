@@ -198,6 +198,33 @@
                 app:layout_constraintVertical_bias="0.757" />
 
             <ImageView
+                android:id="@+id/imageViewCarpinteria"
+                android:layout_width="75dp"
+                android:layout_height="106dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/carpinteria"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.031"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.954"
+                app:srcCompat="@drawable/casa_destruida" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/caseta_tablones"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.235"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.946"
+                app:srcCompat="@drawable/caseta_tablones" />
+
+            <ImageView
                 android:id="@+id/imageViewCasa3"
                 android:layout_width="54dp"
                 android:layout_height="66dp"
@@ -244,10 +271,10 @@
                 android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintHorizontal_bias="0.528"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.782" />
+                app:layout_constraintVertical_bias="0.77" />
 
             <ImageView
                 android:id="@+id/imageViewMina"
@@ -451,14 +478,14 @@
             <ImageView
                 android:layout_width="49dp"
                 android:layout_height="58dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/arbol"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.243"
+                app:layout_constraintHorizontal_bias="0.201"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.63"
-                android:importantForAccessibility="no" />
+                app:layout_constraintVertical_bias="0.635" />
 
             <ImageView
                 android:layout_width="49dp"
@@ -505,10 +532,10 @@
                 android:src="@drawable/arbol"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.67"
+                app:layout_constraintHorizontal_bias="0.725"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.741" />
+                app:layout_constraintVertical_bias="0.76" />
 
             <ImageView
                 android:id="@+id/imageView8"
@@ -555,10 +582,10 @@
                 android:src="@drawable/castillo_roto"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.615"
+                app:layout_constraintHorizontal_bias="0.429"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.599" />
+                app:layout_constraintVertical_bias="0.602" />
 
             <ImageView
                 android:id="@+id/imageViewCasa2"
@@ -607,10 +634,10 @@
                 android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.232"
+                app:layout_constraintHorizontal_bias="0.204"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.52" />
+                app:layout_constraintVertical_bias="0.481" />
 
             <ImageView
                 android:id="@+id/imageViewCasa6"
@@ -653,16 +680,17 @@
 
 
             <ImageView
-                android:id="@+id/imageViewCarpinteria"
-                android:layout_width="92dp"
-                android:layout_height="85dp"
+                android:id="@+id/cazadorView"
+                android:layout_width="98dp"
+                android:layout_height="93dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ico_aldeano"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.03"
+                app:layout_constraintHorizontal_bias="0.535"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.97"
-                app:srcCompat="@drawable/carpinteria_ico" />
+                app:layout_constraintVertical_bias="0.045" />
 
             <ImageView
                 android:id="@+id/imageViewGranja"
@@ -698,6 +726,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.969"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageViewGuerrero2"
+                android:layout_width="100dp"
+                android:layout_height="92dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.814"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.709"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageViewGuerrero1"
+                android:layout_width="100dp"
+                android:layout_height="92dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.814"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.573"
                 tools:srcCompat="@tools:sample/avatars" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

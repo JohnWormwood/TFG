@@ -45,8 +45,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     // Componentes de la interfaz
     private TextView textViewAldeanos, textViewComida, textViewTroncos, textViewTablones, textViewPiedra, textViewHierro, textViewOro;
 
-    private ImageView imageViewMina, imagewViewGranja, imageViewCastillo;
-    private ImageView imageViewOveja;
+    private ImageView imageViewMina, imagewViewGranja, imageViewCastillo, imageViewCarpinteria;
+    private ImageView imageViewOveja, imageViewGuerrero1, imageViewGuerrero2;
     private ImageView[] imageViewsCasas;
 
     private Aldea aldea = Aldea.getInstance();
@@ -220,7 +220,9 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         imagewViewGranja = findViewById(R.id.imageViewGranja);
         imageViewMina = findViewById(R.id.imageViewMina);
         imageViewCastillo = findViewById(R.id.imageViewCastillo);
+        imageViewCarpinteria = findViewById(R.id.imageViewCarpinteria);
         imageViewOveja = findViewById(R.id.imageViewOveja);
+
         imageViewsCasas = new ImageView[10];
         for (int i = 0; i < imageViewsCasas.length; i++) {
             int id = getResources().getIdentifier("imageViewCasa"+(i+1), "id", getPackageName());
@@ -263,6 +265,9 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     private void cargarGifs() {
         cargarGif(R.id.taladorView, R.drawable.talador);
         cargarGif(R.id.imageViewOveja, R.drawable.oveja);
+        cargarGif(R.id.cazadorView, R.drawable.cazador);
+        cargarGif(R.id.imageViewGuerrero1, R.drawable.guerrero1);
+        cargarGif(R.id.imageViewGuerrero2, R.drawable.guerrero2);
     }
 
     private void cargarGif(int id, int d) {
