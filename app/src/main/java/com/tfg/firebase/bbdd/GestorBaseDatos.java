@@ -1,11 +1,5 @@
 package com.tfg.firebase.bbdd;
 
-import android.util.Log;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.firebase.bbdd.dto.AldeaDTO;
@@ -33,7 +27,10 @@ public class GestorBaseDatos {
 
     private Aldea aldea = Aldea.getInstance();
 
+    private GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
+
     public void guardarDatos(String email, OperacionesDatosCallback callback) {
+        gestorRealTimeDatabase.actualizarEstadoConexion(false);
         FirestoreCRUD.actualizarConCallback(COLECCION_USUARIOS, email, mapearDatosAldea(), callback);
     }
 
@@ -67,10 +64,10 @@ public class GestorBaseDatos {
                         cargarDatosEnEdificio(aldea.getMina(), minaDTO);
                     }
                     aldea.ajustarSegunDatosCargados();
+                    gestorRealTimeDatabase.actualizarEstadoConexion(true);
                     callback.onDatosCargados();
                 });
     }
-
 
     private void cargarDatosEnAldea(AldeaDTO aldeaDTO, RecursosDTO recursosDTO) {
         if (aldeaDTO != null) {

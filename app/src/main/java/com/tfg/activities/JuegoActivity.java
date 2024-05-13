@@ -26,6 +26,7 @@ import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.firebase.bbdd.GestorBaseDatos;
+import com.tfg.firebase.bbdd.GestorRealTimeDatabase;
 import com.tfg.json.GestorJSON;
 import com.tfg.json.MejorasEdificiosJSON;
 import com.tfg.modelos.Aldea;
@@ -116,6 +117,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         enEjecucion = true;
         actualizarVisibilidadImageViews();
         ejecutarHiloJuego();
+        GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
+        gestorRealTimeDatabase.mostrarUsuariosConectados();
     }
 
     @Override
