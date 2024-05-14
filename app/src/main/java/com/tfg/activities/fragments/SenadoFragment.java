@@ -192,7 +192,6 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
         menuCarpinteria.getLayout().setVisibility(aldea.getCarpinteria().isDesbloqueado() ? View.VISIBLE : View.GONE);
         menuGranja.getLayout().setVisibility(aldea.getGranja().isDesbloqueado() ? View.VISIBLE : View.GONE);
         menuCastillo.getLayout().setVisibility(aldea.getCastillo().isDesbloqueado() ? View.VISIBLE : View.GONE);
-
     }
 
     private void cargarUI() {

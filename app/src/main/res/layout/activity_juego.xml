@@ -8,6 +8,32 @@
     android:background="@drawable/fondo_juego"
     tools:context=".activities.JuegoActivity">
 
+    <ImageView
+        android:id="@+id/imageViewload"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"
+        app:srcCompat="@drawable/load" />
+
+    <ImageView
+        android:id="@+id/imageViewBlur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="false"
+        android:background="#00FEFEFE"
+        android:backgroundTintMode="add"
+        android:cropToPadding="false"
+        android:elevation="4dp"
+        android:visibility="visible"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/blurrview"
+        android:contentDescription="TODO" />
+
     <LinearLayout
         android:id="@+id/menuSuperior"
         android:layout_width="wrap_content"

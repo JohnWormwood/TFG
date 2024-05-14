@@ -3,7 +3,9 @@ package com.tfg.activities;
 import android.content.Context;
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +50,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
 
     private ImageView imageViewMina, imagewViewGranja, imageViewCastillo, imageViewCarpinteria;
     private ImageView imageViewOveja, imageViewGuerrero1, imageViewGuerrero2;
+    private ImageView imageViewBlurr, imageViewLoad;
     private ImageView[] imageViewsCasas;
 
     private Aldea aldea = Aldea.getInstance();
@@ -64,9 +67,11 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         itemSelectedListener.onNavigationItemSelected(binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
         binding.menuInferior.setItemIconTintList(null); // Esto es para que los iconos se vean bien
 
+        //Cargar pantalla de carga
+        cargarGifConTemporizador(R.id.imageViewload, R.drawable.load);
+
         configInicial();
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -232,7 +237,6 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         imageViewGuerrero2 = findViewById(R.id.imageViewGuerrero2);
 
 
-
         imageViewsCasas = new ImageView[10];
         for (int i = 0; i < imageViewsCasas.length; i++) {
             int id = getResources().getIdentifier("imageViewCasa"+(i+1), "id", getPackageName());
@@ -295,5 +299,17 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
                 .fitCenter() // Ajustar la escala para que la imagen se adapte al ImageView
                 .override(imageView.getWidth() * 10, imageView.getHeight() * 10)
                 .load(d).into(imageView);
+    }
+
+    //Pantalla de carga de la aldea
+    private void cargarGifConTemporizador(int id, int drawableId) {
+        imageViewBlurr = findViewById(R.id.imageViewBlur);
+        imageViewLoad = findViewById(R.id.imageViewload);
+        cargarGif(id, drawableId); // Carga el GIF en el ImageView
+
+        // Hace el ImageView invisible después de un cierto tiempo
+        new Handler().postDelayed(() -> imageViewBlurr.setVisibility(View.INVISIBLE), 3000);
+        new Handler().postDelayed(() -> imageViewLoad.setVisibility(View.INVISIBLE), 3000);
+
     }
 }

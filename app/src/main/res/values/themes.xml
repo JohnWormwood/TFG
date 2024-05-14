@@ -12,4 +12,6 @@
     <style name="TransparentItemActiveIndicator" parent="">
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+
 </resources>
