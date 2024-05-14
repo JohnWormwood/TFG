@@ -202,14 +202,13 @@
                 android:layout_width="75dp"
                 android:layout_height="106dp"
                 android:importantForAccessibility="no"
-                android:src="@drawable/carpinteria"
+                android:src="@drawable/casa_destruida"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.031"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.954"
-                app:srcCompat="@drawable/casa_destruida" />
+                app:layout_constraintVertical_bias="0.954" />
 
             <ImageView
                 android:layout_width="60dp"

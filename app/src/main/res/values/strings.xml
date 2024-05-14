@@ -25,6 +25,8 @@
     <string name="carpinteria_nodo_json">carpinteria</string>
     <string name="granja_nodo_json">granja</string>
     <string name="mina_nodo_json">mina</string>
+    <string name="castillo_nodo_json">castillo</string>
+
 
     <!-- Mensajes Toast -->
     <string name="msj_subida_nivel">%s ha subido a nivel %d</string>

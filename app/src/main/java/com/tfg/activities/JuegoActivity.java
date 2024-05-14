@@ -44,7 +44,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     public static boolean enEjecucion = false;
 
     // Componentes de la interfaz
-    private TextView textViewAldeanos, textViewComida, textViewTroncos, textViewTablones, textViewPiedra, textViewHierro, textViewOro;
+    private TextView textViewAldeanos, textViewDefensas, textViewComida, textViewTroncos, textViewTablones, textViewPiedra, textViewHierro, textViewOro;
 
     private ImageView imageViewMina, imagewViewGranja, imageViewCastillo, imageViewCarpinteria;
     private ImageView imageViewOveja, imageViewGuerrero1, imageViewGuerrero2;
@@ -176,6 +176,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
             @Override
             public void run() {
                 textViewAldeanos.setText(String.valueOf(Aldea.getInstance().getPoblacion()));
+                textViewDefensas.setText(String.valueOf(Aldea.getInstance().getCastillo().getAldeanosAsignados()));
                 textViewComida.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.COMIDA)));
                 textViewTroncos.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.TRONCOS_MADERA)));
                 textViewTablones.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.TABLONES_MADERA)));
@@ -213,6 +214,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         // Inicializar los componentes de la interfaz
         // TextViews
         textViewAldeanos = findViewById(R.id.textViewAldeanos);
+        textViewDefensas = findViewById(R.id.textViewDefensas);
         textViewComida = findViewById(R.id.textViewComida);
         textViewTroncos = findViewById(R.id.textViewTroncos);
         textViewTablones = findViewById(R.id.textViewTablones);
@@ -226,6 +228,10 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         imageViewCastillo = findViewById(R.id.imageViewCastillo);
         imageViewCarpinteria = findViewById(R.id.imageViewCarpinteria);
         imageViewOveja = findViewById(R.id.imageViewOveja);
+        imageViewGuerrero1 = findViewById(R.id.imageViewGuerrero1);
+        imageViewGuerrero2 = findViewById(R.id.imageViewGuerrero2);
+
+
 
         imageViewsCasas = new ImageView[10];
         for (int i = 0; i < imageViewsCasas.length; i++) {
@@ -249,6 +255,9 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         if (aldea.getCastillo().isDesbloqueado()) imageViewCastillo.setImageResource(R.drawable.castillo);
 
         imageViewOveja.setVisibility(aldea.getGranja().isDesbloqueado() ? View.VISIBLE : View.INVISIBLE);
+        imageViewGuerrero1.setVisibility(aldea.getCastillo().isDesbloqueado() ? View.VISIBLE : View.INVISIBLE);
+        imageViewGuerrero2.setVisibility(aldea.getCastillo().isDesbloqueado() ? View.VISIBLE : View.INVISIBLE);
+
     }
 
     private void cargarDatos() {
@@ -262,6 +271,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
             aldea.getCarpinteria().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.carpinteria_nodo_json)));
             aldea.getGranja().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.granja_nodo_json)));
             aldea.getMina().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.mina_nodo_json)));
+            aldea.getCastillo().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.castillo_nodo_json)));
+
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, getString(R.string.msj_error_cargar_datos), Toast.LENGTH_SHORT).show();

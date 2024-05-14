@@ -65,6 +65,17 @@
       "nivel_7": {"troncos": 44, "tablones": 35, "comida": 0, "piedra": 33, "hierro": 32, "oro": 26},
       "nivel_8": {"troncos": 55, "tablones": 44, "comida": 0, "piedra": 42, "hierro": 37, "oro": 28},
       "nivel_9": {"troncos": 67, "tablones": 54, "comida": 0, "piedra": 52, "hierro": 40, "oro": 30}
+    },
+    "castillo": {
+      "nivel_1": {"troncos": 3, "tablones": 0, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
+      "nivel_2": {"troncos": 7, "tablones": 0, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
+      "nivel_3": {"troncos": 12, "tablones": 0, "comida": 0, "piedra": 7, "hierro": 0, "oro": 0},
+      "nivel_4": {"troncos": 18, "tablones": 5, "comida": 0, "piedra": 12, "hierro": 16, "oro": 0},
+      "nivel_5": {"troncos": 25, "tablones": 10, "comida": 0, "piedra": 18, "hierro": 23, "oro": 12},
+      "nivel_6": {"troncos": 34, "tablones": 20, "comida": 0, "piedra": 25, "hierro": 27, "oro": 17},
+      "nivel_7": {"troncos": 44, "tablones": 35, "comida": 0, "piedra": 33, "hierro": 32, "oro": 26},
+      "nivel_8": {"troncos": 55, "tablones": 44, "comida": 0, "piedra": 42, "hierro": 37, "oro": 28},
+      "nivel_9": {"troncos": 67, "tablones": 54, "comida": 0, "piedra": 52, "hierro": 40, "oro": 30}
     }
   }
 }
