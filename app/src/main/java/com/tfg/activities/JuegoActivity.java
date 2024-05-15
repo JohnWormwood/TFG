@@ -1,11 +1,8 @@
 package com.tfg.activities;
 
 import android.content.Context;
-import android.opengl.Visibility;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,26 +19,30 @@ import com.tfg.activities.fragments.AldeaFragment;
 import com.tfg.activities.fragments.MercaderFragment;
 import com.tfg.activities.fragments.PartidasFragment;
 import com.tfg.activities.fragments.SenadoFragment;
+import com.tfg.bbdd.sqlite.GestorSqlite;
 import com.tfg.controladores.ControladorAldea;
+import com.tfg.controladores.ControladorRecursos;
 import com.tfg.databinding.ActivityJuegoBinding;
 import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
-import com.tfg.firebase.bbdd.GestorBaseDatos;
-import com.tfg.firebase.bbdd.GestorRealTimeDatabase;
+import com.tfg.bbdd.firebase.GestorFirestore;
+import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.json.GestorJSON;
 import com.tfg.json.MejorasEdificiosJSON;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.UtilidadRed;
 
+import java.io.File;
 import java.io.IOException;
 
 public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback, PartidaCazaEventListener, ActualizarInterfazEventListener {
     ActivityJuegoBinding binding;
 
     private String emailUsuario;
-    private GestorBaseDatos gestorBaseDatos = new GestorBaseDatos();
+    private GestorFirestore gestorFirestore = new GestorFirestore();
+    private GestorSqlite gestorSqlite = new GestorSqlite(this);
 
     public static boolean enEjecucion = false;
 
@@ -82,16 +83,29 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         if (!UtilidadRed.hayInternet(this)) {
             Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
             finish();
+        } else {
+            // Obtén el directorio de la base de datos
+            File dbFile = getDatabasePath("local.db");
+
+            // Verifica si el archivo de la base de datos existe
+            if (dbFile.exists()) {
+                gestorSqlite.cargarDatos();
+
+                if (dbFile.delete()) System.out.println(dbFile +"se ha eliminado correctamente");
+                else System.err.println("error al eliminar: "+dbFile);
+                gestorFirestore.guardarDatos(emailUsuario, this);
+            }
+            gestorFirestore.cargarDatos(emailUsuario, this);
         }
-        //gestorBaseDatos.manejarDesconexion();
-        gestorBaseDatos.cargarDatos(emailUsuario, this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (UtilidadRed.hayInternet(this)) {
-            gestorBaseDatos.guardarDatos(emailUsuario, this);
+            gestorFirestore.guardarDatos(emailUsuario, this);
+        } else {
+            gestorSqlite.guardarDatos();
         }
         aldea.getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
     }
@@ -99,7 +113,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     @Override
     protected void onPause() {
         super.onPause();
-        gestorBaseDatos.guardarDatos(emailUsuario, this);
+        gestorFirestore.guardarDatos(emailUsuario, this);
         aldea.getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
     }
 
@@ -119,6 +133,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
          * sin haber cargado bien todos los datos
          */
         // Iniciar el juego
+        imageViewBlurr.setVisibility(View.INVISIBLE);
+        imageViewLoad.setVisibility(View.INVISIBLE);
         enEjecucion = true;
         actualizarVisibilidadImageViews();
         ejecutarHiloJuego();
@@ -308,8 +324,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         cargarGif(id, drawableId); // Carga el GIF en el ImageView
 
         // Hace el ImageView invisible después de un cierto tiempo
-        new Handler().postDelayed(() -> imageViewBlurr.setVisibility(View.INVISIBLE), 3000);
+        /*new Handler().postDelayed(() -> imageViewBlurr.setVisibility(View.INVISIBLE), 3000);
         new Handler().postDelayed(() -> imageViewLoad.setVisibility(View.INVISIBLE), 3000);
-
+        */
     }
 }

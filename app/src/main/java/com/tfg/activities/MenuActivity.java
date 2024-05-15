@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.tfg.R;
-import com.tfg.firebase.auth.GestorSesion;
+import com.tfg.bbdd.firebase.auth.GestorSesion;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 

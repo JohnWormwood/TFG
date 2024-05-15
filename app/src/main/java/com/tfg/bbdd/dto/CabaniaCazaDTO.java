@@ -1,4 +1,4 @@
-package com.tfg.firebase.bbdd.dto;
+package com.tfg.bbdd.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

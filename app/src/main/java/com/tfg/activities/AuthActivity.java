@@ -1,7 +1,6 @@
 package com.tfg.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.AuthResult;
 import com.tfg.R;
-import com.tfg.firebase.auth.GestorSesion;
-import com.tfg.firebase.bbdd.GestorBaseDatos;
+import com.tfg.bbdd.firebase.auth.GestorSesion;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
@@ -50,6 +48,7 @@ public class AuthActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         authLayout.setVisibility(View.VISIBLE);
+        vaciarEditTexts();
     }
 
     private void comprobarSesion() {
@@ -63,8 +62,6 @@ public class AuthActivity extends AppCompatActivity {
                 UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
             }
         } else Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
-
-
     }
 
     private void mostrarAlerta() {
@@ -110,4 +107,9 @@ public class AuthActivity extends AppCompatActivity {
             });
         } else Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
     };
+
+    private void vaciarEditTexts() {
+        editTextEmail.getText().clear();
+        editTextPassword.getText().clear();
+    }
 }

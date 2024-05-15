@@ -90,7 +90,7 @@ public class Aldea extends EstructuraBase implements Runnable {
         } catch (InterruptedException e) {
             // En caso de interrupcion se vuelve al estado anterior, para evitar que se dupliquen recursos
             //poblacion = poblacionInicial;
-            recursos = recursosIniciales;
+            //recursos = recursosIniciales;
             ListaHilos.remove(thread);
         }
     }

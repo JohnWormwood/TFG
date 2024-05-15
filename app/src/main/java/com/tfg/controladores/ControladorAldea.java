@@ -1,16 +1,10 @@
 package com.tfg.controladores;
 
 import com.tfg.activities.JuegoActivity;
-import com.tfg.firebase.bbdd.GestorBaseDatos;
 import com.tfg.modelos.Aldea;
-import com.tfg.modelos.TimerPartidaCaza;
-import com.tfg.modelos.edificios.Edificio;
 import com.tfg.modelos.enums.RecursosEnum;
-import com.tfg.modelos.generadores_recursos.impl.GeneradorEstandar;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.ListaHilos;
-
-import java.util.Map;
 
 public final class ControladorAldea {
 

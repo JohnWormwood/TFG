@@ -1,4 +1,4 @@
-package com.tfg.firebase.bbdd;
+package com.tfg.bbdd.firebase;
 
 import androidx.annotation.NonNull;
 

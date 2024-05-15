@@ -1,4 +1,4 @@
-package com.tfg.firebase.auth;
+package com.tfg.bbdd.firebase.auth;
 
 import com.google.android.gms.tasks.Task;
 import com.google.common.base.Strings;

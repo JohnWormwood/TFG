@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tfg.R;
-import com.tfg.firebase.auth.GestorSesion;
+import com.tfg.bbdd.firebase.auth.GestorSesion;
 
 public class OpcionesActivity extends AppCompatActivity {
 
