@@ -107,6 +107,7 @@ public class Aldea extends EstructuraBase implements Runnable {
         casetaLeniador.ajustarSegunDatosCargados();
         granja.ajustarSegunDatosCargados();
         mina.ajustarSegunDatosCargados();
+        castillo.ajustarSegunDatosCargados();
 
         setAldeanosAsignados(cabaniaCaza.getAldeanosAsignados() + carpinteria.getAldeanosAsignados()
                 + casetaLeniador.getAldeanosAsignados() + granja.getAldeanosAsignados()

@@ -38,6 +38,7 @@ public class GestorFirestore {
                         EdificioDTO carpinteriaDTO = document.get(Constantes.BaseDatos.CARPINTERIA, EdificioDTO.class);
                         EdificioDTO granjaDTO = document.get(Constantes.BaseDatos.GRANJA, EdificioDTO.class);
                         EdificioDTO minaDTO = document.get(Constantes.BaseDatos.MINA, EdificioDTO.class);
+                        EdificioDTO castilloDTO = document.get(Constantes.BaseDatos.CASTILLO, EdificioDTO.class);
                         // Aldea
                         mapeoDatos.cargarDatosEnAldea(aldeaDTO, recursosDTO);
                         // Cabania Caza
@@ -50,6 +51,8 @@ public class GestorFirestore {
                         mapeoDatos.cargarDatosEnEdificio(aldea.getGranja(), granjaDTO);
                         // Mina
                         mapeoDatos.cargarDatosEnEdificio(aldea.getMina(), minaDTO);
+                        // Castillo
+                        mapeoDatos.cargarDatosEnEdificio(aldea.getCastillo(), castilloDTO);
                     }
                     aldea.ajustarSegunDatosCargados();
                     gestorRealTimeDatabase.actualizarEstadoConexion(true);
@@ -67,9 +70,8 @@ public class GestorFirestore {
         datos.put(Constantes.BaseDatos.CARPINTERIA, mapeoDatos.mapearEdificio(aldea.getCarpinteria()));
         datos.put(Constantes.BaseDatos.GRANJA, mapeoDatos.mapearEdificio(aldea.getGranja()));
         datos.put(Constantes.BaseDatos.MINA, mapeoDatos.mapearEdificio(aldea.getMina()));
+        datos.put(Constantes.BaseDatos.CASTILLO, mapeoDatos.mapearEdificio(aldea.getCastillo()));
 
         return datos;
     }
-
-
 }

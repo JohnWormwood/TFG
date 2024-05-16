@@ -138,8 +138,6 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         enEjecucion = true;
         actualizarVisibilidadImageViews();
         ejecutarHiloJuego();
-        GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
-        gestorRealTimeDatabase.mostrarUsuariosConectados();
     }
 
     @Override

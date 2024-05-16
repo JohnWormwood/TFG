@@ -37,6 +37,7 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
         this.aldea = aldea;
         generadoresRecursos = new ArrayList<>();
         setMaximoRecursosSegunNivel();
+        setMaximoAldeanosSegunNivel();
     }
 
 

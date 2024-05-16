@@ -47,6 +47,10 @@ public final class ControladorAldea {
                 // Desbloquear la carpinteria
                 aldea.getCarpinteria().setDesbloqueado(true);
                 break;
+            case Constantes.Aldea.NIVEL_DESBLOQUEO_CASTILLO:
+                // Desbloquear castillo
+                aldea.getCastillo().setDesbloqueado(true);
+                break;
             case Constantes.Aldea.NIVEL_DESBLOQUEO_HIERRO:
                 aldea.getMina().agregarGeneradorRecurso(RecursosEnum.HIERRO);
                 break;
@@ -58,9 +62,6 @@ public final class ControladorAldea {
                 break;
             case Constantes.Aldea.NIVEL_DESBLOQUEO_MERCADER:
                 // Desbloquear mercader
-                break;
-            case Constantes.Aldea.NIVEL_DESBLOQUEO_CASTILLO:
-                // Desbloquear castillo
                 break;
             default:
                 break;

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tfg.R;
+import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
@@ -21,9 +22,9 @@ import com.tfg.modelos.enums.RecursosEnum;
 public class PartidasFragment extends Fragment implements PartidaCazaEventListener {
 
     // Componentes de la interfaz
-    private SeekBar seekBarCazadores;
+    private SeekBar seekBarCazadores, seekBarSoldados;
     private TextView textViewCazadores, textViewPartidaCaza;
-    private ImageButton buttonCaza;
+    private ImageButton buttonCaza, buttonIncursion;
 
     public PartidasFragment() {
         // Required empty public constructor
@@ -45,10 +46,12 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         textViewCazadores = view.findViewById(R.id.textViewCazadores);
         textViewPartidaCaza = view.findViewById(R.id.textViewPartidaCaza);
         buttonCaza = view.findViewById(R.id.buttonCaza);
+        buttonIncursion = view.findViewById(R.id.buttonIncursion);
 
         // Listeners
         seekBarCazadores.setOnSeekBarChangeListener(seekBarChangeListener);
         buttonCaza.setOnClickListener(buttonCazaOnClickListener);
+        buttonIncursion.setOnClickListener(buttonIncursionOnClickListener);
 
         // Establecer el minimo y el maximo de la seekbar
         int maxCazadores = Aldea.getInstance().getCabaniaCaza().getAldeanosMaximos();
@@ -82,7 +85,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
             Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
     }
 
-    // Manejar el boton
+    // Manejar los botones
     View.OnClickListener buttonCazaOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -104,6 +107,14 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
                 addListener();
                 Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().addEventListener((PartidaCazaEventListener) getActivity());
             }
+        }
+    };
+
+    View.OnClickListener buttonIncursionOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
+            System.out.println("Usuario a atacar: "+gestorRealTimeDatabase.getUsuarioDesconectadoAleatorio());
         }
     };
 

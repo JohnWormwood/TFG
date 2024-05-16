@@ -19,15 +19,18 @@ import java.util.Random;
 
 public class GestorRealTimeDatabase {
     private final static String PATH_USUARIOS = "usuarios";
+    private final static String PATH_EMAIL = "email";
     private final static String PATH_ONLINE = "online";
 
     private FirebaseDatabase baseDatos = FirebaseDatabase.getInstance();
     private DatabaseReference usuariosRef = baseDatos.getReference(PATH_USUARIOS);
 
     public void actualizarEstadoConexion(boolean online) {
-        String idUsuario = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String idUsuario = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         DatabaseReference idUsuarioRef = usuariosRef.child(idUsuario);
-        idUsuarioRef.child(PATH_ONLINE).setValue(online); // Establece el valor como "conectado"
+        idUsuarioRef.child(PATH_ONLINE).setValue(online);
+        idUsuarioRef.child(PATH_EMAIL).setValue(firebaseAuth.getCurrentUser().getEmail());
 
         /* En caso de desconexion ponerlo a false, cuando es una desconexion
          * no controlada puede tardar un tiempo en actualizarse en la base de datos
@@ -35,33 +38,29 @@ public class GestorRealTimeDatabase {
         idUsuarioRef.child(PATH_ONLINE).onDisconnect().setValue(false);
     }
 
-    public void mostrarUsuariosConectados() {
-        Query onlineUsersQuery = usuariosRef.orderByChild("online").equalTo(true);
-
+    public String getUsuarioDesconectadoAleatorio() {
+        Query onlineUsersQuery = usuariosRef.orderByChild(PATH_ONLINE).equalTo(false);
+        final String[] usuario = new String[1];
         onlineUsersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> onlineUserIds = new ArrayList<>();
+                List<String> usuariosConectados = new ArrayList<>();
+                System.out.println("--- USUARIOS DESCONECTADOS ---");
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String userId = snapshot.getKey();
-                    onlineUserIds.add(userId);
+                    String email = snapshot.child(PATH_EMAIL).getValue(String.class);
+                    System.out.println("uid = "+userId+", email = "+email);
+                    usuariosConectados.add(email);
                 }
 
-                System.out.println("USUARIOS CONECTADOS: ");
-                for (String id : onlineUserIds) {
-                    System.out.println("USER ID = "+id);
-                }
-
-                /*
                 // Si hay usuarios en línea, seleccionar uno aleatoriamente
-                if (!onlineUserIds.isEmpty()) {
+                if (!usuariosConectados.isEmpty()) {
                     Random random = new Random();
-                    int randomIndex = random.nextInt(onlineUserIds.size());
-                    String randomUserId = onlineUserIds.get(randomIndex);
-                    Log.d("RandomUserId", "El userId aleatorio seleccionado es: " + randomUserId);
+                    int randomIndex = random.nextInt(usuariosConectados.size());
+                    usuario[0] = usuariosConectados.get(randomIndex);
                 } else {
-                    Log.d("RandomUserId", "No hay usuarios en línea en la base de datos.");
-                }*/
+                    System.out.println("No hay usuarios desconectados");
+                }
             }
 
             @Override
@@ -69,5 +68,7 @@ public class GestorRealTimeDatabase {
                 Log.e("RandomUserId", "Error al realizar la consulta en Firebase Realtime Database: " + databaseError.getMessage());
             }
         });
+
+        return usuario[0];
     }
 }
