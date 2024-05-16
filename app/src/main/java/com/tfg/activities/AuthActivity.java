@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
 
 import com.google.firebase.auth.AuthResult;
 import com.tfg.R;
@@ -28,20 +29,16 @@ public class AuthActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auth);
 
-        // Inicializar componentes de la interfaz
-        editTextEmail = findViewById(R.id.editTextEmail);
-        editTextPassword = findViewById(R.id.editTextPassword);
-        buttonRegistro = findViewById(R.id.buttonRegistro);
-        buttonLogin = findViewById(R.id.buttonLogin);
+        // Install the splash screen
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+        setContentView(R.layout.activity_auth);
         authLayout = findViewById(R.id.authLayout);
 
-        // Cargar los listeners
-        buttonRegistro.setOnClickListener(buttonRegistroOnClick);
-        buttonLogin.setOnClickListener(buttonLoginOnClick);
-
-        comprobarSesion();
+        // Comprueba la sesion antes de cargar la UI de login
+        if (!comprobarSesion()) {
+            cargarDatos();
+        }
     }
 
     @Override
@@ -51,19 +48,39 @@ public class AuthActivity extends AppCompatActivity {
         vaciarEditTexts();
     }
 
-    private void comprobarSesion() {
+    private boolean comprobarSesion() {
         if (UtilidadRed.hayInternet(this)) {
             String email = GestorSesion.cargarSesionLocal();
 
             if (email != null) {
+                // User is authenticated, navigate to MenuActivity
                 authLayout.setVisibility(View.INVISIBLE);
                 Bundle extras = new Bundle();
                 extras.putString("email", email);
                 UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
+                finish(); // Finish AuthActivity so the user cannot navigate back to it
+                return true; // Return true indicating the session is valid and navigation occurred
             }
-        } else Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
+        }
+        return false; // Return false indicating the session is not valid or internet is not available
     }
 
+    private void cargarDatos(){
+        setContentView(R.layout.activity_auth);
+
+        // Inicializar componentes de la interfaz
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        buttonRegistro = findViewById(R.id.buttonRegistro);
+        buttonLogin = findViewById(R.id.buttonLogin);
+
+
+        // Cargar los listeners
+        buttonRegistro.setOnClickListener(buttonRegistroOnClick);
+        buttonLogin.setOnClickListener(buttonLoginOnClick);
+    }
     private void mostrarAlerta() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Error");

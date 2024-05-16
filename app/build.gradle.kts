@@ -64,4 +64,7 @@ dependencies {
 
     // Jackson
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.17.0")
+
+    // Splash
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }
