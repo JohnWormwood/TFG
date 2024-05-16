@@ -68,5 +68,8 @@
     <string name="mejora_senado">Mejora el senado para desbloquear nuevos edificios</string>
     <string name="eniva_cazadores">Envia cazadores en el menu Partidas</string>
 
-
+    <!-- Splash -->
+    <string name="TFG">Mi Aplicación</string>
+    <string name="splash_subtitle">Bienvenido a la mejor experiencia</string>
+    <string name="splash_icon_description">Icono de bienvenida</string>
 </resources>
