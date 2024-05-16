@@ -12,9 +12,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseError;
 import com.tfg.R;
 import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.controladores.ControladorRecursos;
+import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
@@ -110,11 +112,10 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         }
     };
 
-    View.OnClickListener buttonIncursionOnClickListener = new View.OnClickListener() {
+    View.OnClickListener buttonIncursionOnClickListener = new View.OnClickListener()  {
         @Override
         public void onClick(View v) {
-            GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
-            System.out.println("Usuario a atacar: "+gestorRealTimeDatabase.getUsuarioDesconectadoAleatorio());
+            Aldea.getInstance().getCastillo().iniciarIncursion();
         }
     };
 
