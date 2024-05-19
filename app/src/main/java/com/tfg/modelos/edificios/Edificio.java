@@ -73,6 +73,7 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
 
     public synchronized void agregarGeneradorRecurso(RecursosEnum recurso) {
         generadoresRecursos.add(new GeneradorEstandar(recurso));
+        setMaximoRecursosSegunNivel();
         reiniciarProduccion();
     }
 
