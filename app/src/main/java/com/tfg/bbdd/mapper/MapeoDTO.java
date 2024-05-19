@@ -8,12 +8,13 @@ import com.tfg.modelos.Aldea;
 import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.edificios.Edificio;
 import com.tfg.modelos.enums.RecursosEnum;
+import com.tfg.utilidades.Constantes;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapeoDatos {
-    public AldeaDTO mapearAldea(Aldea aldea) {
+public class MapeoDTO {
+    public AldeaDTO aldeaToAldeaDTO(Aldea aldea) {
         AldeaDTO aldeaDTO = new AldeaDTO();
         aldeaDTO.setNivel(aldea.getNivel());
         aldeaDTO.setPoblacion(aldea.getPoblacion());
@@ -22,7 +23,7 @@ public class MapeoDatos {
         return aldeaDTO;
     }
 
-    public EdificioDTO mapearEdificio(Edificio edificio) {
+    public EdificioDTO edificioToEdificioDTO(Edificio edificio) {
         EdificioDTO edificioDTO = new EdificioDTO();
         edificioDTO.setNivel(edificio.getNivel());
         edificioDTO.setAldeanosAsignados(edificio.getAldeanosAsignados());
@@ -31,7 +32,7 @@ public class MapeoDatos {
         return edificioDTO;
     }
 
-    public CabaniaCazaDTO mapearCabaniaCaza(CabaniaCaza cabaniaCaza) {
+    public CabaniaCazaDTO cabaniaCazaToCabaniaCazaDTO(CabaniaCaza cabaniaCaza) {
         CabaniaCazaDTO cabaniaCazaDTO = new CabaniaCazaDTO();
         cabaniaCazaDTO.setNivel(cabaniaCaza.getNivel());
         cabaniaCazaDTO.setAldeanosAsignados(cabaniaCaza.getAldeanosAsignados());
@@ -70,8 +71,8 @@ public class MapeoDatos {
             //aldea.setDefensas(aldeaDTO.getDefensas());
             aldea.setRecursos(cargarRecursos(recursosDTO));
         } else {
-            // Nunca deberia ser null, pero si lo es se pone a 0 de poblacion para evitar problemas
-            aldea.setPoblacion(0);
+            // Nunca deberia ser null, pero si lo es se pone a la poblacion inicial
+            aldea.setPoblacion(Constantes.Aldea.POBLACION_INICIAL);
         }
     }
 

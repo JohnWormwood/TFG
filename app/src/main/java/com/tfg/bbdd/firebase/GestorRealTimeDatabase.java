@@ -39,6 +39,7 @@ public class GestorRealTimeDatabase {
          * no controlada puede tardar un tiempo en actualizarse en la base de datos
          */
         idUsuarioRef.child(PATH_ONLINE).onDisconnect().setValue(false);
+        idUsuarioRef.child(PATH_ONLINE).onDisconnect().setValue(Aldea.getInstance().getCastillo().isDesbloqueado());
     }
 
     public void getUsuarioAtacableAleatorio(ObtenerUsuarioCallback callback) {
@@ -47,12 +48,10 @@ public class GestorRealTimeDatabase {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<String> usuariosDesconectados = new ArrayList<>();
-                System.out.println("--- USUARIOS DESCONECTADOS ---");
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String userId = snapshot.getKey();
                     String email = snapshot.child(PATH_EMAIL).getValue(String.class);
                     boolean castillo = Optional.ofNullable(snapshot.child(PATH_CASTILLO).getValue(Boolean.class)).orElse(false);
-                    System.out.println("uid = "+userId+", email = "+email);
                     if (castillo) usuariosDesconectados.add(email);
                 }
 

@@ -42,7 +42,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
 
     private String emailUsuario;
     private GestorFirestore gestorFirestore = new GestorFirestore();
-    private GestorSqlite gestorSqlite = new GestorSqlite(this);
+    private GestorSqlite gestorSqlite;
 
     public static boolean enEjecucion = false;
 
@@ -80,20 +80,18 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         assert bundle != null;
         emailUsuario = bundle.getString("email");
         System.out.println(emailUsuario);
+        gestorSqlite = new GestorSqlite(this, emailUsuario);
         if (!UtilidadRed.hayInternet(this)) {
             Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
             finish();
         } else {
-            // Obtén el directorio de la base de datos
-            File dbFile = getDatabasePath("local.db");
-
-            // Verifica si el archivo de la base de datos existe
-            if (dbFile.exists()) {
-                gestorSqlite.cargarDatos();
-
-                if (dbFile.delete()) System.out.println(dbFile +"se ha eliminado correctamente");
-                else System.err.println("error al eliminar: "+dbFile);
-                gestorFirestore.guardarDatos(emailUsuario, this);
+            try {
+                if (!gestorSqlite.estaSincronizado()) {
+                    gestorSqlite.cargarDatos();
+                    gestorFirestore.guardarDatos(emailUsuario, this);
+                }
+            } catch (RuntimeException e) {
+                e.printStackTrace();
             }
             gestorFirestore.cargarDatos(emailUsuario, this);
         }
