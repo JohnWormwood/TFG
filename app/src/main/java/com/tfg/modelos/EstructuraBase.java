@@ -25,6 +25,10 @@ public abstract class EstructuraBase {
     protected List<PrecioMejora> preciosMejoras;
 
     protected EstructuraBase() {
+        reiniciarDatos();
+    }
+
+    public void reiniciarDatos() {
         // Nivel
         nivel = Constantes.NIVEL_INICIAL;
         setMaximoAldeanosSegunNivel();

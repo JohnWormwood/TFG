@@ -12,11 +12,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseError;
 import com.tfg.R;
-import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.controladores.ControladorRecursos;
-import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
@@ -25,7 +22,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
 
     // Componentes de la interfaz
     private SeekBar seekBarCazadores, seekBarSoldados;
-    private TextView textViewCazadores, textViewPartidaCaza;
+    private TextView textViewCazadores, textViewPartidaCaza, textViewSoldados;
     private ImageButton buttonCaza, buttonIncursion;
 
     public PartidasFragment() {
@@ -45,23 +42,22 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
 
         // Inicializar componentes de la interfaz
         seekBarCazadores = view.findViewById(R.id.seekBarCazadores);
+        seekBarSoldados = view.findViewById(R.id.seekBarSoldados);
         textViewCazadores = view.findViewById(R.id.textViewCazadores);
         textViewPartidaCaza = view.findViewById(R.id.textViewPartidaCaza);
+        textViewSoldados = view.findViewById(R.id.textViewSoldados);
         buttonCaza = view.findViewById(R.id.buttonCaza);
         buttonIncursion = view.findViewById(R.id.buttonIncursion);
 
         // Listeners
-        seekBarCazadores.setOnSeekBarChangeListener(seekBarChangeListener);
+        seekBarCazadores.setOnSeekBarChangeListener(seekBarCazaChangeListener);
+        seekBarSoldados.setOnSeekBarChangeListener(seekBarAtaqueChangeListener);
         buttonCaza.setOnClickListener(buttonCazaOnClickListener);
         buttonIncursion.setOnClickListener(buttonIncursionOnClickListener);
 
-        // Establecer el minimo y el maximo de la seekbar
-        int maxCazadores = Aldea.getInstance().getCabaniaCaza().getAldeanosMaximos();
-        seekBarCazadores.setMin(0);
-        seekBarCazadores.setMax(maxCazadores);
-
         // Mostrar el valor de la seekbar en el textview
         textViewCazadores.setText(getString(R.string.texto_num_cazadores, seekBarCazadores.getProgress()));
+        textViewSoldados.setText(getString(R.string.texto_num_soldados, seekBarSoldados.getProgress()));
 
         return view;
     }
@@ -69,6 +65,15 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     @Override
     public void onStart() {
         super.onStart();
+        // Establecer el minimo y el maximo de la seekbar
+        int maxCazadores = Aldea.getInstance().getCabaniaCaza().getAldeanosMaximos();
+        seekBarCazadores.setMin(0);
+        seekBarCazadores.setMax(maxCazadores);
+
+        int maxSoldados = Aldea.getInstance().getCastillo().getAldeanosMaximos();
+        seekBarSoldados.setMin(0);
+        seekBarSoldados.setMax(maxSoldados);
+
         comprobarEstadoBoton();
         addListener();
     }
@@ -115,16 +120,40 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     View.OnClickListener buttonIncursionOnClickListener = new View.OnClickListener()  {
         @Override
         public void onClick(View v) {
-            Aldea.getInstance().getCastillo().iniciarIncursion();
+            int soldadosSeleccionados = seekBarSoldados.getProgress();
+
+            if (soldadosSeleccionados < 1) {
+                Toast.makeText(getActivity(), getString(R.string.msj_selecciona_minimo, 1), Toast.LENGTH_SHORT).show();
+            } else if (soldadosSeleccionados > Aldea.getInstance().getPoblacion()) {
+                Toast.makeText(getActivity(), getString(R.string.msj_aldeanos_insuficientes), Toast.LENGTH_SHORT).show();
+            } else {
+                Aldea.getInstance().getCastillo().iniciarIncursion(soldadosSeleccionados);
+            }
         }
     };
 
     // Manejar la seekbar
-    private final SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+    private final SeekBar.OnSeekBarChangeListener seekBarCazaChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             // Actualizar el textview con el progreso de la seekbar
             textViewCazadores.setText(getString(R.string.texto_num_cazadores, progress));
+        }
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
+
+    private final SeekBar.OnSeekBarChangeListener seekBarAtaqueChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            // Actualizar el textview con el progreso de la seekbar
+            textViewSoldados.setText(getString(R.string.texto_num_soldados, progress));
         }
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {

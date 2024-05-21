@@ -61,6 +61,7 @@
     <string name="texto_partida_caza">Partida actual: %d cazadores, Tiempo restante: %d segundos</string>
     <string name="texto_partida_caza_inactiva">Partida actual: No hay ninguna partida de caza en curso</string>
     <string name="texto_num_cazadores">Cazadores: %d</string>
+    <string name="texto_num_soldados">Soldados: %d</string>
 
     <!-- SenadoFragment -->
     <string name="mejorar">MEJORAR</string>

@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/cazadores"
+                    android:text="@string/texto_num_cazadores"
                     android:textColor="#301307"
                     android:textSize="20sp" />
 
@@ -136,10 +136,11 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textViewSoldados"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Soldados"
+                    android:text="@string/texto_num_soldados"
                     android:textColor="#301307"
                     android:textSize="20sp" />
 

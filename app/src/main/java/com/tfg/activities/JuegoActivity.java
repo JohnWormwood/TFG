@@ -73,6 +73,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
 
         configInicial();
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -133,6 +134,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         // Iniciar el juego
         imageViewBlurr.setVisibility(View.INVISIBLE);
         imageViewLoad.setVisibility(View.INVISIBLE);
+        cargarDatos();
         enEjecucion = true;
         actualizarVisibilidadImageViews();
         ejecutarHiloJuego();
@@ -223,7 +225,6 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     private void configInicial() {
         inicializarComponentes();
         cargarListeners();
-        cargarDatos();
         cargarGifs();
     }
 
@@ -288,7 +289,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
             aldea.getGranja().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.granja_nodo_json)));
             aldea.getMina().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.mina_nodo_json)));
             aldea.getCastillo().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.castillo_nodo_json)));
-
+            System.out.println("JSON CARGADO");
+            System.out.println(aldea);
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, getString(R.string.msj_error_cargar_datos), Toast.LENGTH_SHORT).show();

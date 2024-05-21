@@ -45,13 +45,14 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_senado, container, false);
-        configInicial(view);
+        //configInicial(view);
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        configInicial(getView());
         menuSenado.addEventListener(this);
         menuSenado.addEventListener((ActualizarInterfazEventListener) getActivity());
     }

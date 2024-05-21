@@ -1,16 +1,28 @@
 package com.tfg.bbdd.firebase;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.tfg.bbdd.mapper.MapeoDTO;
+import com.tfg.controladores.ControladorRecursos;
+import com.tfg.eventos.callbacks.AtaqueCallback;
 import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.bbdd.dto.AldeaDTO;
 import com.tfg.bbdd.dto.CabaniaCazaDTO;
 import com.tfg.bbdd.dto.EdificioDTO;
 import com.tfg.bbdd.dto.RecursosDTO;
 import com.tfg.modelos.Aldea;
+import com.tfg.modelos.edificios.CabaniaCaza;
+import com.tfg.modelos.edificios.Carpinteria;
+import com.tfg.modelos.edificios.CasetaLeniador;
+import com.tfg.modelos.edificios.Castillo;
+import com.tfg.modelos.edificios.Granja;
+import com.tfg.modelos.edificios.Mina;
+import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
+import com.tfg.utilidades.Utilidades;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class GestorFirestore {
     private Aldea aldea = Aldea.getInstance();
@@ -53,12 +65,86 @@ public class GestorFirestore {
                         mapeoDTO.cargarDatosEnEdificio(aldea.getMina(), minaDTO);
                         // Castillo
                         mapeoDTO.cargarDatosEnEdificio(aldea.getCastillo(), castilloDTO);
+                    } else {
+                        aldea.reiniciarDatos();
                     }
                     aldea.ajustarSegunDatosCargados();
                     gestorRealTimeDatabase.actualizarEstadoConexion(true);
                     callback.onDatosCargados();
                 });
     }
+
+    public void gestionarAtaque(String emailVictima, int soldadosEnviados, AtaqueCallback callback) {
+        FirebaseFirestore.getInstance()
+                .collection(Constantes.BaseDatos.COLECCION_USUARIOS)
+                .document(emailVictima).get().addOnSuccessListener(document -> {
+                    RecursosDTO recursosDTO = document.get(Constantes.BaseDatos.RECURSOS, RecursosDTO.class);
+                    EdificioDTO castilloDTO = document.get(Constantes.BaseDatos.CASTILLO, EdificioDTO.class);
+
+                    if (castilloDTO != null && recursosDTO != null) {
+                        int defensas = castilloDTO.getAldeanosAsignados();
+                        System.out.println("Defensas de "+emailVictima+": "+defensas);
+                        System.out.println("Soldados enviados: "+soldadosEnviados);
+                        boolean victoria;
+                        if (defensas > soldadosEnviados) {
+                            victoria = false;
+                        } else if (defensas < soldadosEnviados) {
+                            victoria = true;
+                        } else {
+                            // En caso de que haya los mismos defensores que atacantes
+                            // se decide aleatoriamente con un 50% para cada jugador
+                            int random = Utilidades.generarIntRandom(0, 1);
+                            victoria = random != 0;
+                        }
+
+                        if (victoria) {
+                            int troncos = Math.max(recursosDTO.getTroncos()-10, 0);
+                            int tablones = Math.max(recursosDTO.getTablones()-10, 0);
+                            int comida = Math.max(recursosDTO.getComida()-10, 0);
+                            int piedra = Math.max(recursosDTO.getPiedra()-10, 0);
+                            int hierro = Math.max(recursosDTO.getHierro()-10, 0);
+                            int oro = Math.max(recursosDTO.getOro()-10, 0);
+
+                            recursosDTO.setTroncos(troncos);
+                            recursosDTO.setTablones(tablones);
+                            recursosDTO.setComida(comida);
+                            recursosDTO.setPiedra(piedra);
+                            recursosDTO.setHierro(hierro);
+                            recursosDTO.setOro(oro);
+
+                            castilloDTO.setAldeanosAsignados(0);
+
+                            // Quitar recursos a la victima
+                            HashMap<String, Object> datos = new HashMap<>();
+                            datos.put(Constantes.BaseDatos.CASTILLO, castilloDTO);
+                            datos.put(Constantes.BaseDatos.RECURSOS, recursosDTO);
+
+                            FirestoreCRUD.actualizar(Constantes.BaseDatos.COLECCION_USUARIOS, emailVictima, datos);
+
+                            // Darle los recursos al atacante
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, 10);
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.TABLONES_MADERA, 10);
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.COMIDA, 10);
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.PIEDRA, 10);
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.HIERRO, 10);
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.ORO, 10);
+
+
+                        } else {
+
+                        }
+                        callback.onAtaqueTerminado(victoria);
+                    } else {
+                        callback.onError(
+                                new FirebaseFirestoreException(
+                                        "Error al obtener los datos necesarios para el ataque",
+                                        FirebaseFirestoreException.Code.NOT_FOUND
+                                )
+                        );
+                    }
+                }).addOnFailureListener(callback::onError);
+    }
+
 
     private HashMap<String, Object> mapearDatosAldea() {
 

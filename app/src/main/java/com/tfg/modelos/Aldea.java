@@ -36,6 +36,20 @@ public class Aldea extends EstructuraBase implements Runnable {
 
     private Aldea() {
         super();
+        reiniciarDatos();
+    }
+
+    // Método estático para obtener la instancia única de Aldea
+    public static Aldea getInstance() {
+        if (instance == null) {
+            instance = new Aldea();
+        }
+        return instance;
+    }
+
+    @Override
+    public void reiniciarDatos() {
+        super.reiniciarDatos();
         poblacion = Constantes.Aldea.POBLACION_INICIAL;
         multiplicadorAldeanosSegunNivel = Constantes.Aldea.AUMENTO_MAX_ALDEANOS_POR_NIVEL;
 
@@ -50,13 +64,6 @@ public class Aldea extends EstructuraBase implements Runnable {
         recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
     }
 
-    // Método estático para obtener la instancia única de Aldea
-    public static Aldea getInstance() {
-        if (instance == null) {
-            instance = new Aldea();
-        }
-        return instance;
-    }
     public void generarAldeano() {
         if (poblacion+1 <= aldeanosMaximos && (poblacion+aldeanosAsignados) < aldeanosMaximos) {
             if (ControladorRecursos.consumirRecurso(recursos, RecursosEnum.COMIDA, 1)) {
