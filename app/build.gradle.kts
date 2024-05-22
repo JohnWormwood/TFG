@@ -57,6 +57,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore:25.0.0")
     implementation("com.google.firebase:firebase-database:21.0.0")
+    implementation("com.google.firebase:firebase-messaging:24.0.0")
 
     // Gifs
     implementation("com.github.bumptech.glide:glide:4.12.0")
