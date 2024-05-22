@@ -32,6 +32,7 @@ import com.tfg.json.GestorJSON;
 import com.tfg.json.MejorasEdificiosJSON;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
+import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadRed;
 
 import java.io.File;
@@ -39,6 +40,7 @@ import java.io.IOException;
 
 public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback, PartidaCazaEventListener, ActualizarInterfazEventListener {
     ActivityJuegoBinding binding;
+    private SoundManager soundManager;
 
     private String emailUsuario;
     private GestorFirestore gestorFirestore = new GestorFirestore();
@@ -72,6 +74,12 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         cargarGifConTemporizador(R.id.imageViewload, R.drawable.load);
 
         configInicial();
+
+
+        soundManager = SoundManager.getInstance(this);
+
+        soundManager.playSound2(R.raw.sonidos_ambiente);
+
     }
 
     @Override

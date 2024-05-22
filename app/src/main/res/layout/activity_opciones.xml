@@ -8,77 +8,71 @@
     tools:context=".activities.OpcionesActivity"
     android:background="@drawable/fondo_juego" >
 
-    <LinearLayout
-        android:id="@+id/LinearLayoutBotones"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:text="Musica"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.361" />
+
+    <SeekBar
+        android:id="@+id/seekBarEfectos"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="339dp"
+        android:layout_height="46dp"
+        android:max="100"
+        android:progress="100"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.274" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajustes"
+        android:textSize="48sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.052" />
 
-        <FrameLayout
-            android:id="@+id/frameLayoutJugar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginVertical="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Efectos"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.196" />
 
-
-            <ImageButton
-                android:id="@+id/buttonJugar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                app:srcCompat="@drawable/boton"
-                tools:ignore="DuplicateSpeakableTextCheck" />
-
-            <TextView
-                android:id="@+id/textViewJugar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/unifrakturmaguntia"
-                android:paddingBottom="10dp"
-                android:text="Sonido"
-                android:textAlignment="center"
-                android:textColor="#431E12"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/frameLayoutOpciones"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginVertical="10dp">
-
-            <ImageButton
-                android:id="@+id/buttonOpciones"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                app:srcCompat="@drawable/boton"
-                tools:ignore="DuplicateSpeakableTextCheck" />
-
-            <TextView
-                android:id="@+id/textViewOpciones"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/unifrakturmaguntia"
-                android:paddingBottom="10dp"
-                android:text="Datos personales"
-                android:textAlignment="center"
-                android:textColor="#431E12"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-        </FrameLayout>
-
-    </LinearLayout>
+    <SeekBar
+        android:id="@+id/seekBarMusica"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="331dp"
+        android:layout_height="46dp"
+        android:max="100"
+        android:progress="100"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.446" />
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -86,9 +80,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LinearLayoutBotones"
-        app:layout_constraintVertical_bias="0.851">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
             android:id="@+id/buttonCaza"

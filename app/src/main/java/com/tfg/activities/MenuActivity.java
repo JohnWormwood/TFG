@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.tfg.R;
 import com.tfg.bbdd.firebase.auth.GestorSesion;
+import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
@@ -19,11 +20,17 @@ public class MenuActivity extends AppCompatActivity {
 
     private TextView textViewEmail;
     private String email;
+    private SoundManager soundManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        soundManager = SoundManager.getInstance(this);
+
+        soundManager.playSound1(R.raw.musica_mediaval);
+
 
         ImageButton buttonJugar = findViewById(R.id.buttonJugar);
         TextView textViewJugar = findViewById(R.id.textViewJugar);
