@@ -52,12 +52,6 @@ public class MenuEstructuraBase extends LanzadorEventos<ActualizarInterfazEventL
         textViewPrecioOro.setText(String.valueOf(preciosMejora.getOrDefault(RecursosEnum.ORO, 0)));
     }
 
-    protected void lanzarEventoActualizarInterfaz() {
-        for (ActualizarInterfazEventListener listener : listeners) {
-            listener.onActualizarInterfaz();
-        }
-    }
-
     public View.OnClickListener buttonMejorarOnClick() {
         return view -> {
             String msj = "";

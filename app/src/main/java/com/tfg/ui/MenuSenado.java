@@ -8,6 +8,8 @@ import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.tfg.controladores.ControladorAldea;
+import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
+import com.tfg.eventos.listeners.AtaqueEventListener;
 import com.tfg.modelos.EstructuraBase;
 
 public class MenuSenado extends MenuEstructuraBase {
@@ -26,7 +28,6 @@ public class MenuSenado extends MenuEstructuraBase {
     public void actualizar() {
         super.actualizar();
         ControladorAldea.manejarSubidaNivel();
-        lanzarEventoActualizarInterfaz();
-        //lanzarEvento(ActualizarLayoutEventListener::onActualizarLayout);
+        lanzarEvento(ActualizarInterfazEventListener::onActualizarInterfaz);
     }
 }

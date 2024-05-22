@@ -106,14 +106,14 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         } else {
             gestorSqlite.guardarDatos();
         }
-        aldea.getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
+        aldea.getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos().removeEventListener(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         gestorFirestore.guardarDatos(emailUsuario, this);
-        aldea.getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
+        aldea.getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos().removeEventListener(this);
     }
 
     public void cambiarFragment(Fragment fragment) {
@@ -172,7 +172,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
             @Override
             public void run() {
                 try {
-                    aldea.getCabaniaCaza().getTimerPartidaCaza().addEventListener((PartidaCazaEventListener) context);
+                    aldea.getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos().addEventListener((PartidaCazaEventListener) context);
                     ControladorAldea.iniciarAldea();
                     while (enEjecucion) {
                         Thread.sleep(1);

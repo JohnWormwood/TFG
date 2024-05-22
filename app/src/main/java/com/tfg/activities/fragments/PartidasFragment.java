@@ -14,11 +14,12 @@ import android.widget.Toast;
 
 import com.tfg.R;
 import com.tfg.controladores.ControladorRecursos;
+import com.tfg.eventos.listeners.AtaqueEventListener;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 
-public class PartidasFragment extends Fragment implements PartidaCazaEventListener {
+public class PartidasFragment extends Fragment implements PartidaCazaEventListener, AtaqueEventListener {
 
     // Componentes de la interfaz
     private SeekBar seekBarCazadores, seekBarSoldados;
@@ -75,21 +76,19 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         seekBarSoldados.setMax(maxSoldados);
 
         comprobarEstadoBoton();
-        addListener();
+        addEventListeners();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza() != null)
-            Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
+        removeEventListeners();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza() != null)
-            Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().removeEventListener(this);
+        removeEventListeners();
     }
 
     // Manejar los botones
@@ -111,8 +110,8 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
                 buttonCaza.setEnabled(false);
 
                 Aldea.getInstance().getCabaniaCaza().iniciarPartidaCaza(cazadoresSeleccionados, tiempoTotal);
-                addListener();
-                Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().addEventListener((PartidaCazaEventListener) getActivity());
+                addEventListeners();
+                Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos().addEventListener((PartidaCazaEventListener) getActivity());
             }
         }
     };
@@ -170,12 +169,20 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         buttonCaza.setEnabled(!Aldea.getInstance().getCabaniaCaza().isPartidaActiva());
     }
 
-    // Manejar eventos de la partida de caza
-    private void addListener() {
+
+    private void addEventListeners() {
         if (Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza() != null)
-            Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().addEventListener(this);
+            Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos().addEventListener(this);
+        Aldea.getInstance().getCastillo().getLanzadorEventos().addEventListener(this);
     }
 
+    private void removeEventListeners() {
+        if (Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza() != null)
+            Aldea.getInstance().getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos().removeEventListener(this);
+        Aldea.getInstance().getCastillo().getLanzadorEventos().removeEventListener(this);
+    }
+
+    // Manejar eventos de la partida de caza
     @Override
     public void onTimerTick() {
         textViewPartidaCaza.setText(
@@ -189,5 +196,19 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     public void onFinalizarPartida() {
         buttonCaza.setEnabled(true);
         textViewPartidaCaza.setText(getString(R.string.texto_partida_caza_inactiva));
+    }
+    
+    // Manejar eventos del ataque
+    @Override
+    public void onAtaqueTerminado(boolean victoria) {
+        Toast.makeText(getActivity(),
+                victoria ? getString(R.string.msj_victoria_ataque) : getString(R.string.msj_derrota_ataque),
+                Toast.LENGTH_LONG
+        ).show();
+    }
+
+    @Override
+    public void onError(Exception e) {
+        Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 }

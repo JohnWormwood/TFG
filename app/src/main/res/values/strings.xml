@@ -39,6 +39,8 @@
     <string name="msj_caza_sin_sentido">Actualmente ya tienes el maximo de comida, enviar una partida de caza no serviría de nada</string>
     <string name="msj_oro_insuficiente">No tienes suficiente Oro</string>
     <string name="msj_error_cargar_datos">Error al cargar datos del juego</string>
+    <string name="msj_victoria_ataque">Has ganado el ataque, y has conseguido recursos</string>
+    <string name="msj_derrota_ataque">Has perdido el ataque, los aldeanos que enviaste han muerto</string>
 
     <!-- Tipos aldeanos -->
     <string name="leniadores">Leñadores</string>

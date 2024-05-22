@@ -98,23 +98,25 @@ public class GestorFirestore {
                         }
 
                         if (victoria) {
-                            int troncos = Math.max(recursosDTO.getTroncos()-10, 0);
-                            int tablones = Math.max(recursosDTO.getTablones()-10, 0);
-                            int comida = Math.max(recursosDTO.getComida()-10, 0);
-                            int piedra = Math.max(recursosDTO.getPiedra()-10, 0);
-                            int hierro = Math.max(recursosDTO.getHierro()-10, 0);
-                            int oro = Math.max(recursosDTO.getOro()-10, 0);
+                            final int CANTIDAD_RECURSO = 10;
+                            // Calcular cuantos recursos se roban
+                            int troncos = Math.min(recursosDTO.getTroncos(), CANTIDAD_RECURSO);
+                            int tablones = Math.min(recursosDTO.getTablones(), CANTIDAD_RECURSO);
+                            int comida = Math.min(recursosDTO.getComida(), CANTIDAD_RECURSO);
+                            int piedra = Math.min(recursosDTO.getPiedra(), CANTIDAD_RECURSO);
+                            int hierro = Math.min(recursosDTO.getHierro(), CANTIDAD_RECURSO);
+                            int oro = Math.min(recursosDTO.getOro(), CANTIDAD_RECURSO);
 
-                            recursosDTO.setTroncos(troncos);
-                            recursosDTO.setTablones(tablones);
-                            recursosDTO.setComida(comida);
-                            recursosDTO.setPiedra(piedra);
-                            recursosDTO.setHierro(hierro);
-                            recursosDTO.setOro(oro);
+                            // Quitar recursos a la victima
+                            recursosDTO.setTroncos(recursosDTO.getTroncos()-troncos);
+                            recursosDTO.setTablones(recursosDTO.getTablones()-tablones);
+                            recursosDTO.setComida(recursosDTO.getComida()-comida);
+                            recursosDTO.setPiedra(recursosDTO.getPiedra()-piedra);
+                            recursosDTO.setHierro(recursosDTO.getHierro()-hierro);
+                            recursosDTO.setOro(recursosDTO.getOro()-oro);
 
                             castilloDTO.setAldeanosAsignados(0);
 
-                            // Quitar recursos a la victima
                             HashMap<String, Object> datos = new HashMap<>();
                             datos.put(Constantes.BaseDatos.CASTILLO, castilloDTO);
                             datos.put(Constantes.BaseDatos.RECURSOS, recursosDTO);
@@ -122,16 +124,15 @@ public class GestorFirestore {
                             FirestoreCRUD.actualizar(Constantes.BaseDatos.COLECCION_USUARIOS, emailVictima, datos);
 
                             // Darle los recursos al atacante
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, 10);
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.TABLONES_MADERA, 10);
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.COMIDA, 10);
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.PIEDRA, 10);
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.HIERRO, 10);
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.ORO, 10);
-
-
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, troncos);
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.TABLONES_MADERA, tablones);
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.COMIDA, comida);
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.PIEDRA, piedra);
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.HIERRO, hierro);
+                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.ORO, oro);
                         } else {
-
+                            // Si el atacante pierde los soldados enviados mueren
+                            aldea.setPoblacion(aldea.getPoblacion()-soldadosEnviados);
                         }
                         callback.onAtaqueTerminado(victoria);
                     } else {
@@ -144,7 +145,6 @@ public class GestorFirestore {
                     }
                 }).addOnFailureListener(callback::onError);
     }
-
 
     private HashMap<String, Object> mapearDatosAldea() {
 

@@ -2,6 +2,7 @@ package com.tfg.modelos;
 
 import android.os.CountDownTimer;
 
+import com.tfg.eventos.LanzadorEventos;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.edificios.CabaniaCaza;
 import com.tfg.modelos.enums.RecursosEnum;
@@ -18,37 +19,17 @@ public class TimerPartidaCaza extends CountDownTimer {
     private CabaniaCaza cabaniaCaza;
     @Getter @Setter
     private long segundosRestantes;
-
-    // Listeners eventos
-    private List<PartidaCazaEventListener> listeners = new ArrayList<>();
-
-    public void addEventListener(PartidaCazaEventListener listener) {
-        if (!listeners.contains(listener))
-            listeners.add(listener);
-    }
-
-    public void removeEventListener(PartidaCazaEventListener listener) {
-        listeners.remove(listener);
-    }
-
-    public void lanzarEventoOnTick() {
-        listeners.forEach(PartidaCazaEventListener::onTimerTick);
-        for (PartidaCazaEventListener listener : listeners) {
-            listener.onTimerTick();
-        }
-    }
-
-    public void lanzarEventoFinalizarPartida() {
-        for (PartidaCazaEventListener listener : listeners) {
-            listener.onFinalizarPartida();
-        }
-    }
-
+    @Getter
+    private LanzadorEventos<PartidaCazaEventListener> lanzadorEventos;
     public TimerPartidaCaza(long millisInFuture, CabaniaCaza cabaniaCaza) {
         super(millisInFuture, 1000);
         segundosRestantes = millisInFuture / 1000;
         this.cabaniaCaza = cabaniaCaza;
+        lanzadorEventos = new LanzadorEventos<>();
     }
+
+
+
 
     @Override
     public void onTick(long millisUntilFinished) {
@@ -57,12 +38,12 @@ public class TimerPartidaCaza extends CountDownTimer {
         for (IGeneradorRecursos generadorRecursos : cabaniaCaza.getGeneradoresRecursos()) {
             generadorRecursos.producirRecursos(cabaniaCaza.getRecursos(), RecursosEnum.COMIDA, cabaniaCaza.getAldeanosAsignados());
         }
-        lanzarEventoOnTick();
+        lanzadorEventos.lanzarEvento(PartidaCazaEventListener::onTimerTick);
     }
 
     @Override
     public void onFinish() {
-        lanzarEventoFinalizarPartida();
+        lanzadorEventos.lanzarEvento(PartidaCazaEventListener::onFinalizarPartida);
         cabaniaCaza.finalizarPartidaCaza();
     }
 
