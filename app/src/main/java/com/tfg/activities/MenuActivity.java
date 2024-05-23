@@ -19,7 +19,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.tfg.R;
+import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.bbdd.firebase.auth.GestorSesion;
+import com.tfg.bbdd.firebase.service.NotificacionesService;
 import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
@@ -121,6 +123,8 @@ public class MenuActivity extends AppCompatActivity {
     private void comprobarSesion() {
         if (UtilidadRed.hayInternet(this)) {
             String email = GestorSesion.cargarSesionLocal();
+            GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
+            gestorRealTimeDatabase.actualizarTokenFmc(NotificacionesService.getToken());
             if (email == null) {
                 //authLayout.setVisibility(View.INVISIBLE);
                 finish();

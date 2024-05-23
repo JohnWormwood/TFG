@@ -48,11 +48,13 @@ public class GestorRealTimeDatabase {
 
     public void actualizarTokenFmc(String token) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        NotificacionesService.setToken(token);
         if (firebaseAuth.getCurrentUser() != null) {
+            System.out.println("NO ES NULL");
             String idUsuario = firebaseAuth.getCurrentUser().getUid();
             DatabaseReference idUsuarioRef = usuariosRef.child(idUsuario);
-            idUsuarioRef.child(PATH_TOKEN_FCM).setValue(token);
-        }
+            idUsuarioRef.child(PATH_TOKEN_FCM).setValue(NotificacionesService.getToken());
+        } else System.out.println("ES NULL");
     }
 
     public void getUsuarioAtacableAleatorio(ObtenerUsuarioCallback callback) {

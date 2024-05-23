@@ -19,6 +19,7 @@ import com.tfg.activities.fragments.AldeaFragment;
 import com.tfg.activities.fragments.MercaderFragment;
 import com.tfg.activities.fragments.PartidasFragment;
 import com.tfg.activities.fragments.SenadoFragment;
+import com.tfg.bbdd.firebase.service.NotificacionesService;
 import com.tfg.bbdd.sqlite.GestorSqlite;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.controladores.ControladorRecursos;

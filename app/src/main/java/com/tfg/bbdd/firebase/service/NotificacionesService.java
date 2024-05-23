@@ -67,6 +67,7 @@ public class NotificacionesService extends FirebaseMessagingService {
     }
 
     public void enviarNotificacionAtaque(String tokenVictima, boolean victoria) {
+        System.out.println(tokenVictima);
         new Thread(() -> {
             try {
                 String accessToken = getAccessToken();
