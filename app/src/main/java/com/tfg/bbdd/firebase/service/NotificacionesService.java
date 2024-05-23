@@ -66,7 +66,7 @@ public class NotificacionesService extends FirebaseMessagingService {
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
-                conn.setRequestProperty("Authorization", "key="+getString(R.string.key_api_fcm));
+                conn.setRequestProperty("Authorization", "key=qyq_Ycd3ni-SFelREcwkiuE2rkuaggyLxZtlP6LI6xw");
                 conn.setRequestProperty("Content-Type", "application/json");
 
                 JSONObject json = new JSONObject();
