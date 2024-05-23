@@ -43,7 +43,7 @@ public class GestorRealTimeDatabase {
          * no controlada puede tardar un tiempo en actualizarse en la base de datos
          */
         idUsuarioRef.child(PATH_ONLINE).onDisconnect().setValue(false);
-        idUsuarioRef.child(PATH_ONLINE).onDisconnect().setValue(Aldea.getInstance().getCastillo().isDesbloqueado());
+        idUsuarioRef.child(PATH_CASTILLO).onDisconnect().setValue(Aldea.getInstance().getCastillo().isDesbloqueado());
     }
 
     public void actualizarTokenFmc(String token) {

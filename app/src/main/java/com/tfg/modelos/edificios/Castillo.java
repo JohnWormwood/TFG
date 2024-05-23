@@ -37,8 +37,7 @@ public class Castillo extends Edificio implements ObtenerUsuarioCallback, Ataque
     // Manejar eventos de ObtenerUsuarioCallback
     @Override
     public void onExito(UsuarioDTO usuarioDTO) {
-        victimaAtaque = usuarioDTO.getEmail();
-        if (victimaAtaque != null) {
+        if (usuarioDTO != null) {
             GestorFirestore gestorFirestore = new GestorFirestore();
             gestorFirestore.gestionarAtaque(usuarioDTO, soldadosEnviados, this);
         } else {

@@ -30,6 +30,7 @@ public class JuegoApp extends Application {
     }
 
 
+
     private void crearCanalDeNotificaciones() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(

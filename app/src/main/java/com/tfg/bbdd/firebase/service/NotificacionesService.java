@@ -7,6 +7,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
+import com.google.auth.oauth2.AccessToken;
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.tfg.R;
@@ -14,9 +16,13 @@ import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Objects;
 
 import lombok.Getter;
@@ -60,26 +66,31 @@ public class NotificacionesService extends FirebaseMessagingService {
     public void enviarNotificacionAtaque(String tokenVictima, boolean victoria) {
         new Thread(() -> {
             try {
-                URL url = new URL("https://fcm.googleapis.com/fcm/send");
+                String accessToken = getAccessToken();
+
+                URL url = new URL("https://fcm.googleapis.com/v1/projects/tfg-juego/messages:send");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setUseCaches(false);
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
-                conn.setRequestProperty("Authorization", "key=qyq_Ycd3ni-SFelREcwkiuE2rkuaggyLxZtlP6LI6xw");
-                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+                conn.setRequestProperty("Content-Type", "application/json; UTF-8");
 
-                JSONObject json = new JSONObject();
-                json.put("to", tokenVictima);
-                JSONObject info = new JSONObject();
-                info.put("title", "¡Tu aldea está siendo atacada!");
-                info.put("body", "Tu aldea ha sido atacada");
-                json.put("notification", info);
+                JSONObject message = new JSONObject();
+                JSONObject notification = new JSONObject();
+                notification.put("title", "¡Tu aldea está siendo atacada!");
+                notification.put("body", "Han atacado tu aldea");
+                message.put("token", tokenVictima);
+                message.put("notification", notification);
 
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(conn.getOutputStream());
-                outputStreamWriter.write(json.toString());
-                outputStreamWriter.flush();
-                outputStreamWriter.close();
+                JSONObject jsonBody = new JSONObject();
+                jsonBody.put("message", message);
+
+                OutputStream outputStream = conn.getOutputStream();
+                outputStream.write(jsonBody.toString().getBytes("UTF-8"));
+                outputStream.close();
+
 
                 int responseCode = conn.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -91,5 +102,16 @@ public class NotificacionesService extends FirebaseMessagingService {
                 Log.e("FCM", "Error al enviar la notificacion", e);
             }
         }).start();
+    }
+
+    private String getAccessToken() throws IOException {
+        InputStream serviceAccount = getResources().openRawResource(R.raw.service_account);
+
+        GoogleCredentials googleCredentials = GoogleCredentials.fromStream(serviceAccount)
+                .createScoped(Arrays.asList("https://www.googleapis.com/auth/firebase.messaging"));
+        googleCredentials.refreshIfExpired();
+        AccessToken token = googleCredentials.getAccessToken();
+
+        return token.getTokenValue();
     }
 }

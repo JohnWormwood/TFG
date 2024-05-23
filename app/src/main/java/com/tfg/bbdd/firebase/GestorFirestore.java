@@ -70,6 +70,7 @@ public class GestorFirestore {
                         aldea.reiniciarDatos();
                     }
                     aldea.ajustarSegunDatosCargados();
+                    System.out.println("CARGAR DATOS");
                     gestorRealTimeDatabase.actualizarEstadoConexion(true);
                     callback.onDatosCargados();
                 });

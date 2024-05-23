@@ -35,6 +35,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    packaging {
+        resources {
+            excludes.add("META-INF/DEPENDENCIES")
+        }
+    }
 }
 
 dependencies {
@@ -58,6 +63,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore:25.0.0")
     implementation("com.google.firebase:firebase-database:21.0.0")
     implementation("com.google.firebase:firebase-messaging:24.0.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
 
     // Gifs
     implementation("com.github.bumptech.glide:glide:4.12.0")
