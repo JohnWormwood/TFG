@@ -1,11 +1,11 @@
 package com.tfg.modelos.edificios;
 
-import com.google.firebase.FirebaseException;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseException;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.tfg.bbdd.dto.UsuarioDTO;
 import com.tfg.bbdd.firebase.GestorFirestore;
 import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
+import com.tfg.bbdd.firebase.service.NotificacionesService;
 import com.tfg.eventos.LanzadorEventos;
 import com.tfg.eventos.callbacks.AtaqueCallback;
 import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
@@ -36,11 +36,11 @@ public class Castillo extends Edificio implements ObtenerUsuarioCallback, Ataque
 
     // Manejar eventos de ObtenerUsuarioCallback
     @Override
-    public void onExito(String email) {
-        victimaAtaque = email;
+    public void onExito(UsuarioDTO usuarioDTO) {
+        victimaAtaque = usuarioDTO.getEmail();
         if (victimaAtaque != null) {
             GestorFirestore gestorFirestore = new GestorFirestore();
-            gestorFirestore.gestionarAtaque(victimaAtaque, soldadosEnviados, this);
+            gestorFirestore.gestionarAtaque(usuarioDTO, soldadosEnviados, this);
         } else {
             lanzadorEventos.lanzarEvento(evento -> evento.onError(
                     new FirebaseFirestoreException(
@@ -58,7 +58,9 @@ public class Castillo extends Edificio implements ObtenerUsuarioCallback, Ataque
 
     // Manejar eventos de AtaqueCallback
     @Override
-    public void onAtaqueTerminado(boolean victoria) {
+    public void onAtaqueTerminado(UsuarioDTO usuarioDTO, boolean victoria) {
+        NotificacionesService notificacionesService = new NotificacionesService();
+        notificacionesService.enviarNotificacionAtaque(usuarioDTO.getTokenFmc(), victoria);
         lanzadorEventos.lanzarEvento(evento -> evento.onAtaqueTerminado(victoria));
     }
 

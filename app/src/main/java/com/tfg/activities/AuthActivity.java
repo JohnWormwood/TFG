@@ -1,17 +1,23 @@
 package com.tfg.activities;
 
+import android.content.ContentValues;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.tfg.R;
 import com.tfg.bbdd.firebase.auth.GestorSesion;
 import com.tfg.utilidades.UtilidadActivity;
@@ -129,4 +135,5 @@ public class AuthActivity extends AppCompatActivity {
         editTextEmail.getText().clear();
         editTextPassword.getText().clear();
     }
+
 }

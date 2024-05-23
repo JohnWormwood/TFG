@@ -9,6 +9,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tfg.bbdd.dto.UsuarioDTO;
+import com.tfg.bbdd.firebase.service.NotificacionesService;
 import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
 import com.tfg.modelos.Aldea;
 
@@ -23,6 +25,7 @@ public class GestorRealTimeDatabase {
     private final static String PATH_EMAIL = "email";
     private final static String PATH_CASTILLO = "castillo";
     private final static String PATH_ONLINE = "online";
+    private final static String PATH_TOKEN_FCM = "token_fcm";
 
     private FirebaseDatabase baseDatos = FirebaseDatabase.getInstance();
     private DatabaseReference usuariosRef = baseDatos.getReference(PATH_USUARIOS);
@@ -34,6 +37,7 @@ public class GestorRealTimeDatabase {
         idUsuarioRef.child(PATH_ONLINE).setValue(online);
         idUsuarioRef.child(PATH_CASTILLO).setValue(Aldea.getInstance().getCastillo().isDesbloqueado());
         idUsuarioRef.child(PATH_EMAIL).setValue(firebaseAuth.getCurrentUser().getEmail());
+        idUsuarioRef.child(PATH_TOKEN_FCM).setValue(NotificacionesService.getToken());
 
         /* En caso de desconexion ponerlo a false, cuando es una desconexion
          * no controlada puede tardar un tiempo en actualizarse en la base de datos
@@ -42,17 +46,30 @@ public class GestorRealTimeDatabase {
         idUsuarioRef.child(PATH_ONLINE).onDisconnect().setValue(Aldea.getInstance().getCastillo().isDesbloqueado());
     }
 
+    public void actualizarTokenFmc(String token) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() != null) {
+            String idUsuario = firebaseAuth.getCurrentUser().getUid();
+            DatabaseReference idUsuarioRef = usuariosRef.child(idUsuario);
+            idUsuarioRef.child(PATH_TOKEN_FCM).setValue(token);
+        }
+    }
+
     public void getUsuarioAtacableAleatorio(ObtenerUsuarioCallback callback) {
         Query onlineUsersQuery = usuariosRef.orderByChild(PATH_ONLINE).equalTo(false);
         onlineUsersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> usuariosDesconectados = new ArrayList<>();
+                List<UsuarioDTO> usuariosDesconectados = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String userId = snapshot.getKey();
-                    String email = snapshot.child(PATH_EMAIL).getValue(String.class);
-                    boolean castillo = Optional.ofNullable(snapshot.child(PATH_CASTILLO).getValue(Boolean.class)).orElse(false);
-                    if (castillo) usuariosDesconectados.add(email);
+                    UsuarioDTO usuarioDTO = new UsuarioDTO();
+                    usuarioDTO.setUid(snapshot.getKey());
+                    usuarioDTO.setEmail(snapshot.child(PATH_EMAIL).getValue(String.class));
+                    usuarioDTO.setTokenFmc(snapshot.child(PATH_TOKEN_FCM).getValue(String.class));
+                    usuarioDTO.setCastillo(Optional.ofNullable(snapshot.child(PATH_CASTILLO).getValue(Boolean.class)).orElse(false));
+                    usuarioDTO.setOnline(Optional.ofNullable(snapshot.child(PATH_ONLINE).getValue(Boolean.class)).orElse(false));
+
+                    if (usuarioDTO.isCastillo()) usuariosDesconectados.add(usuarioDTO);
                 }
 
                 // Si hay usuarios en línea, seleccionar uno aleatoriamente

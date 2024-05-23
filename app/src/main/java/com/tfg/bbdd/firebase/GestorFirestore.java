@@ -2,6 +2,7 @@ package com.tfg.bbdd.firebase;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.tfg.bbdd.dto.UsuarioDTO;
 import com.tfg.bbdd.mapper.MapeoDTO;
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.eventos.callbacks.AtaqueCallback;
@@ -74,16 +75,16 @@ public class GestorFirestore {
                 });
     }
 
-    public void gestionarAtaque(String emailVictima, int soldadosEnviados, AtaqueCallback callback) {
+    public void gestionarAtaque(UsuarioDTO victima, int soldadosEnviados, AtaqueCallback callback) {
         FirebaseFirestore.getInstance()
                 .collection(Constantes.BaseDatos.COLECCION_USUARIOS)
-                .document(emailVictima).get().addOnSuccessListener(document -> {
+                .document(victima.getEmail()).get().addOnSuccessListener(document -> {
                     RecursosDTO recursosDTO = document.get(Constantes.BaseDatos.RECURSOS, RecursosDTO.class);
                     EdificioDTO castilloDTO = document.get(Constantes.BaseDatos.CASTILLO, EdificioDTO.class);
 
                     if (castilloDTO != null && recursosDTO != null) {
                         int defensas = castilloDTO.getAldeanosAsignados();
-                        System.out.println("Defensas de "+emailVictima+": "+defensas);
+                        System.out.println("Defensas de "+victima.getEmail()+": "+defensas);
                         System.out.println("Soldados enviados: "+soldadosEnviados);
                         boolean victoria;
                         if (defensas > soldadosEnviados) {
@@ -121,7 +122,7 @@ public class GestorFirestore {
                             datos.put(Constantes.BaseDatos.CASTILLO, castilloDTO);
                             datos.put(Constantes.BaseDatos.RECURSOS, recursosDTO);
 
-                            FirestoreCRUD.actualizar(Constantes.BaseDatos.COLECCION_USUARIOS, emailVictima, datos);
+                            FirestoreCRUD.actualizar(Constantes.BaseDatos.COLECCION_USUARIOS, victima.getEmail(), datos);
 
                             // Darle los recursos al atacante
                             ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, troncos);
@@ -134,7 +135,7 @@ public class GestorFirestore {
                             // Si el atacante pierde los soldados enviados mueren
                             aldea.setPoblacion(aldea.getPoblacion()-soldadosEnviados);
                         }
-                        callback.onAtaqueTerminado(victoria);
+                        callback.onAtaqueTerminado(victima, victoria);
                     } else {
                         callback.onError(
                                 new FirebaseFirestoreException(
