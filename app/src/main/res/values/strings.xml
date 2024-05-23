@@ -18,6 +18,9 @@
     <string name="aldea">Aldea</string>
     <string name="int_format">%d</string>
     <string name="nivel">NIVEL</string>
+    <!-- Tutorial -->
+    <string name="bienvenida">¡Bienvenido, noble Lord, a nuestro humilde pueblo!
+        Que vuestra sabiduría nos guíen hacia días de prosperidad.</string>
 
     <!-- Sesion -->
     <string name="iniciar_sesion">Iniciar Sesión</string>

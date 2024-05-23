@@ -20,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.tfg.R;
 import com.tfg.bbdd.firebase.auth.GestorSesion;
+import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
@@ -52,6 +53,22 @@ public class AuthActivity extends AppCompatActivity {
         super.onStart();
         authLayout.setVisibility(View.VISIBLE);
         vaciarEditTexts();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SoundManager soundManager = SoundManager.getInstance(this);
+        soundManager.getMediaPlayerMusica().pause();
+        soundManager.getMediaPlayerEfectos().pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SoundManager soundManager = SoundManager.getInstance(this);
+        soundManager.getMediaPlayerMusica().start();
+        soundManager.getMediaPlayerEfectos().start();
     }
 
     private boolean comprobarSesion() {

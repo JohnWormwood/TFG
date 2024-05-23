@@ -32,6 +32,7 @@ import com.tfg.json.GestorJSON;
 import com.tfg.json.MejorasEdificiosJSON;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
+import com.tfg.utilidades.PopupManager;
 import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadRed;
 
@@ -73,13 +74,9 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         //Cargar pantalla de carga
         cargarGifConTemporizador(R.id.imageViewload, R.drawable.load);
 
-        configInicial();
-
-
         soundManager = SoundManager.getInstance(this);
 
-        soundManager.playSound2(R.raw.sonidos_ambiente);
-
+        configInicial();
     }
 
     @Override
@@ -122,8 +119,15 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         super.onPause();
         gestorFirestore.guardarDatos(emailUsuario, this);
         aldea.getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos().removeEventListener(this);
+        soundManager.getMediaPlayerMusica().pause();
+        soundManager.getMediaPlayerEfectos().pause();
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        soundManager.getMediaPlayerMusica().start();
+        soundManager.getMediaPlayerEfectos().start();
+    }
     public void cambiarFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -142,10 +146,14 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         // Iniciar el juego
         imageViewBlurr.setVisibility(View.INVISIBLE);
         imageViewLoad.setVisibility(View.INVISIBLE);
-        cargarDatos();
+        cargarDatosMejoras();
         enEjecucion = true;
         actualizarVisibilidadImageViews();
         ejecutarHiloJuego();
+        soundManager.playSound2(R.raw.sonidos_ambiente);
+
+        PopupManager popupManager = new PopupManager(this);
+        popupManager.showPopup(getString(R.string.bienvenida));
     }
 
     @Override
@@ -285,7 +293,27 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
 
     }
 
-    private void cargarDatos() {
+    private void cargarDatosMejoras() {
+        GestorJSON gestorJSON = new GestorJSON();
+        try {
+            String json = gestorJSON.cargarJsonDesdeAssets(getString(R.string.fichero_mejoras_json), this);
+            MejorasEdificiosJSON mejorasEdificiosJSON = new MejorasEdificiosJSON(json);
+            aldea.setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.senado_nodo_json)));
+            aldea.getCabaniaCaza().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.cabania_caza_nodo_json)));
+            aldea.getCasetaLeniador().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.caseta_leniador_nodo_json)));
+            aldea.getCarpinteria().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.carpinteria_nodo_json)));
+            aldea.getGranja().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.granja_nodo_json)));
+            aldea.getMina().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.mina_nodo_json)));
+            aldea.getCastillo().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.castillo_nodo_json)));
+            System.out.println("JSON CARGADO");
+            System.out.println(aldea);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, getString(R.string.msj_error_cargar_datos), Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+    private void cargarDatosTutorial() {
         GestorJSON gestorJSON = new GestorJSON();
         try {
             String json = gestorJSON.cargarJsonDesdeAssets(getString(R.string.fichero_mejoras_json), this);
