@@ -5,6 +5,7 @@ import com.google.common.base.Strings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.function.Consumer;
 
@@ -32,6 +33,7 @@ public final class GestorSesion {
 
     public static void cerrarSesion() {
         FirebaseAuth.getInstance().signOut();
+        FirebaseMessaging.getInstance().deleteToken();
     }
 
     public static String cargarSesionLocal() {
