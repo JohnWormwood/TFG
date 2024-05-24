@@ -4,12 +4,15 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.tfg.R;
 import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.bbdd.firebase.auth.GestorSesion;
@@ -115,17 +118,21 @@ public class MenuActivity extends AppCompatActivity {
     private void comprobarSesion() {
         if (UtilidadRed.hayInternet(this)) {
             String email = GestorSesion.cargarSesionLocal();
-            GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
-            gestorRealTimeDatabase.actualizarTokenFcm(NotificacionesService.getToken());
+
             if (email == null) {
                 //authLayout.setVisibility(View.INVISIBLE);
                 finish();
             }
+
+            // Guardar el token fcm en el usuario actual
+            GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
+            gestorRealTimeDatabase.actualizarTokenFcm(NotificacionesService.getToken());
         } else {
             GestorSesion.cerrarSesion();
             finish();
         }
     }
+
     @Override
     protected void onPause() {
         super.onPause();

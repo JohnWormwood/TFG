@@ -15,21 +15,8 @@ public class JuegoApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // Generar token para el servicio de notificaciones
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.w(ContentValues.TAG, "Error al obtener el token de registro de FCM", task.getException());
-                return;
-            }
-            String token = task.getResult();
-            NotificacionesService.setToken(token);
-            Log.d(ContentValues.TAG, "El token es "+token);
-        });
         crearCanalDeNotificaciones();
-
     }
-
-
 
     private void crearCanalDeNotificaciones() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

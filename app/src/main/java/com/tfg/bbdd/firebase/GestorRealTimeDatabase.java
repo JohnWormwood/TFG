@@ -51,6 +51,7 @@ public class GestorRealTimeDatabase {
         NotificacionesService.setToken(token);
         if (firebaseAuth.getCurrentUser() != null) {
             System.out.println("NO ES NULL");
+            System.out.println("TOKEN = "+token);
             String idUsuario = firebaseAuth.getCurrentUser().getUid();
             DatabaseReference idUsuarioRef = usuariosRef.child(idUsuario);
             idUsuarioRef.child(PATH_TOKEN_FCM).setValue(NotificacionesService.getToken());

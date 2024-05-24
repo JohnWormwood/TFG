@@ -44,17 +44,21 @@ public class AuthActivity extends AppCompatActivity {
         setContentView(R.layout.activity_auth);
         authLayout = findViewById(R.id.authLayout);
 
-        // Comprueba la sesion antes de cargar la UI de login
-        if (!comprobarSesion()) {
-            cargarDatos();
-        }
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         authLayout.setVisibility(View.VISIBLE);
-        vaciarEditTexts();
+
+        solicitarTokenFcm(); // Guardar el token fcm en el dispositivo
+
+        // Comprueba la sesion antes de cargar la UI de login
+        if (!comprobarSesion()) {
+            cargarDatos();
+            vaciarEditTexts();
+        }
     }
 
     @Override
@@ -92,6 +96,19 @@ public class AuthActivity extends AppCompatActivity {
         return false; // Return false indicating the session is not valid or internet is not available
     }
 
+    private void solicitarTokenFcm() {
+        // Generar token para el servicio de notificaciones
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.w(ContentValues.TAG, "Error al obtener el token de registro de FCM", task.getException());
+                return;
+            }
+            String token = task.getResult();
+            NotificacionesService.setToken(token);
+            Log.d(ContentValues.TAG, "El token es "+token);
+        });
+    }
+
     private void cargarDatos(){
         setContentView(R.layout.activity_auth);
 
@@ -106,6 +123,7 @@ public class AuthActivity extends AppCompatActivity {
         buttonRegistro.setOnClickListener(buttonRegistroOnClick);
         buttonLogin.setOnClickListener(buttonLoginOnClick);
     }
+
     private void mostrarAlerta() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Error");
