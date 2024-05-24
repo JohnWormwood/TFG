@@ -107,11 +107,15 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (UtilidadRed.hayInternet(this)) {
+
+        try {
             gestorFirestore.guardarDatos(emailUsuario, this);
-        } else {
+            System.out.println("GUARDADO EN SERVIDOR");
+        } catch (RuntimeException e) {
             gestorSqlite.guardarDatos();
+            System.out.println("GUARDADO EN LOCAL");
         }
+
         aldea.getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos().removeEventListener(this);
     }
 
