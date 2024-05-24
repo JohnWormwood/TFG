@@ -15,7 +15,9 @@ public final class ControladorRecursos {
     }
 
     public static synchronized void agregarRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
-        recursos.put(recurso, getCantidadRecurso(recursos, recurso)+cantidad);
+        if (cantidad >= 0) {
+            recursos.put(recurso, getCantidadRecurso(recursos, recurso)+cantidad);
+        }
     }
 
     public static synchronized boolean puedeConsumirRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {

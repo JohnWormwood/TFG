@@ -7,7 +7,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import com.google.auth.oauth2.AccessToken;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.common.collect.Lists;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -21,11 +20,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Objects;
 
 import lombok.Getter;
@@ -62,7 +59,7 @@ public class NotificacionesService extends FirebaseMessagingService {
         super.onNewToken(token);
         NotificacionesService.token = token;
         GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
-        gestorRealTimeDatabase.actualizarTokenFmc(token);
+        gestorRealTimeDatabase.actualizarTokenFcm(token);
         Log.d(TAG, "Token actualizado: " + token);
     }
 

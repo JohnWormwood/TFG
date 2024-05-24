@@ -43,6 +43,7 @@ public class GestorFirestore {
         FirebaseFirestore.getInstance()
                 .collection(Constantes.BaseDatos.COLECCION_USUARIOS)
                 .document(email).get().addOnSuccessListener(document -> {
+                    aldea.reiniciarDatos();
                     if (document.exists()) {
                         AldeaDTO aldeaDTO = document.get(Constantes.BaseDatos.ALDEA, AldeaDTO.class);
                         RecursosDTO recursosDTO = document.get(Constantes.BaseDatos.RECURSOS, RecursosDTO.class);
@@ -66,11 +67,8 @@ public class GestorFirestore {
                         mapeoDTO.cargarDatosEnEdificio(aldea.getMina(), minaDTO);
                         // Castillo
                         mapeoDTO.cargarDatosEnEdificio(aldea.getCastillo(), castilloDTO);
-                    } else {
-                        aldea.reiniciarDatos();
                     }
                     aldea.ajustarSegunDatosCargados();
-                    System.out.println("CARGAR DATOS");
                     gestorRealTimeDatabase.actualizarEstadoConexion(true);
                     callback.onDatosCargados();
                 });

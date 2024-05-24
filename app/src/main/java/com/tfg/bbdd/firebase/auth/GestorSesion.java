@@ -6,6 +6,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 
 import java.util.function.Consumer;
 
@@ -32,8 +33,13 @@ public final class GestorSesion {
     }
 
     public static void cerrarSesion() {
-        FirebaseAuth.getInstance().signOut();
+        // Borrar el token fcm del dispositivo y de la base de datos
+        // para evitar que se reciban notifiaciones de otros usuarios
         FirebaseMessaging.getInstance().deleteToken();
+        GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
+        gestorRealTimeDatabase.actualizarTokenFcm("");
+
+        FirebaseAuth.getInstance().signOut();
     }
 
     public static String cargarSesionLocal() {

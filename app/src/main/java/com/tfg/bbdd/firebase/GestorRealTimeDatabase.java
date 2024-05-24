@@ -46,7 +46,7 @@ public class GestorRealTimeDatabase {
         idUsuarioRef.child(PATH_CASTILLO).onDisconnect().setValue(Aldea.getInstance().getCastillo().isDesbloqueado());
     }
 
-    public void actualizarTokenFmc(String token) {
+    public void actualizarTokenFcm(String token) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         NotificacionesService.setToken(token);
         if (firebaseAuth.getCurrentUser() != null) {

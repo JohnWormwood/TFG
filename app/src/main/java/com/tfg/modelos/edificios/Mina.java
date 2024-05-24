@@ -3,6 +3,7 @@ package com.tfg.modelos.edificios;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.impl.GeneradorEstandar;
+import com.tfg.utilidades.Constantes;
 
 public class Mina extends Edificio {
     public Mina(int aldeanosAsignados, Aldea aldea) {
@@ -14,9 +15,10 @@ public class Mina extends Edificio {
 
     private void setGeneradoresRecursosSegunNivelAldea() {
         int nivelAldea = aldea.getNivel();
-        if (nivelAldea >= 2) generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.PIEDRA));
-        if (nivelAldea >= 5) generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.HIERRO));
-        if (nivelAldea >= 7) generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.ORO));
+        generadoresRecursos.clear();
+        if (nivelAldea >= Constantes.Aldea.NIVEL_DESBLOQUEO_PIEDRA) generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.PIEDRA));
+        if (nivelAldea >= Constantes.Aldea.NIVEL_DESBLOQUEO_HIERRO) generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.HIERRO));
+        if (nivelAldea >= Constantes.Aldea.NIVEL_DESBLOQUEO_ORO) generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.ORO));
     }
 
     @Override

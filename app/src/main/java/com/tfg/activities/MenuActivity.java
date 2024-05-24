@@ -1,17 +1,9 @@
 package com.tfg.activities;
 
-import static androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale;
-
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -124,7 +116,7 @@ public class MenuActivity extends AppCompatActivity {
         if (UtilidadRed.hayInternet(this)) {
             String email = GestorSesion.cargarSesionLocal();
             GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
-            gestorRealTimeDatabase.actualizarTokenFmc(NotificacionesService.getToken());
+            gestorRealTimeDatabase.actualizarTokenFcm(NotificacionesService.getToken());
             if (email == null) {
                 //authLayout.setVisibility(View.INVISIBLE);
                 finish();

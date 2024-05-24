@@ -34,7 +34,12 @@ public class GeneradorEstandar implements IGeneradorRecursos {
         int disponible = recurso.getMax() - cantidadActual;
 
         ControladorRecursos.agregarRecurso(recursos, recurso, Math.min(cantidad, disponible));
-        //System.out.println("Cantidad = " + recurso +", "+Math.min(cantidad, disponible));
+        System.out.println("---------------------------------------------------");
+        System.out.println("MAXIMO RECURSO = "+recurso+", "+recurso.getMax());
+        System.out.println("Cantidad = "+cantidad);
+        System.out.println("Disponible = "+disponible);
+        System.out.println("Resultado math.min = " + recurso +", "+Math.min(cantidad, disponible));
+        System.out.println("---------------------------------------------------");
     }
 
     protected int calcularCantidadProducida(int aldeanosAsignados) {
