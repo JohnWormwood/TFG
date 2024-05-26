@@ -61,21 +61,6 @@ public class AuthActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        SoundManager soundManager = SoundManager.getInstance(this);
-        soundManager.getMediaPlayerMusica().pause();
-        soundManager.getMediaPlayerEfectos().pause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SoundManager soundManager = SoundManager.getInstance(this);
-        soundManager.getMediaPlayerMusica().start();
-        soundManager.getMediaPlayerEfectos().start();
-    }
 
     private boolean comprobarSesion() {
         if (UtilidadRed.hayInternet(this)) {

@@ -30,7 +30,7 @@ This repository contains the source code and necessary files for the Final Degre
 ## Authors
 <ul>
   <li>John Wormwood (<a href="https://github.com/JohnWormwood">JohnWormwood</a>)</li>
-  <li>Adrian Nogueira (<a href="https://github.com/AngelCen14">AngelCen14</a>)</li>
+  <li>AngelCen14 (<a href="https://github.com/AngelCen14">AngelCen14</a>)</li>
 </ul>
 
 ---

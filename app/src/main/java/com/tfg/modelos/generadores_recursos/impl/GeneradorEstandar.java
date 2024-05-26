@@ -51,7 +51,6 @@ public class GeneradorEstandar implements IGeneradorRecursos {
                 cantidadProducida++;
             }
         }
-
         // Ajustar la cantidad producida por la calidad del recurso
         cantidadProducida = Math.max(cantidadProducida, 1);
         cantidadProducida = cantidadProducida / recurso.getCALIDAD();

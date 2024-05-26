@@ -20,8 +20,8 @@ public class GeneradorCabaniaCaza extends GeneradorEstandar {
 
     @Override
     public void producirRecursos(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int aldeanosAsignados) {
-        int comidaProducida = Utilidades.generarIntRandom(1, aldeanosAsignados > 1 ? Math.abs(aldeanosAsignados / 20) : 1);
         if (!muertesAleatorias() && cabaniaCaza.getAldeanosAsignados() > 0) {
+            int comidaProducida = calcularCantidadProducida(aldeanosAsignados);
             ControladorRecursos.agregarRecurso(recursos, this.recurso, comidaProducida);
             System.out.println("Generado +"+comidaProducida+" de comida");
         } else {
@@ -43,4 +43,9 @@ public class GeneradorCabaniaCaza extends GeneradorEstandar {
         return false;
     }
 
+    @Override
+    protected int calcularCantidadProducida(int aldeanosAsignados) {
+        int cantidadProducida = super.calcularCantidadProducida(aldeanosAsignados);
+        return Math.max(cantidadProducida, 1);
+    }
 }

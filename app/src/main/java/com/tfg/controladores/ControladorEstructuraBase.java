@@ -27,8 +27,8 @@ public final class ControladorEstructuraBase {
 
     public static Map<RecursosEnum, Integer> getPreciosMejoraEstructura(EstructuraBase estructura) {
         if (estructura.getNivel() < Constantes.Estructura.NIVEL_MAXIMO) {
-            System.out.println(estructura);
-            System.out.println(estructura.getPreciosMejoras());
+            //System.out.println(estructura);
+            //System.out.println(estructura.getPreciosMejoras());
             return estructura.getPreciosMejoras().get(estructura.getNivel()-1).getRecursos();
         } else {
             PrecioMejora precioMejora = new PrecioMejora(0, 0, 0 ,0 ,0, 0);
