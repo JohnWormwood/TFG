@@ -86,7 +86,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         emailUsuario = bundle.getString("email");
-        System.out.println(emailUsuario);
+        //System.out.println(emailUsuario);
         gestorSqlite = new GestorSqlite(this, emailUsuario);
         if (!UtilidadRed.hayInternet(this)) {
             Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();

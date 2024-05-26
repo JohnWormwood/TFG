@@ -52,8 +52,9 @@ public class CabaniaCaza extends Edificio {
         if ((comidaAldea+comidaGenerada) > RecursosEnum.COMIDA.getMax()) {
             recursos.put(RecursosEnum.COMIDA, RecursosEnum.COMIDA.getMax()-comidaAldea);
         }
-
-        transferirRecursoAldea(RecursosEnum.COMIDA);
+        if (aldeanosAsignados > 0){
+            transferirRecursoAldea(RecursosEnum.COMIDA);
+        }
         devolverAldeanos(aldeanosAsignados);
         aldeanosAsignados = 0;
         aldeanosMuertosEnPartida = 0;
