@@ -7,12 +7,6 @@ import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-/*
- * Esta clase simplemente permite tener un Set con los listeners
- * para evitar repetir esa parte del codigo, pero como cada EventListener
- * puede tener varios eventos la parte de lanzar los eventos la tendra que hacer
- * la clase que herede esta clase
-*/
 public class LanzadorEventos <T extends EventListener> {
     // Se usa un set y no una lista para evitar duplicados
     protected Set<T> listeners = new HashSet<>();

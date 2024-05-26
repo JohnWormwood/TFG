@@ -34,6 +34,7 @@ public class Aldea extends EstructuraBase implements Runnable {
     private Mina mina;
     private Castillo castillo;
 
+    // Constructor privado para evitar multiples instancias
     private Aldea() {
         super();
         reiniciarDatos();

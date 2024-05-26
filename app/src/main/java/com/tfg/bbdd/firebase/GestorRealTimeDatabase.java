@@ -58,6 +58,26 @@ public class GestorRealTimeDatabase {
         } else System.out.println("ES NULL");
     }
 
+    public void comprobarEstadoConexion(ObtenerUsuarioCallback callback) {
+
+        String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        Query usuarioActualQuery = usuariosRef.child(uid);
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+
+        usuarioActualQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                usuarioDTO.setOnline(Optional.ofNullable(snapshot.child(PATH_ONLINE).getValue(Boolean.class)).orElse(false));
+                callback.onExito(usuarioDTO);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                callback.onError(error);
+            }
+        });
+    }
+
     public void getUsuarioAtacableAleatorio(ObtenerUsuarioCallback callback) {
         Query onlineUsersQuery = usuariosRef.orderByChild(PATH_ONLINE).equalTo(false);
         onlineUsersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -75,7 +95,7 @@ public class GestorRealTimeDatabase {
                     if (usuarioDTO.isCastillo()) usuariosDesconectados.add(usuarioDTO);
                 }
 
-                // Si hay usuarios en línea, seleccionar uno aleatoriamente
+                // Si hay usuarios desconectados, seleccionar uno aleatoriamente
                 if (!usuariosDesconectados.isEmpty()) {
                     Random random = new Random();
                     int randomIndex = random.nextInt(usuariosDesconectados.size());

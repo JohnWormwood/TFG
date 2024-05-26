@@ -28,9 +28,6 @@ public class TimerPartidaCaza extends CountDownTimer {
         lanzadorEventos = new LanzadorEventos<>();
     }
 
-
-
-
     @Override
     public void onTick(long millisUntilFinished) {
         segundosRestantes = millisUntilFinished / 1000;
