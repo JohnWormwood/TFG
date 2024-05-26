@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.tfg.R;
@@ -14,6 +15,8 @@ import com.tfg.eventos.LanzadorEventos;
 import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
 import com.tfg.modelos.EstructuraBase;
 import com.tfg.modelos.enums.RecursosEnum;
+import com.tfg.utilidades.Constantes;
+import com.tfg.utilidades.PopupManager;
 
 import java.util.Map;
 
@@ -35,6 +38,7 @@ public class MenuEstructuraBase extends LanzadorEventos<ActualizarInterfazEventL
     protected TextView textViewPrecioHierro;
     protected TextView textViewPrecioOro;
     protected Button buttonMejorar;
+    protected PopupManager popupManager;
 
     public void iniciar() {
         actualizar();
@@ -60,6 +64,9 @@ public class MenuEstructuraBase extends LanzadorEventos<ActualizarInterfazEventL
                     msj = context.getString(R.string.msj_subida_nivel,
                             estructura.getClass().getSimpleName(), estructura.getNivel());
                     actualizar();
+                    if (estructura.getClass().getSimpleName().equals("Aldea")){
+                        tutorialSegunNivel(estructura.getNivel());
+                    }
                 } else {
                     msj = context.getString(R.string.msj_recursos_insuficientes);
                 }
@@ -69,5 +76,32 @@ public class MenuEstructuraBase extends LanzadorEventos<ActualizarInterfazEventL
                 Toast.makeText(context, msj, Toast.LENGTH_LONG).show();
             }
         };
+    }
+    private void tutorialSegunNivel(int nivel){
+        if (popupManager != null){
+            switch (nivel){
+                case Constantes.Aldea.NIVEL_DESBLOQUEO_PIEDRA:
+                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_mina));
+                    break;
+                case Constantes.Aldea.NIVEL_DESBLOQUEO_TABLONES:
+                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_carpinteria));
+                    break;
+                case Constantes.Aldea.NIVEL_DESBLOQUEO_CASTILLO:
+                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_castillo));
+                    break;
+                case Constantes.Aldea.NIVEL_DESBLOQUEO_HIERRO:
+                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_hierro));
+                    break;
+                case Constantes.Aldea.NIVEL_DESBLOQUEO_GRANJA:
+                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_granja));
+                    break;
+                case Constantes.Aldea.NIVEL_DESBLOQUEO_ORO:
+                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_oro));
+                    break;
+                case Constantes.Aldea.NIVEL_DESBLOQUEO_MERCADER:
+                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_mercado));
+                    break;
+            }
+        }
     }
 }

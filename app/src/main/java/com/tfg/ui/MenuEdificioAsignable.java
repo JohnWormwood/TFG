@@ -12,6 +12,7 @@ import com.tfg.R;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.EstructuraBase;
 import com.tfg.modelos.edificios.Edificio;
+import com.tfg.utilidades.PopupManager;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,10 +31,12 @@ public class MenuEdificioAsignable extends MenuEstructuraBase {
                                  TextView textViewPrecioTroncos, TextView textViewPrecioPiedra,
                                  TextView textViewPrecioTablones, TextView textViewPrecioHierro,
                                  TextView textViewPrecioOro, Button buttonMejorar,
-                                 SeekBar seekBarAldeanosAsignados, TextView textViewAldeanosAsignados) {
+                                 SeekBar seekBarAldeanosAsignados, TextView textViewAldeanosAsignados,
+                                 PopupManager popupManager) {
         super(context, estructura, layout, textViewNivel, textViewPrecioTroncos,
                 textViewPrecioPiedra, textViewPrecioTablones, textViewPrecioHierro,
-                textViewPrecioOro, buttonMejorar);
+                textViewPrecioOro, buttonMejorar,
+                popupManager);
         this.seekBarAldeanosAsignados = seekBarAldeanosAsignados;
         this.textViewAldeanosAsignados = textViewAldeanosAsignados;
     }
