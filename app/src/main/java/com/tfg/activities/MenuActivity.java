@@ -11,21 +11,26 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.tfg.R;
+import com.tfg.bbdd.dto.UsuarioDTO;
 import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.bbdd.firebase.auth.GestorSesion;
 import com.tfg.bbdd.firebase.service.NotificacionesService;
+import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
 import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCallback {
 
     private TextView textViewEmail;
     private String email;
     private SoundManager soundManager;
+    private GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +106,7 @@ public class MenuActivity extends AppCompatActivity {
 
 
     public void buttonJugarOnClick(View view) {
-        Bundle extras = new Bundle();
-        extras.putString("email", email);
-        UtilidadActivity.lanzarIntent(this, JuegoActivity.class, extras);
+        gestorRealTimeDatabase.comprobarEstadoConexion(this);
     }
 
     public void buttonOpcionesOnClick(View view) {
@@ -131,6 +134,24 @@ public class MenuActivity extends AppCompatActivity {
             GestorSesion.cerrarSesion();
             finish();
         }
+    }
+
+    // --- IMPLEMENTACION DE ObtenerUsuarioCallback ---
+    @Override
+    public void onExito(UsuarioDTO usuarioDTO) {
+        // Si el usuario ya esta conectado no podra jugar
+        if (usuarioDTO.isOnline()) {
+            Toast.makeText(this, "Ya estas conectado", Toast.LENGTH_SHORT).show();
+        } else {
+            Bundle extras = new Bundle();
+            extras.putString("email", email);
+            UtilidadActivity.lanzarIntent(this, JuegoActivity.class, extras);
+        }
+    }
+
+    @Override
+    public void onError(DatabaseError databaseError) {
+        Toast.makeText(this, databaseError.toException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

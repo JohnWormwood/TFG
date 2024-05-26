@@ -43,13 +43,12 @@ import com.tfg.utilidades.UtilidadRed;
 import java.io.File;
 import java.io.IOException;
 
-public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback, PartidaCazaEventListener, ActualizarInterfazEventListener, ObtenerUsuarioCallback {
+public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback, PartidaCazaEventListener, ActualizarInterfazEventListener {
     ActivityJuegoBinding binding;
     private SoundManager soundManager;
 
     private String emailUsuario;
     private GestorFirestore gestorFirestore = new GestorFirestore();
-    GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
     private GestorSqlite gestorSqlite;
 
     public static boolean enEjecucion = false;
@@ -80,7 +79,6 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         cargarGifConTemporizador(R.id.imageViewload, R.drawable.load);
 
         soundManager = SoundManager.getInstance(this);
-
         configInicial();
     }
 
@@ -92,8 +90,6 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         emailUsuario = bundle.getString("email");
         //System.out.println(emailUsuario);
         gestorSqlite = new GestorSqlite(this, emailUsuario);
-
-        gestorRealTimeDatabase.comprobarEstadoConexion(this);
 
         if (!UtilidadRed.hayInternet(this)) {
             Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
@@ -137,7 +133,6 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     @Override
     protected void onResume() {
         super.onResume();
-        gestorRealTimeDatabase.comprobarEstadoConexion(this);
         soundManager.getMediaPlayerMusica().start();
         soundManager.getMediaPlayerEfectos().start();
     }
@@ -170,22 +165,6 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     @Override
     public void onDatosGuardados() {
         ControladorAldea.finalizarAldea();
-    }
-
-    // --- IMPLEMENTACION DE ObtenerUsuarioCallback ---
-    @Override
-    public void onExito(UsuarioDTO usuarioDTO) {
-        // Si el usuario ya esta conectado no podra jugar
-        if (usuarioDTO.isOnline()) {
-            Toast.makeText(this, "Ya estas conectado", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-    }
-
-    @Override
-    public void onError(DatabaseError databaseError) {
-        Toast.makeText(this, databaseError.toException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-        finish();
     }
 
     // --- IMPLEMANTACION DE PartidaCazaEventListener ---
