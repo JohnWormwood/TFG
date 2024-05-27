@@ -13,18 +13,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tfg.R;
+import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.eventos.listeners.AtaqueEventListener;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 
+import org.checkerframework.checker.units.qual.A;
+
 public class PartidasFragment extends Fragment implements PartidaCazaEventListener, AtaqueEventListener {
 
     // Componentes de la interfaz
     private SeekBar seekBarCazadores, seekBarSoldados;
     private TextView textViewCazadores, textViewPartidaCaza, textViewSoldados;
-    private ImageButton buttonCaza, buttonIncursion;
+    private ImageButton buttonCaza, buttonIncursion, buttonRanking;
+    private long ultimoAtaque = 0;
 
     public PartidasFragment() {
         // Required empty public constructor
@@ -49,12 +53,14 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         textViewSoldados = view.findViewById(R.id.textViewSoldados);
         buttonCaza = view.findViewById(R.id.buttonCaza);
         buttonIncursion = view.findViewById(R.id.buttonIncursion);
+        buttonRanking = view.findViewById(R.id.buttonRanking);
 
         // Listeners
         seekBarCazadores.setOnSeekBarChangeListener(seekBarCazaChangeListener);
         seekBarSoldados.setOnSeekBarChangeListener(seekBarAtaqueChangeListener);
         buttonCaza.setOnClickListener(buttonCazaOnClickListener);
         buttonIncursion.setOnClickListener(buttonIncursionOnClickListener);
+        buttonRanking.setOnClickListener(buttonRankingOnClickListener);
 
         // Mostrar el valor de la seekbar en el textview
         textViewCazadores.setText(getString(R.string.texto_num_cazadores, seekBarCazadores.getProgress()));
@@ -119,6 +125,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     View.OnClickListener buttonIncursionOnClickListener = new View.OnClickListener()  {
         @Override
         public void onClick(View v) {
+            final long TIEMPO_ENTRE_ACCIONES = 10 * 60 * 1000; // 10 minutos
             int soldadosSeleccionados = seekBarSoldados.getProgress();
 
             if (soldadosSeleccionados < 1) {
@@ -126,8 +133,20 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
             } else if (soldadosSeleccionados > Aldea.getInstance().getPoblacion()) {
                 Toast.makeText(getActivity(), getString(R.string.msj_aldeanos_insuficientes), Toast.LENGTH_SHORT).show();
             } else {
-                Aldea.getInstance().getCastillo().iniciarIncursion(soldadosSeleccionados);
+                long ahora = System.currentTimeMillis();
+                if (ahora - Aldea.getInstance().getCastillo().getUltimoAtaque() >= TIEMPO_ENTRE_ACCIONES) {
+                    Aldea.getInstance().getCastillo().iniciarIncursion(soldadosSeleccionados);
+                    Aldea.getInstance().getCastillo().setUltimoAtaque(ahora);
+                } else Toast.makeText(getActivity(), "Puedes atacar cada 10 minutos", Toast.LENGTH_SHORT).show();
             }
+        }
+    };
+
+    View.OnClickListener buttonRankingOnClickListener = new View.OnClickListener()  {
+        @Override
+        public void onClick(View v) {
+            GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
+            gestorRealTimeDatabase.printRanking();
         }
     };
 

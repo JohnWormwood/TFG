@@ -74,6 +74,13 @@ public class Aldea extends EstructuraBase implements Runnable {
         }
     }
 
+    public void setPoblacion(int poblacion) {
+        if (aldeanosAsignados + poblacion > 0) {
+            this.poblacion = poblacion;
+        }
+    }
+
+
     @Override
     public void run() {
         ListaHilos.add(thread);

@@ -1,5 +1,7 @@
 package com.tfg.bbdd.firebase;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -9,12 +11,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.bbdd.dto.UsuarioDTO;
 import com.tfg.bbdd.firebase.service.NotificacionesService;
 import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
 import com.tfg.modelos.Aldea;
+import com.tfg.utilidades.Constantes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -26,6 +31,7 @@ public class GestorRealTimeDatabase {
     private final static String PATH_CASTILLO = "castillo";
     private final static String PATH_ONLINE = "online";
     private final static String PATH_TOKEN_FCM = "token_fcm";
+    private final static String PATH_PUNTOS = "puntos";
 
     private FirebaseDatabase baseDatos = FirebaseDatabase.getInstance();
     private DatabaseReference usuariosRef = baseDatos.getReference(PATH_USUARIOS);
@@ -113,4 +119,51 @@ public class GestorRealTimeDatabase {
             }
         });
     }
+    public void modificarPuntuacionUsuarioActual(int puntuacion) {
+        String email = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
+
+        if (email != null) {
+            String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+            Query usuarioActualQuery = usuariosRef.child(uid);
+            UsuarioDTO usuarioDTO = new UsuarioDTO();
+
+            usuarioActualQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    usuarioDTO.setPuntos(Optional.ofNullable(snapshot.child(PATH_PUNTOS).getValue(Integer.class)).orElse(0));
+                    DatabaseReference idUsuarioRef = usuariosRef.child(uid);
+                    idUsuarioRef.child(PATH_PUNTOS).setValue(Math.max(usuarioDTO.getPuntos()+puntuacion, 0));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("Error", error.getMessage(), error.toException());
+                }
+            });
+        }
+    }
+
+    public void printRanking() {
+        Query onlineUsersQuery = usuariosRef.getRef();
+        onlineUsersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                System.out.println("--- RANKING ---");
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    UsuarioDTO usuarioDTO = new UsuarioDTO();
+                    usuarioDTO.setEmail(snapshot.child(PATH_EMAIL).getValue(String.class));
+                    usuarioDTO.setPuntos(Optional.ofNullable(snapshot.child(PATH_PUNTOS).getValue(Integer.class)).orElse(0));
+
+                    System.out.println("Usuario: "+usuarioDTO.getEmail()+", Puntos: "+usuarioDTO.getPuntos());
+                }
+                System.out.println("--------------------------------------");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.err.println(databaseError.getMessage());
+            }
+        });
+    }
+
 }

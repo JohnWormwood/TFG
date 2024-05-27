@@ -13,6 +13,7 @@ import com.tfg.eventos.listeners.AtaqueEventListener;
 import com.tfg.modelos.Aldea;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class Castillo extends Edificio implements ObtenerUsuarioCallback, AtaqueCallback {
@@ -20,6 +21,8 @@ public class Castillo extends Edificio implements ObtenerUsuarioCallback, Ataque
     private String victimaAtaque;
     private int soldadosEnviados;
     private LanzadorEventos<AtaqueEventListener> lanzadorEventos;
+    @Setter
+    private long ultimoAtaque;
 
     public Castillo(int aldeanosAsignados, Aldea aldea) {
         super(aldeanosAsignados, aldea);

@@ -9,4 +9,5 @@ public class UsuarioDTO {
     private String tokenFmc;
     private boolean online;
     private boolean castillo;
+    private int puntos;
 }

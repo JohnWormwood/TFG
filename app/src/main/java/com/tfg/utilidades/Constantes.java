@@ -39,8 +39,15 @@ public final class Constantes {
         public static final int PRECIO_HIERRO = 10;
     }
 
+    public static class Castillo {
+        public static final int PUNTOS_VICTORIA = 10;
+        public static final int PUNTOS_DERROTA = -5;
+    }
+
     public static class BaseDatos {
         public static final String COLECCION_USUARIOS = "usuarios";
+        public static final String RANKING = "ranking";
+        public static final String USUARIO = "usuario";
         public static final String ALDEA = "datos_aldea";
         public static final String RECURSOS = "recursos";
         public static final String EDIFICIO = "edificio";
@@ -50,5 +57,6 @@ public final class Constantes {
         public static final String GRANJA = "granja";
         public static final String MINA = "mina";
         public static final String CASTILLO = "castillo";
+        public static final String PUNTOS = "puntos";
     }
 }

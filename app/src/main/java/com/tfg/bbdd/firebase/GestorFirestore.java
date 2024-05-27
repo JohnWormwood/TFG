@@ -12,18 +12,11 @@ import com.tfg.bbdd.dto.CabaniaCazaDTO;
 import com.tfg.bbdd.dto.EdificioDTO;
 import com.tfg.bbdd.dto.RecursosDTO;
 import com.tfg.modelos.Aldea;
-import com.tfg.modelos.edificios.CabaniaCaza;
-import com.tfg.modelos.edificios.Carpinteria;
-import com.tfg.modelos.edificios.CasetaLeniador;
-import com.tfg.modelos.edificios.Castillo;
-import com.tfg.modelos.edificios.Granja;
-import com.tfg.modelos.edificios.Mina;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.Utilidades;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class GestorFirestore {
     private Aldea aldea = Aldea.getInstance();
@@ -130,10 +123,15 @@ public class GestorFirestore {
                             ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.PIEDRA, piedra);
                             ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.HIERRO, hierro);
                             ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.ORO, oro);
+
+                            // Aumentar puntos al ganar
+                            gestorRealTimeDatabase.modificarPuntuacionUsuarioActual(Constantes.Castillo.PUNTOS_VICTORIA);
                         } else {
-                            // Si el atacante pierde los soldados enviados mueren
+                            // Si el atacante pierde los soldados enviados mueren y bajan los puntos
                             aldea.setPoblacion(aldea.getPoblacion()-soldadosEnviados);
+                            gestorRealTimeDatabase.modificarPuntuacionUsuarioActual(Constantes.Castillo.PUNTOS_DERROTA);
                         }
+
                         callback.onAtaqueTerminado(victima, victoria);
                     } else {
                         callback.onError(
@@ -147,7 +145,6 @@ public class GestorFirestore {
     }
 
     private HashMap<String, Object> mapearDatosAldea() {
-
         HashMap<String, Object> datos = new HashMap<>();
         datos.put(Constantes.BaseDatos.RECURSOS, mapeoDTO.mapearRecursos(aldea));
         datos.put(Constantes.BaseDatos.ALDEA, mapeoDTO.aldeaToAldeaDTO(aldea));
@@ -157,7 +154,9 @@ public class GestorFirestore {
         datos.put(Constantes.BaseDatos.GRANJA, mapeoDTO.edificioToEdificioDTO(aldea.getGranja()));
         datos.put(Constantes.BaseDatos.MINA, mapeoDTO.edificioToEdificioDTO(aldea.getMina()));
         datos.put(Constantes.BaseDatos.CASTILLO, mapeoDTO.edificioToEdificioDTO(aldea.getCastillo()));
-
+        datos.put(Constantes.BaseDatos.PUNTOS, 10);
         return datos;
     }
+
+
 }
