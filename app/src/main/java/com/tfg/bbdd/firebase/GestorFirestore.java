@@ -117,12 +117,12 @@ public class GestorFirestore {
                             FirestoreCRUD.actualizar(Constantes.BaseDatos.COLECCION_USUARIOS, victima.getEmail(), datos);
 
                             // Darle los recursos al atacante
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, troncos);
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.TABLONES_MADERA, tablones);
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.COMIDA, comida);
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.PIEDRA, piedra);
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.HIERRO, hierro);
-                            ControladorRecursos.agregarRecurso(aldea.getRecursos(), RecursosEnum.ORO, oro);
+                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, troncos);
+                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.TABLONES_MADERA, tablones);
+                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.COMIDA, comida);
+                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.PIEDRA, piedra);
+                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.HIERRO, hierro);
+                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.ORO, oro);
 
                             // Aumentar puntos al ganar
                             gestorRealTimeDatabase.modificarPuntuacionUsuarioActual(Constantes.Castillo.PUNTOS_VICTORIA);
