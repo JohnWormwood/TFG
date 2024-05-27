@@ -160,8 +160,6 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         ejecutarHiloJuego();
         soundManager.playSound2(R.raw.sonidos_ambiente);
 
-        PopupManager popupManager = new PopupManager(this);
-        popupManager.showPopup(getString(R.string.bienvenida));
     }
 
     @Override

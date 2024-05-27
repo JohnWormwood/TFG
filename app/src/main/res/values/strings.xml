@@ -19,8 +19,22 @@
     <string name="int_format">%d</string>
     <string name="nivel">NIVEL</string>
     <!-- Tutorial -->
-    <string name="bienvenida">¡Bienvenido, noble Lord, a nuestro humilde pueblo!
-        Que vuestra sabiduría nos guíen hacia días de prosperidad.</string>
+    <string name="bienvenida">¡Bienvenido a nuestro humilde pueblo!
+        Que vuestra sabiduría nos guíe hacia días de prosperidad.</string>
+    <string name="msj_desbloqueo_mina">¡Genial! Has desbloqueado la Mina,
+        ahora puedes asignar aldeanos en la mina para producir piedra</string>
+    <string name="msj_desbloqueo_carpinteria">¡Genial! Has desbloqueado la Carpinteria,
+        ahora puedes generar tablones a partir de troncos</string>
+    <string name="msj_desbloqueo_castillo">¡Genial! Has desbloqueado el Castillo y las Incursiones,
+        ahora puedes Defenderte y Atacar otras aldeas</string>
+    <string name="msj_desbloqueo_hierro">¡Genial! Has desbloqueado el hierro,
+        ahora la mina genera hierro</string>
+    <string name="msj_desbloqueo_granja">¡Genial! Has desbloqueado la Granja,
+        ahora puedes generar comida</string>
+    <string name="msj_desbloqueo_oro">¡Genial! Has desbloqueado el oro,
+        ahora la mina genera oro</string>
+    <string name="msj_desbloqueo_mercado">¡Genial! Has desbloqueado el Mercado,
+        ahora puedes comprar recursos a cambio de oro</string>
 
     <!-- Sesion -->
     <string name="iniciar_sesion">Iniciar Sesión</string>

@@ -2,6 +2,7 @@ package com.tfg.activities.fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.tfg.modelos.Aldea;
 import com.tfg.ui.MenuEdificioAsignable;
 import com.tfg.ui.MenuEstructuraBase;
 import com.tfg.ui.MenuSenado;
+import com.tfg.utilidades.PopupManager;
 
 import lombok.Getter;
 
@@ -27,6 +29,7 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
     private MenuEdificioAsignable menuCarpinteria;
     private MenuEdificioAsignable menuGranja;
     private MenuEdificioAsignable menuCastillo;
+    private PopupManager popupManager;
 
     private Aldea aldea = Aldea.getInstance();
 
@@ -79,6 +82,7 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
 
     // --- FUNCIONES PARA INICIALIZAR CORRECTAMENTE LA UI ---
     private void configInicial(View view) {
+        popupManager = new PopupManager((AppCompatActivity) getActivity());
         inicializarComponentes(view);
         actualizarVisibilidadLayouts();
         cargarUI();
@@ -96,7 +100,8 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
                 view.findViewById(R.id.textViewPrecioTablonesSenado),
                 view.findViewById(R.id.textViewPrecioHierroSenado),
                 view.findViewById(R.id.textViewPrecioOroSenado),
-                view.findViewById(R.id.buttonMejorarSenado)
+                view.findViewById(R.id.buttonMejorarSenado),
+                popupManager
         );
         // Caseta Leniador
         menuCasetaLeniador = new MenuEdificioAsignable(
@@ -111,7 +116,8 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
                 view.findViewById(R.id.textViewPrecioOroCasetaLeniador),
                 view.findViewById(R.id.buttonMejorarCasetaLeniador),
                 view.findViewById(R.id.seekBarLeniadores),
-                view.findViewById(R.id.textViewLeniadores)
+                view.findViewById(R.id.textViewLeniadores),
+                popupManager
         );
         // Cabania Caza
         menuCabaniaCaza = new MenuEstructuraBase(
@@ -124,7 +130,8 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
                 view.findViewById(R.id.textViewPrecioTablonesCabaniaCaza),
                 view.findViewById(R.id.textViewPrecioHierroCabaniaCaza),
                 view.findViewById(R.id.textViewPrecioOroCabaniaCaza),
-                view.findViewById(R.id.buttonMejorarCabaniaCaza)
+                view.findViewById(R.id.buttonMejorarCabaniaCaza),
+                popupManager
         );
         // Mina
         menuMina = new MenuEdificioAsignable(
@@ -139,7 +146,8 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
                 view.findViewById(R.id.textViewPrecioOroMina),
                 view.findViewById(R.id.buttonMejorarMina),
                 view.findViewById(R.id.seekBarMineros),
-                view.findViewById(R.id.textViewMineros)
+                view.findViewById(R.id.textViewMineros),
+                popupManager
         );
         // Carpinteria
         menuCarpinteria = new MenuEdificioAsignable(
@@ -154,7 +162,8 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
                 view.findViewById(R.id.textViewPrecioOroCarpinteria),
                 view.findViewById(R.id.buttonMejorarCarpinteria),
                 view.findViewById(R.id.seekBarCarpinteros),
-                view.findViewById(R.id.textViewCarpinteros)
+                view.findViewById(R.id.textViewCarpinteros),
+                popupManager
         );
         // Granja
         menuGranja = new MenuEdificioAsignable(
@@ -169,7 +178,8 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
                 view.findViewById(R.id.textViewPrecioOroGranja),
                 view.findViewById(R.id.buttonMejorarGranja),
                 view.findViewById(R.id.seekBarGranjeros),
-                view.findViewById(R.id.textViewGranjeros)
+                view.findViewById(R.id.textViewGranjeros),
+                popupManager
         );
         // Castillo
         menuCastillo = new MenuEdificioAsignable(
@@ -184,7 +194,8 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
                 view.findViewById(R.id.textViewPrecioOroCastillo),
                 view.findViewById(R.id.buttonMejorarCastillo),
                 view.findViewById(R.id.seekBarDefensores),
-                view.findViewById(R.id.textViewDefensores)
+                view.findViewById(R.id.textViewDefensores),
+                popupManager
         );
     }
 
