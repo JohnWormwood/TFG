@@ -13,10 +13,13 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseError;
 import com.tfg.R;
 import com.tfg.activities.RankingActivity;
+import com.tfg.bbdd.dto.UsuarioDTO;
 import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.controladores.ControladorRecursos;
+import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
 import com.tfg.eventos.listeners.AtaqueEventListener;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
@@ -26,7 +29,7 @@ import com.tfg.utilidades.UtilidadActivity;
 
 import org.checkerframework.checker.units.qual.A;
 
-public class PartidasFragment extends Fragment implements PartidaCazaEventListener, AtaqueEventListener {
+public class PartidasFragment extends Fragment implements PartidaCazaEventListener, AtaqueEventListener, ObtenerUsuarioCallback {
 
     // Componentes de la interfaz
     private SeekBar seekBarCazadores, seekBarSoldados;
@@ -36,6 +39,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     private LinearLayout linearLayout;
     private TextView textViewMsj;
     private Aldea aldea = Aldea.getInstance();
+    private PartidasFragment context = this;
 
     public PartidasFragment() {
         // Required empty public constructor
@@ -79,8 +83,8 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         return view;
     }
     private void actualizarVisibilidadLayouts(){
-        linearLayout.setVisibility(aldea.getCastillo().isDesbloqueado() ?  View.VISIBLE: View.GONE);
-        textViewMsj.setVisibility(aldea.getCastillo().isDesbloqueado() ? View.GONE : View.VISIBLE);
+        linearLayout.setVisibility(aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_CASTILLO ?  View.VISIBLE: View.GONE);
+        textViewMsj.setVisibility(aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_CASTILLO ? View.GONE : View.VISIBLE);
     }
     @Override
     public void onStart() {
@@ -139,7 +143,6 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     View.OnClickListener buttonIncursionOnClickListener = new View.OnClickListener()  {
         @Override
         public void onClick(View v) {
-            final long TIEMPO_ENTRE_ACCIONES = 10 * 60 * 1000; // 10 minutos
             int soldadosSeleccionados = seekBarSoldados.getProgress();
 
             if (soldadosSeleccionados < 1) {
@@ -147,11 +150,8 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
             } else if (soldadosSeleccionados > Aldea.getInstance().getPoblacion()) {
                 Toast.makeText(getActivity(), getString(R.string.msj_aldeanos_insuficientes), Toast.LENGTH_SHORT).show();
             } else {
-                long ahora = System.currentTimeMillis();
-                if (ahora - Aldea.getInstance().getCastillo().getUltimoAtaque() >= TIEMPO_ENTRE_ACCIONES) {
-                    Aldea.getInstance().getCastillo().iniciarIncursion(soldadosSeleccionados);
-                    Aldea.getInstance().getCastillo().setUltimoAtaque(ahora);
-                } else Toast.makeText(getActivity(), "Puedes atacar cada 10 minutos", Toast.LENGTH_SHORT).show();
+                GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
+                gestorRealTimeDatabase.getUsuarioActual(context);
             }
         }
     };
@@ -159,7 +159,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     View.OnClickListener buttonRankingOnClickListener = new View.OnClickListener()  {
         @Override
         public void onClick(View v) {
-            UtilidadActivity.lanzarIntent(getActivity(),RankingActivity.class,null);
+            UtilidadActivity.lanzarIntent(getActivity(), RankingActivity.class, null);
         }
     };
 
@@ -242,5 +242,21 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     @Override
     public void onError(Exception e) {
         Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+
+    // --- IMPLEMENTACION DE ObtenerUsuarioCallback
+    @Override
+    public void onExito(UsuarioDTO usuarioDTO) {
+        final long TIEMPO_ENTRE_ACCIONES = 10 * 60 * 1000; // 10 minutos
+        long ahora = System.currentTimeMillis();
+        if (ahora - usuarioDTO.getUltimoAtaque()  >= TIEMPO_ENTRE_ACCIONES) {
+            Aldea.getInstance().getCastillo().iniciarIncursion(seekBarSoldados.getProgress());
+        } else Toast.makeText(getActivity(), "Puedes atacar cada 10 minutos", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onError(DatabaseError databaseError) {
+        Toast.makeText(getActivity(), databaseError.toException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 }

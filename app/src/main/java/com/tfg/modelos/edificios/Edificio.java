@@ -40,11 +40,18 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
         setMaximoAldeanosSegunNivel();
     }
 
+    @Override
+    public void reiniciarDatos() {
+        super.reiniciarDatos();
+        generadoresRecursos = new ArrayList<>();
+        setMaximoRecursosSegunNivel();
+        setMaximoAldeanosSegunNivel();
+    }
 
     protected void transferirRecursoAldea(RecursosEnum recurso) {
         int cantidad = ControladorRecursos.getCantidadRecurso(recursos, recurso);
         if (ControladorRecursos.consumirRecurso(recursos, recurso, cantidad)) {
-            ControladorRecursos.agregarRecurso(aldea.getRecursos(), recurso, cantidad);
+            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), recurso, cantidad);
         }
     }
 

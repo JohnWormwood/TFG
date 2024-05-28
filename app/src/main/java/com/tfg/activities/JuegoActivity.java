@@ -130,12 +130,14 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         soundManager.getMediaPlayerMusica().pause();
         soundManager.getMediaPlayerEfectos().pause();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         soundManager.getMediaPlayerMusica().start();
         soundManager.getMediaPlayerEfectos().start();
     }
+
     public void cambiarFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

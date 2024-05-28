@@ -5,7 +5,7 @@ import com.tfg.bbdd.dto.UsuarioDTO;
 
 import java.util.List;
 
-public interface ObtenerUsuarioCallback {
-    void onExito(UsuarioDTO usuarioDTO);
+public interface ObtenerRankingCallback {
+    void onExito(List<UsuarioDTO> ranking);
     void onError(DatabaseError databaseError);
 }

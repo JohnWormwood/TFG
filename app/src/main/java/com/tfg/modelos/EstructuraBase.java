@@ -25,7 +25,21 @@ public abstract class EstructuraBase {
     protected List<PrecioMejora> preciosMejoras;
 
     protected EstructuraBase() {
-        reiniciarDatos();
+        // Nivel
+        nivel = Constantes.NIVEL_INICIAL;
+        setMaximoAldeanosSegunNivel();
+
+        // Precios mejoras
+        preciosMejoras = new ArrayList<>();
+
+        // Recursos
+        recursos = new HashMap<>();
+        recursos.put(RecursosEnum.COMIDA, 0);
+        recursos.put(RecursosEnum.TRONCOS_MADERA, 0);
+        recursos.put(RecursosEnum.PIEDRA, 0);
+        recursos.put(RecursosEnum.TABLONES_MADERA, 0);
+        recursos.put(RecursosEnum.HIERRO, 0);
+        recursos.put(RecursosEnum.ORO, 0);
     }
 
     public void reiniciarDatos() {

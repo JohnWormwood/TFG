@@ -10,4 +10,5 @@ public class UsuarioDTO {
     private boolean online;
     private boolean castillo;
     private int puntos;
+    private long ultimoAtaque;
 }

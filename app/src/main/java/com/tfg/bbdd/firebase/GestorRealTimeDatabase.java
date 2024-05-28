@@ -11,15 +11,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.bbdd.dto.UsuarioDTO;
 import com.tfg.bbdd.firebase.service.NotificacionesService;
+import com.tfg.eventos.callbacks.ObtenerRankingCallback;
 import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
 import com.tfg.modelos.Aldea;
-import com.tfg.utilidades.Constantes;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,6 +30,7 @@ public class GestorRealTimeDatabase {
     private final static String PATH_ONLINE = "online";
     private final static String PATH_TOKEN_FCM = "token_fcm";
     private final static String PATH_PUNTOS = "puntos";
+    private final static String PATH_ULTIMO_ATAQUE = "ultimo_atauqe";
 
     private FirebaseDatabase baseDatos = FirebaseDatabase.getInstance();
     private DatabaseReference usuariosRef = baseDatos.getReference(PATH_USUARIOS);
@@ -119,6 +118,39 @@ public class GestorRealTimeDatabase {
             }
         });
     }
+
+    public void getUsuarioActual(ObtenerUsuarioCallback callback) {
+        String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        Query usuarioActualQuery = usuariosRef.child(uid);
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+
+        usuarioActualQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UsuarioDTO usuarioDTO = new UsuarioDTO();
+                usuarioDTO.setUid(snapshot.getKey());
+                usuarioDTO.setEmail(snapshot.child(PATH_EMAIL).getValue(String.class));
+                usuarioDTO.setTokenFmc(snapshot.child(PATH_TOKEN_FCM).getValue(String.class));
+                usuarioDTO.setCastillo(Optional.ofNullable(snapshot.child(PATH_CASTILLO).getValue(Boolean.class)).orElse(false));
+                usuarioDTO.setOnline(Optional.ofNullable(snapshot.child(PATH_ONLINE).getValue(Boolean.class)).orElse(false));
+                usuarioDTO.setUltimoAtaque(Optional.ofNullable(snapshot.child(PATH_ULTIMO_ATAQUE).getValue(Long.class)).orElse(0L));
+                callback.onExito(usuarioDTO);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                callback.onError(error);
+            }
+        });
+    }
+
+    public void guardarUltimoAtaque(long time) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String idUsuario = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        DatabaseReference idUsuarioRef = usuariosRef.child(idUsuario);
+        idUsuarioRef.child(PATH_ULTIMO_ATAQUE).setValue(time);
+    }
+
     public void modificarPuntuacionUsuarioActual(int puntuacion) {
         String email = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
 
@@ -143,25 +175,25 @@ public class GestorRealTimeDatabase {
         }
     }
 
-    public void printRanking() {
+    public void getRanking(ObtenerRankingCallback callback) {
         Query onlineUsersQuery = usuariosRef.getRef();
         onlineUsersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                System.out.println("--- RANKING ---");
+                List<UsuarioDTO> ranking = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     UsuarioDTO usuarioDTO = new UsuarioDTO();
                     usuarioDTO.setEmail(snapshot.child(PATH_EMAIL).getValue(String.class));
                     usuarioDTO.setPuntos(Optional.ofNullable(snapshot.child(PATH_PUNTOS).getValue(Integer.class)).orElse(0));
 
-                    System.out.println("Usuario: "+usuarioDTO.getEmail()+", Puntos: "+usuarioDTO.getPuntos());
+                    ranking.add(usuarioDTO);
                 }
-                System.out.println("--------------------------------------");
+                callback.onExito(ranking);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.err.println(databaseError.getMessage());
+                callback.onError(databaseError);
             }
         });
     }

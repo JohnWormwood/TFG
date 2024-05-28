@@ -24,8 +24,8 @@ public class GestorFirestore {
     private MapeoDTO mapeoDTO = new MapeoDTO();
 
     public void guardarDatos(String email, OperacionesDatosCallback callback) {
-        gestorRealTimeDatabase.actualizarEstadoConexion(false);
         FirestoreCRUD.actualizarConCallback(Constantes.BaseDatos.COLECCION_USUARIOS, email, mapearDatosAldea(), callback);
+        gestorRealTimeDatabase.actualizarEstadoConexion(false);
     }
 
     public void cargarDatos(String email, OperacionesDatosCallback callback) {
@@ -118,11 +118,16 @@ public class GestorFirestore {
 
                             // Darle los recursos al atacante
                             ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, troncos);
-                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.TABLONES_MADERA, tablones);
                             ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.COMIDA, comida);
-                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.PIEDRA, piedra);
-                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.HIERRO, hierro);
-                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.ORO, oro);
+
+                            if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_TABLONES)
+                                ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.TABLONES_MADERA, tablones);
+                            if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_PIEDRA)
+                                ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.PIEDRA, piedra);
+                            if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_HIERRO)
+                                ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.HIERRO, hierro);
+                            if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_ORO)
+                                ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.ORO, oro);
 
                             // Aumentar puntos al ganar
                             gestorRealTimeDatabase.modificarPuntuacionUsuarioActual(Constantes.Castillo.PUNTOS_VICTORIA);
@@ -131,6 +136,7 @@ public class GestorFirestore {
                             aldea.setPoblacion(aldea.getPoblacion()-soldadosEnviados);
                             gestorRealTimeDatabase.modificarPuntuacionUsuarioActual(Constantes.Castillo.PUNTOS_DERROTA);
                         }
+                        gestorRealTimeDatabase.guardarUltimoAtaque(System.currentTimeMillis());
 
                         callback.onAtaqueTerminado(victima, victoria);
                     } else {
@@ -154,7 +160,6 @@ public class GestorFirestore {
         datos.put(Constantes.BaseDatos.GRANJA, mapeoDTO.edificioToEdificioDTO(aldea.getGranja()));
         datos.put(Constantes.BaseDatos.MINA, mapeoDTO.edificioToEdificioDTO(aldea.getMina()));
         datos.put(Constantes.BaseDatos.CASTILLO, mapeoDTO.edificioToEdificioDTO(aldea.getCastillo()));
-        datos.put(Constantes.BaseDatos.PUNTOS, 10);
         return datos;
     }
 

@@ -102,7 +102,7 @@ public class MercaderFragment extends Fragment {
 
             // Realiza la compra del recurso
             if (ControladorRecursos.consumirRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.ORO, precio)) {
-                ControladorRecursos.agregarRecurso(Aldea.getInstance().getRecursos(), recurso, Constantes.Mercader.CANTIDAD);
+                ControladorRecursos.agregarRecursoSinExcederMax(Aldea.getInstance().getRecursos(), recurso, Constantes.Mercader.CANTIDAD);
             } else {
                 if (getActivity() != null) {
                     Toast.makeText(getActivity(), getString(R.string.msj_oro_insuficiente), Toast.LENGTH_SHORT).show();

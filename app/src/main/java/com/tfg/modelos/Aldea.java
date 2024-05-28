@@ -34,7 +34,18 @@ public class Aldea extends EstructuraBase implements Runnable {
     // Constructor privado para evitar multiples instancias
     private Aldea() {
         super();
-        reiniciarDatos();
+        poblacion = Constantes.Aldea.POBLACION_INICIAL;
+        multiplicadorAldeanosSegunNivel = Constantes.Aldea.AUMENTO_MAX_ALDEANOS_POR_NIVEL;
+
+        // Edificios
+        cabaniaCaza = new CabaniaCaza(0, this);
+        casetaLeniador = new CasetaLeniador(0, this);
+        carpinteria = new Carpinteria(0, this);
+        granja = new Granja(0, this);
+        mina = new Mina(0, this);
+        castillo = new Castillo(0, this);
+
+        recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
     }
 
     // Método estático para obtener la instancia única de Aldea
@@ -52,12 +63,12 @@ public class Aldea extends EstructuraBase implements Runnable {
         multiplicadorAldeanosSegunNivel = Constantes.Aldea.AUMENTO_MAX_ALDEANOS_POR_NIVEL;
 
         // Edificios
-        cabaniaCaza = new CabaniaCaza(0, this);
-        casetaLeniador = new CasetaLeniador(0, this);
-        carpinteria = new Carpinteria(0, this);
-        granja = new Granja(0, this);
-        mina = new Mina(0, this);
-        castillo = new Castillo(0, this);
+        cabaniaCaza.reiniciarDatos();
+        casetaLeniador.reiniciarDatos();
+        carpinteria.reiniciarDatos();
+        granja.reiniciarDatos();
+        mina.reiniciarDatos();
+        castillo.reiniciarDatos();
 
         recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
     }
@@ -71,7 +82,7 @@ public class Aldea extends EstructuraBase implements Runnable {
         }
     }
 
-    public void setPoblacion(int poblacion) {
+    public synchronized void setPoblacion(int poblacion) {
         if (aldeanosAsignados + poblacion > 0) {
             this.poblacion = poblacion;
         }
