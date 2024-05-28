@@ -61,27 +61,27 @@ public class MenuEdificioAsignable extends MenuEstructuraBase {
         return new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                System.out.println("entra en onProgressChanged");
+                //System.out.println("entra en onProgressChanged");
                 textViewAldeanosAsignados.setText(String.valueOf(seekBar.getProgress()));
 
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                System.out.println("entra en onStartTrackingTouch");
+                //System.out.println("entra en onStartTrackingTouch");
                 valorInicialSeekbar = seekBar.getProgress();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                System.out.println("entra en onStopTrackingTouch");
+                //System.out.println("entra en onStopTrackingTouch");
                 Edificio edificio = (Edificio) estructura;
                 if (seekBar.getProgress() <= Aldea.getInstance().getPoblacion() + edificio.getAldeanosAsignados()) {
-                    System.out.println("entra en el if");
-                    System.out.println("aldeanos maximos = "+edificio.getAldeanosMaximos());
+                    //System.out.println("entra en el if");
+                    //System.out.println("aldeanos maximos = "+edificio.getAldeanosMaximos());
                     edificio.modificarAldeanosAsignados(seekBar.getProgress());
                 } else {
-                    System.out.println("entra en el else");
+                    //System.out.println("entra en el else");
                     seekBar.setProgress(valorInicialSeekbar);
                     Toast.makeText(context, context.getString(R.string.msj_aldeanos_insuficientes), Toast.LENGTH_SHORT).show();
                 }

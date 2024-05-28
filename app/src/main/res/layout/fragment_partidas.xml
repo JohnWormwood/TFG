@@ -120,7 +120,8 @@
                 android:layout_height="336dp"
                 android:background="@drawable/fondo_menu_1"
                 android:backgroundTintMode="add"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <Space
                     android:layout_width="match_parent"
@@ -228,6 +229,17 @@
                     android:textSize="14sp" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewMsj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/incursiones_msj"
+                android:textAlignment="center"
+                android:textColor="#262424"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </ScrollView>
 

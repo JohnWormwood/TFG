@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.tfg.eventos.listeners.AtaqueEventListener;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
+import com.tfg.utilidades.Constantes;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -29,6 +31,9 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     private TextView textViewCazadores, textViewPartidaCaza, textViewSoldados;
     private ImageButton buttonCaza, buttonIncursion, buttonRanking;
     private long ultimoAtaque = 0;
+    private LinearLayout linearLayout;
+    private TextView textViewMsj;
+    private Aldea aldea = Aldea.getInstance();
 
     public PartidasFragment() {
         // Required empty public constructor
@@ -44,6 +49,9 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_partidas, container, false);
+
+        linearLayout = view.findViewById(R.id.linearLayoutIncursion);
+        textViewMsj = view.findViewById(R.id.textViewMsj);
 
         // Inicializar componentes de la interfaz
         seekBarCazadores = view.findViewById(R.id.seekBarCazadores);
@@ -68,7 +76,10 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
 
         return view;
     }
-
+    private void actualizarVisibilidadLayouts(){
+        linearLayout.setVisibility(aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_CASTILLO ?  View.VISIBLE: View.GONE);
+        textViewMsj.setVisibility(aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_CASTILLO ? View.GONE : View.VISIBLE);
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -83,6 +94,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
 
         comprobarEstadoBoton();
         addEventListeners();
+        actualizarVisibilidadLayouts();
     }
 
     @Override

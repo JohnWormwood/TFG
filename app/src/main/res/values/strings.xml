@@ -100,4 +100,5 @@
     <string name="splash_subtitle">Bienvenido a la mejor experiencia</string>
     <string name="splash_icon_description">Icono de bienvenida</string>
     <string name="mercado_msj">Este edificio se desbloquea a nivel 8 del Senado</string>
+    <string name="incursiones_msj">Las Incursiones se desbloquean con el Senado a nivel 4</string>
 </resources>

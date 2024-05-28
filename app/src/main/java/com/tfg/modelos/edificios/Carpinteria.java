@@ -60,7 +60,7 @@ public class Carpinteria extends Edificio {
             }
         } catch (InterruptedException e) {
             // En caso de interrupcion se vuelve al estado anterior, para evitar que se dupliquen recursos
-            System.out.println("IMTERRUMPIDO");
+            //System.out.println("IMTERRUMPIDO");
             recursos = recursosIniciales;
             ListaHilos.remove(thread);
         }

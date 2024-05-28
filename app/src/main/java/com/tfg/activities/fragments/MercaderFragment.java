@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tfg.R;
@@ -22,6 +23,7 @@ public class MercaderFragment extends Fragment {
 
     private Button buttonComprarTablones, buttonComprarTroncos,buttonComprarComida,buttonComprarHierro,buttonComprarPiedra;
     private LinearLayout layoutMercado;
+    private TextView textViewMsj;
     private Aldea aldea = Aldea.getInstance();
 
     public MercaderFragment() {
@@ -52,14 +54,13 @@ public class MercaderFragment extends Fragment {
 
     private void inicializarComponentes(View view){
         layoutMercado = view.findViewById(R.id.linearLayoutMercado);
-
-                // Botones de compra
+        textViewMsj = view.findViewById(R.id.textViewMsj);
+        // Botones de compra
         buttonComprarTablones = view.findViewById(R.id.buttonComprarTablones);
         buttonComprarTroncos = view.findViewById(R.id.buttonComprarTroncos);
         buttonComprarComida = view.findViewById(R.id.buttonComprarComida);
         buttonComprarPiedra = view.findViewById(R.id.buttonComprarPiedra);
         buttonComprarHierro = view.findViewById(R.id.buttonComprarHierro);
-
 
         // Establece el mismo listener para ambos botones
         buttonComprarTablones.setOnClickListener(comprarRecursoListener);
@@ -70,8 +71,8 @@ public class MercaderFragment extends Fragment {
     }
 
     private void actualizarVisibilidadLayouts(){
-        layoutMercado.setVisibility(aldea.getMercado().isDesbloqueado() ? View.GONE : View.VISIBLE);
-        layoutMercado.setVisibility(aldea.getMercado().isDesbloqueado() ? View.VISIBLE : View.GONE);
+        layoutMercado.setVisibility(aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_MERCADER ? View.VISIBLE: View.GONE);
+        textViewMsj.setVisibility(aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_MERCADER ? View.GONE : View.VISIBLE);
     }
     View.OnClickListener comprarRecursoListener = new View.OnClickListener() {
         @Override
@@ -109,5 +110,4 @@ public class MercaderFragment extends Fragment {
             }
         }
     };
-
 }

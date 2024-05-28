@@ -7,18 +7,14 @@ import com.tfg.modelos.edificios.Carpinteria;
 import com.tfg.modelos.edificios.CasetaLeniador;
 import com.tfg.modelos.edificios.Castillo;
 import com.tfg.modelos.edificios.Granja;
-import com.tfg.modelos.edificios.Mercado;
 import com.tfg.modelos.edificios.Mina;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.ListaHilos;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
@@ -34,7 +30,6 @@ public class Aldea extends EstructuraBase implements Runnable {
     private Granja granja;
     private Mina mina;
     private Castillo castillo;
-    private Mercado mercado;
 
     // Constructor privado para evitar multiples instancias
     private Aldea() {
@@ -63,7 +58,6 @@ public class Aldea extends EstructuraBase implements Runnable {
         granja = new Granja(0, this);
         mina = new Mina(0, this);
         castillo = new Castillo(0, this);
-        mercado = new Mercado(0,this);
 
         recursos.put(RecursosEnum.COMIDA, Constantes.Aldea.COMIDA_INICIAL);
     }
