@@ -64,8 +64,7 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
         // Ordenar la lista por puntos en orden descendente
         ranking.sort((u1, u2) -> Integer.compare(u2.getPuntos(), u1.getPuntos()));
 
-
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < Math.min(ranking.size(), 10); i++) {
             String email = ranking.get(i).getEmail().split("@")[0];
             String puntos = String.valueOf(ranking.get(i).getPuntos());
 
