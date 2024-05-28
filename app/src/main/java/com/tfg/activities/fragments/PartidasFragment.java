@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tfg.R;
+import com.tfg.activities.RankingActivity;
 import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.eventos.listeners.AtaqueEventListener;
@@ -21,6 +22,7 @@ import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
+import com.tfg.utilidades.UtilidadActivity;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -77,8 +79,8 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         return view;
     }
     private void actualizarVisibilidadLayouts(){
-        linearLayout.setVisibility(aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_CASTILLO ?  View.VISIBLE: View.GONE);
-        textViewMsj.setVisibility(aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_CASTILLO ? View.GONE : View.VISIBLE);
+        linearLayout.setVisibility(aldea.getCastillo().isDesbloqueado() ?  View.VISIBLE: View.GONE);
+        textViewMsj.setVisibility(aldea.getCastillo().isDesbloqueado() ? View.GONE : View.VISIBLE);
     }
     @Override
     public void onStart() {
@@ -157,8 +159,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
     View.OnClickListener buttonRankingOnClickListener = new View.OnClickListener()  {
         @Override
         public void onClick(View v) {
-            GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
-            gestorRealTimeDatabase.printRanking();
+            UtilidadActivity.lanzarIntent(getActivity(),RankingActivity.class,null);
         }
     };
 
