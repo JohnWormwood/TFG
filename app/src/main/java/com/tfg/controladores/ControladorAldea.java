@@ -61,7 +61,7 @@ public final class ControladorAldea {
                 aldea.getMina().agregarGeneradorRecurso(RecursosEnum.ORO);
                 break;
             case Constantes.Aldea.NIVEL_DESBLOQUEO_MERCADER:
-                // Desbloquear mercader
+                aldea.getMercado().setDesbloqueado(true);
                 break;
             default:
                 break;

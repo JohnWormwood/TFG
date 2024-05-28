@@ -4,10 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.tfg.R;
@@ -19,7 +21,8 @@ import com.tfg.utilidades.Constantes;
 public class MercaderFragment extends Fragment {
 
     private Button buttonComprarTablones, buttonComprarTroncos,buttonComprarComida,buttonComprarHierro,buttonComprarPiedra;
-
+    private LinearLayout layoutMercado;
+    private Aldea aldea = Aldea.getInstance();
 
     public MercaderFragment() {
         // Required empty public constructor
@@ -28,6 +31,7 @@ public class MercaderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -35,7 +39,21 @@ public class MercaderFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mercader, container, false);
 
-        // Botones de compra
+        // Inflate the layout for this fragment
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        inicializarComponentes(getView());
+        actualizarVisibilidadLayouts();
+    }
+
+    private void inicializarComponentes(View view){
+        layoutMercado = view.findViewById(R.id.linearLayoutMercado);
+
+                // Botones de compra
         buttonComprarTablones = view.findViewById(R.id.buttonComprarTablones);
         buttonComprarTroncos = view.findViewById(R.id.buttonComprarTroncos);
         buttonComprarComida = view.findViewById(R.id.buttonComprarComida);
@@ -49,12 +67,12 @@ public class MercaderFragment extends Fragment {
         buttonComprarComida.setOnClickListener(comprarRecursoListener);
         buttonComprarPiedra.setOnClickListener(comprarRecursoListener);
         buttonComprarHierro.setOnClickListener(comprarRecursoListener);
-
-
-        // Inflate the layout for this fragment
-        return view;
     }
 
+    private void actualizarVisibilidadLayouts(){
+        layoutMercado.setVisibility(aldea.getMercado().isDesbloqueado() ? View.GONE : View.VISIBLE);
+        layoutMercado.setVisibility(aldea.getMercado().isDesbloqueado() ? View.VISIBLE : View.GONE);
+    }
     View.OnClickListener comprarRecursoListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
