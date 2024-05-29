@@ -74,6 +74,7 @@ public class MercaderFragment extends Fragment {
         layoutMercado.setVisibility(aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_MERCADER ? View.VISIBLE: View.GONE);
         textViewMsj.setVisibility(aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_MERCADER ? View.GONE : View.VISIBLE);
     }
+
     View.OnClickListener comprarRecursoListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

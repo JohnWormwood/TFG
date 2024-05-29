@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.tfg.R;
 
 public class AldeaFragment extends Fragment {
+    // FRAGMENT VACIO EN EL QUE SE MUESTRA LA ALDEA
+
     public AldeaFragment() {
         // Required empty public constructor
     }

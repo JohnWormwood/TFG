@@ -18,7 +18,6 @@ public class MapeoDTO {
         AldeaDTO aldeaDTO = new AldeaDTO();
         aldeaDTO.setNivel(aldea.getNivel());
         aldeaDTO.setPoblacion(aldea.getPoblacion());
-        aldeaDTO.setDefensas(0);
 
         return aldeaDTO;
     }

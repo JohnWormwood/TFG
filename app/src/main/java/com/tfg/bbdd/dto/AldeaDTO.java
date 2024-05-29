@@ -6,5 +6,4 @@ import lombok.Data;
 public class AldeaDTO {
     private int nivel;
     private int poblacion;
-    private int defensas;
 }

@@ -30,7 +30,7 @@ public class GestorRealTimeDatabase {
     private final static String PATH_ONLINE = "online";
     private final static String PATH_TOKEN_FCM = "token_fcm";
     private final static String PATH_PUNTOS = "puntos";
-    private final static String PATH_ULTIMO_ATAQUE = "ultimo_atauqe";
+    private final static String PATH_ULTIMO_ATAQUE = "ultimo_ataque";
 
     private FirebaseDatabase baseDatos = FirebaseDatabase.getInstance();
     private DatabaseReference usuariosRef = baseDatos.getReference(PATH_USUARIOS);

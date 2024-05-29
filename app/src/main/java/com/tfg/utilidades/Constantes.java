@@ -46,17 +46,13 @@ public final class Constantes {
 
     public static class BaseDatos {
         public static final String COLECCION_USUARIOS = "usuarios";
-        public static final String RANKING = "ranking";
-        public static final String USUARIO = "usuario";
         public static final String ALDEA = "datos_aldea";
         public static final String RECURSOS = "recursos";
-        public static final String EDIFICIO = "edificio";
         public static final String CABANIA_CAZA = "cabania_caza";
         public static final String CASETA_LENIADOR = "caseta_leniador";
         public static final String CARPINTERIA = "carpinteria";
         public static final String GRANJA = "granja";
         public static final String MINA = "mina";
         public static final String CASTILLO = "castillo";
-        public static final String PUNTOS = "puntos";
     }
 }
