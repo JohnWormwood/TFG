@@ -1,8 +1,12 @@
 package com.tfg.activities;
 
+import static com.tfg.utilidades.UtilidadActivity.setEfectoBoton;
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +23,10 @@ public class OpcionesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opciones);
+
+        ImageButton buttonJugar = findViewById(R.id.buttonCerrarSesion);
+        TextView textViewJugar = findViewById(R.id.textView2);
+        setEfectoBoton(buttonJugar, textViewJugar);
 
         soundManager = SoundManager.getInstance(this);
 

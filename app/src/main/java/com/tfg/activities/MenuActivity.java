@@ -1,20 +1,17 @@
 package com.tfg.activities;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
+import static com.tfg.utilidades.UtilidadActivity.setEfectoBoton;
 
-import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.tfg.R;
 import com.tfg.bbdd.dto.UsuarioDTO;
 import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
@@ -77,27 +74,7 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
         comprobarSesion();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    public void setEfectoBoton(ImageButton button, TextView textView) {
-        button.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    v.setScaleX(0.9f);
-                    v.setScaleY(0.9f);
-                    textView.setScaleX(0.9f);
-                    textView.setScaleY(0.9f);
-                    break;
-                case MotionEvent.ACTION_UP:
-                    v.setScaleX(1.0f);
-                    v.setScaleY(1.0f);
-                    textView.setScaleX(1.0f);
-                    textView.setScaleY(1.0f);
-                    v.performClick(); // Llamar a performClick cuando se suelta el botón
-                    break;
-            }
-            return true; // Devolver true para indicar que se ha manejado el evento
-        });
-    }
+
 
     private void configInicial(String email) {
         textViewEmail.setText(email);

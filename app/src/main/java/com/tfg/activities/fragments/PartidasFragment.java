@@ -33,7 +33,7 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
 
     // Componentes de la interfaz
     private SeekBar seekBarCazadores, seekBarSoldados;
-    private TextView textViewCazadores, textViewPartidaCaza, textViewSoldados;
+    private TextView textViewCazadores, textViewPartidaCaza, textViewSoldados, textViewCaza,textViewIncursion, textViewRanking;
     private ImageButton buttonCaza, buttonIncursion, buttonRanking;
     private long ultimoAtaque = 0;
     private LinearLayout linearLayout;
@@ -68,6 +68,15 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         buttonCaza = view.findViewById(R.id.buttonCaza);
         buttonIncursion = view.findViewById(R.id.buttonIncursion);
         buttonRanking = view.findViewById(R.id.buttonRanking);
+
+        textViewCaza = view.findViewById(R.id.textViewCaza);
+        UtilidadActivity.setEfectoBoton(buttonCaza,textViewCaza);
+
+        textViewIncursion = view.findViewById(R.id.textViewIniciarIncursion);
+        UtilidadActivity.setEfectoBoton(buttonIncursion,textViewIncursion);
+
+        textViewRanking = view.findViewById(R.id.textViewRanking);
+        UtilidadActivity.setEfectoBoton(buttonRanking,textViewRanking);
 
         // Listeners
         seekBarCazadores.setOnSeekBarChangeListener(seekBarCazaChangeListener);

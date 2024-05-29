@@ -32,7 +32,6 @@
                     android:layout_height="29dp" />
 
                 <TextView
-                    android:id="@+id/textViewCaza"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -80,7 +79,7 @@
                         tools:ignore="SpeakableTextPresentCheck" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/textViewCaza"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -179,6 +178,7 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
+                            android:id="@+id/textViewIniciarIncursion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -203,6 +203,7 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
+                            android:id="@+id/textViewRanking"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
