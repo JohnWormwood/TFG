@@ -26,4 +26,10 @@ public class Mina extends Edificio {
         setGeneradoresRecursosSegunNivelAldea();
         super.ajustarSegunDatosCargados();
     }
+
+    @Override
+    public void reiniciarDatos() {
+        super.reiniciarDatos();
+        setGeneradoresRecursosSegunNivelAldea();
+    }
 }

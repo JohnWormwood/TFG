@@ -43,7 +43,6 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
     @Override
     public void reiniciarDatos() {
         super.reiniciarDatos();
-        generadoresRecursos = new ArrayList<>();
         setMaximoRecursosSegunNivel();
         setMaximoAldeanosSegunNivel();
     }
@@ -89,6 +88,7 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
         ListaHilos.add(thread);
         Map<RecursosEnum, Integer> recursosIniciales = new HashMap<>(recursos);
         try {
+            System.out.println("Iniciado: "+getClass().getSimpleName());
             while (JuegoActivity.enEjecucion) {
                 recursosIniciales = new HashMap<>(recursos);
                 // Genera recursos, espera x tiempo y despues los pasa a la aldea

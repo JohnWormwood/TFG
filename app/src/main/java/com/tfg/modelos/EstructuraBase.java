@@ -45,6 +45,8 @@ public abstract class EstructuraBase {
     public void reiniciarDatos() {
         // Nivel
         nivel = Constantes.NIVEL_INICIAL;
+
+        // Aldeanos
         setMaximoAldeanosSegunNivel();
 
         // Precios mejoras
