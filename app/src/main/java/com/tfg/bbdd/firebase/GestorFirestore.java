@@ -1,7 +1,10 @@
 package com.tfg.bbdd.firebase;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.tfg.R;
 import com.tfg.bbdd.dto.UsuarioDTO;
 import com.tfg.bbdd.mapper.MapeoDTO;
 import com.tfg.controladores.ControladorRecursos;
@@ -14,6 +17,7 @@ import com.tfg.bbdd.dto.RecursosDTO;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
+import com.tfg.utilidades.PopupManager;
 import com.tfg.utilidades.Utilidades;
 
 import java.util.HashMap;
@@ -60,6 +64,9 @@ public class GestorFirestore {
                         mapeoDTO.cargarDatosEnEdificio(aldea.getMina(), minaDTO);
                         // Castillo
                         mapeoDTO.cargarDatosEnEdificio(aldea.getCastillo(), castilloDTO);
+                    } else {
+                        PopupManager popupManager = new PopupManager((AppCompatActivity) callback);
+                        popupManager.showPopup(((AppCompatActivity) callback).getString(R.string.bienvenida));
                     }
                     aldea.ajustarSegunDatosCargados();
                     gestorRealTimeDatabase.actualizarEstadoConexion(true);
