@@ -34,10 +34,15 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ranking);
 
-        Objects.requireNonNull(getSupportActionBar()).hide(); //Oculta la ActionBar-Head
-        //Pantalla completa & Modo inmersivo
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-
+        // Configura la pantalla completa y el modo inmersivo
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );
 
         textViewUsuario = findViewById(R.id.textViewUsuario);
         textViewUsuarios = findViewById(R.id.textViewUsuarios);

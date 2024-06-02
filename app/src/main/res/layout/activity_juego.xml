@@ -31,7 +31,7 @@
         android:cropToPadding="false"
         android:elevation="4dp"
         android:scaleType="fitXY"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:srcCompat="@drawable/blurrview" />
 
     <ImageButton
