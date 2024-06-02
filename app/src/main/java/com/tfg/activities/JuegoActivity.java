@@ -3,6 +3,7 @@ package com.tfg.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,9 +32,11 @@ import com.tfg.json.MejorasEdificiosJSON;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.SoundManager;
+import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback, PartidaCazaEventListener, ActualizarInterfazEventListener {
     ActivityJuegoBinding binding;
@@ -63,12 +66,27 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         binding = ActivityJuegoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Configura la pantalla completa y el modo inmersivo
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );
         // Cargar el fragment segun el item del menu
         itemSelectedListener.onNavigationItemSelected(binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
         binding.menuInferior.setItemIconTintList(null); // Esto es para que los iconos se vean bien
 
         //Cargar pantalla de carga
         cargarGifConTemporizador(R.id.imageViewload, R.drawable.load);
+
+        //boton Salir
+        ImageButton imageButtonSalir = findViewById(R.id.imageButtonSalir);
+        imageButtonSalir.setOnClickListener(view -> onBackPressed());
+        UtilidadActivity.setEfectoBoton(imageButtonSalir);
+
 
         soundManager = SoundManager.getInstance(this);
         configInicial();

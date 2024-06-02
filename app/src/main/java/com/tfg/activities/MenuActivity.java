@@ -22,6 +22,8 @@ import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
+import java.util.Objects;
+
 public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCallback {
 
     private TextView textViewEmail;
@@ -33,6 +35,16 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        // Configura la pantalla completa y el modo inmersivo
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );
 
         soundManager = SoundManager.getInstance(this);
 

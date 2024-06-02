@@ -1,6 +1,8 @@
 package com.tfg.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import com.tfg.R;
 import com.tfg.bbdd.dto.UsuarioDTO;
 import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.eventos.callbacks.ObtenerRankingCallback;
+import com.tfg.utilidades.UtilidadActivity;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,8 +34,19 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ranking);
 
+        Objects.requireNonNull(getSupportActionBar()).hide(); //Oculta la ActionBar-Head
+        //Pantalla completa & Modo inmersivo
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+
         textViewUsuario = findViewById(R.id.textViewUsuario);
         textViewUsuarios = findViewById(R.id.textViewUsuarios);
+
+        //boton Salir
+        ImageButton imageButtonSalir = findViewById(R.id.imageButtonSalir);
+        imageButtonSalir.setOnClickListener(view -> onBackPressed());
+        UtilidadActivity.setEfectoBoton(imageButtonSalir);
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

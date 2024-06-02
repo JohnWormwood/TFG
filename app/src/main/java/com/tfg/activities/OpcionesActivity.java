@@ -17,6 +17,8 @@ import com.tfg.bbdd.firebase.auth.GestorSesion;
 import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
 
+import java.util.Objects;
+
 public class OpcionesActivity extends AppCompatActivity {
     private SeekBar seekBarAmbiente, seekBarMusica;
     private SoundManager soundManager;
@@ -24,6 +26,16 @@ public class OpcionesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opciones);
+
+        // Configura la pantalla completa y el modo inmersivo
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );
 
         ImageButton buttonJugar = findViewById(R.id.buttonCerrarSesion);
         TextView textViewJugar = findViewById(R.id.textView2);
@@ -34,7 +46,10 @@ public class OpcionesActivity extends AppCompatActivity {
         seekBarAmbiente = findViewById(R.id.seekBarEfectos);
         seekBarMusica = findViewById(R.id.seekBarMusica);
 
-
+        //boton Salir
+        ImageButton imageButtonSalir = findViewById(R.id.imageButtonSalir);
+        imageButtonSalir.setOnClickListener(view -> onBackPressed());
+        UtilidadActivity.setEfectoBoton(imageButtonSalir);
 
         seekBarAmbiente.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
