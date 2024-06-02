@@ -67,18 +67,16 @@ public class AuthActivity extends AppCompatActivity {
             String email = GestorSesion.cargarSesionLocal();
 
             if (email != null) {
-                // User is authenticated, navigate to MenuActivity
                 authLayout.setVisibility(View.INVISIBLE);
                 Bundle extras = new Bundle();
                 extras.putString("email", email);
                 UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
-                finish(); // Finish AuthActivity so the user cannot navigate back to it
-                return true; // Return true indicating the session is valid and navigation occurred
+                return true;
             }
         } else {
             Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
         }
-        return false; // Return false indicating the session is not valid or internet is not available
+        return false;
     }
 
     private void solicitarTokenFcm() {

@@ -19,8 +19,8 @@ public class LanzadorEventos <T extends EventListener> {
         listeners.remove(listener);
     }
 
-    // Con el Consumer<T> permitira pasarle como argumento cualquier funcion que
-    // pertenezca al listener de tipo T, pero no de otros listeners
+    // Consumer<T> permite pasar cualquier funcion que
+    // del listener de tipo T, pero no de otros listeners
     public void lanzarEvento(Consumer<T> action) {
         listeners.forEach(action);
     }

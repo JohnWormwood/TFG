@@ -101,14 +101,17 @@ public class MercaderFragment extends Fragment {
                 return;
             }
 
-            // Realiza la compra del recurso
-            if (ControladorRecursos.consumirRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.ORO, precio)) {
-                ControladorRecursos.agregarRecursoSinExcederMax(Aldea.getInstance().getRecursos(), recurso, Constantes.Mercader.CANTIDAD);
-            } else {
-                if (getActivity() != null) {
-                    Toast.makeText(getActivity(), getString(R.string.msj_oro_insuficiente), Toast.LENGTH_SHORT).show();
+            // Realiza la compra del recurso si tiene menos del maximo
+            if (ControladorRecursos.getCantidadRecurso(aldea.getRecursos(), recurso) < recurso.getMax()) {
+                if (ControladorRecursos.consumirRecurso(aldea.getRecursos(), RecursosEnum.ORO, precio)) {
+                    ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), recurso, Constantes.Mercader.CANTIDAD);
+                } else {
+                    if (getActivity() != null) {
+                        Toast.makeText(getActivity(), getString(R.string.msj_oro_insuficiente), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
+
         }
     };
 }

@@ -74,8 +74,6 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
         comprobarSesion();
     }
 
-
-
     private void configInicial(String email) {
         textViewEmail.setText(email);
     }
