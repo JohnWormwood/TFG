@@ -36,8 +36,7 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
 
         soundManager = SoundManager.getInstance(this);
 
-        soundManager.playSound1(R.raw.musica_mediaval);
-
+        soundManager.playMusica(R.raw.musica_mediaval);
 
         ImageButton buttonJugar = findViewById(R.id.buttonJugar);
         TextView textViewJugar = findViewById(R.id.textViewJugar);

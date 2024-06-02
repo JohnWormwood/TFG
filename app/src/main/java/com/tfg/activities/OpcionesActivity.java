@@ -2,6 +2,7 @@ package com.tfg.activities;
 
 import static com.tfg.utilidades.UtilidadActivity.setEfectoBoton;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -33,11 +34,17 @@ public class OpcionesActivity extends AppCompatActivity {
         seekBarAmbiente = findViewById(R.id.seekBarEfectos);
         seekBarMusica = findViewById(R.id.seekBarMusica);
 
+
+
         seekBarAmbiente.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 float volume = progress / 100.0f;
-                soundManager.getMediaPlayerEfectos().setVolume(volume,volume);
+                soundManager.getMediaPlayerEfectos().setVolume(volume, volume);
+                soundManager.setVolEfectos(volume);
+                getSharedPreferences(getString(R.string.fichero_preferences), Context.MODE_PRIVATE)
+                        .edit().putFloat(getString(R.string.key_vol_efectos), volume)
+                        .apply();
             }
 
             @Override
@@ -55,7 +62,11 @@ public class OpcionesActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 float volume = progress / 100.0f;
-                soundManager.getMediaPlayerMusica().setVolume(volume,volume);
+                soundManager.getMediaPlayerMusica().setVolume(volume, volume);
+                soundManager.setVolMusica(volume);
+                getSharedPreferences(getString(R.string.fichero_preferences), Context.MODE_PRIVATE)
+                        .edit().putFloat(getString(R.string.key_vol_musica), volume)
+                        .apply();
             }
 
             @Override
@@ -70,10 +81,18 @@ public class OpcionesActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        seekBarAmbiente.setProgress((int) (soundManager.getVolEfectos()*100));
+        seekBarMusica.setProgress((int) (soundManager.getVolMusica()*100));
+    }
+
     public void buttonCerrarSesionOnClick(View view) {
         GestorSesion.cerrarSesion();
         finish();
     }
+
     @Override
     protected void onPause() {
         super.onPause();

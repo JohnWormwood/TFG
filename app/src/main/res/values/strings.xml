@@ -3,10 +3,11 @@
 
     <!-- Shared Preferences -->
     <string name="fichero_preferences">FICHERO_PREFERENCES</string>
+    <string name="key_vol_musica">VOL_MUSICA</string>
+    <string name="key_vol_efectos">VOL_EFECTOS</string>
 
     <!-- Notificaciones -->
     <string name="id_canal_notificaciones">NOTIFICACION_FCM</string>
-    <string name="key_api_fcm">qyq_Ycd3ni-SFelREcwkiuE2rkuaggyLxZtlP6LI6xw</string>
 
     <!-- General -->
     <string name="jugar">Jugar</string>

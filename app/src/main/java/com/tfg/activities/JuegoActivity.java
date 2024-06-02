@@ -14,33 +14,25 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.database.DatabaseError;
 import com.tfg.R;
 import com.tfg.activities.fragments.AldeaFragment;
 import com.tfg.activities.fragments.MercaderFragment;
 import com.tfg.activities.fragments.PartidasFragment;
 import com.tfg.activities.fragments.SenadoFragment;
-import com.tfg.bbdd.dto.UsuarioDTO;
-import com.tfg.bbdd.firebase.service.NotificacionesService;
 import com.tfg.bbdd.sqlite.GestorSqlite;
 import com.tfg.controladores.ControladorAldea;
-import com.tfg.controladores.ControladorRecursos;
 import com.tfg.databinding.ActivityJuegoBinding;
-import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
 import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.bbdd.firebase.GestorFirestore;
-import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.json.GestorJSON;
 import com.tfg.json.MejorasEdificiosJSON;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
-import com.tfg.utilidades.PopupManager;
 import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadRed;
 
-import java.io.File;
 import java.io.IOException;
 
 public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback, PartidaCazaEventListener, ActualizarInterfazEventListener {
@@ -120,6 +112,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         }
 
         aldea.getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos().removeEventListener(this);
+        soundManager.getMediaPlayerEfectos().pause();
     }
 
     @Override
@@ -160,8 +153,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         enEjecucion = true;
         actualizarVisibilidadImageViews();
         ejecutarHiloJuego();
-        soundManager.playSound2(R.raw.sonidos_ambiente);
-
+        soundManager.playEfectos(R.raw.sonidos_ambiente);
     }
 
     @Override

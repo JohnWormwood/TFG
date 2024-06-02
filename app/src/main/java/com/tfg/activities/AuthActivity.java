@@ -9,20 +9,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.tfg.R;
-import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.bbdd.firebase.auth.GestorSesion;
 import com.tfg.bbdd.firebase.service.NotificacionesService;
-import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
