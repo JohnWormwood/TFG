@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.api.SystemParameterOrBuilder;
@@ -27,16 +28,6 @@ public class OpcionesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opciones);
 
-        // Configura la pantalla completa y el modo inmersivo
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );
-
         ImageButton buttonJugar = findViewById(R.id.buttonCerrarSesion);
         TextView textViewJugar = findViewById(R.id.textView2);
         setEfectoBoton(buttonJugar, textViewJugar);
@@ -46,9 +37,9 @@ public class OpcionesActivity extends AppCompatActivity {
         seekBarAmbiente = findViewById(R.id.seekBarEfectos);
         seekBarMusica = findViewById(R.id.seekBarMusica);
 
-        //boton Salir
+        // Boton Salir
         ImageButton imageButtonSalir = findViewById(R.id.imageButtonSalir);
-        imageButtonSalir.setOnClickListener(view -> onBackPressed());
+        imageButtonSalir.setOnClickListener(view -> finish());
         UtilidadActivity.setEfectoBoton(imageButtonSalir);
 
         seekBarAmbiente.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

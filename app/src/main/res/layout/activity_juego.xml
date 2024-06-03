@@ -34,20 +34,6 @@
         android:visibility="visible"
         app:srcCompat="@drawable/blurrview" />
 
-    <ImageButton
-        android:id="@+id/imageButtonSalir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.18"
-        app:srcCompat="@drawable/boton_salir" />
-
     <LinearLayout
         android:id="@+id/menuSuperior"
         android:layout_width="wrap_content"

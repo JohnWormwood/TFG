@@ -17,5 +17,9 @@
         android:id="@+id/partidas"
         android:icon="@drawable/boton_partidas"
         android:title="" />
+    <item
+        android:id="@+id/salir"
+        android:icon="@drawable/boton_salir"
+        android:title="" />
 
 </menu>

@@ -1,19 +1,25 @@
 package com.tfg.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.tfg.R;
 import com.tfg.activities.fragments.AldeaFragment;
@@ -66,27 +72,12 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         binding = ActivityJuegoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Configura la pantalla completa y el modo inmersivo
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );
         // Cargar el fragment segun el item del menu
         itemSelectedListener.onNavigationItemSelected(binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
         binding.menuInferior.setItemIconTintList(null); // Esto es para que los iconos se vean bien
 
         //Cargar pantalla de carga
         cargarGifConTemporizador(R.id.imageViewload, R.drawable.load);
-
-        //boton Salir
-        ImageButton imageButtonSalir = findViewById(R.id.imageButtonSalir);
-        imageButtonSalir.setOnClickListener(view -> onBackPressed());
-        UtilidadActivity.setEfectoBoton(imageButtonSalir);
-
 
         soundManager = SoundManager.getInstance(this);
         configInicial();
@@ -250,8 +241,9 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
             cambiarFragment(new SenadoFragment());
         } else if (menuItem.getItemId() == R.id.partidas) {
             cambiarFragment(new PartidasFragment());
+        } else if (menuItem.getItemId() == R.id.salir) {
+            finish();
         }
-
         return true;
     };
 

@@ -31,7 +31,6 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ranking);
 
         // Configura la pantalla completa y el modo inmersivo
@@ -49,15 +48,8 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
 
         //boton Salir
         ImageButton imageButtonSalir = findViewById(R.id.imageButtonSalir);
-        imageButtonSalir.setOnClickListener(view -> onBackPressed());
+        imageButtonSalir.setOnClickListener(view -> finish());
         UtilidadActivity.setEfectoBoton(imageButtonSalir);
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
     }
 
     @Override
@@ -65,7 +57,6 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
         super.onStart();
         GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
         gestorRealTimeDatabase.getRanking(this);
-
     }
 
     @Override
