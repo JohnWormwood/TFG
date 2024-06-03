@@ -21,6 +21,7 @@ import com.tfg.utilidades.PopupManager;
 import com.tfg.utilidades.Utilidades;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class GestorFirestore {
     private Aldea aldea = Aldea.getInstance();
@@ -86,56 +87,21 @@ public class GestorFirestore {
                         System.out.println("Defensas de "+victima.getEmail()+": "+defensas);
                         System.out.println("Soldados enviados: "+soldadosEnviados);
                         boolean victoria;
-                        if (defensas > soldadosEnviados) {
-                            victoria = false;
-                        } else if (defensas < soldadosEnviados) {
-                            victoria = true;
-                        } else {
-                            // En caso de que haya los mismos defensores que atacantes
-                            // se decide aleatoriamente con un 50% para cada jugador
+                        if (defensas > soldadosEnviados) victoria = false;
+                        else if (defensas < soldadosEnviados) victoria = true;
+                        else {
+                            // Si hay empate se decice aleatoriamente
                             int random = Utilidades.generarIntRandom(0, 1);
                             victoria = random != 0;
                         }
 
                         if (victoria) {
-                            final int CANTIDAD_RECURSO = 10;
                             // Calcular cuantos recursos se roban
-                            int troncos = Math.min(recursosDTO.getTroncos(), CANTIDAD_RECURSO);
-                            int tablones = Math.min(recursosDTO.getTablones(), CANTIDAD_RECURSO);
-                            int comida = Math.min(recursosDTO.getComida(), CANTIDAD_RECURSO);
-                            int piedra = Math.min(recursosDTO.getPiedra(), CANTIDAD_RECURSO);
-                            int hierro = Math.min(recursosDTO.getHierro(), CANTIDAD_RECURSO);
-                            int oro = Math.min(recursosDTO.getOro(), CANTIDAD_RECURSO);
-
+                            Map<RecursosEnum, Integer> recursosRobables = getRecurosRobables(recursosDTO);
                             // Quitar recursos a la victima
-                            recursosDTO.setTroncos(recursosDTO.getTroncos()-troncos);
-                            recursosDTO.setTablones(recursosDTO.getTablones()-tablones);
-                            recursosDTO.setComida(recursosDTO.getComida()-comida);
-                            recursosDTO.setPiedra(recursosDTO.getPiedra()-piedra);
-                            recursosDTO.setHierro(recursosDTO.getHierro()-hierro);
-                            recursosDTO.setOro(recursosDTO.getOro()-oro);
-
-                            castilloDTO.setAldeanosAsignados(0);
-
-                            HashMap<String, Object> datos = new HashMap<>();
-                            datos.put(Constantes.BaseDatos.CASTILLO, castilloDTO);
-                            datos.put(Constantes.BaseDatos.RECURSOS, recursosDTO);
-
-                            FirestoreCRUD.actualizar(Constantes.BaseDatos.COLECCION_USUARIOS, victima.getEmail(), datos);
-
+                            quitarRecursosVictima(recursosRobables, recursosDTO, castilloDTO, victima);
                             // Darle los recursos al atacante
-                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, troncos);
-                            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.COMIDA, comida);
-
-                            if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_TABLONES)
-                                ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.TABLONES_MADERA, tablones);
-                            if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_PIEDRA)
-                                ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.PIEDRA, piedra);
-                            if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_HIERRO)
-                                ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.HIERRO, hierro);
-                            if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_ORO)
-                                ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.ORO, oro);
-
+                            darRecursosAtacante(recursosRobables);
                             // Aumentar puntos al ganar
                             gestorRealTimeDatabase.modificarPuntuacionUsuarioActual(Constantes.Castillo.PUNTOS_VICTORIA);
                         } else {
@@ -146,15 +112,53 @@ public class GestorFirestore {
                         gestorRealTimeDatabase.guardarUltimoAtaque(System.currentTimeMillis());
 
                         callback.onAtaqueTerminado(victima, victoria);
-                    } else {
-                        callback.onError(
-                                new FirebaseFirestoreException(
+                    } else callback.onError(new FirebaseFirestoreException(
                                         "Error al obtener los datos necesarios para el ataque",
-                                        FirebaseFirestoreException.Code.NOT_FOUND
-                                )
-                        );
-                    }
+                                        FirebaseFirestoreException.Code.NOT_FOUND));
                 }).addOnFailureListener(callback::onError);
+    }
+
+    private Map<RecursosEnum, Integer> getRecurosRobables(RecursosDTO recursosDTO) {
+        Map<RecursosEnum, Integer> recursosRobables = new HashMap<>();
+        recursosRobables.put(RecursosEnum.TRONCOS_MADERA, Math.min(recursosDTO.getTroncos(), Constantes.Castillo.CANTIDAD_RECURSOS_ROBADOS));
+        recursosRobables.put(RecursosEnum.TABLONES_MADERA, Math.min(recursosDTO.getTablones(), Constantes.Castillo.CANTIDAD_RECURSOS_ROBADOS));
+        recursosRobables.put(RecursosEnum.COMIDA, Math.min(recursosDTO.getComida(), Constantes.Castillo.CANTIDAD_RECURSOS_ROBADOS));
+        recursosRobables.put(RecursosEnum.PIEDRA, Math.min(recursosDTO.getPiedra(), Constantes.Castillo.CANTIDAD_RECURSOS_ROBADOS));
+        recursosRobables.put(RecursosEnum.HIERRO, Math.min(recursosDTO.getHierro(), Constantes.Castillo.CANTIDAD_RECURSOS_ROBADOS));
+        recursosRobables.put(RecursosEnum.ORO, Math.min(recursosDTO.getOro(), Constantes.Castillo.CANTIDAD_RECURSOS_ROBADOS));
+
+        return recursosRobables;
+    }
+
+    private void quitarRecursosVictima(Map<RecursosEnum, Integer> recursosRobados, RecursosDTO recursosDTO, EdificioDTO castilloDTO, UsuarioDTO victima) {
+        recursosDTO.setTroncos(recursosDTO.getTroncos()-ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.TRONCOS_MADERA));
+        recursosDTO.setTablones(recursosDTO.getTablones()-ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.TABLONES_MADERA));
+        recursosDTO.setComida(recursosDTO.getComida()-ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.COMIDA));
+        recursosDTO.setPiedra(recursosDTO.getPiedra()-ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.PIEDRA));
+        recursosDTO.setHierro(recursosDTO.getHierro()-ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.HIERRO));
+        recursosDTO.setOro(recursosDTO.getOro()-ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.ORO));
+
+        castilloDTO.setAldeanosAsignados(0);
+
+        HashMap<String, Object> datos = new HashMap<>();
+        datos.put(Constantes.BaseDatos.CASTILLO, castilloDTO);
+        datos.put(Constantes.BaseDatos.RECURSOS, recursosDTO);
+
+        FirestoreCRUD.actualizar(Constantes.BaseDatos.COLECCION_USUARIOS, victima.getEmail(), datos);
+    }
+
+    private void darRecursosAtacante(Map<RecursosEnum, Integer> recursosRobados) {
+        ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.TRONCOS_MADERA, ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.TRONCOS_MADERA));
+        ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.COMIDA, ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.COMIDA));
+
+        if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_TABLONES)
+            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.TABLONES_MADERA, ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.TABLONES_MADERA));
+        if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_PIEDRA)
+            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.PIEDRA, ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.PIEDRA));
+        if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_HIERRO)
+            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.HIERRO, ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.HIERRO));
+        if (aldea.getNivel() >= Constantes.Aldea.NIVEL_DESBLOQUEO_ORO)
+            ControladorRecursos.agregarRecursoSinExcederMax(aldea.getRecursos(), RecursosEnum.ORO, ControladorRecursos.getCantidadRecurso(recursosRobados, RecursosEnum.ORO));
     }
 
     private HashMap<String, Object> mapearDatosAldea() {
