@@ -8,20 +8,6 @@
     tools:context=".activities.OpcionesActivity"
     android:background="@drawable/fondo_juego" >
 
-    <ImageButton
-        android:id="@+id/imageButtonSalir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65999997"
-        app:srcCompat="@drawable/boton_salir" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,13 +75,14 @@
         app:layout_constraintVertical_bias="0.446" />
 
     <FrameLayout
+        android:id="@+id/layout_cerrar_sesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarMusica">
+        app:layout_constraintTop_toBottomOf="@+id/seekBarMusica"
+        app:layout_constraintVertical_bias="0.649">
 
         <ImageButton
             android:id="@+id/buttonCerrarSesion"
@@ -107,12 +94,42 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textViewCerrarSesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingBottom="10dp"
             android:text="@string/cerrar_sesion"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:flow_verticalBias="1.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_cerrar_sesion"
+        app:layout_constraintVertical_bias="0.1">
+
+        <ImageButton
+            android:id="@+id/imageButtonSalirOpciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/selector_boton"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/textViewSalir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
+            android:text="@string/salir"
             android:textColor="#000000"
             android:textSize="20sp" />
 
