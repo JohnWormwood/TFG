@@ -2,8 +2,8 @@
 <!-- res/values/styles.xml -->
 <resources>
     <style name="Theme.MyApp.MySplash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#B9B9B9</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ico_aldeano</item>
+        <item name="windowSplashScreenBackground">#D4A270</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ico_juego</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.TFG</item>
     </style>
 
