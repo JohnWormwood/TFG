@@ -9,16 +9,12 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.api.SystemParameterOrBuilder;
 import com.tfg.R;
 import com.tfg.bbdd.firebase.auth.GestorSesion;
 import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
-
-import java.util.Objects;
 
 public class OpcionesActivity extends AppCompatActivity {
     private SeekBar seekBarAmbiente, seekBarMusica;
@@ -29,8 +25,8 @@ public class OpcionesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opciones);
 
         ImageButton buttonJugar = findViewById(R.id.buttonCerrarSesion);
-        TextView textViewJugar = findViewById(R.id.textView2);
-        setEfectoBoton(buttonJugar, textViewJugar);
+        TextView textViewCerrarSesion = findViewById(R.id.textViewCerrarSesion);
+        setEfectoBoton(buttonJugar, textViewCerrarSesion);
 
         soundManager = SoundManager.getInstance(this);
 
@@ -38,9 +34,10 @@ public class OpcionesActivity extends AppCompatActivity {
         seekBarMusica = findViewById(R.id.seekBarMusica);
 
         // Boton Salir
-        ImageButton imageButtonSalir = findViewById(R.id.imageButtonSalir);
+        ImageButton imageButtonSalir = findViewById(R.id.imageButtonSalirOpciones);
         imageButtonSalir.setOnClickListener(view -> finish());
-        UtilidadActivity.setEfectoBoton(imageButtonSalir);
+        TextView textViewSalir = findViewById(R.id.textViewSalir);
+        UtilidadActivity.setEfectoBoton(imageButtonSalir, textViewSalir);
 
         seekBarAmbiente.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -99,6 +96,7 @@ public class OpcionesActivity extends AppCompatActivity {
         finish();
     }
 
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -114,5 +112,4 @@ public class OpcionesActivity extends AppCompatActivity {
         soundManager.getMediaPlayerMusica().start();
         soundManager.getMediaPlayerEfectos().start();
     }
-
 }
