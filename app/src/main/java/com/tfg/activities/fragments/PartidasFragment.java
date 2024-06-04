@@ -27,8 +27,6 @@ import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.UtilidadActivity;
 
-import org.checkerframework.checker.units.qual.A;
-
 public class PartidasFragment extends Fragment implements PartidaCazaEventListener, AtaqueEventListener, ObtenerUsuarioCallback {
 
     // Componentes de la interfaz
@@ -72,10 +70,10 @@ public class PartidasFragment extends Fragment implements PartidaCazaEventListen
         textViewCaza = view.findViewById(R.id.textViewCaza);
         UtilidadActivity.setEfectoBoton(buttonCaza,textViewCaza);
 
-        textViewIncursion = view.findViewById(R.id.textViewIniciarIncursion);
+        textViewIncursion = view.findViewById(R.id.textViewRegistrarse);
         UtilidadActivity.setEfectoBoton(buttonIncursion,textViewIncursion);
 
-        textViewRanking = view.findViewById(R.id.textViewRanking);
+        textViewRanking = view.findViewById(R.id.textViewLogin);
         UtilidadActivity.setEfectoBoton(buttonRanking,textViewRanking);
 
         // Listeners

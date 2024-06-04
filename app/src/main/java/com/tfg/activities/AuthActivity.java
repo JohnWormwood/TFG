@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -27,7 +29,8 @@ import java.util.Objects;
 public class AuthActivity extends AppCompatActivity {
 
     // Componentes interfaz
-    private Button buttonRegistro, buttonLogin;
+    private ImageButton buttonRegistro, buttonLogin;
+    private TextView textViewRegistro, textViewLogin;
     private EditText editTextEmail, editTextPassword;
     private LinearLayout authLayout;
 
@@ -92,9 +95,13 @@ public class AuthActivity extends AppCompatActivity {
         // Inicializar componentes de la interfaz
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
-        buttonRegistro = findViewById(R.id.buttonRegistro);
-        buttonLogin = findViewById(R.id.buttonLogin);
+        buttonRegistro = findViewById(R.id.imageButtonRegistrarse);
+        buttonLogin = findViewById(R.id.imageButtonIniciarSesion);
+        textViewRegistro = findViewById(R.id.textViewRegistrarse);
+        textViewLogin = findViewById(R.id.textViewLogin);
 
+        UtilidadActivity.setEfectoBoton(buttonRegistro, textViewRegistro);
+        UtilidadActivity.setEfectoBoton(buttonLogin, textViewLogin);
 
         // Cargar los listeners
         buttonRegistro.setOnClickListener(buttonRegistroOnClick);

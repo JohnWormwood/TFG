@@ -178,7 +178,7 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
-                            android:id="@+id/textViewIniciarIncursion"
+                            android:id="@+id/textViewRegistrarse"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -203,7 +203,7 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
-                            android:id="@+id/textViewRanking"
+                            android:id="@+id/textViewLogin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
