@@ -63,8 +63,7 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                GestorSesion.cerrarSesion();
-                finish();
+                finishAffinity();
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
