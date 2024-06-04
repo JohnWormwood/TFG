@@ -29,8 +29,8 @@ import java.util.Objects;
 public class AuthActivity extends AppCompatActivity {
 
     // Componentes interfaz
-    private ImageButton buttonRegistro, buttonLogin;
-    private TextView textViewRegistro, textViewLogin;
+    private ImageButton buttonRegistro, buttonLogin, buttonSalir;
+    private TextView textViewRegistro, textViewLogin, textViewSalir;
     private EditText editTextEmail, editTextPassword;
     private LinearLayout authLayout;
 
@@ -97,15 +97,19 @@ public class AuthActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonRegistro = findViewById(R.id.imageButtonRegistrarse);
         buttonLogin = findViewById(R.id.imageButtonIniciarSesion);
+        buttonSalir = findViewById(R.id.buttonSalirAuth);
         textViewRegistro = findViewById(R.id.textViewRegistrarse);
         textViewLogin = findViewById(R.id.textViewLogin);
+        textViewSalir = findViewById(R.id.textViewSalir);
 
         UtilidadActivity.setEfectoBoton(buttonRegistro, textViewRegistro);
         UtilidadActivity.setEfectoBoton(buttonLogin, textViewLogin);
+        UtilidadActivity.setEfectoBoton(buttonSalir, textViewSalir);
 
         // Cargar los listeners
         buttonRegistro.setOnClickListener(buttonRegistroOnClick);
         buttonLogin.setOnClickListener(buttonLoginOnClick);
+        buttonSalir.setOnClickListener(v -> finishAffinity());
     }
 
     private void mostrarAlerta() {
