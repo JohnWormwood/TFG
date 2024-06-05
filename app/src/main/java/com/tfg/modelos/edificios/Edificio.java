@@ -96,8 +96,7 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
                     generadorRecursos.producirRecursos(recursos, generadorRecursos.getRecurso(), aldeanosAsignados);
                 }
                 Thread.sleep(SEGUNDOS_ENTRE_RECURSOS * 1000);
-                generadoresRecursos.forEach(g -> transferirRecursoAldea(g.getRecurso()));
-                //System.out.println("Tablones aldea = "+aldea.getRecursos().get(RecursosEnum.TABLONES_MADERA));
+                finalizarGeneracionRecursos();
             }
         } catch (InterruptedException e) {
             // En caso de interrupcion se vuelve al estado anterior, para evitar que se dupliquen recursos
@@ -105,6 +104,10 @@ public abstract class Edificio extends EstructuraBase implements Runnable {
             recursos = recursosIniciales;
             ListaHilos.remove(thread);
         }
+    }
+
+    protected void finalizarGeneracionRecursos() {
+        generadoresRecursos.forEach(g -> transferirRecursoAldea(g.getRecurso()));
     }
 
     public void reiniciarProduccion() {
