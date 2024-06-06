@@ -47,23 +47,23 @@
         "comida": 0,
         "piedra": 29,
         "hierro": 13,
-        "oro": 5
+        "oro": 0
       },
       "nivel_7": {
         "troncos": 56,
         "tablones": 38,
         "comida": 0,
         "piedra": 42,
-        "hierro": 16,
-        "oro": 10
+        "hierro": 24,
+        "oro": 19
       },
       "nivel_8": {
         "troncos": 54,
         "tablones": 61,
         "comida": 0,
         "piedra": 50,
-        "hierro": 20,
-        "oro": 15
+        "hierro": 32,
+        "oro": 36
       },
       "nivel_9": {
         "troncos": 56,
@@ -190,7 +190,7 @@
         "oro": 0
       },
       "nivel_6": {
-        "troncos": 64,
+        "troncos": 54,
         "tablones": 31,
         "comida": 0,
         "piedra": 27,
@@ -198,7 +198,7 @@
         "oro": 0
       },
       "nivel_7": {
-        "troncos": 86,
+        "troncos": 62,
         "tablones": 36,
         "comida": 0,
         "piedra": 40,
@@ -206,7 +206,7 @@
         "oro": 4
       },
       "nivel_8": {
-        "troncos": 89,
+        "troncos": 77,
         "tablones": 59,
         "comida": 0,
         "piedra": 48,
@@ -214,7 +214,7 @@
         "oro": 5
       },
       "nivel_9": {
-        "troncos": 93,
+        "troncos": 89,
         "tablones": 65,
         "comida": 0,
         "piedra": 53,
@@ -272,28 +272,28 @@
         "oro": 10
       },
       "nivel_7": {
-        "troncos": 87,
-        "tablones": 37,
+        "troncos": 70,
+        "tablones": 40,
         "comida": 0,
         "piedra": 41,
         "hierro": 15,
         "oro": 15
       },
       "nivel_8": {
-        "troncos": 90,
+        "troncos": 76,
         "tablones": 60,
         "comida": 0,
         "piedra": 49,
-        "hierro": 20,
-        "oro": 20
+        "hierro": 35,
+        "oro": 22
       },
       "nivel_9": {
-        "troncos": 94,
+        "troncos": 84,
         "tablones": 66,
         "comida": 0,
         "piedra": 54,
-        "hierro": 25,
-        "oro": 25
+        "hierro": 40,
+        "oro": 33
       }
     },
     "granja": {
