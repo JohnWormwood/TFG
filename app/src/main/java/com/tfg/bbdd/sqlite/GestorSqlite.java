@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-import com.tfg.bbdd.entidades.Edificio;
+import com.tfg.bbdd.entidades.EdificioEntidad;
 import com.tfg.bbdd.entidades.Usuario;
 import com.tfg.bbdd.mapper.MapeoEntidades;
 import com.tfg.modelos.Aldea;
@@ -37,23 +37,23 @@ public class GestorSqlite {
         baseDatosSqlite.cabaniaCazaDao().insertar(mapeoEntidades.mapearCabaniaCaza(aldea.getCabaniaCaza(), usuario));
         baseDatosSqlite.edificioDao().insertar(mapeoEntidades.mapearEdificio(
                 aldea.getCasetaLeniador(),
-                new Edificio.EdificioId(usuario.getEmail(), Constantes.BaseDatos.CASETA_LENIADOR)
+                new EdificioEntidad.EdificioId(usuario.getEmail(), Constantes.BaseDatos.CASETA_LENIADOR)
         ));
         baseDatosSqlite.edificioDao().insertar(mapeoEntidades.mapearEdificio(
                 aldea.getCarpinteria(),
-                new Edificio.EdificioId(usuario.getEmail(), Constantes.BaseDatos.CARPINTERIA)
+                new EdificioEntidad.EdificioId(usuario.getEmail(), Constantes.BaseDatos.CARPINTERIA)
         ));
         baseDatosSqlite.edificioDao().insertar(mapeoEntidades.mapearEdificio(
                 aldea.getMina(),
-                new Edificio.EdificioId(usuario.getEmail(), Constantes.BaseDatos.MINA)
+                new EdificioEntidad.EdificioId(usuario.getEmail(), Constantes.BaseDatos.MINA)
         ));
         baseDatosSqlite.edificioDao().insertar(mapeoEntidades.mapearEdificio(
                 aldea.getGranja(),
-                new Edificio.EdificioId(usuario.getEmail(), Constantes.BaseDatos.GRANJA)
+                new EdificioEntidad.EdificioId(usuario.getEmail(), Constantes.BaseDatos.GRANJA)
         ));
         baseDatosSqlite.edificioDao().insertar(mapeoEntidades.mapearEdificio(
                 aldea.getCastillo(),
-                new Edificio.EdificioId(usuario.getEmail(), Constantes.BaseDatos.CASTILLO)
+                new EdificioEntidad.EdificioId(usuario.getEmail(), Constantes.BaseDatos.CASTILLO)
         ));
     }
 

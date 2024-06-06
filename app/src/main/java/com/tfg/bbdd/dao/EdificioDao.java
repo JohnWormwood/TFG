@@ -5,14 +5,13 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.tfg.bbdd.entidades.Edificio;
-import com.tfg.bbdd.entidades.Usuario;
+import com.tfg.bbdd.entidades.EdificioEntidad;
 
 @Dao
 public interface EdificioDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertar(Edificio edificio);
+    void insertar(EdificioEntidad edificioEntidad);
 
     @Query("SELECT * FROM edificio WHERE usuario = :usuario AND nombre = :nombre")
-    Edificio getEdificioByUsuarioAndNombre(String usuario, String nombre);
+    EdificioEntidad getEdificioByUsuarioAndNombre(String usuario, String nombre);
 }

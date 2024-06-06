@@ -121,7 +121,7 @@
                 android:background="@drawable/fondo_menu_1"
                 android:backgroundTintMode="add"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <Space
                     android:layout_width="match_parent"
@@ -179,7 +179,7 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
-                            android:id="@+id/textViewRegistrarse"
+                            android:id="@+id/textViewButtonIncursion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -204,7 +204,7 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
-                            android:id="@+id/textViewLogin"
+                            android:id="@+id/textViewButtonRanking"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -215,20 +215,6 @@
 
                     </FrameLayout>
                 </LinearLayout>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp" />
-
-                <TextView
-                    android:id="@+id/textViewIncursion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="80dp"
-                    android:text="@string/texto_partida_caza_inactiva"
-                    android:textAlignment="center"
-                    android:textColor="#2E0909"
-                    android:textSize="14sp" />
 
             </LinearLayout>
 

@@ -11,6 +11,7 @@ import java.util.List;
 
 public class MejorasEdificiosJSON {
     private final JsonNode NODO_MEJORAS;
+
     public MejorasEdificiosJSON(String json) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode nodoRaiz = objectMapper.readTree(json);
@@ -20,8 +21,8 @@ public class MejorasEdificiosJSON {
     public List<PrecioMejora> getDatosMejoras(String edificio) {
         List<PrecioMejora> listaPreciosMejoras = new ArrayList<>();
         JsonNode nodoEdificio = NODO_MEJORAS.path(edificio);
-        for (int i = 1; i <= 9 ; i++) {
-            String nivel = "nivel_"+i;
+        for (int i = 1; i <= 9; i++) {
+            String nivel = "nivel_" + i;
             JsonNode nodoNivel = nodoEdificio.path(nivel);
             int troncos = nodoNivel.path("troncos").asInt();
             int tablones = nodoNivel.path("tablones").asInt();

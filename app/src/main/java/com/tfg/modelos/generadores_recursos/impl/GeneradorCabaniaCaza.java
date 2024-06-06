@@ -23,9 +23,6 @@ public class GeneradorCabaniaCaza extends GeneradorEstandar {
         if (!muertesAleatorias() && cabaniaCaza.getAldeanosAsignados() > 0) {
             int comidaProducida = calcularCantidadProducida(aldeanosAsignados);
             ControladorRecursos.agregarRecurso(recursos, this.recurso, comidaProducida);
-            System.out.println("Generado +"+comidaProducida+" de comida");
-        } else {
-            System.out.println("Ha muerto un cazador");
         }
     }
 
@@ -35,10 +32,10 @@ public class GeneradorCabaniaCaza extends GeneradorEstandar {
 
         if (random <= probabilidadMuerte
                 && cabaniaCaza.getAldeanosAsignados() > 0
-                && (Aldea.getInstance().getPoblacion()+(Aldea.getInstance().getAldeanosAsignados()-1)) > 0) {
-            cabaniaCaza.setAldeanosAsignados(cabaniaCaza.getAldeanosAsignados()-1);
-            Aldea.getInstance().setAldeanosAsignados(Aldea.getInstance().getAldeanosAsignados()-1);
-            cabaniaCaza.setAldeanosMuertosEnPartida(cabaniaCaza.getAldeanosMuertosEnPartida()+1);
+                && (Aldea.getInstance().getPoblacion() + (Aldea.getInstance().getAldeanosAsignados() - 1)) > 0) {
+            cabaniaCaza.setAldeanosAsignados(cabaniaCaza.getAldeanosAsignados() - 1);
+            Aldea.getInstance().setAldeanosAsignados(Aldea.getInstance().getAldeanosAsignados() - 1);
+            cabaniaCaza.setAldeanosMuertosEnPartida(cabaniaCaza.getAldeanosMuertosEnPartida() + 1);
             return true;
         }
 

@@ -1,7 +1,6 @@
 package com.tfg.utilidades;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -13,7 +12,6 @@ import com.tfg.R;
 public class PopupManager {
 
     private AppCompatActivity activity;
-    private int fases;
 
     public PopupManager(AppCompatActivity activity) {
         if (activity == null) {

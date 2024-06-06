@@ -24,7 +24,6 @@ public class MapeoDTO {
 
     public EdificioDTO edificioToEdificioDTO(Edificio edificio) {
         EdificioDTO edificioDTO = new EdificioDTO();
-        System.out.println(edificio.getClass().getName()+" nivel = "+edificio.getNivel());
         edificioDTO.setNivel(edificio.getNivel());
         edificioDTO.setAldeanosAsignados(edificio.getAldeanosAsignados());
         edificioDTO.setDesbloqueado(edificio.isDesbloqueado());

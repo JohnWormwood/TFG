@@ -1,81 +1,522 @@
 {
   "mejoras_edificios": {
     "senado": {
-      "nivel_1": {"troncos": 10, "tablones": 0, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_2": {"troncos": 16, "tablones": 0, "comida": 0, "piedra": 7, "hierro": 0, "oro": 0},
-      "nivel_3": {"troncos": 23, "tablones": 14, "comida": 0, "piedra": 4, "hierro": 0, "oro": 0},
-      "nivel_4": {"troncos": 31, "tablones": 20, "comida": 0, "piedra": 14, "hierro": 0, "oro": 0},
-      "nivel_5": {"troncos": 45, "tablones": 25, "comida": 0, "piedra": 21, "hierro": 8, "oro": 0},
-      "nivel_6": {"troncos": 54, "tablones": 32, "comida": 0, "piedra": 29, "hierro": 13, "oro": 5},
-      "nivel_7": {"troncos": 56, "tablones": 38, "comida": 0, "piedra": 42, "hierro": 16, "oro": 10},
-      "nivel_8": {"troncos": 54, "tablones": 61, "comida": 0, "piedra": 50, "hierro": 20, "oro": 15},
-      "nivel_9": {"troncos": 56, "tablones": 67, "comida": 0, "piedra": 55, "hierro": 35, "oro": 20}
+      "nivel_1": {
+        "troncos": 10,
+        "tablones": 0,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_2": {
+        "troncos": 16,
+        "tablones": 0,
+        "comida": 0,
+        "piedra": 7,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_3": {
+        "troncos": 23,
+        "tablones": 14,
+        "comida": 0,
+        "piedra": 4,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_4": {
+        "troncos": 31,
+        "tablones": 20,
+        "comida": 0,
+        "piedra": 14,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_5": {
+        "troncos": 45,
+        "tablones": 25,
+        "comida": 0,
+        "piedra": 21,
+        "hierro": 8,
+        "oro": 0
+      },
+      "nivel_6": {
+        "troncos": 54,
+        "tablones": 32,
+        "comida": 0,
+        "piedra": 29,
+        "hierro": 13,
+        "oro": 5
+      },
+      "nivel_7": {
+        "troncos": 56,
+        "tablones": 38,
+        "comida": 0,
+        "piedra": 42,
+        "hierro": 16,
+        "oro": 10
+      },
+      "nivel_8": {
+        "troncos": 54,
+        "tablones": 61,
+        "comida": 0,
+        "piedra": 50,
+        "hierro": 20,
+        "oro": 15
+      },
+      "nivel_9": {
+        "troncos": 56,
+        "tablones": 67,
+        "comida": 0,
+        "piedra": 55,
+        "hierro": 35,
+        "oro": 20
+      }
     },
     "cabania_caza": {
-      "nivel_1": {"troncos": 10, "tablones": 0, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_2": {"troncos": 15, "tablones": 5, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_3": {"troncos": 22, "tablones": 10, "comida": 0, "piedra": 5, "hierro": 0, "oro": 0},
-      "nivel_4": {"troncos": 32, "tablones": 15, "comida": 0, "piedra": 16, "hierro": 0, "oro": 0},
-      "nivel_5": {"troncos": 45, "tablones": 22, "comida": 0, "piedra": 25, "hierro": 0, "oro": 0},
-      "nivel_6": {"troncos": 62, "tablones": 37, "comida": 0, "piedra": 32, "hierro": 3, "oro": 0},
-      "nivel_7": {"troncos": 84, "tablones": 43, "comida": 0, "piedra": 45, "hierro": 6, "oro": 5},
-      "nivel_8": {"troncos": 88, "tablones": 67, "comida": 0, "piedra": 52, "hierro": 10, "oro": 5},
-      "nivel_9": {"troncos": 89, "tablones": 73, "comida": 0, "piedra": 57, "hierro": 15, "oro": 10}
+      "nivel_1": {
+        "troncos": 10,
+        "tablones": 0,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_2": {
+        "troncos": 15,
+        "tablones": 5,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_3": {
+        "troncos": 22,
+        "tablones": 10,
+        "comida": 0,
+        "piedra": 5,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_4": {
+        "troncos": 32,
+        "tablones": 15,
+        "comida": 0,
+        "piedra": 16,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_5": {
+        "troncos": 45,
+        "tablones": 22,
+        "comida": 0,
+        "piedra": 25,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_6": {
+        "troncos": 62,
+        "tablones": 37,
+        "comida": 0,
+        "piedra": 32,
+        "hierro": 3,
+        "oro": 0
+      },
+      "nivel_7": {
+        "troncos": 84,
+        "tablones": 43,
+        "comida": 0,
+        "piedra": 45,
+        "hierro": 6,
+        "oro": 5
+      },
+      "nivel_8": {
+        "troncos": 88,
+        "tablones": 67,
+        "comida": 0,
+        "piedra": 52,
+        "hierro": 10,
+        "oro": 5
+      },
+      "nivel_9": {
+        "troncos": 89,
+        "tablones": 73,
+        "comida": 0,
+        "piedra": 57,
+        "hierro": 15,
+        "oro": 10
+      }
     },
     "caseta_leniador": {
-      "nivel_1": {"troncos": 10, "tablones": 0, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_2": {"troncos": 16, "tablones": 6, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_3": {"troncos": 23, "tablones": 13, "comida": 0, "piedra": 3, "hierro": 0, "oro": 0},
-      "nivel_4": {"troncos": 33, "tablones": 19, "comida": 0, "piedra": 12, "hierro": 5, "oro": 0},
-      "nivel_5": {"troncos": 47, "tablones": 25, "comida": 0, "piedra": 19, "hierro": 5, "oro": 0},
-      "nivel_6": {"troncos": 64, "tablones": 31, "comida": 0, "piedra": 27, "hierro": 10, "oro": 0},
-      "nivel_7": {"troncos": 86, "tablones": 36, "comida": 0, "piedra": 40, "hierro": 17, "oro": 4},
-      "nivel_8": {"troncos": 89, "tablones": 59, "comida": 0, "piedra": 48, "hierro": 20, "oro": 5},
-      "nivel_9": {"troncos": 93, "tablones": 65, "comida": 0, "piedra": 53, "hierro": 30, "oro": 10}
+      "nivel_1": {
+        "troncos": 10,
+        "tablones": 0,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_2": {
+        "troncos": 16,
+        "tablones": 6,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_3": {
+        "troncos": 23,
+        "tablones": 13,
+        "comida": 0,
+        "piedra": 3,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_4": {
+        "troncos": 33,
+        "tablones": 19,
+        "comida": 0,
+        "piedra": 12,
+        "hierro": 5,
+        "oro": 0
+      },
+      "nivel_5": {
+        "troncos": 47,
+        "tablones": 25,
+        "comida": 0,
+        "piedra": 19,
+        "hierro": 5,
+        "oro": 0
+      },
+      "nivel_6": {
+        "troncos": 64,
+        "tablones": 31,
+        "comida": 0,
+        "piedra": 27,
+        "hierro": 10,
+        "oro": 0
+      },
+      "nivel_7": {
+        "troncos": 86,
+        "tablones": 36,
+        "comida": 0,
+        "piedra": 40,
+        "hierro": 17,
+        "oro": 4
+      },
+      "nivel_8": {
+        "troncos": 89,
+        "tablones": 59,
+        "comida": 0,
+        "piedra": 48,
+        "hierro": 20,
+        "oro": 5
+      },
+      "nivel_9": {
+        "troncos": 93,
+        "tablones": 65,
+        "comida": 0,
+        "piedra": 53,
+        "hierro": 30,
+        "oro": 10
+      }
     },
     "carpinteria": {
-      "nivel_1": {"troncos": 10, "tablones": 0, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_2": {"troncos": 17, "tablones": 7, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_3": {"troncos": 24, "tablones": 14, "comida": 0, "piedra": 3, "hierro": 0, "oro": 0},
-      "nivel_4": {"troncos": 34, "tablones": 20, "comida": 0, "piedra": 13, "hierro": 0, "oro": 0},
-      "nivel_5": {"troncos": 48, "tablones": 26, "comida": 0, "piedra": 20, "hierro": 7, "oro": 0},
-      "nivel_6": {"troncos": 65, "tablones": 32, "comida": 0, "piedra": 28, "hierro": 10, "oro": 10},
-      "nivel_7": {"troncos": 87, "tablones": 37, "comida": 0, "piedra": 41, "hierro": 15, "oro": 15},
-      "nivel_8": {"troncos": 90, "tablones": 60, "comida": 0, "piedra": 49, "hierro": 20, "oro": 20},
-      "nivel_9": {"troncos": 94, "tablones": 66, "comida": 0, "piedra": 54, "hierro": 25, "oro": 25}
+      "nivel_1": {
+        "troncos": 10,
+        "tablones": 0,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_2": {
+        "troncos": 17,
+        "tablones": 7,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_3": {
+        "troncos": 24,
+        "tablones": 14,
+        "comida": 0,
+        "piedra": 3,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_4": {
+        "troncos": 34,
+        "tablones": 20,
+        "comida": 0,
+        "piedra": 13,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_5": {
+        "troncos": 48,
+        "tablones": 26,
+        "comida": 0,
+        "piedra": 20,
+        "hierro": 7,
+        "oro": 0
+      },
+      "nivel_6": {
+        "troncos": 65,
+        "tablones": 32,
+        "comida": 0,
+        "piedra": 28,
+        "hierro": 10,
+        "oro": 10
+      },
+      "nivel_7": {
+        "troncos": 87,
+        "tablones": 37,
+        "comida": 0,
+        "piedra": 41,
+        "hierro": 15,
+        "oro": 15
+      },
+      "nivel_8": {
+        "troncos": 90,
+        "tablones": 60,
+        "comida": 0,
+        "piedra": 49,
+        "hierro": 20,
+        "oro": 20
+      },
+      "nivel_9": {
+        "troncos": 94,
+        "tablones": 66,
+        "comida": 0,
+        "piedra": 54,
+        "hierro": 25,
+        "oro": 25
+      }
     },
     "granja": {
-      "nivel_1": {"troncos": 10, "tablones": 0, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_2": {"troncos": 15, "tablones": 7, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_3": {"troncos": 22, "tablones": 14, "comida": 0, "piedra": 3, "hierro": 1, "oro": 0},
-      "nivel_4": {"troncos": 32, "tablones": 20, "comida": 0, "piedra": 13, "hierro": 4, "oro": 0},
-      "nivel_5": {"troncos": 45, "tablones": 26, "comida": 0, "piedra": 20, "hierro": 7, "oro": 5},
-      "nivel_6": {"troncos": 62, "tablones": 32, "comida": 0, "piedra": 28, "hierro": 10, "oro": 8},
-      "nivel_7": {"troncos": 84, "tablones": 37, "comida": 0, "piedra": 41, "hierro": 15, "oro": 12},
-      "nivel_8": {"troncos": 88, "tablones": 60, "comida": 0, "piedra": 49, "hierro": 20, "oro": 18},
-      "nivel_9": {"troncos": 89, "tablones": 66, "comida": 0, "piedra": 54, "hierro": 25, "oro": 25}
+      "nivel_1": {
+        "troncos": 10,
+        "tablones": 0,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_2": {
+        "troncos": 15,
+        "tablones": 7,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_3": {
+        "troncos": 22,
+        "tablones": 14,
+        "comida": 0,
+        "piedra": 3,
+        "hierro": 1,
+        "oro": 0
+      },
+      "nivel_4": {
+        "troncos": 32,
+        "tablones": 20,
+        "comida": 0,
+        "piedra": 13,
+        "hierro": 4,
+        "oro": 0
+      },
+      "nivel_5": {
+        "troncos": 45,
+        "tablones": 26,
+        "comida": 0,
+        "piedra": 20,
+        "hierro": 7,
+        "oro": 5
+      },
+      "nivel_6": {
+        "troncos": 62,
+        "tablones": 32,
+        "comida": 0,
+        "piedra": 28,
+        "hierro": 10,
+        "oro": 8
+      },
+      "nivel_7": {
+        "troncos": 84,
+        "tablones": 37,
+        "comida": 0,
+        "piedra": 41,
+        "hierro": 15,
+        "oro": 12
+      },
+      "nivel_8": {
+        "troncos": 88,
+        "tablones": 60,
+        "comida": 0,
+        "piedra": 49,
+        "hierro": 20,
+        "oro": 18
+      },
+      "nivel_9": {
+        "troncos": 89,
+        "tablones": 66,
+        "comida": 0,
+        "piedra": 54,
+        "hierro": 25,
+        "oro": 25
+      }
     },
     "mina": {
-      "nivel_1": {"troncos": 3, "tablones": 0, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_2": {"troncos": 7, "tablones": 5, "comida": 0, "piedra": 3, "hierro": 0, "oro": 0},
-      "nivel_3": {"troncos": 12, "tablones": 10, "comida": 0, "piedra": 7, "hierro": 0, "oro": 0},
-      "nivel_4": {"troncos": 18, "tablones": 15, "comida": 0, "piedra": 12, "hierro": 16, "oro": 0},
-      "nivel_5": {"troncos": 25, "tablones": 20, "comida": 0, "piedra": 18, "hierro": 23, "oro": 12},
-      "nivel_6": {"troncos": 34, "tablones": 27, "comida": 0, "piedra": 25, "hierro": 27, "oro": 17},
-      "nivel_7": {"troncos": 44, "tablones": 35, "comida": 0, "piedra": 33, "hierro": 32, "oro": 26},
-      "nivel_8": {"troncos": 55, "tablones": 44, "comida": 0, "piedra": 42, "hierro": 37, "oro": 28},
-      "nivel_9": {"troncos": 67, "tablones": 54, "comida": 0, "piedra": 52, "hierro": 40, "oro": 30}
+      "nivel_1": {
+        "troncos": 3,
+        "tablones": 0,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_2": {
+        "troncos": 7,
+        "tablones": 5,
+        "comida": 0,
+        "piedra": 3,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_3": {
+        "troncos": 12,
+        "tablones": 10,
+        "comida": 0,
+        "piedra": 7,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_4": {
+        "troncos": 18,
+        "tablones": 15,
+        "comida": 0,
+        "piedra": 12,
+        "hierro": 16,
+        "oro": 0
+      },
+      "nivel_5": {
+        "troncos": 25,
+        "tablones": 20,
+        "comida": 0,
+        "piedra": 18,
+        "hierro": 23,
+        "oro": 12
+      },
+      "nivel_6": {
+        "troncos": 34,
+        "tablones": 27,
+        "comida": 0,
+        "piedra": 25,
+        "hierro": 27,
+        "oro": 17
+      },
+      "nivel_7": {
+        "troncos": 44,
+        "tablones": 35,
+        "comida": 0,
+        "piedra": 33,
+        "hierro": 32,
+        "oro": 26
+      },
+      "nivel_8": {
+        "troncos": 55,
+        "tablones": 44,
+        "comida": 0,
+        "piedra": 42,
+        "hierro": 37,
+        "oro": 28
+      },
+      "nivel_9": {
+        "troncos": 67,
+        "tablones": 54,
+        "comida": 0,
+        "piedra": 52,
+        "hierro": 40,
+        "oro": 30
+      }
     },
     "castillo": {
-      "nivel_1": {"troncos": 3, "tablones": 0, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_2": {"troncos": 7, "tablones": 0, "comida": 0, "piedra": 0, "hierro": 0, "oro": 0},
-      "nivel_3": {"troncos": 12, "tablones": 0, "comida": 0, "piedra": 7, "hierro": 0, "oro": 0},
-      "nivel_4": {"troncos": 18, "tablones": 5, "comida": 0, "piedra": 12, "hierro": 16, "oro": 0},
-      "nivel_5": {"troncos": 25, "tablones": 10, "comida": 0, "piedra": 18, "hierro": 23, "oro": 12},
-      "nivel_6": {"troncos": 34, "tablones": 20, "comida": 0, "piedra": 25, "hierro": 27, "oro": 17},
-      "nivel_7": {"troncos": 44, "tablones": 35, "comida": 0, "piedra": 33, "hierro": 32, "oro": 26},
-      "nivel_8": {"troncos": 55, "tablones": 44, "comida": 0, "piedra": 42, "hierro": 37, "oro": 28},
-      "nivel_9": {"troncos": 67, "tablones": 54, "comida": 0, "piedra": 52, "hierro": 40, "oro": 30}
+      "nivel_1": {
+        "troncos": 3,
+        "tablones": 0,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_2": {
+        "troncos": 7,
+        "tablones": 0,
+        "comida": 0,
+        "piedra": 0,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_3": {
+        "troncos": 12,
+        "tablones": 0,
+        "comida": 0,
+        "piedra": 7,
+        "hierro": 0,
+        "oro": 0
+      },
+      "nivel_4": {
+        "troncos": 18,
+        "tablones": 5,
+        "comida": 0,
+        "piedra": 12,
+        "hierro": 16,
+        "oro": 0
+      },
+      "nivel_5": {
+        "troncos": 25,
+        "tablones": 10,
+        "comida": 0,
+        "piedra": 18,
+        "hierro": 23,
+        "oro": 12
+      },
+      "nivel_6": {
+        "troncos": 34,
+        "tablones": 20,
+        "comida": 0,
+        "piedra": 25,
+        "hierro": 27,
+        "oro": 17
+      },
+      "nivel_7": {
+        "troncos": 44,
+        "tablones": 35,
+        "comida": 0,
+        "piedra": 33,
+        "hierro": 32,
+        "oro": 26
+      },
+      "nivel_8": {
+        "troncos": 55,
+        "tablones": 44,
+        "comida": 0,
+        "piedra": 42,
+        "hierro": 37,
+        "oro": 28
+      },
+      "nivel_9": {
+        "troncos": 67,
+        "tablones": 54,
+        "comida": 0,
+        "piedra": 52,
+        "hierro": 40,
+        "oro": 30
+      }
     }
   }
 }

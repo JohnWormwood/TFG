@@ -1,16 +1,11 @@
 package com.tfg.activities;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
@@ -52,13 +47,13 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
     @Override
     public void onExito(List<UsuarioDTO> ranking) {
         Optional<UsuarioDTO> usuarioActual = ranking.stream()
-                .filter(usuario -> usuario.getEmail().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail()))
-                .findFirst();
-
+                .filter(usuario -> usuario.getEmail().equals(Objects.requireNonNull(
+                        FirebaseAuth.getInstance().getCurrentUser()).getEmail())).findFirst();
         if (usuarioActual.isPresent()) {
-            textViewUsuario.setText(String.valueOf("Tu puntuacion: "+usuarioActual.get().getPuntos()));
+            textViewUsuario.setText(
+                    String.valueOf("Tu puntuacion: " + usuarioActual.get().getPuntos()));
         } else {
-            textViewUsuario.setText("No hemos podido obtener tu puntuacion");
+            textViewUsuario.setText(String.valueOf("No hemos podido obtener tu puntuacion"));
         }
 
         // Ordenar la lista por puntos en orden descendente

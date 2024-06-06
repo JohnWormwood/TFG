@@ -1,9 +1,8 @@
 package com.tfg.bbdd.mapper;
 
-import com.tfg.bbdd.dto.AldeaDTO;
-import com.tfg.bbdd.dto.CabaniaCazaDTO;
-import com.tfg.bbdd.dto.EdificioDTO;
-import com.tfg.bbdd.dto.RecursosDTO;
+import com.tfg.bbdd.entidades.AldeaEntidad;
+import com.tfg.bbdd.entidades.CabaniaCazaEntidad;
+import com.tfg.bbdd.entidades.EdificioEntidad;
 import com.tfg.bbdd.entidades.Recursos;
 import com.tfg.bbdd.entidades.Usuario;
 import com.tfg.controladores.ControladorRecursos;
@@ -17,16 +16,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapeoEntidades {
-    public com.tfg.bbdd.entidades.Aldea mapearAldea(Aldea aldea, Usuario usuario) {
-        return new com.tfg.bbdd.entidades.Aldea(
+    public AldeaEntidad mapearAldea(Aldea aldea, Usuario usuario) {
+        return new AldeaEntidad(
                 usuario.getEmail(),
                 aldea.getNivel(),
                 aldea.getPoblacion()
         );
     }
 
-    public com.tfg.bbdd.entidades.Edificio mapearEdificio(Edificio edificio, com.tfg.bbdd.entidades.Edificio.EdificioId edificioId) {
-        return new com.tfg.bbdd.entidades.Edificio(
+    public EdificioEntidad mapearEdificio(Edificio edificio, EdificioEntidad.EdificioId edificioId) {
+        return new EdificioEntidad(
                 edificioId,
                 edificio.getNivel(),
                 edificio.getAldeanosAsignados(),
@@ -34,8 +33,8 @@ public class MapeoEntidades {
         );
     }
 
-    public com.tfg.bbdd.entidades.CabaniaCaza mapearCabaniaCaza(CabaniaCaza cabaniaCaza, Usuario usuario) {
-        return new com.tfg.bbdd.entidades.CabaniaCaza(
+    public CabaniaCazaEntidad mapearCabaniaCaza(CabaniaCaza cabaniaCaza, Usuario usuario) {
+        return new CabaniaCazaEntidad(
                 usuario.getEmail(),
                 cabaniaCaza.getNivel(),
                 cabaniaCaza.getAldeanosAsignados(),
@@ -58,7 +57,7 @@ public class MapeoEntidades {
         );
     }
 
-    public void cargarDatosEnAldea(com.tfg.bbdd.entidades.Aldea aldeaEntidad, Recursos recursos) {
+    public void cargarDatosEnAldea(AldeaEntidad aldeaEntidad, Recursos recursos) {
         Aldea aldea = Aldea.getInstance();
         if (aldeaEntidad != null) {
             aldea.setNivel(aldeaEntidad.getNivel());
@@ -70,7 +69,7 @@ public class MapeoEntidades {
         }
     }
 
-    public void cargarDatosEnEdificio(Edificio edificio, com.tfg.bbdd.entidades.Edificio edificioEntidad) {
+    public void cargarDatosEnEdificio(Edificio edificio, EdificioEntidad edificioEntidad) {
         if (edificioEntidad != null) {
             edificio.setNivel(edificioEntidad.getNivel());
             edificio.setAldeanosAsignados(edificioEntidad.getAldeanosAsignados());
@@ -78,7 +77,7 @@ public class MapeoEntidades {
         }
     }
 
-    public void cargarDatosEnCabaniaCaza(CabaniaCaza cabaniaCaza, com.tfg.bbdd.entidades.CabaniaCaza cabaniaCazaEntidad) {
+    public void cargarDatosEnCabaniaCaza(CabaniaCaza cabaniaCaza, CabaniaCazaEntidad cabaniaCazaEntidad) {
         if (cabaniaCazaEntidad != null) {
             cabaniaCaza.setNivel(cabaniaCazaEntidad.getNivel());
             cabaniaCaza.setAldeanosAsignados(cabaniaCazaEntidad.getAldeanosAsignados());

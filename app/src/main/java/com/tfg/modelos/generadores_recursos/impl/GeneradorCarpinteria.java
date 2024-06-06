@@ -18,8 +18,8 @@ public class GeneradorCarpinteria extends GeneradorEstandar {
         // La comprobacion de aldeanos ya se hace en super.producirRecursos, pero es necesario volverla
         // a hacer para asegurar que se consume el recurso solo si hay minimo 1 asignado
         if (aldeanosAsignados > 0
-            && ControladorRecursos.puedeConsumirRecurso(Aldea.getInstance().getRecursos(), RecursosEnum.TRONCOS_MADERA, calcularCantidadProducida(aldeanosAsignados)*2)) {
-            //System.out.println("PUEDE PRODUCIR TABLONES");
+                && ControladorRecursos.puedeConsumirRecurso(Aldea.getInstance().getRecursos(),
+                RecursosEnum.TRONCOS_MADERA, calcularCantidadProducida(aldeanosAsignados) * 2)) {
             super.producirRecursos(recursos, recurso, aldeanosAsignados);
         }
     }

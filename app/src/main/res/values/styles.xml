@@ -2,7 +2,8 @@
 <resources>
     <!-- Define a custom style for your AlertDialog -->
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">@drawable/fondo_menu_3</item> <!-- Fondo del diálogo -->
+        <item name="android:windowBackground">@drawable/fondo_menu_3
+        </item> <!-- Fondo del diálogo -->
         <item name="android:background">#00FFFFFF</item> <!-- Fondo del contenido del diálogo -->
     </style>
 

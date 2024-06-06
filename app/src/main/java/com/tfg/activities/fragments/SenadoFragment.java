@@ -1,13 +1,12 @@
 package com.tfg.activities.fragments;
 
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.tfg.R;
 import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
@@ -17,10 +16,7 @@ import com.tfg.ui.MenuEstructuraBase;
 import com.tfg.ui.MenuSenado;
 import com.tfg.utilidades.PopupManager;
 
-import lombok.Getter;
-
 public class SenadoFragment extends Fragment implements ActualizarInterfazEventListener {
-
     // Componentes de la interfaz
     private MenuSenado menuSenado;
     private MenuEstructuraBase menuCabaniaCaza;
@@ -31,6 +27,7 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
     private MenuEdificioAsignable menuCastillo;
     private PopupManager popupManager;
 
+    // Referencia a la aldea
     private Aldea aldea = Aldea.getInstance();
 
     public SenadoFragment() {
@@ -46,9 +43,7 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_senado, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_senado, container, false);
     }
 
     @Override
@@ -85,6 +80,29 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
         inicializarComponentes(view);
         actualizarVisibilidadLayouts();
         cargarUI();
+    }
+
+
+    // --- FUNCIONES INTERFAZ GRAFICA ---
+    private void actualizarVisibilidadLayouts() {
+        menuMina.getLayout().setVisibility(aldea.getMina().isDesbloqueado()
+                ? View.VISIBLE : View.GONE);
+        menuCarpinteria.getLayout().setVisibility(aldea.getCarpinteria().isDesbloqueado()
+                ? View.VISIBLE : View.GONE);
+        menuGranja.getLayout().setVisibility(aldea.getGranja().isDesbloqueado()
+                ? View.VISIBLE : View.GONE);
+        menuCastillo.getLayout().setVisibility(aldea.getCastillo().isDesbloqueado()
+                ? View.VISIBLE : View.GONE);
+    }
+
+    private void cargarUI() {
+        menuSenado.iniciar();
+        menuCabaniaCaza.iniciar();
+        menuCasetaLeniador.iniciar();
+        menuMina.iniciar();
+        menuCarpinteria.iniciar();
+        menuGranja.iniciar();
+        menuCastillo.iniciar();
     }
 
     private void inicializarComponentes(View view) {
@@ -196,23 +214,5 @@ public class SenadoFragment extends Fragment implements ActualizarInterfazEventL
                 view.findViewById(R.id.textViewDefensores),
                 popupManager
         );
-    }
-
-    private void actualizarVisibilidadLayouts() {
-        menuMina.getLayout().setVisibility(aldea.getMina().isDesbloqueado() ? View.VISIBLE : View.GONE);
-        menuCarpinteria.getLayout().setVisibility(aldea.getCarpinteria().isDesbloqueado() ? View.VISIBLE : View.GONE);
-        menuGranja.getLayout().setVisibility(aldea.getGranja().isDesbloqueado() ? View.VISIBLE : View.GONE);
-        menuCastillo.getLayout().setVisibility(aldea.getCastillo().isDesbloqueado() ? View.VISIBLE : View.GONE);
-
-    }
-
-    private void cargarUI() {
-        menuSenado.iniciar();
-        menuCabaniaCaza.iniciar();
-        menuCasetaLeniador.iniciar();
-        menuMina.iniciar();
-        menuCarpinteria.iniciar();
-        menuGranja.iniciar();
-        menuCastillo.iniciar();
     }
 }

@@ -10,8 +10,10 @@ import lombok.Data;
 @Data
 @Entity(tableName = "usuarios")
 public class Usuario {
-    @PrimaryKey @NonNull
+    @PrimaryKey
+    @NonNull
     private String email;
-    @ColumnInfo(name = "sincornizado_con_firebase") @NonNull
+    @ColumnInfo(name = "sincornizado_con_firebase")
+    @NonNull
     private Boolean sincronizadoConFirebase;
 }

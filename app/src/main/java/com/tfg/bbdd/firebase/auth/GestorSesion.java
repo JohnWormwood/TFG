@@ -5,31 +5,27 @@ import com.google.common.base.Strings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
-import com.tfg.bbdd.firebase.service.NotificacionesService;
 
 import java.util.function.Consumer;
 
 public final class GestorSesion {
 
-    public static void registrarUsuario(String email, String password, Consumer<Task<AuthResult>> consumer) {
+    public static void registrarUsuario(String email, String password,
+                                        Consumer<Task<AuthResult>> consumer) {
         if (!Strings.isNullOrEmpty(email) && !Strings.isNullOrEmpty(password)) {
             FirebaseAuth.getInstance()
                     .createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        consumer.accept(task);
-                    });
+                    .addOnCompleteListener(consumer::accept);
         }
     }
 
-    public static void iniciarSesion(String email, String password, Consumer<Task<AuthResult>> consumer) {
+    public static void iniciarSesion(String email, String password,
+                                     Consumer<Task<AuthResult>> consumer) {
         if (!Strings.isNullOrEmpty(email) && !Strings.isNullOrEmpty(password)) {
-             FirebaseAuth.getInstance()
+            FirebaseAuth.getInstance()
                     .signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        consumer.accept(task);
-                    });
+                    .addOnCompleteListener(consumer::accept);
         }
     }
 

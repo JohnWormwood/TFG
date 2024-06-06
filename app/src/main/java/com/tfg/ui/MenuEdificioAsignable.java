@@ -14,18 +14,18 @@ import com.tfg.modelos.EstructuraBase;
 import com.tfg.modelos.edificios.Edificio;
 import com.tfg.utilidades.PopupManager;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class MenuEdificioAsignable extends MenuEstructuraBase {
 
     private SeekBar seekBarAldeanosAsignados;
     private TextView textViewAldeanosAsignados;
 
     private int valorInicialSeekbar;
+
     public MenuEdificioAsignable(Context context, EstructuraBase estructura,
                                  ConstraintLayout layout, TextView textViewNivel,
                                  TextView textViewPrecioTroncos, TextView textViewPrecioPiedra,
@@ -61,27 +61,21 @@ public class MenuEdificioAsignable extends MenuEstructuraBase {
         return new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //System.out.println("entra en onProgressChanged");
                 textViewAldeanosAsignados.setText(String.valueOf(seekBar.getProgress()));
 
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                //System.out.println("entra en onStartTrackingTouch");
                 valorInicialSeekbar = seekBar.getProgress();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                //System.out.println("entra en onStopTrackingTouch");
                 Edificio edificio = (Edificio) estructura;
                 if (seekBar.getProgress() <= Aldea.getInstance().getPoblacion() + edificio.getAldeanosAsignados()) {
-                    //System.out.println("entra en el if");
-                    //System.out.println("aldeanos maximos = "+edificio.getAldeanosMaximos());
                     edificio.modificarAldeanosAsignados(seekBar.getProgress());
                 } else {
-                    //System.out.println("entra en el else");
                     seekBar.setProgress(valorInicialSeekbar);
                     Toast.makeText(context, context.getString(R.string.msj_aldeanos_insuficientes), Toast.LENGTH_SHORT).show();
                 }

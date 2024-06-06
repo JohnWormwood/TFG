@@ -18,24 +18,31 @@ import lombok.Data;
         )
 )
 public class Recursos {
-    @PrimaryKey @NonNull
+    @PrimaryKey
+    @NonNull
     private String usuario;
 
-    @ColumnInfo(name = "troncos") @NonNull
+    @ColumnInfo(name = "troncos")
+    @NonNull
     private Integer troncos;
 
-    @ColumnInfo(name = "tablones") @NonNull
+    @ColumnInfo(name = "tablones")
+    @NonNull
     private Integer tablones;
 
-    @ColumnInfo(name = "comida") @NonNull
+    @ColumnInfo(name = "comida")
+    @NonNull
     private Integer comida;
 
-    @ColumnInfo(name = "piedra") @NonNull
+    @ColumnInfo(name = "piedra")
+    @NonNull
     private Integer piedra;
 
-    @ColumnInfo(name = "hierro") @NonNull
+    @ColumnInfo(name = "hierro")
+    @NonNull
     private Integer hierro;
 
-    @ColumnInfo(name = "oro") @NonNull
+    @ColumnInfo(name = "oro")
+    @NonNull
     private Integer oro;
 }

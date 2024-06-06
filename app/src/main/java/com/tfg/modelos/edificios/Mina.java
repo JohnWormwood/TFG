@@ -16,9 +16,12 @@ public class Mina extends Edificio {
     private void setGeneradoresRecursosSegunNivelAldea() {
         int nivelAldea = aldea.getNivel();
         generadoresRecursos.clear();
-        if (nivelAldea >= Constantes.Aldea.NIVEL_DESBLOQUEO_PIEDRA) generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.PIEDRA));
-        if (nivelAldea >= Constantes.Aldea.NIVEL_DESBLOQUEO_HIERRO) generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.HIERRO));
-        if (nivelAldea >= Constantes.Aldea.NIVEL_DESBLOQUEO_ORO) generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.ORO));
+        if (nivelAldea >= Constantes.Aldea.NIVEL_DESBLOQUEO_PIEDRA)
+            generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.PIEDRA));
+        if (nivelAldea >= Constantes.Aldea.NIVEL_DESBLOQUEO_HIERRO)
+            generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.HIERRO));
+        if (nivelAldea >= Constantes.Aldea.NIVEL_DESBLOQUEO_ORO)
+            generadoresRecursos.add(new GeneradorEstandar(RecursosEnum.ORO));
     }
 
     @Override

@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
 
-@Getter(onMethod_={@Synchronized}) @Setter(onMethod_={@Synchronized})
+@Getter(onMethod_ = {@Synchronized})
+@Setter(onMethod_ = {@Synchronized})
 public abstract class EstructuraBase {
     protected int nivel;
     protected int aldeanosAsignados;
@@ -72,8 +72,8 @@ public abstract class EstructuraBase {
 
     public boolean aumentarNivel() throws IllegalArgumentException {
         try {
-            int proximoNivel = nivel+1;
-            if (ControladorEstructuraBase.puedeSubirDeNivel(preciosMejoras.get(proximoNivel-2))) {
+            int proximoNivel = nivel + 1;
+            if (ControladorEstructuraBase.puedeSubirDeNivel(preciosMejoras.get(proximoNivel - 2))) {
                 nivel++;
                 setMaximoAldeanosSegunNivel();
                 return true;

@@ -18,25 +18,32 @@ import lombok.Data;
                 onDelete = ForeignKey.CASCADE
         )
 )
-public class Edificio {
-    @Embedded @PrimaryKey @NonNull
+public class EdificioEntidad {
+    @Embedded
+    @PrimaryKey
+    @NonNull
     private EdificioId edificioId;
 
-    @ColumnInfo(name = "nivel") @NonNull
+    @ColumnInfo(name = "nivel")
+    @NonNull
     private Integer nivel;
 
-    @ColumnInfo(name = "aldeanos_asignados") @NonNull
+    @ColumnInfo(name = "aldeanos_asignados")
+    @NonNull
     private Integer aldeanosAsignados;
 
-    @ColumnInfo(name = "desbloqueado") @NonNull
+    @ColumnInfo(name = "desbloqueado")
+    @NonNull
     private Boolean desbloqueado;
 
     public static class EdificioId {
 
-        @ColumnInfo(name = "usuario") @NonNull
+        @ColumnInfo(name = "usuario")
+        @NonNull
         public String usuario;
 
-        @ColumnInfo(name = "nombre") @NonNull
+        @ColumnInfo(name = "nombre")
+        @NonNull
         public String nombre;
 
         public EdificioId(@NonNull String usuario, @NonNull String nombre) {

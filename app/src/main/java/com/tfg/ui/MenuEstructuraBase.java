@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.tfg.R;
@@ -64,7 +63,7 @@ public class MenuEstructuraBase extends LanzadorEventos<ActualizarInterfazEventL
                     msj = context.getString(R.string.msj_subida_nivel,
                             estructura.getClass().getSimpleName(), estructura.getNivel());
                     actualizar();
-                    if (estructura.getClass().getSimpleName().equals("Aldea")){
+                    if (estructura.getClass().getSimpleName().equals("Aldea")) {
                         tutorialSegunNivel(estructura.getNivel());
                     }
                 } else {
@@ -77,9 +76,10 @@ public class MenuEstructuraBase extends LanzadorEventos<ActualizarInterfazEventL
             }
         };
     }
-    private void tutorialSegunNivel(int nivel){
-        if (popupManager != null){
-            switch (nivel){
+
+    private void tutorialSegunNivel(int nivel) {
+        if (popupManager != null) {
+            switch (nivel) {
                 case Constantes.Aldea.NIVEL_DESBLOQUEO_PIEDRA:
                     popupManager.showPopup(context.getString(R.string.msj_desbloqueo_mina));
                     break;

@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.tfg.bbdd.entidades.Recursos;
-import com.tfg.bbdd.entidades.Usuario;
 
 @Dao
 public interface RecursosDao {

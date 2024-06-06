@@ -1,5 +1,7 @@
 package com.tfg.modelos;
 
+import android.util.Log;
+
 import com.tfg.activities.JuegoActivity;
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.edificios.CabaniaCaza;
@@ -19,7 +21,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
 
-@Getter(onMethod_={@Synchronized}) @Setter(onMethod_={@Synchronized})
+@Getter(onMethod_ = {@Synchronized})
+@Setter(onMethod_ = {@Synchronized})
 public class Aldea extends EstructuraBase implements Runnable {
     private static Aldea instance; // Campo estático para almacenar la instancia única
 
@@ -74,10 +77,10 @@ public class Aldea extends EstructuraBase implements Runnable {
     }
 
     public void generarAldeano() {
-        if (poblacion+1 <= aldeanosMaximos && (poblacion+aldeanosAsignados) < aldeanosMaximos) {
+        if (poblacion + 1 <= aldeanosMaximos && (poblacion + aldeanosAsignados) < aldeanosMaximos) {
             if (ControladorRecursos.consumirRecurso(recursos, RecursosEnum.COMIDA, 1)) {
                 poblacion++;
-                System.out.println("Aldeano generado");
+                Log.d(getClass().getSimpleName(), "Se ha generado un aldeano");
             }
         }
     }
@@ -99,21 +102,13 @@ public class Aldea extends EstructuraBase implements Runnable {
         carpinteria.iniciarProduccion();
         granja.iniciarProduccion();
 
-        int poblacionInicial = poblacion;
-        Map<RecursosEnum, Integer> recursosIniciales = new HashMap<>(recursos);
         try {
             // Se ejecuta mientras la activity este activa
             while (JuegoActivity.enEjecucion) {
-                poblacionInicial = poblacion;
-                recursosIniciales = new HashMap<>(recursos);
-                // Aqui se gestiona la logica prinicpal del juego
                 Thread.sleep(5000);
                 generarAldeano();
             }
         } catch (InterruptedException e) {
-            // En caso de interrupcion se vuelve al estado anterior, para evitar que se dupliquen recursos
-            //poblacion = poblacionInicial;
-            //recursos = recursosIniciales;
             ListaHilos.remove(thread);
         }
     }

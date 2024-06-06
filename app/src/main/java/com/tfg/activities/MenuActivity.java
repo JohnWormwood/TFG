@@ -8,7 +8,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,22 +22,25 @@ import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
-import java.util.Objects;
-
 public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCallback {
-
+    // Componentes interfaz
     private TextView textViewEmail;
     private String email;
+
+    // Referencia soundmanager
     private SoundManager soundManager;
-    private GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
+
+    // Base de datos
+    private GestorRealTimeDatabase gestorRealTimeDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        soundManager = SoundManager.getInstance(this);
+        gestorRealTimeDatabase = new GestorRealTimeDatabase();
 
+        soundManager = SoundManager.getInstance(this);
         soundManager.playMusica(R.raw.musica_mediaval);
 
         ImageButton buttonJugar = findViewById(R.id.buttonJugar);
@@ -72,6 +74,7 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
     @Override
     protected void onStart() {
         super.onStart();
+
         comprobarSesion();
     }
 
@@ -79,10 +82,11 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
         textViewEmail.setText(email);
     }
 
-
-
     public void buttonJugarOnClick(View view) {
-        gestorRealTimeDatabase.comprobarEstadoConexion(this);
+        if (UtilidadRed.hayInternet(this)) {
+            gestorRealTimeDatabase.comprobarEstadoConexion(this);
+        } else Toast.makeText(this,
+                getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
     }
 
     public void buttonOpcionesOnClick(View view) {
@@ -99,12 +103,10 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
             String email = GestorSesion.cargarSesionLocal();
 
             if (email == null) {
-                //authLayout.setVisibility(View.INVISIBLE);
                 finish();
             }
 
             // Guardar el token fcm en el usuario actual
-            GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
             gestorRealTimeDatabase.actualizarTokenFcm(NotificacionesService.getToken());
         } else {
             GestorSesion.cerrarSesion();
@@ -127,7 +129,8 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
 
     @Override
     public void onError(DatabaseError databaseError) {
-        Toast.makeText(this, databaseError.toException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,
+                databaseError.toException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -40,6 +40,7 @@ public final class Constantes {
     }
 
     public static class Castillo {
+        public static final long TIEMPO_ENTRE_ATAQUES = 10 * 60 * 1000; // 10 minutos
         public static final int CANTIDAD_RECURSOS_ROBADOS = 10;
         public static final int PUNTOS_VICTORIA = 10;
         public static final int PUNTOS_DERROTA = -5;

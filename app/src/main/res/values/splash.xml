@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- res/values/styles.xml -->
+<?xml version="1.0" encoding="utf-8"?><!-- res/values/styles.xml -->
 <resources>
+
     <style name="Theme.MyApp.MySplash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#D4A270</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ico_juego</item>

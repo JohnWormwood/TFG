@@ -19,6 +19,7 @@ import com.tfg.utilidades.UtilidadActivity;
 public class OpcionesActivity extends AppCompatActivity {
     private SeekBar seekBarAmbiente, seekBarMusica;
     private SoundManager soundManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,8 +88,8 @@ public class OpcionesActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        seekBarAmbiente.setProgress((int) (soundManager.getVolEfectos()*100));
-        seekBarMusica.setProgress((int) (soundManager.getVolMusica()*100));
+        seekBarAmbiente.setProgress((int) (soundManager.getVolEfectos() * 100));
+        seekBarMusica.setProgress((int) (soundManager.getVolMusica() * 100));
     }
 
     public void buttonCerrarSesionOnClick(View view) {

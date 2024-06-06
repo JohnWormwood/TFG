@@ -17,13 +17,16 @@ import lombok.Data;
                 onDelete = ForeignKey.CASCADE
         )
 )
-public class Aldea {
-    @PrimaryKey @NonNull
+public class AldeaEntidad {
+    @PrimaryKey
+    @NonNull
     private String usuario;
 
-    @ColumnInfo(name = "nivel") @NonNull
+    @ColumnInfo(name = "nivel")
+    @NonNull
     private Integer nivel;
 
-    @ColumnInfo(name = "poblacion") @NonNull
+    @ColumnInfo(name = "poblacion")
+    @NonNull
     private Integer poblacion;
 }

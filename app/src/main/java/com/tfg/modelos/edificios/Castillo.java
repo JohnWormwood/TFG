@@ -12,15 +12,10 @@ import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
 import com.tfg.eventos.listeners.AtaqueEventListener;
 import com.tfg.modelos.Aldea;
 
-import java.util.List;
-
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class Castillo extends Edificio implements ObtenerUsuarioCallback, AtaqueCallback {
-
-    private String victimaAtaque;
     private int soldadosEnviados;
     private LanzadorEventos<AtaqueEventListener> lanzadorEventos;
 

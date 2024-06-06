@@ -5,14 +5,13 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.tfg.bbdd.entidades.Aldea;
-import com.tfg.bbdd.entidades.Usuario;
+import com.tfg.bbdd.entidades.AldeaEntidad;
 
 @Dao
 public interface AldeaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertar(Aldea aldea);
+    void insertar(AldeaEntidad aldeaEntidad);
 
     @Query("SELECT * FROM datos_aldea WHERE usuario = :usuario")
-    Aldea getAldeaByEmail(String usuario);
+    AldeaEntidad getAldeaByEmail(String usuario);
 }

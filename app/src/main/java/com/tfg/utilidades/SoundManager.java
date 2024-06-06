@@ -20,7 +20,7 @@ public class SoundManager {
         this.context = context.getApplicationContext(); // Usar ApplicationContext para evitar memory leaks
         mediaPlayerMusica = new MediaPlayer();
         volMusica = context.getSharedPreferences(context.getString(R.string.fichero_preferences), Context.MODE_PRIVATE)
-                        .getFloat(context.getString(R.string.key_vol_musica), 1);
+                .getFloat(context.getString(R.string.key_vol_musica), 1);
 
         mediaPlayerEfectos = new MediaPlayer();
         volEfectos = context.getSharedPreferences(context.getString(R.string.fichero_preferences), Context.MODE_PRIVATE)
@@ -54,7 +54,6 @@ public class SoundManager {
         mediaPlayerEfectos.setVolume(volEfectos, volEfectos);
         mediaPlayerEfectos.start();
     }
-
 
 
     public void release() {

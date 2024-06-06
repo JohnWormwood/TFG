@@ -1,11 +1,10 @@
 package com.tfg.modelos.generadores_recursos.impl;
 
+import android.util.Log;
+
 import com.tfg.controladores.ControladorRecursos;
-import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
-import com.tfg.utilidades.Constantes;
-
 
 import java.util.Map;
 import java.util.Random;
@@ -24,7 +23,7 @@ public class GeneradorEstandar implements IGeneradorRecursos {
     public void producirRecursos(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int aldeanosAsignados) {
         if (aldeanosAsignados > 0) {
             int cantidad = calcularCantidadProducida(aldeanosAsignados);
-            System.out.println(recurso+" "+cantidad);
+            Log.d(getClass().getSimpleName(), "Se intenta generar "+cantidad+" de "+recurso);
             ControladorRecursos.agregarRecursoSinExcederMax(recursos, recurso, cantidad);
         }
     }

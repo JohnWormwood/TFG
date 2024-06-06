@@ -29,10 +29,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class NotificacionesService extends FirebaseMessagingService {
-    private final static String TAG = "NotificacionesService";
+    private final static String TAG = NotificacionesService.class.getSimpleName();
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private static String token;
+
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
         super.onMessageReceived(message);
@@ -64,7 +66,6 @@ public class NotificacionesService extends FirebaseMessagingService {
     }
 
     public void enviarNotificacionAtaque(String tokenVictima, boolean victoria) {
-        System.out.println(tokenVictima);
         new Thread(() -> {
             try {
                 String accessToken = getAccessToken();
@@ -97,7 +98,7 @@ public class NotificacionesService extends FirebaseMessagingService {
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     Log.d("FCM", "Notificacion enviada correctamente");
                 } else {
-                    Log.e("FCM", "Error en la peticion, codigo error: "+responseCode);
+                    Log.e("FCM", "Error en la peticion, codigo error: " + responseCode);
                 }
             } catch (Exception e) {
                 Log.e("FCM", "Error al enviar la notificacion", e);

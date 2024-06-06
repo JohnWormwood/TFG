@@ -1,68 +1,63 @@
 package com.tfg.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.tfg.R;
 import com.tfg.activities.fragments.AldeaFragment;
 import com.tfg.activities.fragments.MercaderFragment;
 import com.tfg.activities.fragments.PartidasFragment;
 import com.tfg.activities.fragments.SenadoFragment;
+import com.tfg.bbdd.firebase.GestorFirestore;
 import com.tfg.bbdd.sqlite.GestorSqlite;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.databinding.ActivityJuegoBinding;
 import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
-import com.tfg.bbdd.firebase.GestorFirestore;
 import com.tfg.json.GestorJSON;
 import com.tfg.json.MejorasEdificiosJSON;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.SoundManager;
-import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
 import java.io.IOException;
-import java.util.Objects;
 
-public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback, PartidaCazaEventListener, ActualizarInterfazEventListener {
-    ActivityJuegoBinding binding;
-    private SoundManager soundManager;
-
-    private String emailUsuario;
-    private GestorFirestore gestorFirestore = new GestorFirestore();
-    private GestorSqlite gestorSqlite;
-
-    public static boolean enEjecucion = false;
-
+public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback,
+        PartidaCazaEventListener, ActualizarInterfazEventListener {
     // Componentes de la interfaz
-    private TextView textViewAldeanos, textViewDefensas, textViewComida, textViewTroncos, textViewTablones, textViewPiedra, textViewHierro, textViewOro;
-
+    private ActivityJuegoBinding binding;
+    private TextView textViewAldeanos, textViewDefensas, textViewComida, textViewTroncos,
+            textViewTablones, textViewPiedra, textViewHierro, textViewOro;
     private ImageView imageViewMina, imagewViewGranja, imageViewCastillo, imageViewCarpinteria;
     private ImageView imageViewOveja, imageViewGuerrero1, imageViewGuerrero2;
     private ImageView imageViewBlurr, imageViewLoad;
     private ImageView[] imageViewsCasas;
 
+    // Referencias
     private Aldea aldea = Aldea.getInstance();
+    private SoundManager soundManager = SoundManager.getInstance(this);
+
+    // Bases de datos
+    private String emailUsuario;
+    private GestorFirestore gestorFirestore;
+    private GestorSqlite gestorSqlite;
+
+    // Control del bucle de juego
+    public static boolean enEjecucion = false;
 
     // --- FUNCIONES PARA CONTROLAR LA ACTIVITY ---
     @Override
@@ -73,13 +68,11 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         setContentView(binding.getRoot());
 
         // Cargar el fragment segun el item del menu
-        itemSelectedListener.onNavigationItemSelected(binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
+        itemSelectedListener.onNavigationItemSelected(
+                binding.menuInferior.getMenu().findItem(binding.menuInferior.getSelectedItemId()));
         binding.menuInferior.setItemIconTintList(null); // Esto es para que los iconos se vean bien
 
-        //Cargar pantalla de carga
-        cargarGifConTemporizador(R.id.imageViewload, R.drawable.load);
-
-        soundManager = SoundManager.getInstance(this);
+        cargarGifPantallaCarga(); // Cargar pantalla de carga
         configInicial();
     }
 
@@ -89,14 +82,12 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         emailUsuario = bundle.getString("email");
-        //System.out.println(emailUsuario);
+        gestorFirestore = new GestorFirestore();
         gestorSqlite = new GestorSqlite(this, emailUsuario);
 
-        if (!UtilidadRed.hayInternet(this)) {
-            Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
-            finish();
-        } else {
+        if (UtilidadRed.hayInternet(this)) {
             try {
+                // Sincronizar partida local
                 if (!gestorSqlite.estaSincronizado()) {
                     gestorSqlite.cargarDatos();
                     gestorFirestore.guardarDatos(emailUsuario, this);
@@ -114,10 +105,10 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
 
         try {
             gestorFirestore.guardarDatos(emailUsuario, this);
-            System.out.println("GUARDADO EN SERVIDOR");
+            Log.d(getClass().getSimpleName(), "Datos guardados en servidor");
         } catch (RuntimeException e) {
             gestorSqlite.guardarDatos();
-            System.out.println("GUARDADO EN LOCAL");
+            Log.d(getClass().getSimpleName(), "Datos guardados en local");
         }
 
         aldea.getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos().removeEventListener(this);
@@ -179,7 +170,10 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     @Override
     public void onFinalizarPartida() {
         if (Aldea.getInstance().getCabaniaCaza().getAldeanosMuertosEnPartida() > 0) {
-            Toast.makeText(this, getString(R.string.msj_aldeanos_muertos_caza, aldea.getCabaniaCaza().getAldeanosMuertosEnPartida()), Toast.LENGTH_LONG).show();
+            Toast.makeText(this,
+                    getString(R.string.msj_aldeanos_muertos_caza,
+                            aldea.getCabaniaCaza().getAldeanosMuertosEnPartida()),
+                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -197,7 +191,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
             @Override
             public void run() {
                 try {
-                    aldea.getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos().addEventListener((PartidaCazaEventListener) context);
+                    aldea.getCabaniaCaza().getTimerPartidaCaza().getLanzadorEventos()
+                            .addEventListener((PartidaCazaEventListener) context);
                     ControladorAldea.iniciarAldea();
                     while (enEjecucion) {
                         Thread.sleep(1);
@@ -219,14 +214,21 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                textViewAldeanos.setText(String.valueOf(Aldea.getInstance().getPoblacion()));
-                textViewDefensas.setText(String.valueOf(Aldea.getInstance().getCastillo().getAldeanosAsignados()));
-                textViewComida.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.COMIDA)));
-                textViewTroncos.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.TRONCOS_MADERA)));
-                textViewTablones.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.TABLONES_MADERA)));
-                textViewPiedra.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.PIEDRA)));
-                textViewHierro.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.HIERRO)));
-                textViewOro.setText(String.valueOf(Aldea.getInstance().getRecursos().get(RecursosEnum.ORO)));
+                textViewAldeanos.setText(String.valueOf(aldea.getPoblacion()));
+                textViewDefensas.setText(
+                        String.valueOf(aldea.getCastillo().getAldeanosAsignados()));
+                textViewComida.setText(
+                        String.valueOf(aldea.getRecursos().get(RecursosEnum.COMIDA)));
+                textViewTroncos.setText(
+                        String.valueOf(aldea.getRecursos().get(RecursosEnum.TRONCOS_MADERA)));
+                textViewTablones.setText(
+                        String.valueOf(aldea.getRecursos().get(RecursosEnum.TABLONES_MADERA)));
+                textViewPiedra.setText(
+                        String.valueOf(aldea.getRecursos().get(RecursosEnum.PIEDRA)));
+                textViewHierro.setText(
+                        String.valueOf(aldea.getRecursos().get(RecursosEnum.HIERRO)));
+                textViewOro.setText(
+                        String.valueOf(aldea.getRecursos().get(RecursosEnum.ORO)));
             }
         });
     }
@@ -267,6 +269,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         textViewOro = findViewById(R.id.textViewOro);
 
         // ImageViews
+        imageViewBlurr = findViewById(R.id.imageViewBlur);
+        imageViewLoad = findViewById(R.id.imageViewload);
         imagewViewGranja = findViewById(R.id.imageViewGranja);
         imageViewMina = findViewById(R.id.imageViewMina);
         imageViewCastillo = findViewById(R.id.imageViewCastillo);
@@ -275,10 +279,10 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         imageViewGuerrero1 = findViewById(R.id.imageViewGuerrero1);
         imageViewGuerrero2 = findViewById(R.id.imageViewGuerrero2);
 
-
         imageViewsCasas = new ImageView[10];
         for (int i = 0; i < imageViewsCasas.length; i++) {
-            int id = getResources().getIdentifier("imageViewCasa"+(i+1), "id", getPackageName());
+            int id = getResources()
+                    .getIdentifier("imageViewCasa" + (i + 1), "id", getPackageName());
             imageViewsCasas[i] = findViewById(id);
         }
     }
@@ -294,12 +298,17 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         }
         if (aldea.getMina().isDesbloqueado()) imageViewMina.setImageResource(R.drawable.mina2);
         if (aldea.getGranja().isDesbloqueado()) imagewViewGranja.setImageResource(R.drawable.casa2);
-        if (aldea.getCarpinteria().isDesbloqueado()) imageViewCarpinteria.setImageResource(R.drawable.carpinteria);
-        if (aldea.getCastillo().isDesbloqueado()) imageViewCastillo.setImageResource(R.drawable.castillo);
+        if (aldea.getCarpinteria().isDesbloqueado())
+            imageViewCarpinteria.setImageResource(R.drawable.carpinteria);
+        if (aldea.getCastillo().isDesbloqueado())
+            imageViewCastillo.setImageResource(R.drawable.castillo);
 
-        imageViewOveja.setVisibility(aldea.getGranja().isDesbloqueado() ? View.VISIBLE : View.INVISIBLE);
-        imageViewGuerrero1.setVisibility(aldea.getCastillo().isDesbloqueado() ? View.VISIBLE : View.INVISIBLE);
-        imageViewGuerrero2.setVisibility(aldea.getCastillo().isDesbloqueado() ? View.VISIBLE : View.INVISIBLE);
+        imageViewOveja.setVisibility(aldea.getGranja().isDesbloqueado()
+                ? View.VISIBLE : View.INVISIBLE);
+        imageViewGuerrero1.setVisibility(aldea.getCastillo().isDesbloqueado()
+                ? View.VISIBLE : View.INVISIBLE);
+        imageViewGuerrero2.setVisibility(aldea.getCastillo().isDesbloqueado()
+                ? View.VISIBLE : View.INVISIBLE);
 
     }
 
@@ -309,37 +318,20 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
             String json = gestorJSON.cargarJsonDesdeAssets(getString(R.string.fichero_mejoras_json), this);
             MejorasEdificiosJSON mejorasEdificiosJSON = new MejorasEdificiosJSON(json);
             aldea.setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.senado_nodo_json)));
-            aldea.getCabaniaCaza().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.cabania_caza_nodo_json)));
-            aldea.getCasetaLeniador().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.caseta_leniador_nodo_json)));
-            aldea.getCarpinteria().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.carpinteria_nodo_json)));
+            aldea.getCabaniaCaza()
+                    .setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.cabania_caza_nodo_json)));
+            aldea.getCasetaLeniador()
+                    .setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.caseta_leniador_nodo_json)));
+            aldea.getCarpinteria()
+                    .setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.carpinteria_nodo_json)));
             aldea.getGranja().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.granja_nodo_json)));
             aldea.getMina().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.mina_nodo_json)));
             aldea.getCastillo().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.castillo_nodo_json)));
-            System.out.println("JSON CARGADO");
-            System.out.println(aldea);
+            Log.d(getClass().getSimpleName(), "Se ha cargado el json de mejoras");
         } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, getString(R.string.msj_error_cargar_datos), Toast.LENGTH_SHORT).show();
-            finish();
-        }
-    }
-    private void cargarDatosTutorial() {
-        GestorJSON gestorJSON = new GestorJSON();
-        try {
-            String json = gestorJSON.cargarJsonDesdeAssets(getString(R.string.fichero_mejoras_json), this);
-            MejorasEdificiosJSON mejorasEdificiosJSON = new MejorasEdificiosJSON(json);
-            aldea.setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.senado_nodo_json)));
-            aldea.getCabaniaCaza().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.cabania_caza_nodo_json)));
-            aldea.getCasetaLeniador().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.caseta_leniador_nodo_json)));
-            aldea.getCarpinteria().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.carpinteria_nodo_json)));
-            aldea.getGranja().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.granja_nodo_json)));
-            aldea.getMina().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.mina_nodo_json)));
-            aldea.getCastillo().setPreciosMejoras(mejorasEdificiosJSON.getDatosMejoras(getString(R.string.castillo_nodo_json)));
-            System.out.println("JSON CARGADO");
-            System.out.println(aldea);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, getString(R.string.msj_error_cargar_datos), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    getString(R.string.msj_error_cargar_datos), Toast.LENGTH_SHORT).show();
+            Log.e(getClass().getSimpleName(), e.getLocalizedMessage(), e);
             finish();
         }
     }
@@ -362,16 +354,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     }
 
     //Pantalla de carga de la aldea
-    private void cargarGifConTemporizador(int id, int drawableId) {
-        imageViewBlurr = findViewById(R.id.imageViewBlur);
-        imageViewLoad = findViewById(R.id.imageViewload);
-        cargarGif(id, drawableId); // Carga el GIF en el ImageView
-
-        // Hace el ImageView invisible después de un cierto tiempo
-        /*new Handler().postDelayed(() -> imageViewBlurr.setVisibility(View.INVISIBLE), 3000);
-        new Handler().postDelayed(() -> imageViewLoad.setVisibility(View.INVISIBLE), 3000);
-        */
+    private void cargarGifPantallaCarga() {
+        cargarGif(R.id.imageViewload, R.drawable.load); // Carga el GIF en el ImageView
     }
-
-
 }

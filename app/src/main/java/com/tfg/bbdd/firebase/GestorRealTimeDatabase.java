@@ -55,12 +55,10 @@ public class GestorRealTimeDatabase {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         NotificacionesService.setToken(token);
         if (firebaseAuth.getCurrentUser() != null) {
-            System.out.println("NO ES NULL");
-            System.out.println("TOKEN = "+token);
             String idUsuario = firebaseAuth.getCurrentUser().getUid();
             DatabaseReference idUsuarioRef = usuariosRef.child(idUsuario);
             idUsuarioRef.child(PATH_TOKEN_FCM).setValue(NotificacionesService.getToken());
-        } else System.out.println("ES NULL");
+        }
     }
 
     public void comprobarEstadoConexion(ObtenerUsuarioCallback callback) {
@@ -106,7 +104,7 @@ public class GestorRealTimeDatabase {
                     int randomIndex = random.nextInt(usuariosDesconectados.size());
                     callback.onExito(usuariosDesconectados.get(randomIndex));
                 } else {
-                    System.out.println("No hay usuarios desconectados");
+                    Log.d(getClass().getSimpleName(), "No hay usuarios desconectados");
                     callback.onExito(null);
                 }
             }
@@ -164,7 +162,7 @@ public class GestorRealTimeDatabase {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     usuarioDTO.setPuntos(Optional.ofNullable(snapshot.child(PATH_PUNTOS).getValue(Integer.class)).orElse(0));
                     DatabaseReference idUsuarioRef = usuariosRef.child(uid);
-                    idUsuarioRef.child(PATH_PUNTOS).setValue(Math.max(usuarioDTO.getPuntos()+puntuacion, 0));
+                    idUsuarioRef.child(PATH_PUNTOS).setValue(Math.max(usuarioDTO.getPuntos() + puntuacion, 0));
                 }
 
                 @Override

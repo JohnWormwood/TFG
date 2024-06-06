@@ -4,14 +4,12 @@ import android.content.ContentValues;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
@@ -34,11 +32,12 @@ public class AuthActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextPassword;
     private LinearLayout authLayout;
 
+    // --- FUNCIONES PARA CONTROLAR LA ACTIVITY ---
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Install the splash screen
+        // Instalar la SplashScreen
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         setContentView(R.layout.activity_auth);
         authLayout = findViewById(R.id.authLayout);
@@ -53,12 +52,12 @@ public class AuthActivity extends AppCompatActivity {
 
         // Comprueba la sesion antes de cargar la UI de login
         if (!comprobarSesion()) {
-            cargarDatos();
+            configInicial();
             vaciarEditTexts();
         }
     }
 
-
+    // --- FUNCIONES SESION USUARIO ---
     private boolean comprobarSesion() {
         if (UtilidadRed.hayInternet(this)) {
             String email = GestorSesion.cargarSesionLocal();
@@ -85,13 +84,18 @@ public class AuthActivity extends AppCompatActivity {
             }
             String token = task.getResult();
             NotificacionesService.setToken(token);
-            Log.d(ContentValues.TAG, "El token es "+token);
+            Log.d(ContentValues.TAG, "El token es " + token);
         });
     }
 
-    private void cargarDatos(){
+    // --- FUNCIONES INTERFAZ GRAFICA ---
+    private void configInicial() {
         setContentView(R.layout.activity_auth);
+        inicializarComponentes();
+        cargarListeners();
+    }
 
+    private void inicializarComponentes() {
         // Inicializar componentes de la interfaz
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
@@ -101,15 +105,21 @@ public class AuthActivity extends AppCompatActivity {
         textViewRegistro = findViewById(R.id.textViewRegistrarse);
         textViewLogin = findViewById(R.id.textViewLogin);
         textViewSalir = findViewById(R.id.textViewSalir);
-
         UtilidadActivity.setEfectoBoton(buttonRegistro, textViewRegistro);
         UtilidadActivity.setEfectoBoton(buttonLogin, textViewLogin);
         UtilidadActivity.setEfectoBoton(buttonSalir, textViewSalir);
+    }
 
+    private void cargarListeners() {
         // Cargar los listeners
         buttonRegistro.setOnClickListener(buttonRegistroOnClick);
         buttonLogin.setOnClickListener(buttonLoginOnClick);
         buttonSalir.setOnClickListener(v -> finishAffinity());
+    }
+
+    private void vaciarEditTexts() {
+        editTextEmail.getText().clear();
+        editTextPassword.getText().clear();
     }
 
     private void mostrarAlerta() {
@@ -123,7 +133,7 @@ public class AuthActivity extends AppCompatActivity {
 
     // --- LISTENERS ---
     private final View.OnClickListener buttonRegistroOnClick = v -> {
-        String email = String.valueOf(editTextEmail.getText()) , password = String.valueOf(editTextPassword.getText());
+        String email = String.valueOf(editTextEmail.getText()), password = String.valueOf(editTextPassword.getText());
 
         if (UtilidadRed.hayInternet(this)) {
             GestorSesion.registrarUsuario(email, password, task -> {
@@ -136,11 +146,12 @@ public class AuthActivity extends AppCompatActivity {
                     mostrarAlerta();
                 }
             });
-        } else Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
     };
 
     private final View.OnClickListener buttonLoginOnClick = v -> {
-        String email = String.valueOf(editTextEmail.getText()) , password = String.valueOf(editTextPassword.getText());
+        String email = String.valueOf(editTextEmail.getText()), password = String.valueOf(editTextPassword.getText());
 
         if (UtilidadRed.hayInternet(this)) {
             GestorSesion.iniciarSesion(email, password, task -> {
@@ -153,12 +164,7 @@ public class AuthActivity extends AppCompatActivity {
                     mostrarAlerta();
                 }
             });
-        } else Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(this, getString(R.string.msj_internet_necesario), Toast.LENGTH_LONG).show();
     };
-
-    private void vaciarEditTexts() {
-        editTextEmail.getText().clear();
-        editTextPassword.getText().clear();
-    }
-
 }

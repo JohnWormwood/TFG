@@ -8,18 +8,6 @@
     tools:context=".activities.AuthActivity"
     android:background="@drawable/fondo_juego">
 
-    <ImageView
-        android:id="@+id/imageViewLogo"
-        android:layout_width="match_parent"
-        android:layout_height="289dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/logo_principal" />
-
     <LinearLayout
         android:id="@+id/authLayout"
         android:layout_width="0dp"
@@ -27,11 +15,17 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
-        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2">
+
+        <ImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="match_parent"
+            android:layout_height="289dp"
+            app:srcCompat="@drawable/logo_principal" />
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -109,44 +103,46 @@
                     android:textColor="#000000"
                     android:textSize="20sp" />
             </FrameLayout>
+
         </LinearLayout>
-    </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/frameLayoutSalir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/authLayout"
-        app:layout_constraintVertical_bias="0.888">
-
-        <ImageButton
-            android:id="@+id/buttonSalirAuth"
+        <Space
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:contentDescription="@string/salir"
-            app:srcCompat="@drawable/boton"
-            tools:ignore="DuplicateSpeakableTextCheck"
-            tools:layout_editor_absoluteX="121dp"
-            tools:layout_editor_absoluteY="813dp" />
-
-        <TextView
-            android:id="@+id/textViewSalir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-            android:paddingBottom="10dp"
-            android:text="@string/salir"
-            android:textAlignment="center"
-            android:textColor="#431E12"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="179dp"
-            tools:layout_editor_absoluteY="820dp" />
-    </FrameLayout>
+            android:layout_weight="1" />
+
+        <FrameLayout
+            android:id="@+id/frameLayoutSalir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <ImageButton
+                android:id="@+id/buttonSalirAuth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:contentDescription="@string/salir"
+                app:srcCompat="@drawable/boton"
+                tools:ignore="DuplicateSpeakableTextCheck"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="813dp" />
+
+            <TextView
+                android:id="@+id/textViewSalir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingBottom="10dp"
+                android:text="@string/salir"
+                android:textAlignment="center"
+                android:textColor="#431E12"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="179dp"
+                tools:layout_editor_absoluteY="820dp" />
+        </FrameLayout>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

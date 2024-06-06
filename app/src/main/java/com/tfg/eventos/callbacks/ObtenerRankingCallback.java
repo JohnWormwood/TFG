@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ObtenerRankingCallback {
     void onExito(List<UsuarioDTO> ranking);
+
     void onError(DatabaseError databaseError);
 }

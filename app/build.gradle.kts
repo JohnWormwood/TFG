@@ -53,8 +53,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     // Lombok
-    compileOnly ("org.projectlombok:lombok:1.18.32")
-    annotationProcessor ("org.projectlombok:lombok:1.18.32")
+    compileOnly("org.projectlombok:lombok:1.18.32")
+    annotationProcessor("org.projectlombok:lombok:1.18.32")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))

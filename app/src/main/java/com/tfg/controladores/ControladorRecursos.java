@@ -1,5 +1,7 @@
 package com.tfg.controladores;
 
+import android.util.Log;
+
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 
@@ -16,8 +18,9 @@ public final class ControladorRecursos {
     }
 
     public static synchronized void agregarRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
-        if (cantidad >= 0) {
-            recursos.put(recurso, getCantidadRecurso(recursos, recurso)+cantidad);
+        if (cantidad > 0) {
+            recursos.put(recurso, getCantidadRecurso(recursos, recurso) + cantidad);
+            Log.d(ControladorRecursos.class.getSimpleName(), "Agregado recurso: ("+recurso+", "+cantidad+")");
         }
     }
 
@@ -29,12 +32,13 @@ public final class ControladorRecursos {
     }
 
     public static synchronized boolean puedeConsumirRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
-        return cantidad <= getCantidadRecurso(recursos, recurso);
+        return cantidad <= getCantidadRecurso(recursos, recurso) && cantidad > 0;
     }
 
     public static synchronized boolean consumirRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso, int cantidad) {
         if (puedeConsumirRecurso(recursos, recurso, cantidad)) {
-            recursos.put(recurso, getCantidadRecurso(recursos, recurso)-cantidad);
+            recursos.put(recurso, getCantidadRecurso(recursos, recurso) - cantidad);
+            Log.d(ControladorRecursos.class.getSimpleName(), "Consumido recurso: ("+recurso+", "+cantidad+")");
             return true;
         }
         return false;

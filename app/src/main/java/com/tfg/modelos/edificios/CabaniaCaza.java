@@ -5,20 +5,17 @@ import android.os.Looper;
 
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.controladores.ControladorRecursos;
-import com.tfg.eventos.listeners.PartidaCazaEventListener;
 import com.tfg.modelos.Aldea;
-import com.tfg.modelos.EstructuraBase;
-import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.TimerPartidaCaza;
+import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.impl.GeneradorCabaniaCaza;
-import com.tfg.utilidades.Constantes;
-import com.tfg.utilidades.ListaHilos;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
 
-@Getter(onMethod_={@Synchronized}) @Setter(onMethod_={@Synchronized})
+@Getter(onMethod_ = {@Synchronized})
+@Setter(onMethod_ = {@Synchronized})
 public class CabaniaCaza extends Edificio {
     private TimerPartidaCaza timerPartidaCaza;
     private int aldeanosMuertosEnPartida;
@@ -49,10 +46,10 @@ public class CabaniaCaza extends Edificio {
         // Si se ha generado mas del maxmio se añade solo lo necesario para llegar al maximo
         int comidaAldea = ControladorRecursos.getCantidadRecurso(aldea.getRecursos(), RecursosEnum.COMIDA);
         int comidaGenerada = ControladorRecursos.getCantidadRecurso(recursos, RecursosEnum.COMIDA);
-        if ((comidaAldea+comidaGenerada) > RecursosEnum.COMIDA.getMax()) {
-            recursos.put(RecursosEnum.COMIDA, RecursosEnum.COMIDA.getMax()-comidaAldea);
+        if ((comidaAldea + comidaGenerada) > RecursosEnum.COMIDA.getMax()) {
+            recursos.put(RecursosEnum.COMIDA, RecursosEnum.COMIDA.getMax() - comidaAldea);
         }
-        if (aldeanosAsignados > 0){
+        if (aldeanosAsignados > 0) {
             transferirRecursoAldea(RecursosEnum.COMIDA);
         }
         devolverAldeanos(aldeanosAsignados);
@@ -73,8 +70,7 @@ public class CabaniaCaza extends Edificio {
                  * un looper en el que ejecutarse ya que si no dara excepcion
                  */
                 // Iniciar el timer con el tiempo restante
-                System.out.println("SEGUNDOS = "+timerPartidaCaza.getSegundosRestantes());
-                timerPartidaCaza = new TimerPartidaCaza(timerPartidaCaza.getSegundosRestantes()*1000, ref);
+                timerPartidaCaza = new TimerPartidaCaza(timerPartidaCaza.getSegundosRestantes() * 1000, ref);
                 timerPartidaCaza.start();
             });
         }

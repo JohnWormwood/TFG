@@ -1,17 +1,12 @@
 package com.tfg.modelos.edificios;
 
-import com.tfg.activities.JuegoActivity;
+import android.util.Log;
+
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.modelos.generadores_recursos.IGeneradorRecursos;
 import com.tfg.modelos.generadores_recursos.impl.GeneradorCarpinteria;
-import com.tfg.modelos.generadores_recursos.impl.GeneradorEstandar;
-import com.tfg.utilidades.Constantes;
-import com.tfg.utilidades.ListaHilos;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Carpinteria extends Edificio {
     public Carpinteria(int aldeanosAsignados, Aldea aldea) {
@@ -31,15 +26,11 @@ public class Carpinteria extends Edificio {
                 if (ControladorRecursos.consumirRecurso(
                         aldea.getRecursos(),
                         RecursosEnum.TRONCOS_MADERA,
-                        ControladorRecursos.getCantidadRecurso(recursos, generadorRecursos.getRecurso())*2)
+                        ControladorRecursos.getCantidadRecurso(recursos, generadorRecursos.getRecurso()) * 2)
                 ) {
                     transferirRecursoAldea(generadorRecursos.getRecurso());
                 }
-            } else {
-                System.out.println(ControladorRecursos.getCantidadRecurso(recursos, generadorRecursos.getRecurso()));
-                System.out.println("no entra if");
             }
-
         }
     }
 }
