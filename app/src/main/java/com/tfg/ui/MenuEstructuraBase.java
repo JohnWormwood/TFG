@@ -14,7 +14,6 @@ import com.tfg.eventos.LanzadorEventos;
 import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
 import com.tfg.modelos.EstructuraBase;
 import com.tfg.modelos.enums.RecursosEnum;
-import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.PopupManager;
 
 import java.util.Map;
@@ -60,12 +59,8 @@ public class MenuEstructuraBase extends LanzadorEventos<ActualizarInterfazEventL
             String msj = "";
             try {
                 if (estructura.aumentarNivel()) {
-                    msj = context.getString(R.string.msj_subida_nivel,
-                            estructura.getClass().getSimpleName(), estructura.getNivel());
-                    actualizar();
-                    if (estructura.getClass().getSimpleName().equals("Aldea")) {
-                        tutorialSegunNivel(estructura.getNivel());
-                    }
+                    msj = context.getString(R.string.msj_subida_nivel, estructura.getNivel());
+                    manejarSubidaNivel(estructura.getNivel());
                 } else {
                     msj = context.getString(R.string.msj_recursos_insuficientes);
                 }
@@ -77,31 +72,7 @@ public class MenuEstructuraBase extends LanzadorEventos<ActualizarInterfazEventL
         };
     }
 
-    private void tutorialSegunNivel(int nivel) {
-        if (popupManager != null) {
-            switch (nivel) {
-                case Constantes.Aldea.NIVEL_DESBLOQUEO_PIEDRA:
-                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_mina));
-                    break;
-                case Constantes.Aldea.NIVEL_DESBLOQUEO_TABLONES:
-                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_carpinteria));
-                    break;
-                case Constantes.Aldea.NIVEL_DESBLOQUEO_CASTILLO:
-                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_castillo));
-                    break;
-                case Constantes.Aldea.NIVEL_DESBLOQUEO_HIERRO:
-                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_hierro));
-                    break;
-                case Constantes.Aldea.NIVEL_DESBLOQUEO_GRANJA:
-                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_granja));
-                    break;
-                case Constantes.Aldea.NIVEL_DESBLOQUEO_ORO:
-                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_oro));
-                    break;
-                case Constantes.Aldea.NIVEL_DESBLOQUEO_MERCADER:
-                    popupManager.showPopup(context.getString(R.string.msj_desbloqueo_mercado));
-                    break;
-            }
-        }
+    protected void manejarSubidaNivel(int nivel) {
+        actualizar();
     }
 }

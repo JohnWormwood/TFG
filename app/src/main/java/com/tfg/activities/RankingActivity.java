@@ -1,6 +1,7 @@
 package com.tfg.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,9 +52,9 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
                         FirebaseAuth.getInstance().getCurrentUser()).getEmail())).findFirst();
         if (usuarioActual.isPresent()) {
             textViewUsuario.setText(
-                    String.valueOf("Tu puntuacion: " + usuarioActual.get().getPuntos()));
+                    getString(R.string.puntos_usuario, usuarioActual.get().getPuntos()));
         } else {
-            textViewUsuario.setText(String.valueOf("No hemos podido obtener tu puntuacion"));
+            textViewUsuario.setText(getString(R.string.msj_error_puntos));
         }
 
         // Ordenar la lista por puntos en orden descendente
@@ -66,7 +67,6 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
             // Usar String.format para formatear el texto con longitud fija
             String formattedText = String.format("%-20s %s", email, puntos);
 
-
             // Agregar el texto al TextView
             textViewUsuarios.append(formattedText + "\n");
         }
@@ -74,6 +74,7 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
 
     @Override
     public void onError(DatabaseError databaseError) {
-        Toast.makeText(this, "Error al cargar el ranking", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.msj_error_ranking), Toast.LENGTH_SHORT).show();
+        Log.e(getClass().getSimpleName(), databaseError.getMessage(), databaseError.toException());
     }
 }

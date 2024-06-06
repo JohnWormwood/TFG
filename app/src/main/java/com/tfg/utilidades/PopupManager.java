@@ -13,9 +13,9 @@ public class PopupManager {
 
     private AppCompatActivity activity;
 
-    public PopupManager(AppCompatActivity activity) {
+    public PopupManager(AppCompatActivity activity) throws IllegalArgumentException {
         if (activity == null) {
-            throw new IllegalArgumentException("Activity cannot be null");
+            throw new IllegalArgumentException("La Activity no puede ser null");
         }
         this.activity = activity;
     }

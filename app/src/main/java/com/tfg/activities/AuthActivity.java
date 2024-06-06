@@ -19,6 +19,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.tfg.R;
 import com.tfg.bbdd.firebase.auth.GestorSesion;
 import com.tfg.bbdd.firebase.service.NotificacionesService;
+import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
@@ -65,7 +66,7 @@ public class AuthActivity extends AppCompatActivity {
             if (email != null) {
                 authLayout.setVisibility(View.INVISIBLE);
                 Bundle extras = new Bundle();
-                extras.putString("email", email);
+                extras.putString(Constantes.KEY_EMAIL, email);
                 UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
                 return true;
             }
@@ -140,7 +141,7 @@ public class AuthActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     AuthResult resultado = task.getResult();
                     Bundle extras = new Bundle();
-                    extras.putString("email", Objects.requireNonNull(resultado.getUser()).getEmail());
+                    extras.putString(Constantes.KEY_EMAIL, Objects.requireNonNull(resultado.getUser()).getEmail());
                     UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
                 } else {
                     mostrarAlerta();
@@ -158,7 +159,7 @@ public class AuthActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     AuthResult resultado = task.getResult();
                     Bundle extras = new Bundle();
-                    extras.putString("email", Objects.requireNonNull(resultado.getUser()).getEmail());
+                    extras.putString(Constantes.KEY_EMAIL, Objects.requireNonNull(resultado.getUser()).getEmail());
                     UtilidadActivity.lanzarIntent(this, MenuActivity.class, extras);
                 } else {
                     mostrarAlerta();

@@ -2,6 +2,7 @@ package com.tfg.utilidades;
 
 public final class Constantes {
     public static final int NIVEL_INICIAL = 1;
+    public static final String KEY_EMAIL = "email";
 
     public static class Estructura {
         public static final int NIVEL_MAXIMO = 10;

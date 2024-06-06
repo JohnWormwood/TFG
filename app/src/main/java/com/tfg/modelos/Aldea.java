@@ -14,9 +14,6 @@ import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.ListaHilos;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;

@@ -53,9 +53,8 @@
     <string name="mina_nodo_json">mina</string>
     <string name="castillo_nodo_json">castillo</string>
 
-
     <!-- Mensajes Toast -->
-    <string name="msj_subida_nivel">%s ha subido a nivel %d</string>
+    <string name="msj_subida_nivel">El edificio ha subido a nivel %d</string>
     <string name="msj_recursos_insuficientes">No tienes suficientes recursos</string>
     <string name="msj_aldeanos_insuficientes">No tienes suficientes aldeanos</string>
     <string name="msj_selecciona_minimo">Debes seleccionar al menos %d</string>
@@ -68,6 +67,8 @@
     <string name="msj_victoria_ataque">Has ganado el ataque, y has conseguido recursos</string>
     <string name="msj_derrota_ataque">Has perdido el ataque, los aldeanos que enviaste han muerto</string>
     <string name="msj_tiempo_ataque">Puedes atacar cada %d minutos</string>
+    <string name="msj_error_ranking">Error al cargar el ranking</string>
+    <string name="msj_ya_conectado">Ahora mismo ya estas conectado con este usuario desde otro dispositivo</string>
 
     <!-- Tipos aldeanos -->
     <string name="leniadores">Leñadores</string>
@@ -75,7 +76,6 @@
     <string name="carpinteros">Carpinteros</string>
     <string name="mineros">Mineros</string>
     <string name="defensores">Defensores</string>
-
 
     <!-- Edificios -->
     <string name="cabania_caza">Cabaña de Cazadores</string>
@@ -98,10 +98,14 @@
     <string name="mejora_senado">Mejora el senado para desbloquear nuevos edificios</string>
     <string name="eniva_cazadores">Envia cazadores en el menu Partidas</string>
 
+    <!-- RankingActivity -->
+    <string name="msj_error_puntos">Error al cargar el ranking</string>
+    <string name="puntos_usuario">Tu puntuacion: %d</string>
+
     <!-- Splash -->
     <string name="TFG">Mi Aplicación</string>
     <string name="splash_subtitle">Bienvenido a la mejor experiencia</string>
     <string name="splash_icon_description">Icono de bienvenida</string>
-    <string name="mercado_msj">Este edificioEntidad se desbloquea a nivel 8 del Senado</string>
+    <string name="mercado_msj">Este edificio se desbloquea a nivel 8 del Senado</string>
     <string name="incursiones_msj">Las Incursiones se desbloquean con el Senado a nivel 4</string>
 </resources>

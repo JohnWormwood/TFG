@@ -1,7 +1,5 @@
 package com.tfg.modelos.edificios;
 
-import android.util.Log;
-
 import com.tfg.controladores.ControladorRecursos;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;

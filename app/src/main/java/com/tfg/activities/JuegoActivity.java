@@ -31,6 +31,7 @@ import com.tfg.json.GestorJSON;
 import com.tfg.json.MejorasEdificiosJSON;
 import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
+import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadRed;
 
@@ -81,7 +82,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         super.onStart();
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        emailUsuario = bundle.getString("email");
+        emailUsuario = bundle.getString(Constantes.KEY_EMAIL);
         gestorFirestore = new GestorFirestore();
         gestorSqlite = new GestorSqlite(this, emailUsuario);
 

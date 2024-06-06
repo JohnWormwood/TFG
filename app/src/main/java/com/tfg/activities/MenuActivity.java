@@ -18,6 +18,7 @@ import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.bbdd.firebase.auth.GestorSesion;
 import com.tfg.bbdd.firebase.service.NotificacionesService;
 import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
+import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
@@ -59,7 +60,7 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
 
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        email = bundle.getString("email");
+        email = bundle.getString(Constantes.KEY_EMAIL);
         configInicial(email);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -119,10 +120,10 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
     public void onExito(UsuarioDTO usuarioDTO) {
         // Si el usuario ya esta conectado no podra jugar
         if (usuarioDTO.isOnline()) {
-            Toast.makeText(this, "Ya estas conectado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.msj_ya_conectado), Toast.LENGTH_SHORT).show();
         } else {
             Bundle extras = new Bundle();
-            extras.putString("email", email);
+            extras.putString(Constantes.KEY_EMAIL, email);
             UtilidadActivity.lanzarIntent(this, JuegoActivity.class, extras);
         }
     }
