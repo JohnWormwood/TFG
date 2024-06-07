@@ -21,6 +21,7 @@ import com.tfg.activities.fragments.MercaderFragment;
 import com.tfg.activities.fragments.PartidasFragment;
 import com.tfg.activities.fragments.SenadoFragment;
 import com.tfg.bbdd.firebase.GestorFirestore;
+import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.bbdd.sqlite.GestorSqlite;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.databinding.ActivityJuegoBinding;
@@ -59,6 +60,8 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
 
     // Control del bucle de juego
     public static boolean enEjecucion = false;
+    // Base de datos
+    private GestorRealTimeDatabase gestorRealTimeDatabase;
 
     // --- FUNCIONES PARA CONTROLAR LA ACTIVITY ---
     @Override

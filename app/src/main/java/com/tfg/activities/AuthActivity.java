@@ -20,6 +20,7 @@ import com.tfg.R;
 import com.tfg.bbdd.firebase.auth.GestorSesion;
 import com.tfg.bbdd.firebase.service.NotificacionesService;
 import com.tfg.utilidades.Constantes;
+import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
@@ -32,12 +33,15 @@ public class AuthActivity extends AppCompatActivity {
     private TextView textViewRegistro, textViewLogin, textViewSalir;
     private EditText editTextEmail, editTextPassword;
     private LinearLayout authLayout;
-
+    // Referencia soundmanager
+    private SoundManager soundManager;
     // --- FUNCIONES PARA CONTROLAR LA ACTIVITY ---
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        soundManager = SoundManager.getInstance(this);
+        soundManager.playMusica(R.raw.musica_mediaval);
         // Instalar la SplashScreen
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         setContentView(R.layout.activity_auth);

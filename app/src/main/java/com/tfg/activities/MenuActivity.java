@@ -28,8 +28,7 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
     private TextView textViewEmail;
     private String email;
 
-    // Referencia soundmanager
-    private SoundManager soundManager;
+
 
     // Base de datos
     private GestorRealTimeDatabase gestorRealTimeDatabase;
@@ -41,8 +40,7 @@ public class MenuActivity extends AppCompatActivity implements ObtenerUsuarioCal
 
         gestorRealTimeDatabase = new GestorRealTimeDatabase();
 
-        soundManager = SoundManager.getInstance(this);
-        soundManager.playMusica(R.raw.musica_mediaval);
+
 
         ImageButton buttonJugar = findViewById(R.id.buttonJugar);
         TextView textViewJugar = findViewById(R.id.textViewJugar);
