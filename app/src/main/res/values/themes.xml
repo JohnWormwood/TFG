@@ -5,6 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="fontFamily">@font/medievalsharp</item>
         <item name="android:statusBarColor">@color/black</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="Theme.TFG" parent="Base.Theme.TFG" />
