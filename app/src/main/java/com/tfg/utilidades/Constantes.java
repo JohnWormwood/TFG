@@ -14,6 +14,7 @@ public final class Constantes {
         public static final int POBLACION_INICIAL = 10;
         public static final int COMIDA_INICIAL = 10;
         public static final int AUMENTO_MAX_ALDEANOS_POR_NIVEL = 10;
+        public static final int MAX_ALDEANOS = 99;
         public static final int NIVEL_DESBLOQUEO_PIEDRA = 2;
         public static final int NIVEL_DESBLOQUEO_TABLONES = 3;
         public static final int NIVEL_DESBLOQUEO_CASTILLO = 4;

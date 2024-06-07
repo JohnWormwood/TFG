@@ -3,6 +3,7 @@ package com.tfg.ui;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -39,6 +40,7 @@ public class MenuSenado extends MenuEstructuraBase {
     }
 
     private void tutorialSegunNivel(int nivel) {
+        Toast.makeText(context, "Ha aumentado la poblacion maxima", Toast.LENGTH_SHORT).show();
         if (popupManager != null) {
             switch (nivel) {
                 case Constantes.Aldea.NIVEL_DESBLOQUEO_PIEDRA:

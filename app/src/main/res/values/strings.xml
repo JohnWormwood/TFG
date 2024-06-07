@@ -55,6 +55,7 @@
 
     <!-- Mensajes Toast -->
     <string name="msj_subida_nivel">El edificio ha subido a nivel %d</string>
+    <string name="msj_subida_nivel_edificio_asignable">Ahora puedes generar mas recursos y asignar mas aldeanos</string>
     <string name="msj_recursos_insuficientes">No tienes suficientes recursos</string>
     <string name="msj_aldeanos_insuficientes">No tienes suficientes aldeanos</string>
     <string name="msj_selecciona_minimo">Debes seleccionar al menos %d</string>

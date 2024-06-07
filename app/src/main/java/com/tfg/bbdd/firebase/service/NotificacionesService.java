@@ -82,7 +82,12 @@ public class NotificacionesService extends FirebaseMessagingService {
                 JSONObject message = new JSONObject();
                 JSONObject notification = new JSONObject();
                 notification.put("title", "¡Tu aldea está siendo atacada!");
-                notification.put("body", "Han atacado tu aldea");
+                // Victoria es true si gana el atacante
+                if (victoria) {
+                    notification.put("body", "Has perdido tus defensas y algunos recursos");
+                } else {
+                    notification.put("body", "Tu aldea ha soportado el ataque");
+                }
                 message.put("token", tokenVictima);
                 message.put("notification", notification);
 

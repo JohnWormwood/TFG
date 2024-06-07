@@ -65,7 +65,8 @@ public abstract class EstructuraBase {
     protected void setMaximoAldeanosSegunNivel() throws IllegalArgumentException {
         // TODO Capturar la excepcion donde se llame la funcion
         if (nivel <= Constantes.Estructura.NIVEL_MAXIMO)
-            aldeanosMaximos = multiplicadorAldeanosSegunNivel * nivel;
+            aldeanosMaximos = Math.min(multiplicadorAldeanosSegunNivel * nivel,
+                    Constantes.Aldea.MAX_ALDEANOS);
         else
             throw new IllegalArgumentException("Ya se ha alcanzado el nivel maximo");
     }

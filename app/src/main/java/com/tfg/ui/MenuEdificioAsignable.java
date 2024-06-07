@@ -62,7 +62,6 @@ public class MenuEdificioAsignable extends MenuEstructuraBase {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 textViewAldeanosAsignados.setText(String.valueOf(seekBar.getProgress()));
-
             }
 
             @Override
@@ -81,5 +80,12 @@ public class MenuEdificioAsignable extends MenuEstructuraBase {
                 }
             }
         };
+    }
+
+    @Override
+    protected void manejarSubidaNivel(int nivel) {
+        super.manejarSubidaNivel(nivel);
+        Toast.makeText(context, context.getString(R.string.msj_subida_nivel_edificio_asignable),
+                Toast.LENGTH_LONG).show();
     }
 }
