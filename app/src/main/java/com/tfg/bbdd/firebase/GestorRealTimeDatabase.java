@@ -18,6 +18,7 @@ import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
 import com.tfg.modelos.Aldea;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -120,7 +121,6 @@ public class GestorRealTimeDatabase {
     public void getUsuarioActual(ObtenerUsuarioCallback callback) {
         String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         Query usuarioActualQuery = usuariosRef.child(uid);
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
 
         usuarioActualQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -174,7 +174,7 @@ public class GestorRealTimeDatabase {
     }
 
     public void getRanking(ObtenerRankingCallback callback) {
-        Query onlineUsersQuery = usuariosRef.getRef();
+        Query onlineUsersQuery = usuariosRef.getRef().orderByChild(PATH_PUNTOS).limitToLast(10);
         onlineUsersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -186,6 +186,9 @@ public class GestorRealTimeDatabase {
 
                     ranking.add(usuarioDTO);
                 }
+
+                // Invertimos la lista porque limitToLast() devuelve los elementos en orden ascendente.
+                Collections.reverse(ranking);
                 callback.onExito(ranking);
             }
 

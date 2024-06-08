@@ -100,7 +100,7 @@
     <string name="eniva_cazadores">Envia cazadores en el menu Partidas</string>
 
     <!-- RankingActivity -->
-    <string name="msj_error_puntos">Error al cargar el ranking</string>
+    <string name="msj_error_puntos">No hemos podido cargar tu puntuacion actual</string>
     <string name="puntos_usuario">Tu puntuacion: %d</string>
 
     <!-- Splash -->
