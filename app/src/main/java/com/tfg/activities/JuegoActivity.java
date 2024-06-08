@@ -15,16 +15,19 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.database.DatabaseError;
 import com.tfg.R;
 import com.tfg.activities.fragments.AldeaFragment;
 import com.tfg.activities.fragments.MercaderFragment;
 import com.tfg.activities.fragments.PartidasFragment;
 import com.tfg.activities.fragments.SenadoFragment;
+import com.tfg.bbdd.dto.UsuarioDTO;
 import com.tfg.bbdd.firebase.GestorFirestore;
 import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.bbdd.sqlite.GestorSqlite;
 import com.tfg.controladores.ControladorAldea;
 import com.tfg.databinding.ActivityJuegoBinding;
+import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
 import com.tfg.eventos.callbacks.OperacionesDatosCallback;
 import com.tfg.eventos.listeners.ActualizarInterfazEventListener;
 import com.tfg.eventos.listeners.PartidaCazaEventListener;
@@ -34,12 +37,13 @@ import com.tfg.modelos.Aldea;
 import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.SoundManager;
+import com.tfg.utilidades.UtilidadActivity;
 import com.tfg.utilidades.UtilidadRed;
 
 import java.io.IOException;
 
 public class JuegoActivity extends AppCompatActivity implements OperacionesDatosCallback,
-        PartidaCazaEventListener, ActualizarInterfazEventListener {
+        PartidaCazaEventListener, ActualizarInterfazEventListener, ObtenerUsuarioCallback {
     // Componentes de la interfaz
     private ActivityJuegoBinding binding;
     private TextView textViewAldeanos, textViewDefensas, textViewComida, textViewTroncos,
@@ -60,6 +64,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
 
     // Control del bucle de juego
     public static boolean enEjecucion = false;
+
     // Base de datos
     private GestorRealTimeDatabase gestorRealTimeDatabase;
 
@@ -87,6 +92,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         assert bundle != null;
         emailUsuario = bundle.getString(Constantes.KEY_EMAIL);
         gestorFirestore = new GestorFirestore();
+        gestorRealTimeDatabase = new GestorRealTimeDatabase();
         gestorSqlite = new GestorSqlite(this, emailUsuario);
 
         if (UtilidadRed.hayInternet(this)) {
@@ -133,6 +139,7 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
         super.onResume();
         soundManager.getMediaPlayerMusica().start();
         soundManager.getMediaPlayerEfectos().start();
+        gestorRealTimeDatabase.getUsuarioActual(this);
     }
 
     public void cambiarFragment(Fragment fragment) {
@@ -163,6 +170,23 @@ public class JuegoActivity extends AppCompatActivity implements OperacionesDatos
     @Override
     public void onDatosGuardados() {
         ControladorAldea.finalizarAldea();
+    }
+
+    // --- IMPLEMENTACION DE ObtenerUsuarioCallback ---
+    @Override
+    public void onExito(UsuarioDTO usuarioDTO) {
+        // Si el usuario ya esta conectado no podra jugar
+        // Hay que comprobarlo aqui tambien por si el usuario deja la app en suspension
+        if (usuarioDTO.isOnline()) {
+            Toast.makeText(this, getString(R.string.msj_ya_conectado), Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    @Override
+    public void onError(DatabaseError databaseError) {
+        Toast.makeText(this,
+                databaseError.toException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
     // --- IMPLEMANTACION DE PartidaCazaEventListener ---

@@ -3,6 +3,7 @@ package com.tfg.activities;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +33,7 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
         textViewUsuario = findViewById(R.id.textViewUsuario);
         textViewUsuarios = findViewById(R.id.textViewUsuarios);
 
-        //boton Salir
+        // Boton Salir
         ImageButton imageButtonSalir = findViewById(R.id.imageButtonSalir);
         imageButtonSalir.setOnClickListener(view -> finish());
         UtilidadActivity.setEfectoBoton(imageButtonSalir);
@@ -47,6 +48,7 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
 
     @Override
     public void onExito(List<UsuarioDTO> ranking) {
+        textViewUsuarios.setText("");
         Optional<UsuarioDTO> usuarioActual = ranking.stream()
                 .filter(usuario -> usuario.getEmail().equals(Objects.requireNonNull(
                         FirebaseAuth.getInstance().getCurrentUser()).getEmail())).findFirst();
