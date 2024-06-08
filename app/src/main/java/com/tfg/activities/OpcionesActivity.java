@@ -101,7 +101,6 @@ public class OpcionesActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        SoundManager soundManager = SoundManager.getInstance(this);
         soundManager.getMediaPlayerMusica().pause();
         soundManager.getMediaPlayerEfectos().pause();
     }
@@ -109,8 +108,13 @@ public class OpcionesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SoundManager soundManager = SoundManager.getInstance(this);
         soundManager.getMediaPlayerMusica().start();
         soundManager.getMediaPlayerEfectos().start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        soundManager.getMediaPlayerEfectos().pause();
     }
 }

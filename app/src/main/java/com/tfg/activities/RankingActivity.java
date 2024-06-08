@@ -16,6 +16,7 @@ import com.tfg.bbdd.dto.UsuarioDTO;
 import com.tfg.bbdd.firebase.GestorRealTimeDatabase;
 import com.tfg.eventos.callbacks.ObtenerRankingCallback;
 import com.tfg.eventos.callbacks.ObtenerUsuarioCallback;
+import com.tfg.utilidades.SoundManager;
 import com.tfg.utilidades.UtilidadActivity;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
     // Componentes de la interfaz
     private TextView textViewUsuario, textViewUsuarios;
     private ImageButton imageButtonSalir;
+    private SoundManager soundManager;
 
     // --- FUNCIONES PARA CONTROLAR LA ACTIVITY --
     @Override
@@ -47,6 +49,7 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
     @Override
     protected void onStart() {
         super.onStart();
+        soundManager = SoundManager.getInstance(this);
         GestorRealTimeDatabase gestorRealTimeDatabase = new GestorRealTimeDatabase();
         gestorRealTimeDatabase.getUsuarioActual(this);
         gestorRealTimeDatabase.getRanking(this);
@@ -80,5 +83,17 @@ public class RankingActivity extends AppCompatActivity implements ObtenerRanking
         Toast.makeText(this, getString(R.string.msj_error_ranking), Toast.LENGTH_SHORT).show();
         Log.e(getClass().getSimpleName(), databaseError.getMessage(), databaseError.toException());
         finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        soundManager.getMediaPlayerMusica().pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        soundManager.getMediaPlayerMusica().start();
     }
 }
