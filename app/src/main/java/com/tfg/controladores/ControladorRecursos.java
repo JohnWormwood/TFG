@@ -9,7 +9,7 @@ import java.util.Map;
 
 public final class ControladorRecursos {
 
-    public static int getCantidadRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso) {
+    public static synchronized int getCantidadRecurso(Map<RecursosEnum, Integer> recursos, RecursosEnum recurso) {
         Integer cantidadActual = recursos.get(recurso);
         if (cantidadActual != null) {
             return cantidadActual;

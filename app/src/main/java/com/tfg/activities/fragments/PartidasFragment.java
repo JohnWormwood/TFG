@@ -26,6 +26,8 @@ import com.tfg.modelos.enums.RecursosEnum;
 import com.tfg.utilidades.Constantes;
 import com.tfg.utilidades.UtilidadActivity;
 
+import java.util.concurrent.TimeUnit;
+
 public class PartidasFragment extends Fragment
         implements PartidaCazaEventListener, AtaqueEventListener, ObtenerUsuarioCallback {
 
@@ -301,7 +303,8 @@ public class PartidasFragment extends Fragment
             aldea.getCastillo().iniciarIncursion(seekBarSoldados.getProgress());
         } else
             Toast.makeText(getActivity(),
-                    getString(R.string.msj_tiempo_ataque, Constantes.Castillo.TIEMPO_ENTRE_ATAQUES),
+                    getString(R.string.msj_tiempo_ataque,
+                            TimeUnit.MILLISECONDS.toMinutes(Constantes.Castillo.TIEMPO_ENTRE_ATAQUES)),
                     Toast.LENGTH_SHORT).show();
     }
 
